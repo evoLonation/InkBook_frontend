@@ -1,7 +1,7 @@
 <template>
   <section>
     <header>
-      <router-link to="#" class="logo"><img src="../assets/logo.png"> </router-link>
+      <router-link to="#" class="logo"><img src="../assets/logo.png" style="width: 100px"> </router-link>
       <ul>
         <li><router-link to="#">aaa</router-link></li>
         <li><router-link to="#">bbb</router-link></li>
@@ -16,9 +16,9 @@
         <p>更好的项目协作开发平台，设计师的利器，项目经理的帮手，工程师的伙伴</p>
         <router-link to="#">加入我们</router-link>
       </div>
-    </div>
-    <div class="imgBox">
-      <img src="../assets/logo.png" class="img1">
+      <div class="imgBox">
+        <img src="../assets/logo.png" class="img1" style="width: 300px">
+      </div>
     </div>
   </section>
 </template>
@@ -72,5 +72,22 @@ export default {
     font-weight: 400;
     margin-left: 40px;
     text-decoration: none;
+  }
+  .content1 {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .content1 .textBox {
+    position: relative;
+    max-width: 600px;
+  }
+  .content1 .textBox h2 {
+    color: #333;
+    font-size: 4em;
+    line-height: 1.4em;
+    font-weight: 500;
   }
 </style>

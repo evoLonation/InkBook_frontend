@@ -20,6 +20,11 @@ const routes = [
         name: 'Welcome',
         component: () => import('../components/Welcome.vue')
     },
+    {
+        path: '/table',
+        name: 'Table',
+        component: () => import('../Table/Table')
+    },
 ];
 
 const router = createRouter({

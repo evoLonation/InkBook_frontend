@@ -29,6 +29,16 @@ const routes = [
         path: '/teamProject',
         name: 'TeamProject',
         component: () => import('../project/projectList.vue')
+    },
+    {
+        path: "/document/list",
+        name: "DocumentList",
+        component: () => import('../views/document/list.vue')
+    },
+    {
+        path: "/document/edit/:docId",
+        name: "DocumentEdit",
+        component: () => import('../views/document/edit.vue')
     }
 ];
 

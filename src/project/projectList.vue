@@ -31,12 +31,12 @@
                 icon="el-icon-info"
                 iconColor="red"
                 title="确定删除该项目吗？"
-                @confirm="deleteProject">
+                @confirm="curProjectId=projects[i].id; deleteProject()">
               <template #reference>
                 <el-button type="important" class="button">删除</el-button>
               </template>
             </el-popconfirm>
-            <el-button type="text" class="button" @click="renameVisible=true">重命名</el-button>
+            <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i].id">重命名</el-button>
           </div>
         </div>
       </el-card>
@@ -105,44 +105,102 @@ export default {
       projectNum: Number,
       createVisible: false,
       renameVisible: false,
+      curProjectId: String,
     }
   },
   methods: {
     //获取项目列表接口函数
     getProject(){
       let teamId = this.$store.state.loginUser.teamId
-      this.$axios.get('/teamProject', {
+      this.$axios.get('/project', {
         params: {
+          type: "team",
           teamId: teamId,
         }
       }).then((response) => {
         if (response.status === 200) {
           this.projects = response.data.projects
         }
+        else {
+          ElMessage('列表获取失败')
+        }
+      }).catch((err) => {
+        console.log(err);
       })
     },
     //创建项目接口函数
-    createProject(name){
+    createProject(name, detail, imgUrl){
       if (name===''){
         ElMessage('名字不能为空！')
         this.createVisible=true;
         return
       }
-      
+      let teamId = this.$store.state.loginUser.teamId
+      let userId = this.$store.state.loginUser.userId
+      this.$axios.post("/project/create", {
+        "name": name,
+        "userId": userId,
+        "teamId": teamId,
+        "detail": detail,
+        "imgUrl": imgUrl,
+      }).then((response) => {
+        if (response.status === 200){
+          ElMessage('创建成功')
+          setTimeout(() => {
+            this.getProject();
+          }, 700);
+        }
+        else {
+          ElMessage('其他错误')
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
     },
+    //重命名项目接口函数
     renameProject(name){
       if (name===''){
         ElMessage('名字不能为空！')
         this.renameVisible=true;
         return
       }
-      ElMessage('重命名项目接口函数'+name)
+      this.$axios.post("project/rename", {
+        "id": curProjectId,
+        "newName": name,
+      }).then((response) => {
+        if (response.status === 200){
+          ElMessage('重命名成功')
+          setTimeout(() => {
+            this.getProject();
+          }, 700);
+        }
+        else {
+          ElMessage('其他错误')
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
     },
     openProject(){
       ElMessage('路由跳转到项目页函数')
     },
+    //删除项目接口函数
     deleteProject(){
-      ElMessage('删除项目接口函数')
+      this.$axios.post("project/delete", {
+        "id": curProjectId,
+      }).then((response) => {
+        if (response.status === 200){
+          ElMessage('删除成功')
+          setTimeout(() => {
+            this.getProject();
+          }, 700);
+        }
+        else {
+          ElMessage('其他错误')
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
     }
   }
 }

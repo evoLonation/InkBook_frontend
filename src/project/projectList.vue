@@ -108,16 +108,27 @@ export default {
     }
   },
   methods: {
+    //获取项目列表接口函数
     getProject(){
-      ElMessage('获取项目列表接口函数')
+      let teamId = this.$store.state.loginUser.teamId
+      this.$axios.get('/teamProject', {
+        params: {
+          teamId: teamId,
+        }
+      }).then((response) => {
+        if (response.status === 200) {
+          this.projects = response.data.projects
+        }
+      })
     },
+    //创建项目接口函数
     createProject(name){
       if (name===''){
         ElMessage('名字不能为空！')
         this.createVisible=true;
         return
       }
-      ElMessage('创建项目接口函数'+name)
+      
     },
     renameProject(name){
       if (name===''){

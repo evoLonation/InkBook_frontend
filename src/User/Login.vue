@@ -7,7 +7,7 @@
       <h2 class="title" style="margin:0 auto">登录</h2>
     </div>
     <div class="Wireframe" style="background-color: rgba(255,255,255,0.5)">
-      <el-tabs :model-value="activeName" class="demo-tabs" stretch="true" @tab-click="handleClick">
+      <el-tabs :model-value="activeName" class="demo-tabs" stretch @tab-click="handleClick">
         <el-tab-pane label="用户名登录" name="first">
 
           <el-form
@@ -100,26 +100,14 @@ export default {
         }
       }).then((response)=>{
         if (response.status === 200){
-          console.log(response.data.code);
-          switch (response.data.code) {
-            case 0:
-              console.log(response.data)
-              this.$store.commit({type: 'login', userId: response.data.userId, nickname: response.data.nickName})
-              console.log(this.$store.state.loginUser.userId);
-              ElMessage('登录成功');
-              this.$router.push({name: 'table', params:{info: 'my-' + this.userId}})
-              break
-            case 1:
-              ElMessage('用户名或邮箱不存在');
-              break;
-            case 2:
-              ElMessage('密码错误');
-              break;
-            default:
-              ElMessage('其他错误');
-              break;
-          }
-        }else console.log("请求返回status不为200")
+          console.log(response.data)
+          this.$store.commit({type: 'login', userId: response.data.userId, nickname: response.data.nickName})
+          console.log(this.$store.state.loginUser.userId);
+          ElMessage('登录成功');
+        }else {
+          ElMessage({message: response.data.msg, type: 'warning'});
+        }
+
       }).catch((err)=>{
         console.log(err);
       });

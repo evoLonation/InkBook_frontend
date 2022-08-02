@@ -5,6 +5,8 @@ const routes = [
         path: "/",
         redirect: 'login'
     },
+
+    //用户相关
     {
         path: '/login',
         name: 'login',
@@ -26,10 +28,19 @@ const routes = [
         component: () => import('../Table/Table')
     },
     {
+        path: '/userInfo/:userId?',
+        name: 'UserInfo',
+        component: () => import('../User/UserInfo')
+    },
+
+    //项目相关
+    {
         path: '/teamProject',
         name: 'TeamProject',
         component: () => import('../project/projectList.vue')
     },
+
+    //文档相关
     {
         path: "/document/list",
         name: "DocumentList",

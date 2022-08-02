@@ -107,7 +107,8 @@ export default {
       confirm: '',
       email: '',
       code: '',
-      nameCheckRes: -1,
+      trueCode: '',
+      nameCheckRes: 0,
       emailCheckRes: -1,
       pwdCheckRes: -1,
       nameJudge: /^[A-Za-z\d]+$/,
@@ -137,12 +138,8 @@ export default {
         }
       }).then(res => {
         if(res.status === 200){
-          this.nameCheckRes = res.data.code;
-          if (this.nameCheckRes === -1){
-            console.log('error in checkName');
-            ElMessage('系统错误！')
-          }
-        }else console.log("status is not 200!");
+          console.log('名字正确')
+        }else  ElMessage({message: res.data.msg, type: 'warning'});
       }).catch(err => {
         console.log(err);         /* 若出现异常则在终端输出相关信息 */
       })
@@ -176,10 +173,10 @@ export default {
       }).then(res => {
         if (res.status === 200){
           console.log(res.data.code);
-          console.log(typeof (res.data.code));
-          if (res.data.code === 0) ElMessage('发送成功');
-          else ElMessage('发送失败');
-        }else console.log('status is not 200!');
+          this.trueCode = res.data.code;
+          ElMessage('发送成功');
+
+        }else  ElMessage({message: res.data.msg, type: 'warning'});
       }).catch(err => {
         console.log(err);
       })
@@ -205,19 +202,15 @@ export default {
         "nickName" : this.userId, //可以为空
         "email" : this.email,
         "pwd" : this.pwd,
-        "verificationCode" : this.code //5位数字字符串
+        "userCode" : this.code, //5位数字字符串
+        "sendCode" : this.trueCode
       }).then(res => {
         if (res.status === 200){
           if(res.data.code === 0) {
             ElMessage("注册成功！");
             this.$router.push({name: 'login', params:{}})
           }
-          else if (res.data.code === 1) ElMessage("用户名（邮箱）已经存在");
-          else if (res.data.code === 2) ElMessage('昵称不合法');
-          else if (res.data.code === 3) ElMessage('邮箱验证码错误');
-          else if (res.data.code === 4) ElMessage('密码不合法！')
-          else ElMessage('其他错误');
-        }else console.log("请求返回status不为200")
+        }else  ElMessage({message: res.data.msg, type: 'warning'});
       }).catch(err => {
         console.log(err);
       })

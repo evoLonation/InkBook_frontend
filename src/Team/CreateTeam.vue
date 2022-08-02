@@ -43,7 +43,7 @@
     </div>
     <el-button
         type="success"
-        style="margin-top: 25px"
+        style="margin: 25px auto auto 260px"
         @click="TryCreate"
     >
       创建团队

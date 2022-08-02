@@ -51,7 +51,7 @@
       <div v-if="isJoining">
         <el-button
             type="success"
-            style="margin-top: 70px; width: 150px"
+            style="margin-top: 70px; margin-left: 145px; width: 150px"
             @click="JoinTeam"
             v-if="!isJoined"
         >
@@ -59,7 +59,7 @@
         </el-button>
         <el-button
             type="warning"
-            style="margin-top: 70px; width: 150px"
+            style="margin-top: 70px; margin-left: 145px; width: 150px"
             v-else
             disabled
         >
@@ -72,19 +72,19 @@
         <el-input
           v-model="UserName"
           placeholder="请输入用户名"
-          style="width: 350px; height: 30px; margin: 25px auto 0 auto"
+          style="width: 350px; height: 30px; margin: 25px auto 0 49px"
         >
         </el-input>
         <el-input
             v-model="UserPassword"
             placeholder="请输入密码"
-            style="width: 350px; height: 30px; margin: 25px auto 0 auto"
+            style="width: 350px; height: 30px; margin: 25px auto 0 49px"
             show-password
         >
         </el-input>
         <el-button
           type="success"
-          style="width: 150px; margin: 25px auto auto auto"
+          style="width: 150px; margin: 25px auto auto 145px"
           @click="MeLogin"
         >
           登录我的账户
@@ -103,7 +103,7 @@ export default {
       UserPassword: '',
       TeamName: 'CTS',
       TeamIntro: 'CTS 很简单的啦 java助教说话又好听',
-      TeamImg: require("../../assets/Team/测试头像.jpg"),
+      TeamImg: require("../assets/Team/测试头像.jpg"),
       isJoining: false,
       isJoined: false
     }

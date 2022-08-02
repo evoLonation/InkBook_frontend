@@ -33,7 +33,6 @@ export default {
     //   this.detailVisible = true;
     // },
     bindQRCode () {
-      let t = this
       new QRCode(this.$refs.qrCodeDiv, {
         text: 'http://43.138.71.108/',
         width: 200,

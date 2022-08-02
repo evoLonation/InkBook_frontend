@@ -57,6 +57,33 @@ const routes = [
         path: "/document/edit/:docId",
         name: "DocumentEdit",
         component: () => import('../views/document/edit.vue')
+    },
+
+    //团队相关
+    {
+        path: "/team",
+        name: "team",
+        component: () => import('../Team/MyTeam')
+    },
+    {
+        path: "/list",
+        name: "list",
+        component: () => import('../Team/TeamList')
+    },
+    {
+        path: "/create",
+        name: "create",
+        component: () => import('../Team/CreateTeam')
+    },
+    {
+        path: "/teamInvite",
+        name: "teamInvite",
+        component: () => import('../Team/TeamInvite')
+    },
+    {
+        path: "/qrcode",
+        name: "qrcode",
+        component: () => import('../Team/TestQrcode')
     }
 ];
 

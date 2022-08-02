@@ -180,16 +180,16 @@
             </span>
           </div>
         </div>
-        <img v-if="Mem.isOwner === true" src="../../assets/Team/群主.png" alt="">
+        <img v-if="Mem.isOwner === true" src="../assets/Team/群主.png" alt="">
         <img
             v-else-if="Mem.isMonitor === true"
-            src="../../assets/Team/管理员.png"
+            src="../assets/Team/管理员.png"
             style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
              alt=""
         >
         <img
             v-else
-            src="../../assets/Team/人员.png"
+            src="../assets/Team/人员.png"
             style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
             alt=""
         >
@@ -291,10 +291,9 @@
 
 <script>
 import { Avatar } from "@element-plus/icons";
-import QRcode from "./TestQrcode";
 
 export default {
-  name: "Team",
+  name: "MyTeam",
   components: {
     Avatar,
     // QRcode
@@ -303,8 +302,8 @@ export default {
     return {
       TeamName: 'CTS',
       TeamIntro: 'CTS 很简单的啦 java助教说话又好听',
-      UserType: 1,
-      teamImg: require("../../assets/Team/测试头像.jpg"),
+      UserType: 0,
+      teamImg: require("../assets/Team/测试头像.jpg"),
       loadingID: '002',
       MemList: [
         {

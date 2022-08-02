@@ -25,13 +25,20 @@ const routes = [
     {
         path: '/table',
         name: 'Table',
-        component: () => import('../Table/Table')
+        component: () => import('../Table/Table'),
+        children: [
+            {
+                path: 'userInfo/:userId?',
+                name: 'UserInfo',
+                component: () => import('../User/UserInfo')
+            },
+        ],
     },
-    {
-        path: '/userInfo/:userId?',
-        name: 'UserInfo',
-        component: () => import('../User/UserInfo')
-    },
+    // {
+    //     path: '/userInfo/:userId?',
+    //     name: 'UserInfo',
+    //     component: () => import('../User/UserInfo')
+    // },
 
     //项目相关
     {

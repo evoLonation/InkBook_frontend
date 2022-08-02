@@ -25,6 +25,11 @@ const routes = [
         name: 'Table',
         component: () => import('../Table/Table')
     },
+    {
+        path: '/teamProject',
+        name: 'TeamProject',
+        component: () => import('../project/projectList.vue')
+    }
 ];
 
 const router = createRouter({

@@ -156,7 +156,7 @@ export default {
         console.log(err);
       })
 
-      this.url = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
     },
     MeLogin: function () {
       if(this.UserName === ''){
@@ -180,21 +180,25 @@ export default {
           console.log(res.data);
           this.$message.success(res.data.msg);
           this.isJoining = true;
+          console.log(this.TeamId);
+          console.log(this.UserName);
+          this.$axios.post("team/apply", {
+            "teamId": this.TeamId,
+            "userId": this.UserName,
+          }).then((res)=>{
+            console.log(res.status);
+            if(res.status === 200) {
+              console.log(res.data.code);
+              if (res.data.code === 1) {
+                this.$message.warning(res.data.msg);
+                this.isJoined = true;
+              }
+            }
+          }).catch(err=>{
+            console.log(err);
+          })
         }
       }).catch((err)=>{
-        console.log(err);
-      })
-      console.log(this.TeamId);
-      console.log(this.UserName);
-      this.$axios.post("team/apply", {
-        "teamId": this.TeamId,
-        "userId": this.UserName,
-      }).then((res)=>{
-        if(res.status !== 200){
-          this.$message.warning(res.data.msg);
-          this.isJoined = true;
-        }
-      }).catch(err=>{
         console.log(err);
       })
       console.log("apply is OK");

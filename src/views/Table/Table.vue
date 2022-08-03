@@ -35,7 +35,7 @@
 
             <el-menu-item class="abc" index="3" >
               <el-icon><Folder /></el-icon>
-              <template #title><span>项目</span></template>
+              <template #title><span @click="this.$router.push({name: 'teamProject'})">项目</span></template>
             </el-menu-item>
 
             <el-menu-item index="4" >
@@ -114,7 +114,6 @@ el-main {
 
 <script>
 import {ElMessage} from "element-plus";
-
 export default {
   name: 'Table',
   data() {
@@ -125,6 +124,7 @@ export default {
       url: '',
       userSearchContent: '',
       userSearchComp: false,
+      projectVisible: false,
     }
   },
   components: {

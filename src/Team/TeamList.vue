@@ -6,7 +6,7 @@
           <search style="width: 1em; height: 1em;"/>
         </template>
         <template v-slot:append>
-          <el-button @click="GoToSearch(input)">搜索</el-button>
+          <el-button @click="GoToSearch()">搜索</el-button>
         </template>
       </el-input>
       <el-button
@@ -98,6 +98,9 @@
       },
       EnterTeam: function () {
         this.$router.push('/team');
+      },
+      GoToSearch: function (){
+
       }
     },
     created() {
@@ -112,9 +115,25 @@
         }).then((res)=>{
           console.log('search team data = ');
           console.log(res.data);
-          // if(res.status === 200){
-          //   this.
-          // }
+          if(res.status === 200){
+            this.teamList = res.data.teams;
+          }
+        }).catch(err=>{
+          console.log(err);
+        })
+      }else{
+        this.$axios.get("search/team", {
+          params: {
+            key: this.key,
+          }
+        }).then((res)=>{
+          console.log('search team data = ');
+          console.log(res.data);
+          if(res.status === 200){
+            this.teamList = res.data.teams;
+          }
+        }).catch(err=>{
+          console.log(err);
         })
       }
     }

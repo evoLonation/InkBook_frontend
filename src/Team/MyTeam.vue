@@ -90,7 +90,7 @@
         <div v-if="UserType !== 2">
           <el-button
               type="primary"
-              style="width: 150px; margin-top: 25px; margin-right: 50px"
+              style="width: 150px; margin-top: 15px; margin-right: 50px"
               @click="ShowQRCode"
           >
             邀请新成员
@@ -126,13 +126,22 @@
             <template #reference>
               <el-button
                   type="danger"
-                  style="width: 150px; margin-top: 25px; margin-right: 50px"
+                  style="width: 150px; margin-top: 15px; margin-right: 50px"
                   v-if="UserType === 1"
               >
                 离开团队
               </el-button>
             </template>
           </el-popconfirm>
+        </div>
+        <div>
+          <el-button
+            style="width: 150px; margin-top: 15px; margin-right: 50px"
+            type="success"
+            @click="getProject"
+          >
+            进入团队
+          </el-button>
         </div>
       </div>
     </div>
@@ -208,7 +217,7 @@
               confirm-button-text="确认"
               cancel-button-type="取消"
               title="确认要将该成员设置为管理员吗?"
-              v-if="Mem.identity === 0"
+              v-if="Mem.identity === 2"
               @confirm="addMonitor(Mem.userId)"
           >
             <template #reference>
@@ -317,7 +326,7 @@ export default {
       TeamName: '',
       TeamIntro: '',
       TeamImg: '',
-      UserType: -1,
+      UserType: 0,
       loadingID: '002',
       // MemList: [
       //   {
@@ -436,7 +445,7 @@ export default {
       form.append("file", e.currentTarget.files[0]);
       form.append("teamId", this.TeamId);
       console.log(form);
-      this.$axios.post("team/modify/avatar", form).then((response)=>{
+      this.$axios.post("team/modify-avatar", form).then((response)=>{
         if(response.status === 200){
           console.log('change avatar data = ');
           console.log(response.data);
@@ -497,7 +506,7 @@ export default {
       console.log("leaveTeam is called!");
       this.$axios.post("team/leave", {
         "teamId": this.TeamId,
-        "userId": this.$store.loginUser.userId,
+        "userId": this.$store.state.loginUser.userId,
       }).then((res)=>{
         if(res.status === 200){
           console.log("dropTeam data = ");
@@ -581,7 +590,7 @@ export default {
       // }).catch((err) => {
       //   console.log(err);
       // })
-      this.url = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
 
       this.$axios.get("team/member", {
         params: {
@@ -597,12 +606,17 @@ export default {
       }).catch((err)=>{
         console.log(err);
       })
+    },
+
+    getProject: function (){
+      this.$store.commit({type: 'selectTeam', teamId: this.TeamId, teamName: this.TeamName});
+      this.$router.push('/teamProject');
     }
   },
   created() {
     console.log(this.$store.state.loginUser.userId);
     this.TeamId = 1;
-    this.checkUserType();
+    // this.checkUserType();
     this.getTeamInformation();
     console.log('parseInt(0.0000005) = ',parseInt(0.0000005));
   }

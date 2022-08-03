@@ -4,6 +4,7 @@ import router from './router';
 import store from './store'
 import axios from 'axios';
 import VueAxios from 'vue-axios'
+import VueParticles from "vue-particles";
 
 /**
  * firebase 相关代码
@@ -39,6 +40,7 @@ app.use(ElementPlus)
     .use(store)
     .use(router)
     .use(VueAxios,axios)
+    .use(VueParticles)
     .mount('#app')
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)

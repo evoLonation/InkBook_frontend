@@ -1,0 +1,460 @@
+<template>
+  <div id="team-layout">
+    <div id="team-header">
+      <el-avatar :size="125" style="float: left; margin-left: 80px" @click="changeImg" class="teamImg" >
+        <template #default>
+          <el-avatar :size="120" :src="teamImg" fit="cover"/>
+        </template>
+      </el-avatar>
+      <div
+          id="name-and-intro"
+      >
+        <div
+            id="team-name"
+            v-if="isChanged === false"
+        >
+          <span>{{TeamName}}</span>
+        </div>
+        <div>
+          <el-input
+              v-model="TeamName"
+              autosize
+              type="text"
+              placeholder="请输入团队名称"
+              v-if="isChanged === true"
+              style="width: 250px; margin: 15px auto auto 0"
+          >
+          </el-input>
+        </div>
+        <div>
+          <el-input
+              v-model="TeamIntro"
+              :autosize="{minRows: 2, maxRows: 4}"
+              type="textarea"
+              placeholder="请输入团队简介"
+              v-if="isChanged === true"
+              style="width: 350px; margin: 14px auto 11px 0"
+          >
+          </el-input>
+        </div>
+        <div
+            id="team-intro"
+            v-if="isChanged === false"
+        >
+          <span>{{TeamIntro}}</span>
+        </div>
+        <div
+          style="margin: 0 auto auto auto"
+        >
+          <el-button
+              v-if="UserType === 0 && isChanged === false"
+              style="margin-top: 30px"
+              @click="changing"
+          >
+            修改
+          </el-button>
+          <el-button
+              v-if="UserType === 0 && isChanged === true"
+              @click="EndChange"
+              style="margin-top: 3px"
+              type="success"
+          >
+            完成
+          </el-button>
+        </div>
+      </div>
+      <div>
+        <div v-if="UserType === 0">
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+              title="确认要解散团队吗？"
+          >
+            <template #reference>
+              <el-button
+                  type="danger"
+                  style="width: 150px; margin-top: 20px; margin-right: 50px"
+              >
+                解散团队
+              </el-button>
+            </template>
+          </el-popconfirm>
+        </div>
+        <div v-if="UserType !== 2">
+          <el-button
+              type="primary"
+              style="width: 150px; margin-top: 25px; margin-right: 50px"
+              @click="ShowQRCode"
+          >
+            邀请新成员
+          </el-button>
+<!--          <QRcode-->
+<!--            ref="dialog"-->
+<!--          >-->
+<!--          </QRcode>-->
+        </div>
+        <div v-if="UserType !== 0">
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+              title="确认要离开团队吗？"
+          >
+            <template #reference>
+              <el-button
+                  type="danger"
+                  style="width: 150px; margin-top: 50px; margin-right: 50px"
+                  v-if="UserType === 2"
+              >
+                离开团队
+              </el-button>
+            </template>
+          </el-popconfirm>
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+              title="确认要离开团队吗？"
+          >
+            <template #reference>
+              <el-button
+                  type="danger"
+                  style="width: 150px; margin-top: 25px; margin-right: 50px"
+                  v-if="UserType === 1"
+              >
+                离开团队
+              </el-button>
+            </template>
+          </el-popconfirm>
+        </div>
+      </div>
+    </div>
+    <div
+        id="member-sign"
+    >
+      <div
+          style="width: 55px; height: 70%; margin: 0 0 auto 0; border-right: 1px solid lightgray"
+        >
+        <Avatar style="width: 1.1em; height: 1.1em"/>
+      </div>
+      <div
+        style="height: 15px; font-size: 15px; margin: 0 auto auto 25px;"
+      >
+        <span>团队成员</span>
+      </div>
+    </div>
+    <!--<el-empty description="团队成员空空如也"/>-->
+    <el-scrollbar height="280px">
+      <div
+          v-for="Mem in MemList"
+          :key="Mem.MemId"
+          id="mem-in-list"
+      >
+        <div>
+          <el-avatar
+              :size="65"
+              :src="Mem.url"
+              fit="cover"
+              style="margin: 17px auto auto 40px; cursor: pointer"
+          >
+          </el-avatar>
+        </div>
+        <div
+          id="name-and-nick"
+        >
+          <div id="mem-info">
+            <span
+                style="height: 20px; font-size: 20px; margin: auto 0 auto 0; font-weight: 500"
+            >
+              {{Mem.name}}
+            </span>
+            <span
+                style="height: 15px; font-size: 15px; margin: auto auto auto 15px"
+            >
+              {{Mem.NickName}}
+            </span>
+          </div>
+          <div id="mem-intro">
+            <span
+              style="height: 15px; font-size: 15px; color: #606266"
+            >
+              {{Mem.introduction}}
+            </span>
+          </div>
+        </div>
+        <img v-if="Mem.isOwner === true" src="../assets/Team/群主.png" alt="">
+        <img
+            v-else-if="Mem.isMonitor === true"
+            src="../assets/Team/管理员.png"
+            style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
+             alt=""
+        >
+        <img
+            v-else
+            src="../assets/Team/人员.png"
+            style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
+            alt=""
+        >
+        <div id="operation" v-if="UserType === 0 && Mem.isOwner === false">
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-type="取消"
+              title="确认要将该成员设置为管理员吗?"
+              v-if="Mem.isMonitor === false"
+              @confirm="addMonitor"
+          >
+            <template #reference>
+              <el-button
+                  style="margin: 35px 0 auto 10px;"
+              >
+                设为管理
+              </el-button>
+            </template>
+          </el-popconfirm>
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-type="取消"
+              title="确认要将该管理员撤销吗?"
+              v-if="Mem.isMonitor === true"
+          >
+            <template #reference>
+              <el-button
+                  style="margin: 35px 0 auto 10px;"
+              >
+                撤销管理
+              </el-button>
+            </template>
+          </el-popconfirm>
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+              title="确认将该成员移除团队吗？"
+          >
+            <template #reference>
+              <el-button
+                type="danger"
+                style="margin: 35px auto auto 13px"
+              >
+                移除成员
+              </el-button>
+            </template>
+          </el-popconfirm>
+        </div>
+        <div id="monitor-operation" v-if="UserType === 1 && Mem.isOwner === false">
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-type="取消"
+              title="确认是否转让管理权限?"
+          >
+            <template #reference>
+              <el-button
+                  style="margin: 35px 0 auto 10px;"
+                  v-if="Mem.MemId !== loadingID && Mem.isMonitor === false"
+              >
+                转让权限
+              </el-button>
+              <el-button
+                  style="margin: 35px 0 auto 10px;"
+                  v-else
+                  disabled
+              >
+                转让权限
+              </el-button>
+            </template>
+          </el-popconfirm>
+          <el-popconfirm
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+              title="确认将该成员移除团队吗？"
+          >
+            <template #reference>
+              <el-button
+                  type="danger"
+                  style="margin: 35px auto auto 13px"
+                  v-if="Mem.isMonitor !== true"
+              >
+                移除成员
+              </el-button>
+              <el-button
+                  type="danger"
+                  style="margin: 35px auto auto 13px"
+                  v-else
+                  disabled
+              >
+                移除成员
+              </el-button>
+            </template>
+          </el-popconfirm>
+        </div>
+      </div>
+    </el-scrollbar>
+  </div>
+</template>
+
+<script>
+import { Avatar } from "@element-plus/icons";
+
+export default {
+  name: "MyTeam",
+  components: {
+    Avatar,
+    // QRcode
+  },
+  data() {
+    return {
+      TeamName: 'CTS',
+      TeamIntro: 'CTS 很简单的啦 java助教说话又好听',
+      UserType: 0,
+      teamImg: require("../assets/Team/测试头像.jpg"),
+      loadingID: '002',
+      MemList: [
+        {
+          MemId: "001",
+          NickName: 'Evolution',
+          name: "赵正阳",
+          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+          introduction: "石墨文档成员",
+          isOwner: true,
+          isMonitor: false
+        },
+        {
+          MemId: "002",
+          NickName: 'Jerry',
+          name: "姜星如",
+          url: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+          introduction: "金刚石文档",
+          isOwner: false,
+          isMonitor: true
+        },
+        {
+          MemId: "003",
+          NickName: 'Joey',
+          name: "龙亿舟",
+          url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+          introduction: "软工开发爱好者",
+          isOwner: false,
+          isMonitor: true
+        },
+        {
+          MemId: "004",
+          NickName: 'Bob',
+          name: "杨宇涵",
+          url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+          introduction: "喜欢后端开发",
+          isOwner: false,
+          isMonitor: false
+        },
+      ],
+      isChanged: false,
+      MonitorNum: 2,
+    }
+  },
+  methods : {
+    changing: function () {
+      this.isChanged = true;
+    },
+    EndChange: function () {
+      this.isChanged = false;
+    },
+    addMonitor: function () {
+      if(this.MonitorNum >= 2){
+        this.$message.warning("管理员数量到达上限");
+        return;
+      }
+      this.MonitorNum++;
+    },
+    ShowQRCode: function (){
+      this.$router.push('/qrcode');
+    }
+  }
+}
+</script>
+
+<style scoped>
+#team-layout {
+  width: 1000px;
+  height: 600px;
+  border: solid #DCDCDC 3px;
+  border-radius: 10px;
+  margin: 30px auto auto auto;
+  box-shadow: 0 0 10px 3px #DCDCDC;
+}
+
+#team-header {
+  width: 90%;
+  height: 190px;
+  margin: 50px auto auto auto;
+  display: flex;
+}
+
+#name-and-intro {
+  height: 100%;
+  width: 400px;
+  margin: auto 0 auto 50px;
+  text-align: left;
+}
+
+#team-name {
+  width: 100%;
+  height: 35px;
+  font-size: 35px;
+  font-weight: 750;
+  margin: 20px auto auto auto;
+}
+
+#team-intro {
+  width: 100%;
+  height: 17px;
+  font-size: 17px;
+  margin: 25px auto auto auto;
+}
+
+#member-sign {
+  width: 90%;
+  height: 30px;
+  display: flex;
+  margin: 0 auto auto auto;
+  border-bottom: 1px solid lightgray;
+}
+
+#mem-in-list {
+  width: 800px;
+  height: 100px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  display: flex;
+  margin: 30px auto 0 auto;
+}
+
+#name-and-nick {
+  width: 300px;
+  height: 100%;
+  display: block;
+  margin-left: 30px;
+  text-align: left;
+}
+
+#mem-info {
+  width: 100%;
+  height: 25px;
+  margin: 20px auto 0 auto;
+}
+
+#mem-intro {
+  width: 100%;
+  height: 20px;
+  margin: 15px auto auto auto;
+}
+
+#operation {
+  width: 200px;
+  height: 100%;
+  margin: auto;
+  display: block;
+}
+
+#monitor-operation {
+  width: 200px;
+  height: 100%;
+  margin: auto;
+  display: block;
+}
+</style>

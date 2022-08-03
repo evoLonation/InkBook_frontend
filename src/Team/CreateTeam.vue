@@ -61,18 +61,42 @@ export default {
   data(){
     return{
       TeamName: '',
-      TeamIntro: ''
+      TeamIntro: '',
+      TeamId: '',
     }
   },
   methods: {
     TryCreate: function () {
+      // 检查函数是否被调用
+      console.log("调用teamCreate");
+
+      // 前端参数检查
       if(this.TeamName === ''){
         this.$message("团队名称不可以为空！");
+        return;
       }
       if(this.TeamIntro === ''){
         this.$message("团队简介不可以为空!");
+        return;
       }
-      this.$message("创建团队成功！");
+
+      console.log(this.$store.state.loginUser.userId);
+      this.$axios.post("team/create",
+          {
+            "teamName": this.TeamName,
+            "teamIntroductory": this.TeamIntro,
+            "userId": this.$store.state.loginUser.userId,
+          }).then((res) => {
+            console.log("进入回调函数");
+            console.log(res.data);
+            if(res.status === 200){
+              this.$message.success("创建团队成功！");
+              this.TeamId = res.data.teamId;
+              this.$router.push();
+            }
+      }).catch((err) => {
+        console.log(err);
+      })
     }
   }
 }

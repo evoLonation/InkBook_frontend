@@ -49,10 +49,11 @@
       width="30%">
     <span>请输入项目信息</span>
     <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
+    <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
     <template #footer>
     <span class="dialog-footer">
       <el-button @click="createVisible = false">取 消</el-button>
-      <el-button type="primary" @click="createVisible = false; createProject(input);input=''">确 定</el-button>
+      <el-button type="primary" @click="createVisible = false; createProject(input, input2); input=input2=''">确 定</el-button>
     </span>
     </template>
   </el-dialog>
@@ -81,6 +82,7 @@ export default {
   setup() {
     return {
       input: ref(''),
+      input2: ref(''),
     }
   },
   mounted() {
@@ -182,7 +184,7 @@ export default {
       })
     },
     openProject(){
-      ElMessage('路由跳转到项目页函数')
+      ElMessage('路由跳转到项目页')
     },
     //删除项目接口函数
     deleteProject(){

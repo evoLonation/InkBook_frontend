@@ -8,6 +8,12 @@ export default new createStore({
                 userId: "",
                 nickname: "",
             },
+
+            isSelectTeam: false,
+            selectTeam: {
+                teamId : "",
+                teamName: "",
+            },
         };
     },
     mutations: {
@@ -22,6 +28,11 @@ export default new createStore({
         logout(state){
             state.isLogin = false;
             localStorage.setItem('isLogin', false);
+        },
+        selectTeam(state, team) {
+            state.isSelectTeam = true;
+            state.selectTeam.teamId = team.teamId;
+            state.selectTeam.teamName = team.teamName;
         },
         init(state){
             state.isLogin = localStorage.getItem('isLogin');

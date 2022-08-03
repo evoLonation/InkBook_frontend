@@ -112,9 +112,9 @@
         }).then((res)=>{
           console.log('search team data = ');
           console.log(res.data);
-          // if(res.status === 200){
-          //   this.
-          // }
+          if(res.status === 200){
+            this.teamList = res.data.teams;
+          }
         })
       }
     }

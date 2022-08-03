@@ -113,6 +113,7 @@
   border-radius: 10px;
   margin: 30px auto auto auto;
   box-shadow: 0 0 10px 3px #DCDCDC;
+  background-color: white;
 }
 
 #top-line {

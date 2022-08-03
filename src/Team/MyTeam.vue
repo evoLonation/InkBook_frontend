@@ -53,6 +53,12 @@
           >
             修改
           </el-button>
+          <input
+              type="file"
+              ref="clearFile"
+              style="display: none"
+              @change="upload($event)"
+          />
           <el-button
               v-if="UserType === 0 && isChanged === true"
               @click="EndChange"
@@ -69,6 +75,7 @@
               confirm-button-text="确认"
               cancel-button-text="取消"
               title="确认要解散团队吗？"
+              @confirm="dropTeam"
           >
             <template #reference>
               <el-button
@@ -98,6 +105,7 @@
               confirm-button-text="确认"
               cancel-button-text="取消"
               title="确认要离开团队吗？"
+              @confirm="leaveTeam"
           >
             <template #reference>
               <el-button
@@ -113,6 +121,7 @@
               confirm-button-text="确认"
               cancel-button-text="取消"
               title="确认要离开团队吗？"
+              @confirm="leaveTeam"
           >
             <template #reference>
               <el-button
@@ -145,7 +154,7 @@
     <el-scrollbar height="280px">
       <div
           v-for="Mem in MemList"
-          :key="Mem.MemId"
+          :key="Mem.userId"
           id="mem-in-list"
       >
         <div>
@@ -180,9 +189,9 @@
             </span>
           </div>
         </div>
-        <img v-if="Mem.isOwner === true" src="../assets/Team/群主.png" alt="">
+        <img v-if="Mem.identity === 0" src="../assets/Team/群主.png" alt="">
         <img
-            v-else-if="Mem.isMonitor === true"
+            v-else-if="Mem.identity === 1"
             src="../assets/Team/管理员.png"
             style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
              alt=""
@@ -193,13 +202,13 @@
             style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
             alt=""
         >
-        <div id="operation" v-if="UserType === 0 && Mem.isOwner === false">
+        <div id="operation" v-if="UserType === 0 && Mem.identity !== 0">
           <el-popconfirm
               confirm-button-text="确认"
               cancel-button-type="取消"
               title="确认要将该成员设置为管理员吗?"
-              v-if="Mem.isMonitor === false"
-              @confirm="addMonitor"
+              v-if="Mem.identity === 0"
+              @confirm="addMonitor(Mem.userID)"
           >
             <template #reference>
               <el-button
@@ -213,7 +222,7 @@
               confirm-button-text="确认"
               cancel-button-type="取消"
               title="确认要将该管理员撤销吗?"
-              v-if="Mem.isMonitor === true"
+              v-if="Mem.identity === 1"
           >
             <template #reference>
               <el-button
@@ -238,7 +247,7 @@
             </template>
           </el-popconfirm>
         </div>
-        <div id="monitor-operation" v-if="UserType === 1 && Mem.isOwner === false">
+        <div id="monitor-operation" v-if="UserType === 1 && Mem.identity !== 0">
           <el-popconfirm
               confirm-button-text="确认"
               cancel-button-type="取消"
@@ -247,7 +256,7 @@
             <template #reference>
               <el-button
                   style="margin: 35px 0 auto 10px;"
-                  v-if="Mem.MemId !== loadingID && Mem.isMonitor === false"
+                  v-if="Mem.userId !== loadingID && Mem.identity === 2"
               >
                 转让权限
               </el-button>
@@ -269,7 +278,7 @@
               <el-button
                   type="danger"
                   style="margin: 35px auto auto 13px"
-                  v-if="Mem.isMonitor !== true"
+                  v-if="Mem.identity !== 1"
               >
                 移除成员
               </el-button>
@@ -300,51 +309,53 @@ export default {
   },
   data() {
     return {
-      TeamName: 'CTS',
-      TeamIntro: 'CTS 很简单的啦 java助教说话又好听',
-      UserType: 0,
-      teamImg: require("../assets/Team/测试头像.jpg"),
+      TeamId: '',
+      TeamName: '',
+      TeamIntro: '',
+      TeamImg: '',
+      UserType: -1,
       loadingID: '002',
-      MemList: [
-        {
-          MemId: "001",
-          NickName: 'Evolution',
-          name: "赵正阳",
-          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-          introduction: "石墨文档成员",
-          isOwner: true,
-          isMonitor: false
-        },
-        {
-          MemId: "002",
-          NickName: 'Jerry',
-          name: "姜星如",
-          url: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-          introduction: "金刚石文档",
-          isOwner: false,
-          isMonitor: true
-        },
-        {
-          MemId: "003",
-          NickName: 'Joey',
-          name: "龙亿舟",
-          url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-          introduction: "软工开发爱好者",
-          isOwner: false,
-          isMonitor: true
-        },
-        {
-          MemId: "004",
-          NickName: 'Bob',
-          name: "杨宇涵",
-          url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-          introduction: "喜欢后端开发",
-          isOwner: false,
-          isMonitor: false
-        },
-      ],
+      // MemList: [
+      //   {
+      //     MemId: "001",
+      //     NickName: 'Evolution',
+      //     name: "赵正阳",
+      //     url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      //     introduction: "石墨文档成员",
+      //     isOwner: true,
+      //     isMonitor: false
+      //   },
+      //   {
+      //     MemId: "002",
+      //     NickName: 'Jerry',
+      //     name: "姜星如",
+      //     url: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+      //     introduction: "金刚石文档",
+      //     isOwner: false,
+      //     isMonitor: true
+      //   },
+      //   {
+      //     MemId: "003",
+      //     NickName: 'Joey',
+      //     name: "龙亿舟",
+      //     url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+      //     introduction: "软工开发爱好者",
+      //     isOwner: false,
+      //     isMonitor: true
+      //   },
+      //   {
+      //     MemId: "004",
+      //     NickName: 'Bob',
+      //     name: "杨宇涵",
+      //     url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+      //     introduction: "喜欢后端开发",
+      //     isOwner: false,
+      //     isMonitor: false
+      //   },
+      // ],
+      MemList: null,
       isChanged: false,
-      MonitorNum: 2,
+      MonitorNum: -1,
     }
   },
   methods : {
@@ -353,16 +364,122 @@ export default {
     },
     EndChange: function () {
       this.isChanged = false;
+
+      // 修改团队名称
+      this.$axios.post("team/modify/name",
+          {
+            "teamId": this.TeamId,
+            "newName": this.TeamName,
+          }).then((res)=>{
+            if(res.status === 200) {
+              console.log('change name data = ');
+              console.log(res.data);
+              this.$message.success("修改团队名称成功！");
+            }
+      }).catch((err)=>{
+        console.log(err);
+      })
+
+      // 修改团队简介
+      this.$axios.post("team/modify/introduction",
+          {
+            "teamId": this.TeamId,
+            "newIntro": this.TeamIntro,
+          }).then((res)=>{
+            if(res.status === 200){
+              console.log('change introduction data = ');
+              console.log(res.data);
+              this.$message.success("修改团队简介成功！");
+            }
+      }).catch((err)=>{
+        console.log(err);
+      })
     },
-    addMonitor: function () {
+
+    addMonitor: function (MemId) {
       if(this.MonitorNum >= 2){
         this.$message.warning("管理员数量到达上限");
         return;
       }
-      this.MonitorNum++;
+
+      console.log(this.$store.state.loginUser.userId);
+      this.$axios.post("team/setAdmin", {
+        "teamId": this.TeamId,
+        "operatorId": this.$store.state.loginUser.userId,
+        "memberId": MemId
+      }).then((res)=>{
+        if(res.status === 200){
+          console.log("set Admin is ");
+          console.log(res.data);
+          this.$message.success("设为管理员成功！");
+          location.reload();
+        }
+      })
     },
+
+    changeImg: function () {
+      if(this.UserType !== 0) return;
+      console.log("changeImg is called!");
+      console.log("with userType" + this.UserType);
+      this.$refs.clearFile.click();
+    },
+
+    upload: function (e) {
+      console.log("upload is called!");
+      console.log(e.currentTarget.files);
+      console.log(e.currentTarget.files[0].name);
+      let form = new FormData();
+      form.append("file", e.currentTarget.files[0]);
+      form.append("teamId", this.TeamId);
+      console.log(form);
+      this.$axios.post("team/modify/avatar", form).then((response)=>{
+        if(response.status === 200){
+          console.log('change avatar data = ');
+          console.log(response.data);
+          this.$message.success("上传图片成功！");
+          location.reload()
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
+
     ShowQRCode: function (){
       this.$router.push('/qrcode');
+    },
+
+    dropTeam: function (){
+      console.log("dropTeam is called!");
+      this.$axios.post("team/dismiss", {
+        "teamId" : this.TeamId,
+        "userId": this.$store.state.loginUser.userId,
+      }).then((res)=>{
+        if(res.status === 200) {
+          console.log('dropTeam data = ');
+          console.log(res.data);
+          this.$message.success("解散成功");
+          this.$router.back();
+        }
+      }).catch((err)=>{
+        console.log(err);
+      })
+    },
+
+    leaveTeam: function () {
+      console.log("leaveTeam is called!");
+      this.$axios.post("team/leave", {
+        "teamId": this.TeamId,
+        "userId": this.$store.loginUser.userId,
+      }).then((res)=>{
+        if(res.status === 200){
+          console.log("dropTeam data = ");
+          console.log(res.data);
+          this.$message.success("成功离开团队！");
+          this.$router.push();
+        }
+      }).catch((err)=>{
+        console.log(err);
+      })
     }
   }
 }
@@ -376,6 +493,7 @@ export default {
   border-radius: 10px;
   margin: 30px auto auto auto;
   box-shadow: 0 0 10px 3px #DCDCDC;
+  background-color: white;
 }
 
 #team-header {

@@ -61,27 +61,27 @@ const routes = [
 
     //团队相关
     {
-        path: "/team/information/:teamId",
+        path: "/team",
         name: "team",
         component: () => import('../Team/MyTeam')
     },
     {
-        path: "team/list/:key?",
+        path: "/list",
         name: "teamList",
         component: () => import('../Team/TeamList')
     },
     {
-        path: "team/create",
+        path: "/create",
         name: "teamCreate",
         component: () => import('../Team/CreateTeam')
     },
     {
-        path: "/team/invite/:teamId,",
+        path: "/invite",
         name: "teamInvite",
         component: () => import('../Team/TeamInvite')
     },
     {
-        path: "team/qrcode/:teamId",
+        path: "/qrcode",
         name: "qrcode",
         component: () => import('../Team/TestQrcode')
     }

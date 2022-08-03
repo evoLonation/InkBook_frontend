@@ -68,6 +68,11 @@ const routes = [
         name: 'TeamProject',
         component: () => import('../project/projectList.vue')
     },
+    {
+        path: '/uml',
+        name: 'uml',
+        component: () => import('../project/UML')
+    },
 
     //文档相关
     {

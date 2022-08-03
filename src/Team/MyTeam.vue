@@ -436,7 +436,7 @@ export default {
       form.append("file", e.currentTarget.files[0]);
       form.append("teamId", this.TeamId);
       console.log(form);
-      this.$axios.post("team/modify/avatar", form).then((response)=>{
+      this.$axios.post("team/modify-avatar", form).then((response)=>{
         if(response.status === 200){
           console.log('change avatar data = ');
           console.log(response.data);
@@ -497,7 +497,7 @@ export default {
       console.log("leaveTeam is called!");
       this.$axios.post("team/leave", {
         "teamId": this.TeamId,
-        "userId": this.$store.loginUser.userId,
+        "userId": this.$store.state.loginUser.userId,
       }).then((res)=>{
         if(res.status === 200){
           console.log("dropTeam data = ");
@@ -581,7 +581,7 @@ export default {
       // }).catch((err) => {
       //   console.log(err);
       // })
-      this.url = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
 
       this.$axios.get("team/member", {
         params: {

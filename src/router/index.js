@@ -10,12 +10,12 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('../User/Login.vue')
+        component: () => import('../views/User/Login.vue')
     },
     {
         path: '/register',
         name: 'Register',
-        component: () => import('../User/Register.vue')
+        component: () => import('../views/User/Register.vue')
     },
     {
         path: '/welcome',
@@ -25,12 +25,12 @@ const routes = [
     {
         path: '/table',
         name: 'Table',
-        component: () => import('../Table/Table'),
+        component: () => import('../views/Table/Table'),
         children: [
             {
                 path: 'userInfo/:userId?',
                 name: 'UserInfo',
-                component: () => import('../User/UserInfo')
+                component: () => import('../views/User/UserInfo')
             },
 
             // 团队相关

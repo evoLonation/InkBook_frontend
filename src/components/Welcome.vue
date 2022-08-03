@@ -44,6 +44,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     background: #fff;
+    margin: 0;
   }
   header {
     position: absolute;
@@ -54,6 +55,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: pink;
   }
   header .logo {
     position: relative;
@@ -89,5 +91,31 @@ export default {
     font-size: 4em;
     line-height: 1.4em;
     font-weight: 500;
+  }
+  .content1 .textBox h2 span {
+    color: firebrick;
+    font-size: 1.2em;
+    font-weight: 900;
+  }
+  .content1 .textBox p {
+    color: #333;
+  }
+  .content1 .textBox a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: #42b983;
+    color: #fff;
+    border-radius: 40px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+  .content1 .imgBox {
+    width: 600px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50px;
+    margin-top: 50px;
   }
 </style>

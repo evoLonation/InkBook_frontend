@@ -1,7 +1,7 @@
 <template >
   <div class="login">
     <div style="margin-left: auto;margin-right: auto;width: 100px">
-     <img src="../assets/logo.png" alt="logo" style="width: 100px"/>
+     <img src="../../assets/logo.png" alt="logo" style="width: 100px"/>
     </div>
     <div style="margin:0px auto 10px auto; width: 80px; ">
       <h2 class="title" style="margin:0 auto">登录</h2>
@@ -70,7 +70,7 @@ export default {
     return {
       userId: null,
       email: null,
-      pwd: '',
+      pwd: null,
       activeName: 'first',
       //loginBg: 'url(' + require('../../assets/bk.jpg') + ')'
     }
@@ -83,7 +83,7 @@ export default {
     handleClick: function (){
       this.userId = null;
       this.pwd = null;
-      this.email = '';
+      this.email = null;
     },
     // 需要具体分密码错误 or 用户名不存在？
 
@@ -91,9 +91,10 @@ export default {
       console.log('login is called!');
       console.log(this.userId);
       console.log(this.pwd)
+      console.log(this.email)
       console.log(typeof(this.pwd))
       this.$axios.get("user/login", {
-        params:{
+        params: {
           userId: this.userId,
           email: this.email,
           pwd: this.pwd,
@@ -104,6 +105,7 @@ export default {
           this.$store.commit({type: 'login', userId: response.data.userId, nickname: response.data.nickName})
           console.log(this.$store.state.loginUser.userId);
           ElMessage('登录成功');
+          this.$router.push({name: 'Table', params:{}})
         }else {
           ElMessage({message: response.data.msg, type: 'warning'});
         }

@@ -28,7 +28,8 @@
             </el-menu-item>
 
             <el-menu-item class="abc" index="2" >
-              <img src="../assets/logo.png" style="width: 20px; margin-right: 10px">
+              <img src="../../assets/logo.png" style="width: 20px; margin-right: 10px"
+                   @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">
               <template #title><span>我的昵称</span></template>
             </el-menu-item>
 
@@ -157,12 +158,13 @@ export default {
       });
     },
   },
-  // created(){
-  //   this.userId = this.$store.state.loginUser.userId;
-  //   console.log(this.userId);
-  //
-  //   this.getAvatar();
-  // }
+  created(){
+    this.userId = this.$store.state.loginUser.userId;
+    console.log('created!')
+    console.log(this.userId);
+
+    this.getAvatar();
+  }
 }
 
 

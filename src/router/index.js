@@ -10,12 +10,12 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('../User/Login.vue')
+        component: () => import('../views/User/Login.vue')
     },
     {
         path: '/register',
         name: 'Register',
-        component: () => import('../User/Register.vue')
+        component: () => import('../views/User/Register.vue')
     },
     {
         path: '/welcome',
@@ -25,13 +25,35 @@ const routes = [
     {
         path: '/table',
         name: 'Table',
-        component: () => import('../Table/Table'),
+        component: () => import('../views/Table/Table'),
         children: [
             {
                 path: 'userInfo/:userId?',
                 name: 'UserInfo',
-                component: () => import('../User/UserInfo')
+                component: () => import('../views/User/UserInfo')
             },
+
+            // 团队相关
+            {
+                path: "team",
+                name: "team",
+                component: () => import('../Team/MyTeam')
+            },
+            {
+                path: "list",
+                name: "teamList",
+                component: () => import('../Team/TeamList')
+            },
+            {
+                path: "create",
+                name: "teamCreate",
+                component: () => import('../Team/CreateTeam')
+            },
+            {
+                path: "qrcode",
+                name: "qrcode",
+                component: () => import('../Team/TestQrcode')
+            }
         ],
     },
     // {
@@ -59,32 +81,12 @@ const routes = [
         component: () => import('../views/document/edit.vue')
     },
 
-    //团队相关
-    {
-        path: "/team",
-        name: "team",
-        component: () => import('../Team/MyTeam')
-    },
-    {
-        path: "/list",
-        name: "teamList",
-        component: () => import('../Team/TeamList')
-    },
-    {
-        path: "/create",
-        name: "teamCreate",
-        component: () => import('../Team/CreateTeam')
-    },
+    // 团队邀请相关
     {
         path: "/invite",
         name: "teamInvite",
         component: () => import('../Team/TeamInvite')
     },
-    {
-        path: "/qrcode",
-        name: "qrcode",
-        component: () => import('../Team/TestQrcode')
-    }
 ];
 
 const router = createRouter({

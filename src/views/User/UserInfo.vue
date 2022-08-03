@@ -244,6 +244,7 @@ export default {
     clean: function (){
       this.c_nickName = '';
       this.c_introduction = '';
+      this.c_realName = '',
       this.c_email = '';
       this.c_code = '';
       this.newPwd = '';
@@ -298,6 +299,7 @@ export default {
           ElMessage("上传成功！");
           console.log(response.data);
           location.reload();
+          this.getAvatar();
         }else ElMessage({message: response.data.msg, type: 'warning'});
       }).catch((err)=>{
         console.log(err);
@@ -389,6 +391,7 @@ export default {
       }).then((response)=>{
         if (response.status === 200){
           ElMessage("发送成功");
+          console.log(response.data.code)
           this.trueCode = response.data.code;
         }else ElMessage({message: response.data.msg, type: 'warning'});
       }).catch((err)=>{
@@ -428,10 +431,10 @@ export default {
         if (response.status === 200){
           console.log('user data');
           console.log(response.data);
-          this.realName = response.data.realName;
-          this.nickName = response.data.nickName;
+          this.realName = response.data.realname;
+          this.nickName = response.data.nickname;
           this.email = response.data.email;
-          this.introduction = response.data.introduction;
+          this.introduction = response.data.intro;
         }else ElMessage({message: response.data.msg, type: 'warning'});
       }).catch((err)=>{
         console.log(err);
@@ -440,25 +443,25 @@ export default {
 
     getAvatar: function (){
       console.log('get avatar')
-      this.$axios.get("user/get-avatar", {
-        params:{
-          userId: this.userId,
-        }
-      }).then((response)=>{
-        if (response.status === 200){
-          console.log(response.data)
-          this.url = response.data.url;
-        }else ElMessage({message: response.data.msg, type: 'warning'});
-      }).catch((err)=>{
-        console.log(err);
-      });
+      // this.$axios.get("user/get-avatar", {
+      //   params:{
+      //     userId: this.userId,
+      //   }
+      // }).then((response)=>{
+      //   if (response.status === 200){
+      //     console.log(response.data)
+      this.url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.userId;
+      //   }else ElMessage({message: response.data.msg, type: 'warning'});
+      // }).catch((err)=>{
+      //   console.log(err);
+      // });
     },
   },
 
   created() {
     this.isOwner = (this.$route.params.userId === this.$store.state.loginUser.userId);
     this.userId = this.$route.params.userId;
-
+    console.log(this.$store.state.isLogin)
     this.getInformation();
     this.getAvatar();
   },

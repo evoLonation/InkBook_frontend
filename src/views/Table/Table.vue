@@ -28,7 +28,8 @@
             </el-menu-item>
 
             <el-menu-item class="abc" index="2" >
-              <img src="../assets/logo.png" style="width: 20px; margin-right: 10px">
+              <img src="../../assets/logo.png" style="width: 20px; margin-right: 10px"
+                   @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">
               <template #title><span>我的昵称</span></template>
             </el-menu-item>
 
@@ -45,7 +46,7 @@
           </el-menu>
         </el-aside>
         <el-main style="padding: 0;margin-bottom: 0;height: 100vh">
-          <div style="height: 100vh;margin-right: auto;margin-left: auto; background: #42b983">
+          <div style="height: 100vh;margin-right: auto;margin-left: auto; background: #42b983;">
             <router-view></router-view>
 <!--            <el-scrollbar style="height: 100%"></el-scrollbar>-->
           </div>
@@ -157,12 +158,13 @@ export default {
       });
     },
   },
-  // created(){
-  //   this.userId = this.$store.state.loginUser.userId;
-  //   console.log(this.userId);
-  //
-  //   this.getAvatar();
-  // }
+  created(){
+    this.userId = this.$store.state.loginUser.userId;
+    console.log('created!')
+    console.log(this.userId);
+
+    this.getAvatar();
+  }
 }
 
 

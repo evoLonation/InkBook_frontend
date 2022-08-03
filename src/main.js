@@ -4,7 +4,9 @@ import router from './router';
 import store from './store'
 import axios from 'axios';
 import VueAxios from 'vue-axios'
-import VueParticles from "vue-particles";
+// import VueParticles from "vue-particles";
+// import VueQuill from 'vue-quill'
+// import { firestorePlugin } from 'vuefire'
 
 /**
  * firebase 相关代码
@@ -22,7 +24,7 @@ const firebaseConfig = {
   appId: "1:858371951645:web:537e40acc6f305abc10af4",
   measurementId: "G-9RP1HQXYQR"
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig)
+export const firebaseApp = firebase.initializeApp(firebaseConfig)
 const analytics = firebase.analytics(firebaseApp)
 console.log(analytics)
 /************************* */
@@ -40,7 +42,9 @@ app.use(ElementPlus)
     .use(store)
     .use(router)
     .use(VueAxios,axios)
-    .use(VueParticles)
+    // .use(VueParticles)
+    // .use(VueQuill)
+    // .use(firestorePlugin)
     .mount('#app')
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)

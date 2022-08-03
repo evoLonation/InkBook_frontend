@@ -2,7 +2,7 @@
 
   <div class="register">
     <div style="margin-left: auto;margin-right: auto;width: 100px">
-      <img src="../assets/logo.png" alt="logo" style="width: 100px"/>
+      <img src="../../assets/logo.png" alt="logo" style="width: 100px"/>
     </div>
     <div style="margin:0px auto 10px auto; width: 80px; ">
       <h2 class="title" style="margin:0 auto">注册</h2>
@@ -58,7 +58,7 @@
             <template #append>
               <el-button type="primary"
                          @click="sendCode"
-                         :disabled="!(emailCheckRes === 0)">
+                         >
                 发送验证码
               </el-button>
             </template>
@@ -108,8 +108,8 @@ export default {
       email: '',
       code: '',
       trueCode: '',
-      nameCheckRes: 0,
-      emailCheckRes: -1,
+      nameCheckRes: -1,
+      emailCheckRes: 0,
       pwdCheckRes: -1,
       nameJudge: /^[A-Za-z\d]+$/,
       pwdJudge: /^\w+$/,
@@ -131,18 +131,19 @@ export default {
         this.nameCheckRes = 2;
         return;
       }
-
-      this.$axios.get("user/register/check-id", {
-        params:{
-          userId: this.userId,
-        }
-      }).then(res => {
-        if(res.status === 200){
-          console.log('名字正确')
-        }else  ElMessage({message: res.data.msg, type: 'warning'});
-      }).catch(err => {
-        console.log(err);         /* 若出现异常则在终端输出相关信息 */
-      })
+      this.nameCheckRes = 0;
+      // this.$axios.get("user/register/check-id", {
+      //   params:{
+      //     userId: this.userId,
+      //   }
+      // }).then(res => {
+      //   if(res.status === 200){
+      //     console.log('名字正确')
+      //     this.nameCheckRes = 0
+      //   }else  ElMessage({message: res.data.msg, type: 'warning'});
+      // }).catch(err => {
+      //   console.log(err);         /* 若出现异常则在终端输出相关信息 */
+      // })
     },
 
     checkPwd: function (){
@@ -191,6 +192,7 @@ export default {
         ElMessage('请填写验证码')
         return;
       }
+      console.log(this.nameCheckRes, this.emailCheckRes, this.pwdCheckRes)
       if (!(this.nameCheckRes === 0 && this.emailCheckRes === 0 && this.pwdCheckRes === 0)){
         ElMessage('请检查用户名,邮箱和密码是否合法')
         return;
@@ -206,10 +208,9 @@ export default {
         "sendCode" : this.trueCode
       }).then(res => {
         if (res.status === 200){
-          if(res.data.code === 0) {
-            ElMessage("注册成功！");
-            this.$router.push({name: 'login', params:{}})
-          }
+          ElMessage("注册成功！");
+          this.$router.push({name: 'login', params:{}})
+
         }else  ElMessage({message: res.data.msg, type: 'warning'});
       }).catch(err => {
         console.log(err);

@@ -90,9 +90,12 @@ export default {
             console.log("进入回调函数");
             console.log(res.data);
             if(res.status === 200){
-              this.$message.success("创建团队成功！");
+              this.$message.success(res.data.msg);
               this.TeamId = res.data.teamId;
               this.$router.push();
+            }
+            else{
+              this.$message.error("其他错误！");
             }
       }).catch((err) => {
         console.log(err);

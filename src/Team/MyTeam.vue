@@ -481,6 +481,11 @@ export default {
         console.log(err);
       })
     }
+  },
+  created() {
+    console.log(this.$store.state.loginUser.userId);
+    this.teamId = 0;
+
   }
 }
 </script>

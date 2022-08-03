@@ -113,7 +113,7 @@
             userId: this.$store.state.loginUser.userId,
           }
         }).then((res)=>{
-          console.log('search team data = ');
+          console.log('search team data.js = ');
           console.log(res.data);
           if(res.status === 200){
             this.teamList = res.data.teams;
@@ -127,7 +127,7 @@
             key: this.key,
           }
         }).then((res)=>{
-          console.log('search team data = ');
+          console.log('search team data.js = ');
           console.log(res.data);
           if(res.status === 200){
             this.teamList = res.data.teams;

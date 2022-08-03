@@ -16,7 +16,7 @@
         :offset="i > 0 ? 2 : 0">
       <el-card :body-style="{ padding: '0px' }" shadow="hover">
         <img
-            src={{projects[i-1].imageUrl}}
+            src="require({{projects[i-1].imageUrl}})"
             class="image"
          alt=""/>
         <div style="padding: 14px;">
@@ -144,7 +144,7 @@ export default {
         "userId": userId,
         "teamId": this.teamId,
         "detail": detail,
-        "imgUrl": imgUrl,
+        "imgUrl": 'https://img.nga.178.com/attachments/mon_202207/05/m6Q2q-rl1ZcT3cSk4-sg.jpg',
       }).then((response) => {
         if (response.status === 200){
           console.log(response.data.projectId)

@@ -385,7 +385,7 @@ export default {
             "newName": this.TeamName,
           }).then((res)=>{
             if(res.status === 200) {
-              console.log('change name data = ');
+              console.log('change name data.js = ');
               console.log(res.data);
               this.$message.success("修改团队名称成功！");
             }
@@ -400,7 +400,7 @@ export default {
             "newIntro": this.TeamIntro,
           }).then((res)=>{
             if(res.status === 200){
-              console.log('change introduction data = ');
+              console.log('change introduction data.js = ');
               console.log(res.data);
               this.$message.success("修改团队简介成功！");
             }
@@ -447,7 +447,7 @@ export default {
       console.log(form);
       this.$axios.post("team/modify-avatar", form).then((response)=>{
         if(response.status === 200){
-          console.log('change avatar data = ');
+          console.log('change avatar data.js = ');
           console.log(response.data);
           this.$message.success("上传图片成功！");
           location.reload()
@@ -475,7 +475,7 @@ export default {
         "memberId": memberId,
       }).then((res)=>{
         if(res.status === 200){
-          console.log('remove mem data = ');
+          console.log('remove mem data.js = ');
           console.log(res.data);
           this.$message.success("成功移除");
           location.reload();
@@ -492,7 +492,7 @@ export default {
         "userId": this.$store.state.loginUser.userId,
       }).then((res)=>{
         if(res.status === 200) {
-          console.log('dropTeam data = ');
+          console.log('dropTeam data.js = ');
           console.log(res.data);
           this.$message.success("解散成功");
           this.$router.back();
@@ -509,7 +509,7 @@ export default {
         "userId": this.$store.state.loginUser.userId,
       }).then((res)=>{
         if(res.status === 200){
-          console.log("dropTeam data = ");
+          console.log("dropTeam data.js = ");
           console.log(res.data);
           this.$message.success("成功离开团队！");
           this.$router.push();
@@ -527,7 +527,7 @@ export default {
         "memberId": memberId
       }).then((res)=>{
         if(res.status === 200){
-          console.log('transPri data = ');
+          console.log('transPri data.js = ');
           console.log(res.data);
           this.$message.success("成功转让!");
           location.reload();
@@ -567,7 +567,7 @@ export default {
         }
       }).then(res =>{
         if(res.status === 200){
-          console.log('get information data = ');
+          console.log('get information data.js = ');
           console.log(res.data);
           this.TeamName = res.data.name;
           this.TeamIntro = res.data.intro;
@@ -583,9 +583,9 @@ export default {
       //   }
       // }).then(res => {
       //   if(res.status === 200){
-      //     console.log('get-avatar data = ');
-      //     console.log(res.data);
-      //     this.TeamImg = res.data.url;
+      //     console.log('get-avatar data.js = ');
+      //     console.log(res.data.js);
+      //     this.TeamImg = res.data.js.url;
       //   }
       // }).catch((err) => {
       //   console.log(err);
@@ -598,7 +598,7 @@ export default {
         }
       }).then(res => {
         if(res.status === 200){
-          console.log('get mems data = ');
+          console.log('get mems data.js = ');
           console.log(res.data)
           console.log(typeof (res.data.members))
           this.MemList = res.data.members;

@@ -429,7 +429,7 @@ export default {
         }
       }).then((response)=>{
         if (response.status === 200){
-          console.log('user data');
+          console.log('user data.js');
           console.log(response.data);
           this.realName = response.data.realname;
           this.nickName = response.data.nickname;
@@ -449,9 +449,9 @@ export default {
       //   }
       // }).then((response)=>{
       //   if (response.status === 200){
-      //     console.log(response.data)
+      //     console.log(response.data.js)
       this.url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.userId;
-      //   }else ElMessage({message: response.data.msg, type: 'warning'});
+      //   }else ElMessage({message: response.data.js.msg, type: 'warning'});
       // }).catch((err)=>{
       //   console.log(err);
       // });

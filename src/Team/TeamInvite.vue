@@ -147,7 +147,7 @@ export default {
         }
       }).then(res =>{
         if(res.status === 200){
-          console.log('get information data = ');
+          console.log('get information data.js = ');
           console.log(res.data);
           this.TeamName = res.data.name;
           this.TeamIntro = res.data.intro;

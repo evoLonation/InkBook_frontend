@@ -140,7 +140,7 @@ export default {
       //   if(res.status === 200){
       //     console.log('名字正确')
       //     this.nameCheckRes = 0
-      //   }else  ElMessage({message: res.data.msg, type: 'warning'});
+      //   }else  ElMessage({message: res.data.js.msg, type: 'warning'});
       // }).catch(err => {
       //   console.log(err);         /* 若出现异常则在终端输出相关信息 */
       // })

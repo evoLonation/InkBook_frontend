@@ -18,7 +18,7 @@
   </div>
 <!--  <index v-if="menuVisible" @foo="foo" ref="contextButton" :spaceType="spaceType" :other="other"-->
 <!--         @_export="_export" @share="showShare('默认文件名')" @edit="edit" @disCollect="disCollect"-->
-<!--         data-popper-placement="top"></index>-->
+<!--         data.js-popper-placement="top"></index>-->
   <el-dialog
       title=""
       v-model="dialogVisible"

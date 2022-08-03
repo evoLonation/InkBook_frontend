@@ -40,7 +40,7 @@ export default {
     //   ref = ref.push(); // generate unique location.
     //   window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
     // }
-    console.log('Firebase data: ', ref.toString());
+    console.log('Firebase data.js: ', ref.toString());
     console.log(this.$refs.myDiv)
 
     let codeMirror = Codemirror(

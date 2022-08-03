@@ -69,11 +69,7 @@ const routes = [
 
     //项目相关
 
-    {
-        path: '/uml',
-        name: 'uml',
-        component: () => import('../project/UML')
-    },
+
 
     //文档相关
     {

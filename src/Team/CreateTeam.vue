@@ -81,6 +81,9 @@ export default {
       }
 
       console.log(this.$store.state.loginUser.userId);
+      console.log(this.TeamName)
+      console.log(this.TeamIntro)
+      console.log(this.$store.state.loginUser.userId)
       this.$axios.post("team/create",
           {
             "teamName": this.TeamName,

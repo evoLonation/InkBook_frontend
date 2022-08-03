@@ -1,7 +1,7 @@
 <template>
   <div id="list-layout">
     <div id="top-line">
-      <el-input v-model="input" placeholder="请输入搜索内容">
+      <el-input v-model="key" placeholder="请输入搜索内容">
         <template v-slot:prepend>
           <search style="width: 1em; height: 1em;"/>
         </template>
@@ -72,22 +72,23 @@
     },
     data(){
       return {
-        input: '',
-        teamList: [
-          {
-            teamId: "00127",
-            name: "CTS",
-            url: '',
-            introduction: "CTS 很简单的啦 java助教说话又好听"
-          },
-          {
-            teamId: "00128",
-            name: "软工",
-            url: '',
-            introduction: "金刚石文档"
-          },
-        ],
-        testUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+        key: '',
+        // teamList: [
+        //   {
+        //     teamId: "00127",
+        //     name: "CTS",
+        //     url: '',
+        //     introduction: "CTS 很简单的啦 java助教说话又好听"
+        //   },
+        //   {
+        //     teamId: "00128",
+        //     name: "软工",
+        //     url: '',
+        //     introduction: "金刚石文档"
+        //   },
+        // ],
+        teamList: [],
+        // testUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
       }
     },
 
@@ -100,7 +101,12 @@
       }
     },
     created() {
-
+      console.log(this.$store.state.loginUser.userId);
+      this.key = this.$route.params.key;
+      console.log('key is ' + this.key);
+      if(this.key === '' || this.key === null || this.key === undefined){
+        this.$axios.get("")
+      }
     }
 }
 </script>

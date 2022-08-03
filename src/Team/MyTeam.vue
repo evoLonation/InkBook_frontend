@@ -3,7 +3,7 @@
     <div id="team-header">
       <el-avatar :size="125" style="float: left; margin-left: 80px" @click="changeImg" class="teamImg" >
         <template #default>
-          <el-avatar :size="120" :src="teamImg" fit="cover"/>
+          <el-avatar :size="120" :src="TeamImg" fit="cover"/>
         </template>
       </el-avatar>
       <div
@@ -163,6 +163,7 @@
               :src="Mem.url"
               fit="cover"
               style="margin: 17px auto auto 40px; cursor: pointer"
+              @click="goUser(Mem.userId)"
           >
           </el-avatar>
         </div>
@@ -178,14 +179,14 @@
             <span
                 style="height: 15px; font-size: 15px; margin: auto auto auto 15px"
             >
-              {{Mem.NickName}}
+              {{Mem.userId}}
             </span>
           </div>
           <div id="mem-intro">
             <span
               style="height: 15px; font-size: 15px; color: #606266"
             >
-              {{Mem.introduction}}
+              {{Mem.intro}}
             </span>
           </div>
         </div>
@@ -208,7 +209,7 @@
               cancel-button-type="取消"
               title="确认要将该成员设置为管理员吗?"
               v-if="Mem.identity === 0"
-              @confirm="addMonitor(Mem.userID)"
+              @confirm="addMonitor(Mem.userId)"
           >
             <template #reference>
               <el-button
@@ -236,6 +237,7 @@
               confirm-button-text="确认"
               cancel-button-text="取消"
               title="确认将该成员移除团队吗？"
+              @confirm="removeMem(Mem.userId)"
           >
             <template #reference>
               <el-button
@@ -252,6 +254,7 @@
               confirm-button-text="确认"
               cancel-button-type="取消"
               title="确认是否转让管理权限?"
+              @confirm="transPri(Mem.userId)"
           >
             <template #reference>
               <el-button
@@ -273,6 +276,7 @@
               confirm-button-text="确认"
               cancel-button-text="取消"
               title="确认将该成员移除团队吗？"
+              @confirm="removeMem(Mem.userId)"
           >
             <template #reference>
               <el-button
@@ -313,7 +317,7 @@ export default {
       TeamName: '',
       TeamIntro: '',
       TeamImg: '',
-      UserType: -1,
+      UserType: 1,
       loadingID: '002',
       // MemList: [
       //   {
@@ -448,6 +452,30 @@ export default {
       this.$router.push('/qrcode');
     },
 
+    goUser: function (userId){
+      console.log("goUser is called");
+      console.log(userId);
+      this.$router.push();
+    },
+
+    removeMem: function (memberId){
+      console.log("removeMem is called");
+      this.$axios.posr("team/remove", {
+        "teamId": this.TeamId,
+        "captainId": this.$store.state.loginUser.userId,
+        "memberId": memberId,
+      }).then((res)=>{
+        if(res.status === 200){
+          console.log('remove mem data = ');
+          console.log(res.data);
+          this.$message.success("成功移除");
+          location.reload();
+        }
+      }).catch(err=>{
+        console.log(err);
+      })
+    },
+
     dropTeam: function (){
       console.log("dropTeam is called!");
       this.$axios.post("team/dismiss", {
@@ -480,12 +508,89 @@ export default {
       }).catch((err)=>{
         console.log(err);
       })
+    },
+
+    transPri: function (memberId){
+      console.log("transPri is called");
+      this.$axios.post("team/transfer", {
+        "teamId": this.TeamId,
+        "operatorId": this.$store.state.loginUser.userId,
+        "memberId": memberId
+      }).then((res)=>{
+        if(res.status === 200){
+          console.log('transPri data = ');
+          console.log(res.data);
+          this.$message.success("成功转让!");
+          location.reload();
+        }
+      }).catch((err)=>{
+        console.log(err);
+      })
+    },
+
+    checkUserType: function (){
+      console.log("checkUserType is called!");
+      this.$axios.get("team/")
+    },
+
+    getTeamInformation: function (){
+      console.log('getTeamInformation is called');
+      console.log('teamId is ' + this.TeamId);
+
+      // 获取团队文字信息
+      this.$axios.get("team/information", {
+        params: {
+          teamId: this.TeamId,
+        }
+      }).then(res =>{
+        if(res.status === 200){
+          console.log('get information data = ');
+          console.log(res.data);
+          this.TeamName = res.data.name;
+          this.TeamIntro = res.data.intro;
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+
+      // 获取团队图像信息
+      // this.$axios.get("team/get-avatar", {
+      //   params: {
+      //     teamId: this.TeamId,
+      //   }
+      // }).then(res => {
+      //   if(res.status === 200){
+      //     console.log('get-avatar data = ');
+      //     console.log(res.data);
+      //     this.TeamImg = res.data.url;
+      //   }
+      // }).catch((err) => {
+      //   console.log(err);
+      // })
+      this.url = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+
+      this.$axios.get("team/member", {
+        params: {
+          teamId: this.TeamId
+        }
+      }).then(res => {
+        if(res.status === 200){
+          console.log('get mems data = ');
+          console.log(res.data)
+          console.log(typeof (res.data.members))
+          this.MemList = res.data.members;
+        }
+      }).catch((err)=>{
+        console.log(err);
+      })
     }
   },
   created() {
     console.log(this.$store.state.loginUser.userId);
-    this.teamId = 0;
+    this.TeamId = 10;
 
+    this.getTeamInformation();
+    console.log('parseInt(0.0000005) = ',parseInt(0.0000005));
   }
 }
 </script>

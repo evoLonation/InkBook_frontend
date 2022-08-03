@@ -317,7 +317,7 @@ export default {
       TeamName: '',
       TeamIntro: '',
       TeamImg: '',
-      UserType: 1,
+      UserType: -1,
       loadingID: '002',
       // MemList: [
       //   {
@@ -460,7 +460,7 @@ export default {
 
     removeMem: function (memberId){
       console.log("removeMem is called");
-      this.$axios.posr("team/remove", {
+      this.$axios.post("team/remove", {
         "teamId": this.TeamId,
         "captainId": this.$store.state.loginUser.userId,
         "memberId": memberId,
@@ -530,7 +530,21 @@ export default {
 
     checkUserType: function (){
       console.log("checkUserType is called!");
-      this.$axios.get("team/")
+      console.log(this.$store.state.loginUser.userId);
+      this.axios.get("team/getIdentity", {
+        params: {
+          userId: this.$store.state.loginUser.userId,
+          teamId: this.TeamId,
+        }
+      }).then((res)=>{
+        console.log(res.data.identity);
+        if(res.status === 200) {
+          this.UserType = res.data.identity;
+          console.log(this.UserType);
+        }
+      }).catch((err)=>{
+        console.log(err);
+      })
     },
 
     getTeamInformation: function (){
@@ -587,8 +601,8 @@ export default {
   },
   created() {
     console.log(this.$store.state.loginUser.userId);
-    this.TeamId = 10;
-
+    this.TeamId = 1;
+    this.checkUserType();
     this.getTeamInformation();
     console.log('parseInt(0.0000005) = ',parseInt(0.0000005));
   }

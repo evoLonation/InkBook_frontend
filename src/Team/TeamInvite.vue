@@ -125,6 +125,8 @@ export default {
       // }).catch(err=>{
       //   console.log(err);
       // })
+      console.log(this.TeamId);
+      console.log(this.UserName);
       this.$axios.post("team/confirm", {
         "teamId": this.TeamId,
         "userId": this.UserName,
@@ -182,6 +184,7 @@ export default {
       }).catch((err)=>{
         console.log(err);
       })
+      console.log(this.TeamId);
       console.log(this.UserName);
       this.$axios.post("team/apply", {
         "teamId": this.TeamId,

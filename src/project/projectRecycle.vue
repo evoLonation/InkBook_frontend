@@ -1,5 +1,5 @@
 <template>
-<!--  操作栏，目前只有新建功能-->
+  <!--  操作栏，目前只有新建功能-->
   <div style="margin: 25px 0 35px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
     <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
       <el-button type="primary" style="margin-top: 0; float: right; margin-right: 20px" icon="Plus">
@@ -7,33 +7,33 @@
       </el-button>
     </el-menu>
   </div>
-<!--  项目列表，卡片形式-->
+  <!--  项目列表，卡片形式-->
   <el-row>
     <el-col
         :span="8"
         v-for="i in projects.length"
         :key="projects[i-1]"
         :offset="i > 0 ? 2 : 0">
-      <el-card :body-style="{ padding: '0px' }" shadow="hover">
+      <el-card :body-style="{ padding: '0px' }" shadow="hover" @cell-mouse-enter="recId">
         <img
             src={{projects[i-1].imageUrl}}
             class="image"
-         alt=""/>
+            alt=""/>
         <div style="padding: 14px;">
           <span>{{projects[i-1].name}}</span>
           <div class="bottom">
             <text class="text">{{ projects[i-1].detail }}</text>
             <el-button type="primary" class="button" @click="openProject">进入</el-button>
-<!--            删除项目对话框-->
+            <!--            删除项目对话框-->
             <el-popconfirm
                 confirmButtonText="确定"
                 cancelButtonText="取消"
                 icon="el-icon-info"
                 iconColor="red"
                 title="确定删除该项目吗？"
-                @confirm="curProjectId=projects[i-1].id; deleteProject()">
+                @confirm="deleteProject()">
               <template #reference>
-                <el-button type="important" class="button">删除</el-button>
+                <el-button type="important" class="button" @click="curProjectId=projects[i-1].id">删除</el-button>
               </template>
             </el-popconfirm>
             <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id">编辑</el-button>
@@ -42,7 +42,7 @@
       </el-card>
     </el-col>
   </el-row>
-<!--  新建项目对话框-->
+  <!--  新建项目对话框-->
   <el-dialog
       title="新建项目"
       v-model="createVisible"
@@ -57,12 +57,12 @@
     </span>
     </template>
   </el-dialog>
-<!--  重命名项目对话框-->
+  <!--  重命名项目对话框-->
   <el-dialog
       title="重命名项目"
       v-model="renameVisible"
       width="30%">
-    <span>请输入新的项目名字</span>
+    <span>请输入新的项目信息</span>
     <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
     <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
     <template #footer>
@@ -79,7 +79,7 @@ import {ElMessage} from "element-plus";
 import {ref } from 'vue'
 
 export default {
-  name: "projectList",
+  name: "projectRecycle",
   setup() {
     return {
       input: ref(''),
@@ -93,11 +93,13 @@ export default {
     return {
       projects:[
         {
+          id: 1919810,
           name: "原神3.0开发计划",
           detail: "须弥小草神啊啊啊啊啊啊啊啊啊",
           imageUrl: 'https://img.nga.178.com/attachments/mon_202207/05/m6Q2q-rl1ZcT3cSk4-sg.jpg',
         },
         {
+          id: 114514,
           name: "荒野大镖客2重制版",
           detail: "1145141919810",
           imageUrl:'https://i0.hdslb.com/bfs/article/000dc2700c488c3317936a34d4575cf69e1c77a3.png@942w_531h_progressive.webp',
@@ -111,9 +113,12 @@ export default {
     }
   },
   methods: {
+    recId(){
+      console.log('in')
+    },
     //获取项目列表接口函数
     getProject(){
-      this.$axios.get('/project/list-team', {
+      this.$axios.get('/project/list', {
         params: {
           teamId: this.teamId,
         }
@@ -121,7 +126,7 @@ export default {
         if (response.status === 200) {
           this.projects = response.data.projects
           console.log(response.data.msg)
-          console.log(this.projects)
+          console.log(this.projects[0].id)
         }
         else {
           ElMessage('列表获取失败')
@@ -168,8 +173,7 @@ export default {
         this.renameVisible=true;
         return
       }
-      console.log(this.curProjectId, name, detail)
-      this.$axios.post("project/rename", {
+      this.$axios.post("/project/rename", {
         "projectId": this.curProjectId,
         "newName": name,
       }).then((response) => {
@@ -185,16 +189,13 @@ export default {
       }).catch((err) => {
         console.log(err);
       })
-      if (detail==='') return;
-      console.log(detail)
-      setTimeout(() => {},1500)
+      if (detail==='') return
       this.$axios.post("project/modify/intro", {
         "projectId": this.curProjectId,
         "newIntro": detail,
       }).then((response) => {
         if (response.status === 200){
           ElMessage('修改简介成功')
-          console.log(response.data.msg)
           setTimeout(() => {
             this.getProject();
           }, 700);

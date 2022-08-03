@@ -53,7 +53,12 @@ const routes = [
                 path: "qrcode",
                 name: "qrcode",
                 component: () => import('../Team/TestQrcode')
-            }
+            },
+            {
+                path: '/teamProject',
+                name: 'teamProject',
+                component: () => import('../project/projectList.vue')
+            },
         ],
     },
     // {
@@ -63,11 +68,7 @@ const routes = [
     // },
 
     //项目相关
-    {
-        path: '/teamProject',
-        name: 'TeamProject',
-        component: () => import('../project/projectList.vue')
-    },
+
     {
         path: '/uml',
         name: 'uml',

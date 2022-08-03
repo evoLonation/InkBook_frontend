@@ -3,7 +3,7 @@ import {createStore} from 'vuex'
 export default new createStore({
     state(){
         return {
-            isLogin : false,
+            isLogin: false,
             loginUser: {
                 userId: "",
                 nickname: "",

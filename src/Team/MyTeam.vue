@@ -90,7 +90,7 @@
         <div v-if="UserType !== 2">
           <el-button
               type="primary"
-              style="width: 150px; margin-top: 25px; margin-right: 50px"
+              style="width: 150px; margin-top: 15px; margin-right: 50px"
               @click="ShowQRCode"
           >
             邀请新成员
@@ -126,13 +126,22 @@
             <template #reference>
               <el-button
                   type="danger"
-                  style="width: 150px; margin-top: 25px; margin-right: 50px"
+                  style="width: 150px; margin-top: 15px; margin-right: 50px"
                   v-if="UserType === 1"
               >
                 离开团队
               </el-button>
             </template>
           </el-popconfirm>
+        </div>
+        <div>
+          <el-button
+            style="width: 150px; margin-top: 15px; margin-right: 50px"
+            type="success"
+            @click="getProject"
+          >
+            进入团队
+          </el-button>
         </div>
       </div>
     </div>
@@ -208,7 +217,7 @@
               confirm-button-text="确认"
               cancel-button-type="取消"
               title="确认要将该成员设置为管理员吗?"
-              v-if="Mem.identity === 0"
+              v-if="Mem.identity === 2"
               @confirm="addMonitor(Mem.userId)"
           >
             <template #reference>
@@ -317,7 +326,7 @@ export default {
       TeamName: '',
       TeamIntro: '',
       TeamImg: '',
-      UserType: -1,
+      UserType: 0,
       loadingID: '002',
       // MemList: [
       //   {
@@ -597,12 +606,17 @@ export default {
       }).catch((err)=>{
         console.log(err);
       })
+    },
+
+    getProject: function (){
+      this.$store.commit({type: 'selectTeam', teamId: this.TeamId, teamName: this.TeamName});
+      this.$router.push('/teamProject');
     }
   },
   created() {
     console.log(this.$store.state.loginUser.userId);
     this.TeamId = 1;
-    this.checkUserType();
+    // this.checkUserType();
     this.getTeamInformation();
     console.log('parseInt(0.0000005) = ',parseInt(0.0000005));
   }

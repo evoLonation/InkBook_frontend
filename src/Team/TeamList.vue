@@ -105,7 +105,17 @@
       this.key = this.$route.params.key;
       console.log('key is ' + this.key);
       if(this.key === '' || this.key === null || this.key === undefined){
-        this.$axios.get("")
+        this.$axios.get("user/team", {
+          params: {
+            userId: this.$store.state.loginUser.userId,
+          }
+        }).then((res)=>{
+          console.log('search team data = ');
+          console.log(res.data);
+          // if(res.status === 200){
+          //   this.
+          // }
+        })
       }
     }
 }

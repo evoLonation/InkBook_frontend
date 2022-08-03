@@ -4,7 +4,7 @@ import router from './router';
 import store from './store'
 import axios from 'axios';
 import VueAxios from 'vue-axios'
-// import VueParticles from "vue-particles";
+import VueParticles from "vue-particles";
 // import VueQuill from 'vue-quill'
 // import { firestorePlugin } from 'vuefire'
 
@@ -42,7 +42,7 @@ app.use(ElementPlus)
     .use(store)
     .use(router)
     .use(VueAxios,axios)
-    // .use(VueParticles)
+    .use(VueParticles)
     // .use(VueQuill)
     // .use(firestorePlugin)
     .mount('#app')

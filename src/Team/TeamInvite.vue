@@ -101,17 +101,60 @@ export default {
     return {
       UserName: '',
       UserPassword: '',
-      TeamName: 'CTS',
-      TeamIntro: 'CTS 很简单的啦 java助教说话又好听',
-      TeamImg: require("../assets/Team/测试头像.jpg"),
+      TeamId: -1,
+      TeamName: '',
+      TeamIntro: '',
+      TeamImg: '',
       isJoining: false,
       isJoined: false
     }
   },
   methods: {
     JoinTeam: function () {
-      this.$message.success("加入团队成功");
-      this.isJoined = true;
+      console.log(this.UserName)
+      console.log(this.TeamId);
+      console.log(typeof (this.TeamId))
+      // this.$axios.post("team/confirm", {
+      //   "teamId": this.TeamId,
+      //   "userId": this.UserName,
+      // }).then((res)=>{
+      //   if(res.status === 200){
+      //     this.$message.success("成功加入团队");
+      //     this.isJoined = true;
+      //   }
+      // }).catch(err=>{
+      //   console.log(err);
+      // })
+      this.$axios.post("team/confirm", {
+        "teamId": this.TeamId,
+        "userId": this.UserName,
+      }).then((res)=>{
+        if(res.status === 200){
+          this.$message.success(res.data.msg);
+          this.isJoined = true;
+        }
+      }).catch(err=>{
+        console.log(err);
+      })
+    },
+    getTeamInformation: function () {
+      // 获取团队文字信息
+      this.$axios.get("team/information", {
+        params: {
+          teamId: this.TeamId,
+        }
+      }).then(res =>{
+        if(res.status === 200){
+          console.log('get information data = ');
+          console.log(res.data);
+          this.TeamName = res.data.name;
+          this.TeamIntro = res.data.intro;
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+
+      this.url = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
     },
     MeLogin: function () {
       if(this.UserName === ''){
@@ -122,9 +165,41 @@ export default {
         this.$message.error("密码不能为空！");
         return;
       }
-      this.$message.success("登录成功！");
-      this.isJoining = true;
+
+      console.log("MeLogin is called");
+      this.$axios.get("user/login", {
+        params: {
+          userId: this.UserName,
+          pwd: this.UserPassword
+        }
+      }).then((res)=>{
+        console.log(res.data.msg)
+        if(res.status === 200){
+          console.log(res.data);
+          this.$message.success(res.data.msg);
+          this.isJoining = true;
+        }
+      }).catch((err)=>{
+        console.log(err);
+      })
+      console.log(this.UserName);
+      this.$axios.post("team/apply", {
+        "teamId": this.TeamId,
+        "userId": this.UserName,
+      }).then((res)=>{
+        if(res.status !== 200){
+          this.$message.warning(res.data.msg);
+          this.isJoined = true;
+        }
+      }).catch(err=>{
+        console.log(err);
+      })
+      console.log("apply is OK");
     }
+  },
+  created() {
+    this.TeamId = 1;
+    this.getTeamInformation();
   }
 }
 </script>

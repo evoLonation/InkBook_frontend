@@ -640,9 +640,6 @@ export default {
         console.log(err);
       })
 
-      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
-      console.log(this.TeamImg)
-
       this.$axios.get("team/member", {
         params: {
           teamId: this.TeamId
@@ -672,6 +669,7 @@ export default {
     this.TeamId = parseInt(this.$route.params.teamId);
     console.log(this.TeamId)
     this.checkUserType();
+    this.getAvatar();
     this.getTeamInformation();
     console.log('parseInt(0.0000005) = ',parseInt(0.0000005));
   }

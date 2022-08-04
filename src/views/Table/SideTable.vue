@@ -28,9 +28,8 @@
             </el-menu-item>
 
             <el-menu-item class="abc" index="2" >
-              <img src="../../assets/logo.png" style="width: 20px; margin-right: 10px"
-                   @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">
-              <template #title><span>我的昵称</span></template>
+              <img src="../../assets/logo.png" style="width: 20px; margin-right: 10px">
+              <template #title><span @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">我的昵称</span></template>
             </el-menu-item>
 
             <el-menu-item class="abc" index="3" >
@@ -54,9 +53,29 @@
 
           </el-menu>
         </el-aside>
-        <el-main style="padding: 0;margin-bottom: 0;height: 100vh">
-          <div style="height: 100vh;margin-right: auto;margin-left: auto;;">
-            <router-view></router-view>
+        <el-main style=";padding: 0;margin-bottom: 0;height: 100vh; background: linear-gradient(45deg, deepskyblue, royalblue)">
+          <vue-particles
+              class="login-bg"
+              color="#f4f4f4"
+              :particleOpacity="0.7"
+              :particlesNumber="100"
+              shapeType="circle"
+              :particleSize="4"
+              linesColor="#f4f4f4"
+              :linesWidth="1"
+              :lineLinked="true"
+              :lineOpacity="0.4"
+              :linesDistance="150"
+              :moveSpeed="3"
+              :hoverEffect="true"
+              hoverMode="grab"
+              :clickEffect="true"
+              clickMode="push"
+          />
+          <div style="height: 100vh;margin-right: auto;margin-left: auto;">
+            <router-view
+              style="position: absolute; top: 50px; left: 380px"
+            ></router-view>
 <!--            <el-scrollbar style="height: 100%"></el-scrollbar>-->
           </div>
         </el-main>

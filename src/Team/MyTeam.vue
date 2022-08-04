@@ -367,6 +367,24 @@ export default {
       //     isOwner: false,
       //     isMonitor: false
       //   },
+      //   {
+      //     MemId: "004",
+      //     NickName: 'Bob',
+      //     name: "杨宇涵",
+      //     url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+      //     introduction: "喜欢后端开发",
+      //     isOwner: false,
+      //     isMonitor: false
+      //   },
+      //   {
+      //     MemId: "004",
+      //     NickName: 'Bob',
+      //     name: "杨宇涵",
+      //     url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+      //     introduction: "喜欢后端开发",
+      //     isOwner: false,
+      //     isMonitor: false
+      //   },
       // ],
       MemList: null,
       isChanged: false,
@@ -659,9 +677,9 @@ export default {
         }
       }).then(res => {
         if(res.status === 200){
-          // console.log('get mems data.js = ');
-          // console.log(res.data)
-          // console.log(typeof (res.data.members))
+          console.log('get mems data.js = ');
+          console.log(res.data)
+          console.log(typeof (res.data.members))
           this.MemList = res.data.members;
           for(let i = 0; i < this.MemList.length; i++){
             this.MemList[i].url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.MemList[i].userId;

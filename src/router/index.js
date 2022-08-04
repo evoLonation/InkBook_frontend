@@ -40,7 +40,7 @@ const routes = [
                     },
                     // UML与原型构建相关
                     {
-                        path: 'graph/create',
+                        path: 'graph/create/:projectId/:type',
                         name: 'createGraph',
                         component: () => import('../views/project/Manage/AddSee')
                     },

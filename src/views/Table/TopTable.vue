@@ -12,7 +12,7 @@
   >
     <el-menu-item index="1" @click="this.$router.push({name: 'DocumentList'})">文档</el-menu-item>
     <el-menu-item index="2">原型</el-menu-item>
-    <el-menu-item index="3" @click="this.$router.push({name: 'createGraph'})">UML</el-menu-item>
+    <el-menu-item index="3" @click="this.$router.push({name: 'createGraph', params: {projectId: this.$store.state.selectProject.proId, type: 2}})">UML</el-menu-item>
   </el-menu>
   <router-view></router-view>
 </template>

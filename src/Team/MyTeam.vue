@@ -264,22 +264,22 @@
           <el-popconfirm
               confirm-button-text="确认"
               cancel-button-type="取消"
-              title="确认是否转让管理权限?"
-              @confirm="transPri(Mem.userId)"
+              title="是否将该成员设置为管理员?"
+              @confirm="addMonitor(Mem.userId)"
           >
             <template #reference>
               <el-button
                   style="margin: 35px 0 auto 10px;"
                   v-if="Mem.userId !== loadingID && Mem.identity === 2"
               >
-                转让权限
+                设为管理
               </el-button>
               <el-button
                   style="margin: 35px 0 auto 10px;"
                   v-else
                   disabled
               >
-                转让权限
+                设为管理
               </el-button>
             </template>
           </el-popconfirm>
@@ -393,6 +393,7 @@ export default {
             }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
 
       // 修改团队简介
@@ -408,6 +409,7 @@ export default {
             }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -423,11 +425,12 @@ export default {
       }).then(res=>{
         if(res.status === 200){
           this.$message.success("设置管理员成功！");
-          console.log("设置管理员成功！");
+          console.log("设置管理员成功！")
           location.reload();
         }
       }).catch(err => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -451,6 +454,7 @@ export default {
         }
       }).catch(err => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -476,10 +480,12 @@ export default {
           console.log('change avatar data.js = ');
           console.log(response.data);
           this.$message.success("上传图片成功！");
+          this.getAvatar();
           location.reload()
         }
       }).catch((err) => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       });
     },
 
@@ -490,14 +496,14 @@ export default {
     goUser: function (userId){
       console.log("goUser is called");
       console.log(userId);
-      this.$router.push();
+      this.$router.push({ name : 'UserInfo', params: {userId: userId}});
     },
 
     removeMem: function (memberId){
       console.log("removeMem is called");
       this.$axios.post("team/remove", {
         "teamId": this.TeamId,
-        "captainId": this.$store.state.loginUser.userId,
+        "operatorId": this.$store.state.loginUser.userId,
         "memberId": memberId,
       }).then((res)=>{
         if(res.status === 200){
@@ -508,6 +514,7 @@ export default {
         }
       }).catch(err=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -525,6 +532,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -542,6 +550,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -560,6 +569,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -582,8 +592,14 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
       // console.log(this.UserType)
+    },
+
+    getAvatar: function (){
+      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+      console.log('getavatar work ' + this.TeamImg)
     },
 
     getTeamInformation: function (){
@@ -604,6 +620,7 @@ export default {
         }
       }).catch(err => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
 
       // 获取团队图像信息
@@ -633,10 +650,8 @@ export default {
         }
       }).catch(err=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
-
-      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
-      console.log(this.TeamImg)
 
       this.$axios.get("team/member", {
         params: {
@@ -654,6 +669,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -667,6 +683,7 @@ export default {
     this.TeamId = parseInt(this.$route.params.teamId);
     console.log(this.TeamId)
     this.checkUserType();
+    this.getAvatar();
     this.getTeamInformation();
     console.log('parseInt(0.0000005) = ',parseInt(0.0000005));
   }

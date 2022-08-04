@@ -137,11 +137,11 @@ export default class FlowGraph {
       target: this.graph,
       stencilGraphWidth: 280,
       search: { rect: true },
-      collapsable: true,
+      collapsable: false,
       groups: [
         {
           name: 'basic',
-          title: '基础节点',
+          title: '流程节点',
           graphHeight: 180,
         },
         {

@@ -137,6 +137,7 @@ export default {
         }
       }).catch(err=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
     getTeamInformation: function () {
@@ -196,16 +197,18 @@ export default {
             }
           }).catch(err=>{
             console.log(err);
+            this.$message.error(err.response.data.msg);
           })
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
       console.log("apply is OK");
     }
   },
   created() {
-    this.TeamId = 2;
+    this.TeamId = parseInt(this.$route.params.teamId);
     this.getTeamInformation();
   }
 }

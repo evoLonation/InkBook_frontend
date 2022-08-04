@@ -2,13 +2,13 @@
   <a-tabs defaultActiveKey="1">
     <a-tab-pane tab="节点" key="1">
       <a-row align="middle">
-        <a-col :span=8>Border Color</a-col>
+        <a-col :span=8>边缘颜色</a-col>
         <a-col :span=14>
           <a-input type="color" :value="globalGridAttr.nodeStroke" style="width: 100%" @change="onStrokeChange"/>
         </a-col>
       </a-row>
       <a-row align="middle">
-        <a-col :span=8>Border Width</a-col>
+        <a-col :span=8>边缘宽度</a-col>
         <a-col :span=12>
           <a-slider :min=1 :max=5 :step=1 :value="globalGridAttr.nodeStrokeWidth" @change="onStrokeWidthChange"/>
         </a-col>
@@ -17,7 +17,7 @@
         </a-col>
       </a-row>
       <a-row align="middle">
-        <a-col :span=8>Fill</a-col>
+        <a-col :span=8>填充颜色</a-col>
         <a-col :span=14>
           <a-input type="color" :value="globalGridAttr.nodeFill" style="width: 100%" @change="onFillChange"/>
         </a-col>
@@ -25,7 +25,7 @@
     </a-tab-pane>
     <a-tab-pane tab="文本" key="2">
       <a-row align="middle">
-        <a-col :span=8>Font Size</a-col>
+        <a-col :span=8>字体大小</a-col>
         <a-col :span=12>
           <a-slider :min=8 :max=16 :step=1 :value="globalGridAttr.nodeFontSize" @change="onFontSizeChange"/>
         </a-col>
@@ -34,7 +34,7 @@
         </a-col>
       </a-row>
       <a-row align="middle">
-        <a-col :span=8>Font Color</a-col>
+        <a-col :span=8>字体颜色</a-col>
         <a-col :span=14>
           <a-input type="color" :value="globalGridAttr.nodeColor" style="width: 100%" @change="onColorChange"/>
         </a-col>
@@ -42,7 +42,7 @@
     </a-tab-pane>
     <a-tab-pane tab="属性" key="3">
       <a-row align="middle">
-        <a-col :span=8>Assign Users</a-col>
+        <a-col :span=8>分配用户</a-col>
         <a-col :span=14>
           <a-input :value="globalGridAttr.nodeUsers" style="width: 100%" @change="onUsersChange"/>
         </a-col>

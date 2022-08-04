@@ -1,14 +1,5 @@
 <template>
   <div class="wrap">
-<!--    <div class="header">-->
-<!--      <span>流程设计器</span>-->
-<!--      <span>-->
-<!--&lt;!&ndash;          <span style="margin-right: 16px; cursor: pointer">&ndash;&gt;-->
-<!--&lt;!&ndash;            设计指南&ndash;&gt;-->
-<!--&lt;!&ndash;          </span>&ndash;&gt;-->
-<!--&lt;!&ndash;      <GithubOutlined onClick={openGithub} />&ndash;&gt;-->
-<!--      </span>-->
-<!--    </div>-->
     <div class="content">
       <!--左侧工具栏-->
       <div id="stencil" class="sider" />

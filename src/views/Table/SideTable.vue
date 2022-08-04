@@ -150,21 +150,21 @@ export default {
       console.log(key, keyPath);
     },
     getAvatar: function (){
-      console.log('get avatar')
-      this.$axios.get("user/get-avatar", {
-        params:{
-          userId: this.userId,
-        }
-      }).then((response)=>{
-        if (response.status === 200){
-          console.log(response.data)
-          if (response.data.code === 0){
-            this.url = response.data.url;
-          }else console.log("用户头像获取错误");
-        }else console.log("请求返回status不为200")
-      }).catch((err)=>{
-        console.log(err);
-      });
+      // console.log('get avatar')
+      // this.$axios.get("user/get-avatar", {
+      //   params:{
+      //     userId: this.userId,
+      //   }
+      // }).then((response)=>{
+      //   if (response.status === 200){
+      //     console.log(response.data)
+      //     if (response.data.code === 0){
+      //       this.url = response.data.url;
+      //     }else console.log("用户头像获取错误");
+      //   }else console.log("请求返回status不为200")
+      // }).catch((err)=>{
+      //   console.log(err);
+      // });
     },
   },
   created(){

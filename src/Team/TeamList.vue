@@ -120,7 +120,10 @@
           console.log(res.data);
           if(res.status === 200){
             this.teamList = res.data.teams;
-            console.log(this.teamList)
+            for(let i = 0; i < this.teamList.length; i++){
+              console.log(typeof (this.teamList[i].teamId));
+              this.teamList[i].url = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.teamList[i].teamId;
+            }
           }
         }).catch(err=>{
           console.log(err);
@@ -140,7 +143,6 @@
           console.log(err);
         })
       }
-      console.log("this is prepared!");
     }
 }
 </script>

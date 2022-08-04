@@ -327,7 +327,7 @@ export default {
       TeamId: '',
       TeamName: '',
       TeamIntro: '',
-      TeamImg: 'http://43.138.71.108/api/team/get-avatar?teamId=10',
+      TeamImg: '',
       UserType: 0,
       loadingID: '002',
       // MemList: [
@@ -635,7 +635,7 @@ export default {
         console.log(err);
       })
 
-      // this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
       console.log(this.TeamImg)
 
       this.$axios.get("team/member", {

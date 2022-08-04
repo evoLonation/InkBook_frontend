@@ -451,6 +451,7 @@ export default {
       //   if (response.status === 200){
       //     console.log(response.data.js)
       this.url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.userId;
+      console.log(this.url)
       //   }else ElMessage({message: response.data.js.msg, type: 'warning'});
       // }).catch((err)=>{
       //   console.log(err);

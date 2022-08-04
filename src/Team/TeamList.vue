@@ -20,14 +20,14 @@
     <div id="team-list">
       <el-scrollbar height="430px">
         <div
-            v-for="team in teamList"
+            v-for="(team, index) in teamList"
              :key="team.teamId"
             id="element-in-list"
         >
           <el-avatar
               size="size"
               id="element-avatar"
-              :src="testUrl"
+              :src="team.url"
               fit="cover"
           >
           </el-avatar>
@@ -50,7 +50,7 @@
           <el-button
               type="primary"
               style="margin: auto 30px auto auto"
-              @click="EnterTeam(team.TeamId)"
+              @click="EnterTeam(index)"
           >
             进入团队
           </el-button>
@@ -96,11 +96,13 @@
       JumpToCreate: function () {
         this.$router.push('/table/team/create');
       },
-      EnterTeam: function (TeamId) {
-        this.$router.push({ path: '/table/team/information', params: {teamId: TeamId}});
+      EnterTeam: function (index) {
+        console.log(index);
+        console.log("EnterTeam is called!");
+        this.$router.push({name: "team", params: {teamId: this.teamList[index].teamId}});
       },
       GoToSearch: function (){
-
+        this.$router.push({name: "teamBlock", params: {key: this.key}})
       }
     },
     created() {
@@ -108,6 +110,7 @@
       this.key = this.$route.params.key;
       console.log('key is ' + this.key);
       if(this.key === '' || this.key === null || this.key === undefined){
+        console.log("this is empty")
         this.$axios.get("user/team", {
           params: {
             userId: this.$store.state.loginUser.userId,
@@ -117,12 +120,13 @@
           console.log(res.data);
           if(res.status === 200){
             this.teamList = res.data.teams;
+            console.log(this.teamList)
           }
         }).catch(err=>{
           console.log(err);
         })
       }else{
-        this.$axios.get("search/team", {
+        this.$axios.get("team/search", {
           params: {
             key: this.key,
           }
@@ -136,6 +140,7 @@
           console.log(err);
         })
       }
+      console.log("this is prepared!");
     }
 }
 </script>

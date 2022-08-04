@@ -87,7 +87,7 @@
             </template>
           </el-popconfirm>
         </div>
-        <div v-if="UserType !== 2">
+        <div v-if="UserType !== 2 && UserType !== 3">
           <el-button
               type="primary"
               style="width: 150px; margin-top: 15px; margin-right: 50px"
@@ -139,6 +139,7 @@
             style="width: 150px; margin-top: 15px; margin-right: 50px"
             type="success"
             @click="getProject"
+            v-if="(this.UserType === 0) || (this.UserType === 1) || (this.UserType === 2)"
           >
             进入团队
           </el-button>
@@ -233,6 +234,7 @@
               cancel-button-type="取消"
               title="确认要将该管理员撤销吗?"
               v-if="Mem.identity === 1"
+              @confirm="removeMonitor(Mem.userId)"
           >
             <template #reference>
               <el-button
@@ -325,7 +327,7 @@ export default {
       TeamId: '',
       TeamName: '',
       TeamIntro: '',
-      TeamImg: '',
+      TeamImg: 'http://43.138.71.108/api/team/get-avatar?teamId=10',
       UserType: 0,
       loadingID: '002',
       // MemList: [
@@ -414,19 +416,41 @@ export default {
         this.$message.warning("管理员数量到达上限");
         return;
       }
-
-      console.log(this.$store.state.loginUser.userId);
       this.$axios.post("team/setAdmin", {
         "teamId": this.TeamId,
         "operatorId": this.$store.state.loginUser.userId,
         "memberId": MemId
-      }).then((res)=>{
+      }).then(res=>{
         if(res.status === 200){
-          console.log("set Admin is ");
-          console.log(res.data);
-          this.$message.success("设为管理员成功！");
+          this.$message.success("设置管理员成功！");
+          console.log("设置管理员成功！");
           location.reload();
         }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+
+    removeMonitor: function (MemId) {
+      console.log("removeMonitor is called!");
+      console.log(typeof (this.TeamId));
+      console.log(this.TeamId);
+      console.log(typeof (this.$store.state.loginUser.userId));
+      console.log(this.$store.state.loginUser.userId);
+      console.log(typeof (MemId));
+      console.log(MemId);
+      this.$axios.post("team/removeAdmin", {
+        "teamId": this.TeamId,
+        "operatorId": this.$store.state.loginUser.userId,
+        "memberId": MemId
+      }).then(res=>{
+        if(res.status === 200){
+          this.$message.success("撤销管理员成功！");
+          console.log("撤销管理员成功！");
+          location.reload();
+        }
+      }).catch(err => {
+        console.log(err);
       })
     },
 
@@ -443,7 +467,9 @@ export default {
       console.log(e.currentTarget.files[0].name);
       let form = new FormData();
       form.append("file", e.currentTarget.files[0]);
-      form.append("teamId", this.TeamId);
+      console.log(this.TeamId);
+      console.log(typeof (this.TeamId))
+      form.append("team_id", this.TeamId);
       console.log(form);
       this.$axios.post("team/modify-avatar", form).then((response)=>{
         if(response.status === 200){
@@ -458,7 +484,7 @@ export default {
     },
 
     ShowQRCode: function (){
-      this.$router.push('/qrcode');
+      this.$router.push({name: "qrcode", params: {teamId: this.TeamId}});
     },
 
     goUser: function (userId){
@@ -538,27 +564,31 @@ export default {
     },
 
     checkUserType: function (){
-      console.log("checkUserType is called!");
-      console.log(this.$store.state.loginUser.userId);
+      // console.log("checkUserType is called!");
+      // console.log(this.$store.state.loginUser.userId);
+      // console.log(this.TeamId)
       this.axios.get("team/getIdentity", {
         params: {
           userId: this.$store.state.loginUser.userId,
           teamId: this.TeamId,
         }
       }).then((res)=>{
-        console.log(res.data.identity);
+        // console.log("this is entered!");
+        // console.log(res);
         if(res.status === 200) {
+          // console.log(res.data.identity);
           this.UserType = res.data.identity;
-          console.log(this.UserType);
+          // console.log(this.UserType);
         }
       }).catch((err)=>{
         console.log(err);
       })
+      // console.log(this.UserType)
     },
 
     getTeamInformation: function (){
-      console.log('getTeamInformation is called');
-      console.log('teamId is ' + this.TeamId);
+      // console.log('getTeamInformation is called');
+      // console.log('teamId is ' + this.TeamId);
 
       // 获取团队文字信息
       this.$axios.get("team/information", {
@@ -567,8 +597,8 @@ export default {
         }
       }).then(res =>{
         if(res.status === 200){
-          console.log('get information data.js = ');
-          console.log(res.data);
+          // console.log('get information data.js = ');
+          // console.log(res.data);
           this.TeamName = res.data.name;
           this.TeamIntro = res.data.intro;
         }
@@ -590,7 +620,23 @@ export default {
       // }).catch((err) => {
       //   console.log(err);
       // })
-      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+
+      this.$axios.get("team/getAdminNum" ,{
+        params: {
+          teamId: this.TeamId
+        }
+      }).then(res => {
+        if(res.status === 200){
+          // console.log('get mems num is ');
+          this.MonitorNum = res.data.num;
+          // console.log(res.data.num);
+        }
+      }).catch(err=>{
+        console.log(err);
+      })
+
+      // this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+      console.log(this.TeamImg)
 
       this.$axios.get("team/member", {
         params: {
@@ -598,10 +644,13 @@ export default {
         }
       }).then(res => {
         if(res.status === 200){
-          console.log('get mems data.js = ');
-          console.log(res.data)
-          console.log(typeof (res.data.members))
+          // console.log('get mems data.js = ');
+          // console.log(res.data)
+          // console.log(typeof (res.data.members))
           this.MemList = res.data.members;
+          for(let i = 0; i < this.MemList.length; i++){
+            this.MemList[i].url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.MemList[i].userId;
+          }
         }
       }).catch((err)=>{
         console.log(err);
@@ -615,7 +664,8 @@ export default {
   },
   created() {
     console.log(this.$store.state.loginUser.userId);
-    this.TeamId = this.$route.params.teamId;
+    this.TeamId = parseInt(this.$route.params.teamId);
+    console.log(this.TeamId)
     this.checkUserType();
     this.getTeamInformation();
     console.log('parseInt(0.0000005) = ',parseInt(0.0000005));

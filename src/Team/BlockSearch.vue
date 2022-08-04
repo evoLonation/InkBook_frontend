@@ -11,7 +11,7 @@ export default {
     }
   },
   created() {
-    // this.$router.push({path: '/table/list'});
+    this.$router.push({name: "teamList", params: {key: this.$route.params.key}})
   }
 }
 </script>

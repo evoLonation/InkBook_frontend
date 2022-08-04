@@ -476,6 +476,7 @@ export default {
           console.log('change avatar data.js = ');
           console.log(response.data);
           this.$message.success("上传图片成功！");
+          this.getAvatar();
           location.reload()
         }
       }).catch((err) => {
@@ -584,6 +585,10 @@ export default {
         console.log(err);
       })
       // console.log(this.UserType)
+    },
+
+    getAvatar: function (){
+      this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
     },
 
     getTeamInformation: function (){

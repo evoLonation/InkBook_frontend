@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col
-        v-for="(o, index) in 2"
+        v-for="(o, index) in 10"
         :key="o"
         :span="8"
         :offset="index > 0 ? 2 : 0"

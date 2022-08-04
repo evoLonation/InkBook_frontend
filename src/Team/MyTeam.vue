@@ -265,21 +265,21 @@
               confirm-button-text="确认"
               cancel-button-type="取消"
               title="确认是否转让管理权限?"
-              @confirm="transPri(Mem.userId)"
+              @confirm="addMonitor(Mem.userId)"
           >
             <template #reference>
               <el-button
                   style="margin: 35px 0 auto 10px;"
                   v-if="Mem.userId !== loadingID && Mem.identity === 2"
               >
-                转让权限
+                设为管理
               </el-button>
               <el-button
                   style="margin: 35px 0 auto 10px;"
                   v-else
                   disabled
               >
-                转让权限
+                设为管理
               </el-button>
             </template>
           </el-popconfirm>

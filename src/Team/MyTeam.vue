@@ -161,7 +161,7 @@
       </div>
     </div>
     <!--<el-empty description="团队成员空空如也"/>-->
-    <el-scrollbar height="280px">
+    <el-scrollbar height="480px">
       <div
           v-for="Mem in MemList"
           :key="Mem.userId"
@@ -357,6 +357,24 @@ export default {
       //     introduction: "软工开发爱好者",
       //     isOwner: false,
       //     isMonitor: true
+      //   },
+      //   {
+      //     MemId: "004",
+      //     NickName: 'Bob',
+      //     name: "杨宇涵",
+      //     url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+      //     introduction: "喜欢后端开发",
+      //     isOwner: false,
+      //     isMonitor: false
+      //   },
+      //   {
+      //     MemId: "004",
+      //     NickName: 'Bob',
+      //     name: "杨宇涵",
+      //     url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+      //     introduction: "喜欢后端开发",
+      //     isOwner: false,
+      //     isMonitor: false
       //   },
       //   {
       //     MemId: "004",
@@ -659,9 +677,9 @@ export default {
         }
       }).then(res => {
         if(res.status === 200){
-          // console.log('get mems data.js = ');
-          // console.log(res.data)
-          // console.log(typeof (res.data.members))
+          console.log('get mems data.js = ');
+          console.log(res.data)
+          console.log(typeof (res.data.members))
           this.MemList = res.data.members;
           for(let i = 0; i < this.MemList.length; i++){
             this.MemList[i].url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.MemList[i].userId;
@@ -693,10 +711,10 @@ export default {
 <style scoped>
 #team-layout {
   width: 1000px;
-  height: 600px;
+  height: 800px;
   border: solid #DCDCDC 3px;
   border-radius: 10px;
-  margin: 30px auto auto auto;
+  margin: 0 auto auto auto;
   box-shadow: 0 0 10px 3px #DCDCDC;
   background-color: white;
 }

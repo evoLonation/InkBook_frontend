@@ -1,5 +1,10 @@
 <template>
-  <div style="width: 1200px;margin-left: auto;margin-right: auto;margin-top: 30px;">
+  <div style="
+    width: 1000px;
+    margin-left: 30px;
+    margin-right: auto;
+    margin-top: 80px;"
+  >
     <el-card shadow="always" :body-style="{ padding: '0 0 0 0 ' }">
       <div v-if="isOwner === true" >
         <el-tabs v-model="cardSite" type="border-card" @tab-click="clean">

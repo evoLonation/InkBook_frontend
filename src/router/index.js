@@ -22,16 +22,24 @@ const routes = [
         name: 'Welcome',
         component: () => import('../components/Welcome.vue')
     },
-    {
-        path: '/topTable',
-        name: 'TopTable',
-        component: () => import('../views/Table/TopTable')
-    },
+
     {
         path: '/table',
         name: 'Table',
         component: () => import('../views/Table/SideTable'),
         children: [
+            {
+                path: '/topTable',
+                name: 'TopTable',
+                component: () => import('../views/Table/TopTable'),
+                children: [
+                    {
+                        path: "/document/list",
+                        name: "DocumentList",
+                        component: () => import('../views/document/list.vue')
+                    },
+                ]
+            },
             {
                 path: 'userInfo/:userId?',
                 name: 'UserInfo',
@@ -70,7 +78,8 @@ const routes = [
                 path: 'graph/create',
                 name: 'createGraph',
                 component: () => import('../project/Manage/AddSee')
-            }
+            },
+
         ],
     },
 
@@ -90,11 +99,7 @@ const routes = [
 
 
     //文档相关
-    {
-        path: "/document/list",
-        name: "DocumentList",
-        component: () => import('../views/document/list.vue')
-    },
+
     {
         path: "/document/edit/:docId",
         name: "DocumentEdit",
@@ -107,6 +112,13 @@ const routes = [
         name: "teamInvite",
         component: () => import('../Team/TeamInvite')
     },
+
+    // 重新安排项目界面布局
+    {
+        path: '/adjust',
+        name: 'adjust',
+        component: () => import('../views/project/projectList')
+    }
 ];
 
 const router = createRouter({

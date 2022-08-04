@@ -18,7 +18,7 @@
       </el-button>
     </div>
     <div id="team-list">
-      <el-scrollbar height="430px">
+      <el-scrollbar height="630px">
         <div
             v-for="(team, index) in teamList"
              :key="team.teamId"
@@ -79,6 +79,36 @@
         //     name: "CTS",
         //     url: '',
         //     introduction: "CTS 很简单的啦 java助教说话又好听"
+        //   },
+        //   {
+        //     teamId: "00128",
+        //     name: "软工",
+        //     url: '',
+        //     introduction: "金刚石文档"
+        //   },
+        //   {
+        //     teamId: "00128",
+        //     name: "软工",
+        //     url: '',
+        //     introduction: "金刚石文档"
+        //   },
+        //   {
+        //     teamId: "00128",
+        //     name: "软工",
+        //     url: '',
+        //     introduction: "金刚石文档"
+        //   },
+        //   {
+        //     teamId: "00128",
+        //     name: "软工",
+        //     url: '',
+        //     introduction: "金刚石文档"
+        //   },
+        //   {
+        //     teamId: "00128",
+        //     name: "软工",
+        //     url: '',
+        //     introduction: "金刚石文档"
         //   },
         //   {
         //     teamId: "00128",
@@ -152,10 +182,10 @@
 <style scoped>
 #list-layout {
   width: 1000px;
-  height: 600px;
+  height: 800px;
   border: solid #DCDCDC 3px;
   border-radius: 10px;
-  margin: 30px auto auto auto;
+  margin: 0 auto auto auto;
   box-shadow: 0 0 10px 3px #DCDCDC;
   background-color: white;
 }

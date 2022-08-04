@@ -1,77 +1,81 @@
 <template>
-<!--  操作栏，目前只有新建功能-->
-  <div style="margin: 25px 0 35px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
-    <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
-      <el-button type="primary" style="margin-top: 0; float: right; margin-right: 20px" icon="Plus">
-        <span style="vertical-align: middle" @click="createVisible=true" >新建项目</span>
-      </el-button>
-    </el-menu>
-  </div>
-<!--  项目列表，卡片形式-->
-  <el-row>
-    <el-col
-        :span="8"
-        v-for="i in projects.length"
-        :key="projects[i-1]"
-        :offset="i > 0 ? 2 : 0">
-      <el-card :body-style="{ padding: '0px' }" shadow="hover">
-        <img
-            src="require({{projects[i-1].imageUrl}})"
-            class="image"
-         alt=""/>
-        <div style="padding: 14px;">
-          <span>{{projects[i-1].name}}</span>
-          <div class="bottom">
-            <text class="text">{{ projects[i-1].detail }}</text>
-            <el-button type="primary" class="button" @click="openProject">进入</el-button>
-<!--            删除项目对话框-->
-            <el-popconfirm
-                confirmButtonText="确定"
-                cancelButtonText="取消"
-                icon="el-icon-info"
-                iconColor="red"
-                title="确定删除该项目吗？"
-                @confirm="curProjectId=projects[i-1].id; deleteProject()">
-              <template #reference>
-                <el-button type="important" class="button">删除</el-button>
-              </template>
-            </el-popconfirm>
-            <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id">编辑</el-button>
+  <div
+    style="width: 1000px"
+  >
+    <!--  操作栏，目前只有新建功能-->
+    <div style="margin: 25px 0 35px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
+      <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
+        <el-button type="success" style="margin-top: 0; float: right; margin-right: 20px" icon="Plus" >
+          <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
+        </el-button>
+      </el-menu>
+    </div>
+    <!--  项目列表，卡片形式-->
+    <el-row>
+      <el-col
+          :span="8"
+          v-for="i in projects.length"
+          :key="projects[i-1]"
+          :offset="i > 0 ? 2 : 0">
+        <el-card :body-style="{ padding: '0px' }" style="width: 300px" shadow="hover">
+          <img
+              src="require({{projects[i-1].imageUrl}})"
+              class="image"
+           alt=""/>
+          <div style="padding: 14px;">
+            <span>{{projects[i-1].name}}</span>
+            <div class="bottom">
+              <text class="text">{{ projects[i-1].detail }}</text>
+              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; openProject(projects[i-1].name)">进入</el-button>
+    <!--            删除项目对话框-->
+              <el-popconfirm
+                  confirmButtonText="确定"
+                  cancelButtonText="取消"
+                  icon="el-icon-info"
+                  iconColor="red"
+                  title="确定删除该项目吗？"
+                  @confirm="curProjectId=projects[i-1].id; deleteProject()">
+                <template #reference>
+                  <el-button type="danger" style="width: 50px" class="button">删除</el-button>
+                </template>
+              </el-popconfirm>
+              <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id">编辑</el-button>
+            </div>
           </div>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
-<!--  新建项目对话框-->
-  <el-dialog
-      title="新建项目"
-      v-model="createVisible"
-      width="30%">
-    <span>请输入项目信息</span>
-    <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
-    <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
-    <template #footer>
-    <span class="dialog-footer">
-      <el-button @click="createVisible = false">取 消</el-button>
-      <el-button type="primary" @click="createVisible = false; createProject(input, input2); input=input2=''">确 定</el-button>
-    </span>
-    </template>
-  </el-dialog>
-<!--  重命名项目对话框-->
-  <el-dialog
-      title="重命名项目"
-      v-model="renameVisible"
-      width="30%">
-    <span>请输入新的项目名字</span>
-    <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
-    <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
-    <template #footer>
-    <span class="dialog-footer">
-      <el-button @click="renameVisible = false">取 消</el-button>
-      <el-button type="primary" @click="renameVisible = false; renameProject(input, input2); input=input2=''">确 定</el-button>
-    </span>
-    </template>
-  </el-dialog>
+        </el-card>
+      </el-col>
+    </el-row>
+    <!--  新建项目对话框-->
+    <el-dialog
+        title="新建项目"
+        v-model="createVisible"
+        width="30%">
+      <span>请输入项目信息</span>
+      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
+      <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="createVisible = false">取 消</el-button>
+        <el-button type="primary" @click="createVisible = false; createProject(input, input2); input=input2=''">确 定</el-button>
+      </span>
+      </template>
+    </el-dialog>
+    <!--  重命名项目对话框-->
+    <el-dialog
+        title="重命名项目"
+        v-model="renameVisible"
+        width="30%">
+      <span>请输入新的项目名字</span>
+      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
+      <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="renameVisible = false">取 消</el-button>
+        <el-button type="primary" @click="renameVisible = false; renameProject(input, input2); input=input2=''">确 定</el-button>
+      </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -206,7 +210,11 @@ export default {
         console.log(err);
       })
     },
-    openProject(){
+    openProject(name){
+      this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: name})
+      this.$router.push({
+        name: 'TopTable'
+      })
       ElMessage('路由跳转到项目页')
     },
     //删除项目接口函数

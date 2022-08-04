@@ -10,7 +10,7 @@
     </el-button>
   </div>
   <el-row
-      style="z-index: 2; float: left; top: -550px"
+      style="z-index: 2; float: left; top: -550px; bottom: -550px"
   >
     <div
         v-for="o in 10"

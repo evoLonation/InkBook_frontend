@@ -22,16 +22,24 @@ const routes = [
         name: 'Welcome',
         component: () => import('../components/Welcome.vue')
     },
-    {
-        path: '/topTable',
-        name: 'TopTable',
-        component: () => import('../views/Table/TopTable')
-    },
+
     {
         path: '/table',
         name: 'Table',
         component: () => import('../views/Table/SideTable'),
         children: [
+            {
+                path: '/topTable',
+                name: 'TopTable',
+                component: () => import('../views/Table/TopTable'),
+                children: [
+                    {
+                        path: "/document/list",
+                        name: "DocumentList",
+                        component: () => import('../views/document/list.vue')
+                    },
+                ]
+            },
             {
                 path: 'userInfo/:userId?',
                 name: 'UserInfo',
@@ -91,11 +99,7 @@ const routes = [
 
 
     //文档相关
-    {
-        path: "/document/list",
-        name: "DocumentList",
-        component: () => import('../views/document/list.vue')
-    },
+
     {
         path: "/document/edit/:docId",
         name: "DocumentEdit",

@@ -14,6 +14,11 @@ export default new createStore({
                 teamId : "",
                 teamName: "",
             },
+            isSelectProject: false,
+            selectProject: {
+                proId : "",
+                proName: "",
+            },
         };
     },
     mutations: {
@@ -34,15 +39,20 @@ export default new createStore({
             state.selectTeam.teamId = team.teamId;
             state.selectTeam.teamName = team.teamName;
         },
+        selectProject(state, project) {
+            state.isSelectProject = true;
+            state.selectProject.proId = project.proId;
+            state.selectProject.proName = project.proName;
+        },
         init(state){
-            state.isLogin = localStorage.getItem('isLogin');
-            let localLoginUser = localStorage.getItem('loginUser');
+            // state.isLogin = localStorage.getItem('isLogin');
+            // let localLoginUser = localStorage.getItem('loginUser');
             // state.loginUser = localStorage.getItem('loginUser');
-            if(localLoginUser !== null){
-                state.loginUser = JSON.parse(localLoginUser);
-            }
-            console.log("完成初始化，全局状态为：");
-            console.log(state.isLogin);
+            // if(localLoginUser !== null){
+            //     state.loginUser = JSON.parse(localLoginUser);
+            // }
+            // console.log("完成初始化，全局状态为：");
+            // console.log(state.isLogin);
         }
     },
     actions: {

@@ -393,6 +393,7 @@ export default {
             }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
 
       // 修改团队简介
@@ -408,6 +409,7 @@ export default {
             }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -428,6 +430,7 @@ export default {
         }
       }).catch(err => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -451,6 +454,7 @@ export default {
         }
       }).catch(err => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -481,6 +485,7 @@ export default {
         }
       }).catch((err) => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       });
     },
 
@@ -509,6 +514,7 @@ export default {
         }
       }).catch(err=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -526,6 +532,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -543,6 +550,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -561,6 +569,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 
@@ -583,6 +592,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
       // console.log(this.UserType)
     },
@@ -610,6 +620,7 @@ export default {
         }
       }).catch(err => {
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
 
       // 获取团队图像信息
@@ -639,6 +650,7 @@ export default {
         }
       }).catch(err=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
 
       this.$axios.get("team/member", {
@@ -657,6 +669,7 @@ export default {
         }
       }).catch((err)=>{
         console.log(err);
+        this.$message.error(err.response.data.msg);
       })
     },
 

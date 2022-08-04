@@ -127,6 +127,7 @@
           }
         }).catch(err=>{
           console.log(err);
+          this.$message.error(err.response.data.msg);
         })
       }else{
         this.$axios.get("team/search", {
@@ -141,6 +142,7 @@
           }
         }).catch(err=>{
           console.log(err);
+          this.$message.error(err.response.data.msg);
         })
       }
     }

@@ -113,7 +113,7 @@ export default {
 #creation {
   width: 600px;
   height: 600px;
-  margin: auto auto auto auto;
+  margin: 50px auto auto 200px;
   /*border: solid;*/
 }
 

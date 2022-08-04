@@ -70,7 +70,8 @@ const routes = [
                 path: 'graph/create',
                 name: 'createGraph',
                 component: () => import('../project/Manage/AddSee')
-            }
+            },
+
         ],
     },
 
@@ -107,6 +108,13 @@ const routes = [
         name: "teamInvite",
         component: () => import('../Team/TeamInvite')
     },
+
+    // 重新安排项目界面布局
+    {
+        path: '/adjust',
+        name: 'adjust',
+        component: () => import('../views/project/projectList')
+    }
 ];
 
 const router = createRouter({

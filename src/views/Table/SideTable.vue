@@ -28,8 +28,11 @@
             </el-menu-item>
 
             <el-menu-item class="abc" index="2" >
-              <img src="../../assets/logo.png" style="width: 20px; margin-right: 10px">
-              <template #title><span @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">我的昵称</span></template>
+
+              <img :src="this.url" style="width: 20px; margin-right: 10px"
+                   @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">
+              <template #title><span>{{this.$store.state.loginUser.nickname}}</span></template>
+
             </el-menu-item>
 
             <el-menu-item class="abc" index="3" >
@@ -169,21 +172,9 @@ export default {
       console.log(key, keyPath);
     },
     getAvatar: function (){
-      // console.log('get avatar')
-      // this.$axios.get("user/get-avatar", {
-      //   params:{
-      //     userId: this.userId,
-      //   }
-      // }).then((response)=>{
-      //   if (response.status === 200){
-      //     console.log(response.data)
-      //     if (response.data.code === 0){
-      //       this.url = response.data.url;
-      //     }else console.log("用户头像获取错误");
-      //   }else console.log("请求返回status不为200")
-      // }).catch((err)=>{
-      //   console.log(err);
-      // });
+      console.log('get avatar')
+      this.url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.userId;
+      console.log(this.url)
     },
   },
   created(){

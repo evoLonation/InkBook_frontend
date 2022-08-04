@@ -6,8 +6,7 @@
     margin-top: 80px;"
   >
     <el-card shadow="always" :body-style="{ padding: '0 0 0 0 ' }">
-<!--      <div v-if="isOwner === true" >-->
-      <div>
+      <div v-if="isOwner === true" >
         <el-tabs v-model="cardSite" type="border-card" @tab-click="clean">
           <el-tab-pane label="个人信息" name="1">
 
@@ -162,51 +161,51 @@
             </div>
 
           </el-tab-pane>
-
         </el-tabs>
       </div>
 
-<!--      <div v-if="isOwner === false">-->
-<!--     -->
-<!--        <div style="width: 80%; margin: 60px auto">-->
-<!--          <input type="file"-->
-<!--                 ref="clearFile"-->
-<!--                 style="display:none"-->
-<!--                 @change="upload($event)"/>-->
-<!--          <el-avatar :size="200" style="float: left;" >-->
-<!--            <template #default>-->
-<!--              <el-avatar :size="195" :src="url"/>-->
-<!--            </template>-->
-<!--          </el-avatar>-->
-<!--          <el-form-->
-<!--              label-position="Right"-->
-<!--              label-width="100px"-->
-<!--              style="-->
-<!--              max-width: 100%;-->
-<!--              margin: 20px;-->
-<!--            ">-->
-<!--            <el-form-item label="用户名：">-->
-<!--              {{ userId }}-->
-<!--            </el-form-item>-->
+      <div v-else>
 
-<!--            <el-form-item label="用户昵称：">-->
-<!--              {{ nickName }}-->
-<!--            </el-form-item>-->
+        <div style="width: 80%; margin: 60px auto">
+          <input type="file"
+                 ref="clearFile"
+                 style="display:none"
+                 @change="upload($event)"/>
+          <el-avatar :size="220" style="float: left; " @click="changeImg">
+            <template #default>
+              <el-avatar :size="195" :src="url"/>
+            </template>
+          </el-avatar>
+          <el-form
+              label-position="Right"
+              label-width="100px"
+              style="
+              max-width: 100%;
+              margin: 20px;
+            ">
+            <el-form-item label="用户名：">
+              {{ userId }}
+            </el-form-item>
 
-<!--            <el-form-item label="邮箱：">-->
-<!--              {{ email }}-->
-<!--            </el-form-item>-->
+            <el-form-item label="用户昵称：">
+              {{ nickName }}
+            </el-form-item>
 
-<!--            <el-form-item label="用户简介：">-->
-<!--              {{ introduction }}-->
-<!--            </el-form-item>-->
-<!--          </el-form>-->
+            <el-form-item label="真实姓名：">
+              {{ realName }}
+            </el-form-item>
 
-<!--          <el-button type="success" @click="goTable" style="margin-left: 300px">-->
-<!--            进入TA的工作台-->
-<!--          </el-button>-->
-<!--        </div>-->
-<!--      </div>-->
+            <el-form-item label="邮箱：">
+              {{ email }}
+            </el-form-item>
+
+            <el-form-item label="用户简介：">
+              {{ introduction }}
+            </el-form-item>
+          </el-form>
+
+        </div>
+      </div>
     </el-card>
 
 
@@ -303,8 +302,8 @@ export default {
         if(response.status === 200){
           ElMessage("上传成功！");
           console.log(response.data);
-          this.getAvatar();
           location.reload();
+          this.getAvatar();
         }else ElMessage({message: response.data.msg, type: 'warning'});
       }).catch((err)=>{
         console.log(err);
@@ -338,6 +337,7 @@ export default {
         if (res.status === 200){
             ElMessage("修改昵称成功！");
             this.nickName = this.c_nickName;
+          this.$store.commit({type: 'login', userId: this.userId, nickname: this.nickName})
         }else ElMessage({message: res.data.msg, type: 'warning'});
       }).catch((err)=>{
         console.log(err);

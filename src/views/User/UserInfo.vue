@@ -157,7 +157,6 @@
             </div>
 
           </el-tab-pane>
-
         </el-tabs>
       </div>
 
@@ -333,6 +332,7 @@ export default {
         if (res.status === 200){
             ElMessage("修改昵称成功！");
             this.nickName = this.c_nickName;
+          this.$store.commit({type: 'login', userId: this.userId, nickname: this.nickName})
         }else ElMessage({message: res.data.msg, type: 'warning'});
       }).catch((err)=>{
         console.log(err);

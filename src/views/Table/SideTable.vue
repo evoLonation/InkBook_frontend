@@ -28,14 +28,11 @@
             </el-menu-item>
 
             <el-menu-item class="abc" index="2" >
-<<<<<<< HEAD
+
               <img :src="this.url" style="width: 20px; margin-right: 10px"
                    @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">
               <template #title><span>{{this.$store.state.loginUser.nickname}}</span></template>
-=======
-              <img src="../../assets/logo.png" style="width: 20px; margin-right: 10px">
-              <template #title><span @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">我的昵称</span></template>
->>>>>>> 9a5d461e8fa20fdef1775b4a946e0f64a355b8f7
+
             </el-menu-item>
 
             <el-menu-item class="abc" index="3" >

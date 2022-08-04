@@ -1,8 +1,7 @@
 <template>
   <div style="width: 1200px;margin-left: auto;margin-right: auto;margin-top: 30px;">
     <el-card shadow="always" :body-style="{ padding: '0 0 0 0 ' }">
-<!--      <div v-if="isOwner === true" >-->
-      <div>
+      <div v-if="isOwner === true" >
         <el-tabs v-model="cardSite" type="border-card" @tab-click="clean">
           <el-tab-pane label="个人信息" name="1">
 
@@ -160,47 +159,48 @@
         </el-tabs>
       </div>
 
-<!--      <div v-if="isOwner === false">-->
-<!--     -->
-<!--        <div style="width: 80%; margin: 60px auto">-->
-<!--          <input type="file"-->
-<!--                 ref="clearFile"-->
-<!--                 style="display:none"-->
-<!--                 @change="upload($event)"/>-->
-<!--          <el-avatar :size="200" style="float: left;" >-->
-<!--            <template #default>-->
-<!--              <el-avatar :size="195" :src="url"/>-->
-<!--            </template>-->
-<!--          </el-avatar>-->
-<!--          <el-form-->
-<!--              label-position="Right"-->
-<!--              label-width="100px"-->
-<!--              style="-->
-<!--              max-width: 100%;-->
-<!--              margin: 20px;-->
-<!--            ">-->
-<!--            <el-form-item label="用户名：">-->
-<!--              {{ userId }}-->
-<!--            </el-form-item>-->
+      <div v-else>
 
-<!--            <el-form-item label="用户昵称：">-->
-<!--              {{ nickName }}-->
-<!--            </el-form-item>-->
+        <div style="width: 80%; margin: 60px auto">
+          <input type="file"
+                 ref="clearFile"
+                 style="display:none"
+                 @change="upload($event)"/>
+          <el-avatar :size="220" style="float: left; " @click="changeImg">
+            <template #default>
+              <el-avatar :size="195" :src="url"/>
+            </template>
+          </el-avatar>
+          <el-form
+              label-position="Right"
+              label-width="100px"
+              style="
+              max-width: 100%;
+              margin: 20px;
+            ">
+            <el-form-item label="用户名：">
+              {{ userId }}
+            </el-form-item>
 
-<!--            <el-form-item label="邮箱：">-->
-<!--              {{ email }}-->
-<!--            </el-form-item>-->
+            <el-form-item label="用户昵称：">
+              {{ nickName }}
+            </el-form-item>
 
-<!--            <el-form-item label="用户简介：">-->
-<!--              {{ introduction }}-->
-<!--            </el-form-item>-->
-<!--          </el-form>-->
+            <el-form-item label="真实姓名：">
+              {{ realName }}
+            </el-form-item>
 
-<!--          <el-button type="success" @click="goTable" style="margin-left: 300px">-->
-<!--            进入TA的工作台-->
-<!--          </el-button>-->
-<!--        </div>-->
-<!--      </div>-->
+            <el-form-item label="邮箱：">
+              {{ email }}
+            </el-form-item>
+
+            <el-form-item label="用户简介：">
+              {{ introduction }}
+            </el-form-item>
+          </el-form>
+
+        </div>
+      </div>
     </el-card>
 
 

@@ -95,7 +95,7 @@ export default {
             if(res.status === 200){
               this.$message.success(res.data.msg);
               this.TeamId = res.data.teamId;
-              this.$router.push();
+              this.$router.push({name: "teamList", params: {key: ''}});
             }
             else{
               this.$message.error("其他错误！");

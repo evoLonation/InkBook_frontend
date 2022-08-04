@@ -64,8 +64,23 @@ const routes = [
                 name: 'teamProject',
                 component: () => import('../views/project/projectList.vue')
             },
+
+            // UML与原型构建相关
+            {
+                path: 'graph/create',
+                name: 'createGraph',
+                component: () => import('../project/Manage/AddSee')
+            }
         ],
     },
+
+    // 团队搜索转发
+    {
+        path: '/team/block/:key?',
+        name: "teamBlock",
+        component: () => import('../Team/BlockSearch')
+    },
+
     // {
     //     path: '/userInfo/:userId?',
     //     name: 'UserInfo',
@@ -94,7 +109,7 @@ const routes = [
 
     // 团队邀请相关
     {
-        path: "/invite",
+        path: "/team/invite",
         name: "teamInvite",
         component: () => import('../Team/TeamInvite')
     },

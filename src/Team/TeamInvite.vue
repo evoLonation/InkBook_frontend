@@ -205,7 +205,7 @@ export default {
     }
   },
   created() {
-    this.TeamId = 1;
+    this.TeamId = 2;
     this.getTeamInformation();
   }
 }

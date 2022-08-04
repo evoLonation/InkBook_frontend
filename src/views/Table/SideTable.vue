@@ -49,7 +49,7 @@
 
             <el-menu-item index="4" >
               <el-icon><Avatar /></el-icon>
-              <template #title><span>团队</span></template>
+              <template #title><span @click="this.$router.push({name: 'teamList', params: {key: ''}})">团队</span></template>
             </el-menu-item>
 
           </el-menu>

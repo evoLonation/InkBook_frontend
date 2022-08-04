@@ -27,7 +27,7 @@
             <span>{{projects[i-1].name}}</span>
             <div class="bottom">
               <text class="text">{{ projects[i-1].detail }}</text>
-              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; curProjectName= projects[i].name; openProject()">进入</el-button>
+              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()">进入</el-button>
     <!--            删除项目对话框-->
               <el-popconfirm
                   confirmButtonText="确定"
@@ -92,6 +92,7 @@ export default {
     }
   },
   mounted() {
+
     this.getProject()
   },
   data() {
@@ -120,22 +121,35 @@ export default {
   methods: {
     //获取项目列表接口函数
     getProject(){
-      this.$axios.get('/project/list-team', {
-        params: {
-          teamId: this.teamId,
-        }
-      }).then((response) => {
-        if (response.status === 200) {
+      console.log('get project......')
+      if(this.$store.state.isSelectTeam){
+        this.$axios.get('/project/list-team', {
+          params: {
+            teamId: this.$store.state.selectTeam.teamId
+          }
+        }).then((response) => {
+            this.projects = response.data.projects
+            console.log(response.data.msg)
+            console.log(this.projects)
+        }).catch((err) => {
+          console.log(err);
+          ElMessage('列表获取失败')
+        })
+      }else{
+        this.$axios.get('/project/list-user', {
+          params: {
+            userId: this.$store.state.loginUser.userId
+          }
+        }).then((response) => {
           this.projects = response.data.projects
           console.log(response.data.msg)
           console.log(this.projects)
-        }
-        else {
+        }).catch((err) => {
+          console.log(err);
           ElMessage('列表获取失败')
-        }
-      }).catch((err) => {
-        console.log(err);
-      })
+        })
+      }
+
     },
     //创建项目接口函数
     createProject(name, detail, imgUrl){
@@ -149,7 +163,7 @@ export default {
       this.$axios.post("/project/create", {
         "name": name,
         "userId": userId,
-        "teamId": this.teamId,
+        "teamId":  this.$store.state.selectTeam.teamId,
         "detail": detail,
         "imgUrl": 'https://img.nga.178.com/attachments/mon_202207/05/m6Q2q-rl1ZcT3cSk4-sg.jpg',
       }).then((response) => {

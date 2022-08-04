@@ -1,7 +1,4 @@
 <template>
-  <button @click="insert"></button>
-  <button @click="getSelected" >getLocation</button>
-  <button @click="getSelection" >getSelection</button>
 
   <div id = "top">
     <div >
@@ -14,6 +11,7 @@
       />
     </div>
   </div>
+
   <div id="content">
     <div id="editor-container">
       <div id="title-container">
@@ -29,6 +27,7 @@
       />
     </div>
   </div>
+  <el-button @click="postSave">保存文档</el-button>
   <p></p>
 </template>
 
@@ -84,7 +83,7 @@ export default {
       if (editor == null) return
       editor.destroy()
     }
-    let mode = ref('default')
+    const mode = ref('default')
     const toolbarConfig = {
       excludeKeys: 'fullScreen',
     }
@@ -95,7 +94,7 @@ export default {
         uploadImage: {
           server: 'http://localhost/api/document/img',
           async customUpload(file, insertFn) {
-            let form = new FormData();
+            const form = new FormData();
             form.append("file",file);
             axios.post("document/img", form).then((response)=>{
                 console.log(response.data);
@@ -127,6 +126,7 @@ export default {
 
     /** 文档内容获取保存同步相关 */
     const setContent = (data) => {
+      console.log(editorRef.value)
       editorRef.value.children = data
       editorRef.value.updateView()
     }
@@ -150,16 +150,24 @@ export default {
      * 初始时获得文档内容
      */
     const initializeContent = () => {
-      axios.get('document/get', {
-        params: {
-          docId : route.params.docId,
-        }
+      axios.post('document/apply-edit', {
+        userId: store.state.loginUser.userId,
+        docId : parseInt(route.params.docId),
       }).then(res => {
+        console.log('res.data.content : '+ res.data.content)
+        if(res.data.content === null) {
+          console.log("res.data.content is empty!")
+          return
+        }
         setContent(res.data.content)
       }).catch(err => {
+        console.log(err)
         if(err.response.status === 409){
-          let data = getData(getContentPath())
+          const data = getData(getContentPath())
           setContent(data)
+        }else{
+          console.log('获取文档存在其他错误')
+          console.log(err.response)
         }
       })
     }
@@ -170,9 +178,9 @@ export default {
     const setUpdate = () => {
       needUpdate.value = true
     }
-    let intervalId ;
+    let intervalUpdateId ;
     const intervalUpdate = () => {
-      intervalId = setInterval(() => {
+      intervalUpdateId = setInterval(() => {
         if(!needUpdate.value) return;
         needUpdate.value = false
         writeData(getPath(), {
@@ -182,7 +190,7 @@ export default {
       }, 1000)
     }
     const destroyIntervalUpdate = () => {
-      clearInterval(intervalId)
+      clearInterval(intervalUpdateId)
     }
     /**
      * 实时获取最新内容
@@ -194,7 +202,56 @@ export default {
         setContent(data.content)
       })
     }
-
+    /**
+     * 编辑状态定时申请
+     */
+    let intervalEditId ;
+    const intervalEdit = () => {
+      intervalEditId = setInterval(() => {
+        console.log({
+          "userId" : store.state.loginUser.userId,
+          "docId" : parseInt(route.params.docId)
+        })
+        axios.post('document/apply-edit',
+        {
+          "userId" : store.state.loginUser.userId,
+          "docId" : parseInt(route.params.docId)
+        }).then().catch(err => {
+          if(err.response.status !== 409) ElMessage({message:'申请编辑失败',type:'warning'})
+        })
+      }, 2500)
+    }
+    const destroyIntervalEdit = () => {
+      clearInterval(intervalEditId)
+    }
+    const postSave = () => {
+      console.log('will save')
+      console.log(getContent())
+      axios.post('document/save',
+          {
+            "userId" : store.state.loginUser.userId,
+            "docId" : route.params.docId,
+            "content" : getContent()
+          }
+      ).then(res => {
+        ElMessage({message: res.data.msg, type: 'success'})
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message: err.response.data.msg, type: 'warning'})
+      })
+    }
+    const postQuitEdit = () => {
+      axios.post('document/exit',
+        {
+          "userId" : store.state.loginUser.userId,
+          "docId" : route.params.docId
+        }
+      ).then(res => {
+        if(res.data.remain === 0){
+          postSave()
+        }
+      })
+    }
 
 
 
@@ -203,10 +260,12 @@ export default {
     const handleCreated = (editor) => {
       console.log("编辑器创建成功");
       editorRef.value = editor // 记录 editor 实例，重要！
-      console.log(editorRef.value)
+      console.log(editorRef.value.children)
       initializeContent()
       intervalUpdate()
+      setUpdate()
       getUpdate()
+      intervalEdit()
     };
     const onChange = () => {
       setUpdate()
@@ -214,6 +273,8 @@ export default {
     onBeforeUnmount(() => {
       destroyEditor()
       destroyIntervalUpdate()
+      destroyIntervalEdit()
+      postQuitEdit()
     })
 
     return {
@@ -223,7 +284,8 @@ export default {
       toolbarConfig,
       editorConfig,
       handleCreated,
-      onChange
+      onChange,
+      postSave
     };
   },
 }

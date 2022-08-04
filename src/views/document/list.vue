@@ -1,28 +1,40 @@
 <template>
-  <div><el-button @click="dialogVisible = true">创建文档</el-button></div>
-  <div style="margin: 15px 0 5px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
+  <div style="position: absolute;top: 120px;z-index: 9;width: 100%;background-color: white;">
+    <div ><el-button @click="dialogVisible = true" >创建文档</el-button></div>
+    <div style="margin: 15px 0 5px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
+    </div>
+    <div style="height: 610px;">
+      <el-table :data="tableData" stripe
+                element-loading-text="少女折寿中"
+                style="width:100%;margin-top: 0;"
+                height="100%"
+                :row-style="{height: '0'}"
+                :cell-style="{padding: '20px'}"
+                highlight-current-row
+                @row-dblclick="dbClick">
+        <el-table-column sortable prop="docName" label="文件名" width="400"></el-table-column>
+        <el-table-column sortable prop="modifyInfo" label="修改信息" width="350"></el-table-column>
+        <el-table-column width="50" label="">
+          <template #default="scope">
+            <!--          <el-button text>-->
+            <el-popconfirm
+                confirmButtonText="确定"
+                cancelButtonText="取消"
+                icon="el-icon-info"
+                iconColor="red"
+                title="确定删除该项目吗？"
+                @confirm="sendDeleteDoc(scope.row.docId);sendListDoc()">
+              <template #reference>
+                <el-icon><Delete /></el-icon>
+              </template>
+            </el-popconfirm>
+            <!--          </el-button>-->
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
-  <div style="height: 610px;">
-    <el-table :data="tableData" stripe
-              element-loading-text="少女折寿中"
-              style="width:100%;margin-top: 0;"
-              height="100%"
-              :row-style="{height: '0'}"
-              :cell-style="{padding: '20px'}"
-              highlight-current-row
-              @row-dblclick="dbClick"
-              @cell-mouse-enter="recordId">
-      <el-table-column sortable prop="docName" label="文件名" width="400"></el-table-column>
-      <el-table-column sortable prop="modifyInfo" label="修改信息" width="350"></el-table-column>
-      <el-table-column width="50" label="">
-        <template #default="scope">
-          <el-button text>
-<!--            <el-icon><Delete /></el-icon>-->
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+
 <!--  <index v-if="menuVisible" @foo="foo" ref="contextButton" :spaceType="spaceType" :other="other"-->
 <!--         @_export="_export" @share="showShare('默认文件名')" @edit="edit" @disCollect="disCollect"-->
 <!--         data.js-popper-placement="top"></index>-->
@@ -30,7 +42,7 @@
       title=""
       v-model="dialogVisible"
       width="30%"
-      :before-close="handleClose"
+      :before-close="newDocName = ''"
   >
     <div class="confirm">
       <div class="confirm-wrapper">
@@ -43,8 +55,8 @@
                 <el-input v-model="newDocName" placeholder="文档名称" style=" !important;margin-left: 20px;margin-right: 0;"></el-input>
               </el-form-item>
             </el-form>
-            <el-button type="primary" style="bottom: 30px; left: 100px; " @click="commit"><span>确定</span></el-button>
-            <el-button type="primary" style="bottom: 30px; right: 100px; " @click="hide"><span>取消</span></el-button>
+            <el-button type="primary" style="bottom: 30px; left: 100px; " @click="createClick"><span>确定</span></el-button>
+            <el-button type="primary" style="bottom: 30px; right: 100px; " @click="dialogVisible=false"><span>取消</span></el-button>
           </div>
         </div>
       </div>
@@ -84,6 +96,12 @@ export default {
     dbClick(row) {
       this.goEdit(row.docId)
     },
+    createClick() {
+      this.sendCreateDoc().then(docId => {
+        this.goEdit(docId)
+      })
+
+    },
     goEdit(docId) {
       this.$router.push({
         name: "DocumentEdit",
@@ -94,41 +112,47 @@ export default {
     },
     async sendCreateDoc() {
       let ret;
-      await this.axios.post("document/create",{
-        "name" : this.newDocName ,
-        //todo get from store
-        "creatorId" : "创建者id" ,
-        "teamId" : "团队Id" ,
+      await this.axios.post("document/create", {
+        "name": this.newDocName,
+        "creatorId": this.$store.state.loginUser.userId,
+        "projectId": this.$store.state.selectProject.proId,
       }).then((res) => {
-        if(res.status !== 200){
+        if (res.status !== 200) {
           ElMessage({message: res.data.msg, type: 'warning'});
-        }else {
+        } else {
           ret = res.data.docId;
         }
+      }).catch(err => {
+        ElMessage({message: err.response.data.msg, type: 'warning'});
       })
+      console.log('new doc has create, id is ' + ret)
       return ret;
     },
     sendListDoc() {
       this.axios.get("document/list",{
-        "projectId" : this.$store.state.selectProject.proId,
+        params:{
+          "projectId" : this.$store.state.selectProject.proId,
+        }
       }).then((res) => {
         this.tableData = res.data.docList;
       }).catch(err => {
         ElMessage({message: err.response.data.msg, type: 'warning'});
       })
     },
-    async sendDeleteDoc(docId){
-      let isSuccess = true;
-      await this.axios.get("document/remove",{
-        "dcoId" : docId,
+    sendDeleteDoc(docId){
+      console.log('will delete docId is ' + docId)
+      this.axios.post("document/complete-delete",{
+        "docId" : docId,
       }).then((res) => {
-        if(res.status !== 200){
-          ElMessage({message: res.data.msg, type: 'warning'});
-          isSuccess = false;
-        }
+        ElMessage({message: '删除文档成功', type: 'success'});
+      }).catch(err => {
+        console.log(err.response)
+        ElMessage({message: err.response.data.msg, type: 'warning'});
       })
-      return isSuccess;
     },
+  },
+  mounted() {
+    this.sendListDoc()
   }
 }
 </script>

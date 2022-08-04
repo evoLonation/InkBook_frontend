@@ -54,7 +54,7 @@
 <script lang="ts">
 import {defineComponent, inject, watch} from "vue";
 import {Cell} from "@antv/x6";
-import {nodeOpt} from "@/views/flow/components/ConfigPanel/ConfigNode/method";
+import {nodeOpt} from "@/views/project/UMLEdit/flow/components/ConfigPanel/ConfigNode/method";
 
 export default defineComponent({
   name: "index",

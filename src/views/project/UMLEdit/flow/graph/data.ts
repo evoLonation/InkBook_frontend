@@ -974,209 +974,209 @@ const graphData = {
         port: '45726225-0a03-409e-8475-07da4b8533c5',
       },
     },
-    // {
-    //   position: {
-    //     x: 660,
-    //     y: 190,
-    //   },
-    //   size: {
-    //     width: 200,
-    //     height: 60,
-    //   },
-    //   shape: 'flow-chart-animate-text',
-    //   id: '0698a6d6-4f48-42e3-ab59-5ff5713a63ea',
-    //   zIndex: 20,
-    // },
-    // {
-    //   position: {
-    //     x: 660,
-    //     y: 292,
-    //   },
-    //   size: {
-    //     width: 200,
-    //     height: 60,
-    //   },
-    //   shape: 'flow-chart-image-rect',
-    //   ports: {
-    //     groups: {
-    //       top: {
-    //         position: 'top',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //       right: {
-    //         position: 'right',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //       bottom: {
-    //         position: 'bottom',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //       left: {
-    //         position: 'left',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //     },
-    //     items: [
-    //       {
-    //         group: 'top',
-    //         id: 'a48f4c0f-fa60-4ea6-8a9c-1046a3cbf0a0',
-    //       },
-    //       {
-    //         group: 'right',
-    //         id: 'e05f9fde-c5f3-47ea-920c-a210c4fc3501',
-    //       },
-    //       {
-    //         group: 'bottom',
-    //         id: '183117cc-26d8-4241-95b4-d83d95010224',
-    //       },
-    //       {
-    //         group: 'left',
-    //         id: 'ad9ffaa5-9c34-4aa8-a311-4b58b56cd0f6',
-    //       },
-    //     ],
-    //   },
-    //   id: '229d844a-be25-414a-b044-ae3a6c63ce74',
-    //   zIndex: 21,
-    // },
-    // {
-    //   position: {
-    //     x: 660,
-    //     y: 404,
-    //   },
-    //   size: {
-    //     width: 200,
-    //     height: 68,
-    //   },
-    //   shape: 'flow-chart-title-rect',
-    //   ports: {
-    //     groups: {
-    //       top: {
-    //         position: 'top',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //       right: {
-    //         position: 'right',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //       bottom: {
-    //         position: 'bottom',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //       left: {
-    //         position: 'left',
-    //         attrs: {
-    //           circle: {
-    //             r: 3,
-    //             magnet: true,
-    //             stroke: '#5F95FF',
-    //             strokeWidth: 1,
-    //             fill: '#fff',
-    //             style: {
-    //               visibility: 'hidden',
-    //             },
-    //           },
-    //         },
-    //       },
-    //     },
-    //     items: [
-    //       {
-    //         group: 'top',
-    //         id: '739f9eec-ef8f-4f2e-b328-6b7e0793d582',
-    //       },
-    //       {
-    //         group: 'right',
-    //         id: '5786e655-df1d-419e-92e2-db91b3c4506c',
-    //       },
-    //       {
-    //         group: 'bottom',
-    //         id: 'e74c9676-4c27-474f-be96-be4568ed55d0',
-    //       },
-    //       {
-    //         group: 'left',
-    //         id: '007fa7ae-aa47-4faf-925c-779c35db4f5f',
-    //       },
-    //     ],
-    //   },
-    //   id: '4197e369-2948-4209-8e13-0dd6dedd07b4',
-    //   zIndex: 22,
-    // },
+    {
+      position: {
+        x: 660,
+        y: 190,
+      },
+      size: {
+        width: 200,
+        height: 60,
+      },
+      shape: 'flow-chart-animate-text',
+      id: '0698a6d6-4f48-42e3-ab59-5ff5713a63ea',
+      zIndex: 20,
+    },
+    {
+      position: {
+        x: 660,
+        y: 292,
+      },
+      size: {
+        width: 200,
+        height: 60,
+      },
+      shape: 'flow-chart-image-rect',
+      ports: {
+        groups: {
+          top: {
+            position: 'top',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          right: {
+            position: 'right',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          bottom: {
+            position: 'bottom',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          left: {
+            position: 'left',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+        },
+        items: [
+          {
+            group: 'top',
+            id: 'a48f4c0f-fa60-4ea6-8a9c-1046a3cbf0a0',
+          },
+          {
+            group: 'right',
+            id: 'e05f9fde-c5f3-47ea-920c-a210c4fc3501',
+          },
+          {
+            group: 'bottom',
+            id: '183117cc-26d8-4241-95b4-d83d95010224',
+          },
+          {
+            group: 'left',
+            id: 'ad9ffaa5-9c34-4aa8-a311-4b58b56cd0f6',
+          },
+        ],
+      },
+      id: '229d844a-be25-414a-b044-ae3a6c63ce74',
+      zIndex: 21,
+    },
+    {
+      position: {
+        x: 660,
+        y: 404,
+      },
+      size: {
+        width: 200,
+        height: 68,
+      },
+      shape: 'flow-chart-title-rect',
+      ports: {
+        groups: {
+          top: {
+            position: 'top',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          right: {
+            position: 'right',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          bottom: {
+            position: 'bottom',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          left: {
+            position: 'left',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+        },
+        items: [
+          {
+            group: 'top',
+            id: '739f9eec-ef8f-4f2e-b328-6b7e0793d582',
+          },
+          {
+            group: 'right',
+            id: '5786e655-df1d-419e-92e2-db91b3c4506c',
+          },
+          {
+            group: 'bottom',
+            id: 'e74c9676-4c27-474f-be96-be4568ed55d0',
+          },
+          {
+            group: 'left',
+            id: '007fa7ae-aa47-4faf-925c-779c35db4f5f',
+          },
+        ],
+      },
+      id: '4197e369-2948-4209-8e13-0dd6dedd07b4',
+      zIndex: 22,
+    },
   ],
 }
 

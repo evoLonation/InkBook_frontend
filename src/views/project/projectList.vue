@@ -13,7 +13,8 @@
     <!--  项目列表，卡片形式-->
     <el-row>
       <el-col
-          :span="8"
+          style="margin-top: 40px"
+          :span="10"
           v-for="i in projects.length"
           :key="projects[i-1]"
           :offset="i > 0 ? 2 : 0">
@@ -39,7 +40,7 @@
                   <el-button type="danger" style="width: 50px" class="button">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
+              <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
             </div>
           </div>
         </el-card>
@@ -66,8 +67,8 @@
         v-model="renameVisible"
         width="30%">
       <span>请输入新的项目信息</span>
-      <el-input style="margin-top: 10px" v-model="input" clearable></el-input>
-      <el-input type="textarea" style="margin-top: 10px" v-model="input2" clearable></el-input>
+      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称" clearable></el-input>
+      <el-input type="textarea" style="margin-top: 10px" v-model="input2" placeholder="项目简介" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="renameVisible = false;input=input2=''">取 消</el-button>

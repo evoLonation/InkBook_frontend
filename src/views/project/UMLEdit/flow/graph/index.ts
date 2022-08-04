@@ -283,8 +283,103 @@ export default class FlowGraph {
     this.stencil.load([c1, c2, c3], 'combination')
     this.stencil.load([g1], 'group')
   }
-
+  //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape() {
+    graphData.cells.push({
+      position: {
+        x: 680,
+        y: 440,
+      },
+      size: {
+        width: 200,
+        height: 68,
+      },
+      shape: 'flow-chart-title-rect',
+      ports: {
+        groups: {
+          top: {
+            position: 'top',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          right: {
+            position: 'right',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          bottom: {
+            position: 'bottom',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+          left: {
+            position: 'left',
+            attrs: {
+              circle: {
+                r: 3,
+                magnet: true,
+                stroke: '#5F95FF',
+                strokeWidth: 1,
+                fill: '#fff',
+                style: {
+                  visibility: 'hidden',
+                },
+              },
+            },
+          },
+        },
+        items: [
+          {
+            group: 'top',
+            id: '739f9eec-ef8f-4f2e-b328-6b7e0793d582',
+          },
+          {
+            group: 'right',
+            id: '5786e655-df1d-419e-92e2-db91b3c4506c',
+          },
+          {
+            group: 'bottom',
+            id: 'e74c9676-4c27-474f-be96-be4568ed55d0',
+          },
+          {
+            group: 'left',
+            id: '007fa7ae-aa47-4faf-925c-779c35db4f5f',
+          },
+        ],
+      },
+      id: '1297e369-2948-4209-8e13-0dd6dedd07b4',
+      zIndex: 50,
+    },)
     this.graph.fromJSON(graphData as any)
   }
 

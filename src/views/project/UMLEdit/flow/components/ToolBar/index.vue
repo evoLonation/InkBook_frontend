@@ -98,6 +98,7 @@
 import { defineComponent, ref } from "vue"// ref, reactive
 import FlowGraph from '../../graph'
 import { DataUri } from '@antv/x6'
+import graphData from "@/views/project/UMLEdit/flow/graph/data";
 
 export default defineComponent({
   name: "index",
@@ -185,7 +186,8 @@ export default defineComponent({
           paste()
           break
         case 'toJSON':
-          console.log(graph.toJSON())
+          //将图转为JSON的方式在这
+          console.log(graph.toJSON().cells)
           // graph.fromJSON({cells:[graph.toJSON().cells[0],graph.toJSON().cells[1]]})
           break
         default:

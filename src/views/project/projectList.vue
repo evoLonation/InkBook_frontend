@@ -26,7 +26,7 @@
             <span>{{projects[i-1].name}}</span>
             <div class="bottom">
               <text class="text">{{ projects[i-1].detail }}</text>
-              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; openProject">进入</el-button>
+              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; openProject(projects[i-1].name)">进入</el-button>
     <!--            删除项目对话框-->
               <el-popconfirm
                   confirmButtonText="确定"
@@ -210,7 +210,11 @@ export default {
         console.log(err);
       })
     },
-    openProject(){
+    openProject(name){
+      this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: name})
+      this.$router.push({
+        name: 'TopTable'
+      })
       ElMessage('路由跳转到项目页')
     },
     //删除项目接口函数

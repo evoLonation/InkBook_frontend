@@ -13,7 +13,14 @@
               @row-dblclick="dbClick"
               @cell-mouse-enter="recordId">
       <el-table-column sortable prop="docName" label="文件名" width="400"></el-table-column>
-      <el-table-column sortable prop="createInfo" label="创建信息" width="350"></el-table-column>
+      <el-table-column sortable prop="modifyInfo" label="修改信息" width="350"></el-table-column>
+      <el-table-column width="50" label="">
+        <template #default="scope">
+          <el-button text>
+<!--            <el-icon><Delete /></el-icon>-->
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 <!--  <index v-if="menuVisible" @foo="foo" ref="contextButton" :spaceType="spaceType" :other="other"-->
@@ -103,14 +110,11 @@ export default {
     },
     sendListDoc() {
       this.axios.get("document/list",{
-        //todo get from store
-        "projectId" : "",
+        "projectId" : this.$store.state.selectProject.proId,
       }).then((res) => {
-        if(res.status !== 200){
-          ElMessage({message: res.data.msg, type: 'warning'});
-        }else {
-          this.tabledata = res.data.docList;
-        }
+        this.tableData = res.data.docList;
+      }).catch(err => {
+        ElMessage({message: err.response.data.msg, type: 'warning'});
       })
     },
     async sendDeleteDoc(docId){

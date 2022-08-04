@@ -10,7 +10,7 @@
       background-color="aliceblue"
       style="position: absolute; top: 60px; width: 100%; border-top: 1px dashed lightgray; z-index: 10"
   >
-    <el-menu-item index="1">文档</el-menu-item>
+    <el-menu-item index="1" @click="this.$router.push({name: 'DocumentList'})">文档</el-menu-item>
     <el-menu-item index="2">原型</el-menu-item>
     <el-menu-item index="3" @click="this.$router.push({name: 'createGraph'})">UML</el-menu-item>
   </el-menu>

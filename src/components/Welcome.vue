@@ -12,7 +12,7 @@
 
     <section class="global-banner" :style="{'background-image': `url(${require('../assets/Welcome/bk.jpg')})`}">
       <div class="banner-inner">
-        <h1 class="banner-title1">编不出来了！！ </h1>
+        <h1 class="banner-title1">墨书，用笔墨书写属于你的奇迹！</h1>
         <h2 class="banner-title2">全能设计协作平台，产品经理用 墨书，UI设计师用 墨书</h2>
         <h2 class="banner-title2">全能设计协作平台，产品经理用 墨书，<br>UI设计师用 墨书</h2>
         <router-link to="/login" class="banner-btn" >加入我们</router-link>
@@ -54,43 +54,43 @@
       <div class="textBox">
         <h2>项目协作设计<br><span>更快更简单</span></h2>
         <p>更好的项目协作开发平台，设计师的利器，项目经理的帮手，工程师的伙伴</p>
-        <router-link to="/login">加入我们</router-link>
+        <router-link to="/login" style="background-color: firebrick">加入我们</router-link>
       </div>
       <div class="imgBox">
-        <img src="../assets/logo.png" class="img1" style="width: 300px">
+        <img src="../assets/Welcome/项目协作.png" class="img1" style="width: 400px">
       </div>
     </div>
 
     <div class="content2">
       <div class="imgBox">
-        <img src="../assets/logo.png" class="img1" style="width: 300px">
+        <img src="../assets/Welcome/快速上手.png" class="img1" style="width: 400px">
       </div>
       <div class="textBox">
         <h2>轻松上手<br><span>快速设计</span></h2>
         <p>简洁易懂的界面，丰富的素材，人人可上手，助力快速完成产品设计</p>
-        <router-link to="/login">加入我们</router-link>
+        <router-link to="/login" style="background-color: #4c84ff">加入我们</router-link>
       </div>
     </div>
 
     <div class="content3">
       <div class="textBox">
-        <h2>项目协作设计<br><span>更快更简单</span></h2>
-        <p>更好的项目协作开发平台，设计师的利器，项目经理的帮手，工程师的伙伴</p>
-        <router-link to="/login">加入我们</router-link>
+        <h2>共享文档设计<br><span>丰富的编辑体验</span></h2>
+        <p>团队小组一起开发文档，体验合作的快感</p>
+        <router-link to="/login" style="background-color: darkgreen;">加入我们</router-link>
       </div>
       <div class="imgBox">
-        <img src="../assets/logo.png" class="img1" style="width: 300px">
+        <img src="../assets/Welcome/共享文档.png" class="img1" style="width: 400px">
       </div>
     </div>
 
     <div class="content4">
       <div class="imgBox">
-        <img src="../assets/logo.png" class="img1" style="width: 300px">
+        <img src="../assets/Welcome/多图表设计.png" class="img1" style="width: 400px">
       </div>
       <div class="textBox">
-        <h2>轻松上手<br><span>快速设计</span></h2>
-        <p>简洁易懂的界面，丰富的素材，人人可上手，助力快速完成产品设计</p>
-        <router-link to="/login">加入我们</router-link>
+        <h2>多图表设计<br><span>开发新体验</span></h2>
+        <p>支持原型设计、UML设计，功能多样</p>
+        <router-link to="/login" style="background-color: mediumpurple;">加入我们</router-link>
       </div>
     </div>
 
@@ -293,7 +293,7 @@ export default {
     font-weight: 900;
   }
   .content4 .textBox h2 span {
-    color: magenta;
+    color: mediumpurple;
     font-size: 1.2em;
     font-weight: 900;
   }
@@ -339,7 +339,8 @@ export default {
     text-align: center;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    background-color: violet;
+    background-size: cover;
+    background-image: url("../assets/Welcome/bottom.jpeg");
   }
   .content-red h5 {
     font-size: 48px;

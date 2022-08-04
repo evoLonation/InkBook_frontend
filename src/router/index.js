@@ -44,6 +44,11 @@ const routes = [
                         name: 'createGraph',
                         component: () => import('../project/Manage/AddSee')
                     },
+                    {
+                        path: 'document/list',
+                        name: 'documentList',
+                        component: () => import('../views/document/edit')
+                    },
                 ]
             },
             {

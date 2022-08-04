@@ -2,7 +2,7 @@
   <a-tabs defaultActiveKey="1">
     <a-tab-pane tab="线条" key="1">
       <a-row align="middle">
-        <a-col :span=8>Width</a-col>
+        <a-col :span=8>宽度</a-col>
         <a-col :span=12>
           <a-slider :min=1 :max=5 :step=1 :value="globalGridAttr.strokeWidth" @change="onStrokeWidthChange"/>
         </a-col>
@@ -11,19 +11,19 @@
         </a-col>
       </a-row>
       <a-row align="middle">
-        <a-col :span=8>Color</a-col>
+        <a-col :span=8>颜色</a-col>
         <a-col :span=14>
           <a-input type="color" :value="globalGridAttr.stroke" style="width: 100%" @change="onStrokeChange"/>
         </a-col>
       </a-row>
       <a-row align="middle">
-        <a-col :span=8>Connector</a-col>
+        <a-col :span=8>风格</a-col>
         <a-col :span=14>
           <a-select style="width: 100%" :value="globalGridAttr.connector" @change="onConnectorChange">
-          <a-select-option value="normal">Normal</a-select-option>
-          <a-select-option value="smooth">Smooth</a-select-option>
-          <a-select-option value="rounded">Rounded</a-select-option>
-          <a-select-option value="jumpover">Jumpover</a-select-option>
+          <a-select-option value="normal">正常</a-select-option>
+          <a-select-option value="smooth">平滑</a-select-option>
+          <a-select-option value="rounded">圆角</a-select-option>
+          <a-select-option value="jumpover">跳过交点</a-select-option>
           </a-select>
         </a-col>
       </a-row>

@@ -42,7 +42,7 @@ const routes = [
                     {
                         path: 'graph/create',
                         name: 'createGraph',
-                        component: () => import('../project/Manage/AddSee')
+                        component: () => import('../views/project/Manage/AddSee')
                     },
                     {
                         path: 'document/list',
@@ -61,22 +61,22 @@ const routes = [
             {
                 path: "team/information/:teamId",
                 name: "team",
-                component: () => import('../Team/MyTeam')
+                component: () => import('../views/Team/MyTeam')
             },
             {
                 path: "team/list/:key?",
                 name: "teamList",
-                component: () => import('../Team/TeamList')
+                component: () => import('../views/Team/TeamList')
             },
             {
                 path: "team/create",
                 name: "teamCreate",
-                component: () => import('../Team/CreateTeam')
+                component: () => import('../views/Team/CreateTeam')
             },
             {
                 path: "team/qrcode/:teamId",
                 name: "qrcode",
-                component: () => import('../Team/TestQrcode')
+                component: () => import('../views/Team/TestQrcode')
             },
             {
                 path: '/teamProject',
@@ -90,7 +90,7 @@ const routes = [
     {
         path: '/team/block/:key?',
         name: "teamBlock",
-        component: () => import('../Team/BlockSearch')
+        component: () => import('../views/Team/BlockSearch')
     },
 
     //项目相关
@@ -113,7 +113,7 @@ const routes = [
     {
         path: "/team/invite/:teamId",
         name: "teamInvite",
-        component: () => import('../Team/TeamInvite')
+        component: () => import('../views/Team/TeamInvite')
     },
 ];
 

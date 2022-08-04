@@ -184,12 +184,12 @@
             <span
                 style="height: 20px; font-size: 20px; margin: auto 0 auto 0; font-weight: 500"
             >
-              {{Mem.name}}
+              {{Mem.userId}}
             </span>
             <span
                 style="height: 15px; font-size: 15px; margin: auto auto auto 15px"
             >
-              {{Mem.userId}}
+              昵称：{{Mem.name}}
             </span>
           </div>
           <div id="mem-intro">
@@ -200,16 +200,16 @@
             </span>
           </div>
         </div>
-        <img v-if="Mem.identity === 0" src="../assets/Team/群主.png" alt="">
+        <img v-if="Mem.identity === 0" src="../../assets/Team/群主.png" alt="">
         <img
             v-else-if="Mem.identity === 1"
-            src="../assets/Team/管理员.png"
+            src="../../assets/Team/管理员.png"
             style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
              alt=""
         >
         <img
             v-else
-            src="../assets/Team/人员.png"
+            src="../../assets/Team/人员.png"
             style="width: 50px; height: 50px; margin: 27px 0 auto 30px"
             alt=""
         >
@@ -564,7 +564,7 @@ export default {
           console.log("dropTeam data.js = ");
           console.log(res.data);
           this.$message.success("成功离开团队！");
-          this.$router.push();
+          this.$router.push({name: 'teamList', params: {key: ''}});
         }
       }).catch((err)=>{
         console.log(err);

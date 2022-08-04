@@ -27,7 +27,7 @@
 <!--            alt=""-->
 <!--        />-->
         <img
-            src="../../assets/Project/设计原型.jpeg"
+            src="../../../assets/Project/设计原型.jpeg"
             class="image"
             style="height: 260px; object-fit: cover"
             alt=""

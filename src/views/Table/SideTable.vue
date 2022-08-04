@@ -35,7 +35,16 @@
 
             <el-menu-item class="abc" index="3" >
               <el-icon><Folder /></el-icon>
-              <template #title><span @click="this.$router.push({name: 'teamProject'})">项目</span></template>
+              <template #title>
+                <span v-if="this.$store.state.isSelectTeam === false"
+                      @click="this.$router.push({name: 'teamProject'})">
+                  全部项目
+                </span>
+                <span v-else
+                      @click="this.$router.push({name: 'teamProject'})">
+                  {{this.$store.state.selectTeam.teamName}}的项目
+                </span>
+              </template>
             </el-menu-item>
 
             <el-menu-item index="4" >

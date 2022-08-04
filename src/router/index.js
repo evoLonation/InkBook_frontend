@@ -23,9 +23,14 @@ const routes = [
         component: () => import('../components/Welcome.vue')
     },
     {
+        path: '/topTable',
+        name: 'TopTable',
+        component: () => import('../views/Table/TopTable')
+    },
+    {
         path: '/table',
         name: 'Table',
-        component: () => import('../views/Table/Table'),
+        component: () => import('../views/Table/SideTable'),
         children: [
             {
                 path: 'userInfo/:userId?',
@@ -76,12 +81,6 @@ const routes = [
         name: "teamBlock",
         component: () => import('../Team/BlockSearch')
     },
-
-    // {
-    //     path: '/userInfo/:userId?',
-    //     name: 'UserInfo',
-    //     component: () => import('../User/UserInfo')
-    // },
 
     //项目相关
     {

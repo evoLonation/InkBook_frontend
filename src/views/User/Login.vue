@@ -72,13 +72,13 @@ export default {
       email: null,
       pwd: null,
       activeName: 'first',
-      //loginBg: 'url(' + require('../../assets/bk.jpg') + ')'
+      loginBg: 'url(' + require('../../assets/login/bk.jpg') + ')'
     }
   },
-  // mounted() {
-  //   document.body.style.backgroundSize = '100%'
-  //   document.body.style.backgroundImage = this.loginBg
-  // },
+  mounted() {
+    document.body.style.backgroundSize = '100%'
+    document.body.style.backgroundImage = this.loginBg
+  },
   methods: {
     handleClick: function (){
       this.userId = null;

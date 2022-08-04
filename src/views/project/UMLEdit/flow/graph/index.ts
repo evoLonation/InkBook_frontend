@@ -143,23 +143,24 @@ export default class FlowGraph {
           name: 'basic',
           title: '流程节点',
           graphHeight: 180,
-        // {
-        //   name: 'combination',
-        //   title: '组合节点',
-        //   layoutOptions: {
-        //     columns: 1,
-        //     marginX: 60,
-        //   },
-        //   graphHeight: 260,
-        // },
-        // {
-        //   name: 'group',
-        //   title: '节点组',
-        //   graphHeight: 100,
-        //   layoutOptions: {
-        //     columns: 1,
-        //     marginX: 60,
-        //   },
+        },
+        {
+          name: 'combination',
+          title: '组合节点',
+          layoutOptions: {
+            columns: 1,
+            marginX: 60,
+          },
+          graphHeight: 260,
+        },
+        {
+          name: 'group',
+          title: '节点组',
+          graphHeight: 100,
+          layoutOptions: {
+            columns: 1,
+            marginX: 60,
+          },
         },
       ],
     })

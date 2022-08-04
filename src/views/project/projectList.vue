@@ -26,7 +26,7 @@
             <span>{{projects[i-1].name}}</span>
             <div class="bottom">
               <text class="text">{{ projects[i-1].detail }}</text>
-              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; openProject(projects[i-1].name)">进入</el-button>
+              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; curProjectName= projects[i].name; openProject">进入</el-button>
     <!--            删除项目对话框-->
               <el-popconfirm
                   confirmButtonText="确定"
@@ -39,7 +39,7 @@
                   <el-button type="danger" style="width: 50px" class="button">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id">编辑</el-button>
+              <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
             </div>
           </div>
         </el-card>
@@ -51,26 +51,26 @@
         v-model="createVisible"
         width="30%">
       <span>请输入项目信息</span>
-      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
-      <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
+      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称" clearable></el-input>
+      <el-input type="textarea" style="margin-top: 10px" v-model="input2" placeholder="项目简介" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="createVisible = false">取 消</el-button>
+        <el-button @click="createVisible = false; input=input2=''">取 消</el-button>
         <el-button type="primary" @click="createVisible = false; createProject(input, input2); input=input2=''">确 定</el-button>
       </span>
       </template>
     </el-dialog>
     <!--  重命名项目对话框-->
     <el-dialog
-        title="重命名项目"
+        title="编辑项目"
         v-model="renameVisible"
         width="30%">
-      <span>请输入新的项目名字</span>
-      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称"></el-input>
-      <el-input style="margin-top: 10px" v-model="input2" placeholder="项目简介"></el-input>
+      <span>请输入新的项目信息</span>
+      <el-input style="margin-top: 10px" v-model="input" clearable></el-input>
+      <el-input type="textarea" style="margin-top: 10px" v-model="input2" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="renameVisible = false">取 消</el-button>
+        <el-button @click="renameVisible = false;input=input2=''">取 消</el-button>
         <el-button type="primary" @click="renameVisible = false; renameProject(input, input2); input=input2=''">确 定</el-button>
       </span>
       </template>
@@ -111,6 +111,8 @@ export default {
       createVisible: false,
       renameVisible: false,
       curProjectId: Number,
+      curProjectName: String,
+      curProjectDetail: String,
       teamId: 1,
     }
   },
@@ -191,27 +193,28 @@ export default {
       })
       if (detail==='') return;
       console.log(detail)
-      setTimeout(() => {},1500)
-      this.$axios.post("project/modify/intro", {
-        "projectId": this.curProjectId,
-        "newIntro": detail,
-      }).then((response) => {
-        if (response.status === 200){
-          ElMessage('修改简介成功')
-          console.log(response.data.msg)
-          setTimeout(() => {
-            this.getProject();
-          }, 700);
-        }
-        else {
-          ElMessage('其他错误')
-        }
-      }).catch((err) => {
-        console.log(err);
-      })
+      setTimeout(() => {
+        this.$axios.post("project/modify/intro", {
+          "projectId": this.curProjectId,
+          "newIntro": detail,
+        }).then((response) => {
+          if (response.status === 200){
+            ElMessage('修改简介成功')
+            console.log(response.data.msg)
+            setTimeout(() => {
+              this.getProject();
+            }, 700);
+          }
+          else {
+            ElMessage('其他错误')
+          }
+        }).catch((err) => {
+          console.log(err);
+        })
+      },1500)
     },
-    openProject(name){
-      this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: name})
+    openProject(){
+      this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: this.curProjectName})
       this.$router.push({
         name: 'TopTable'
       })

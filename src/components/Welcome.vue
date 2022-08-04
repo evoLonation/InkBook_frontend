@@ -1,16 +1,16 @@
 <template>
   <section>
-    <header>
-      <router-link to="#" class="logo"><img src="../assets/logo.png" style="width: 80px; height: 80px"> </router-link>
-      <ul>
-        <li><router-link to="#">aaa</router-link></li>
-        <li><router-link to="#">bbb</router-link></li>
-        <li><router-link to="#">ccc</router-link></li>
-        <li><router-link to="#">ddd</router-link></li>
-      </ul>
-    </header>
+<!--    <header>-->
+<!--      <router-link to="#" class="logo"><img src="../assets/logo.png" style="width: 80px; height: 80px"> </router-link>-->
+<!--      <ul>-->
+<!--        <li><router-link to="#">aaa</router-link></li>-->
+<!--        <li><router-link to="#">bbb</router-link></li>-->
+<!--        <li><router-link to="#">ccc</router-link></li>-->
+<!--        <li><router-link to="#">ddd</router-link></li>-->
+<!--      </ul>-->
+<!--    </header>-->
 
-    <section class="global-banner" :style="{'background-image': `url(${require('../assets/bk.jpg')})`}">
+    <section class="global-banner" :style="{'background-image': `url(${require('../assets/Welcome/bk.jpg')})`}">
       <div class="banner-inner">
         <h1 class="banner-title1">编不出来了！！ </h1>
         <h2 class="banner-title2">全能设计协作平台，产品经理用 墨书，UI设计师用 墨书</h2>
@@ -25,25 +25,25 @@
 
       <div class="feature-content">
         <div class="feature-item">
-          <img src="../assets/icon1.png" style="width: 100px; height: 100px; margin-left: 100px">
+          <img src="../assets/Welcome/icon1.png" style="width: 100px; height: 100px; margin-left: 100px">
           <h3>快速原型设计</h3>
           <p>海量组件图标，丰富交互动效 <br>用墨书，快速实现创意落地</p>
         </div>
 
         <div class="feature-item">
-          <img src="../assets/icon2.png" style="width: 100px; height: 100px; margin-left: 100px">
+          <img src="../assets/Welcome/icon2.png" style="width: 100px; height: 100px; margin-left: 100px">
           <h3>专业UI设计</h3>
           <p>矢量编辑、协同设计、资源复用 <br>用墨书，轻松搞定设计创作</p>
         </div>
 
         <div class="feature-item">
-          <img src="../assets/icon3.png" style="width: 100px; height: 100px; margin-left: 100px">
+          <img src="../assets/Welcome/icon3.png" style="width: 100px; height: 100px; margin-left: 100px">
           <h3>高效协同工作</h3>
           <p>从产品、设计到开发，全流程协作 <br>用墨书，提升团队协作效能</p>
         </div>
 
         <div class="feature-item">
-          <img src="../assets/icon4.png" style="width: 100px; height: 100px; margin-left: 100px">
+          <img src="../assets/Welcome/icon4.png" style="width: 100px; height: 100px; margin-left: 100px">
           <h3>设计规范管理</h3>
           <p>轻松定制规范，高效管理资源 <br>用墨书，发挥设计资源价值</p>
         </div>
@@ -120,7 +120,7 @@ export default {
   section {
     position: absolute;
     width: 100%;
-    padding: 100px 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -158,7 +158,7 @@ export default {
   }
   .global-banner {
     width: 100%;
-    height: 87vh;
+    height: 100vh;
     min-height: 620px;
     position: relative;
     -webkit-box-sizing: border-box;

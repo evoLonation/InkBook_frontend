@@ -1,9 +1,15 @@
 import {createApp} from 'vue'
 import App from './App.vue'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import router from './router';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import store from './store'
 import axios from 'axios';
 import VueAxios from 'vue-axios'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import VueParticles from "vue-particles";
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
@@ -18,13 +24,13 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/analytics'
 const firebaseConfig = {
-  apiKey: "AIzaSyB6bzpbn8SzyNRMoKH_w2JM97tnVWdcvaM",
-  authDomain: "inkbook-cb595.firebaseapp.com",
-  projectId: "inkbook-cb595",
-  storageBucket: "inkbook-cb595.appspot.com",
-  messagingSenderId: "858371951645",
-  appId: "1:858371951645:web:537e40acc6f305abc10af4",
-  measurementId: "G-9RP1HQXYQR"
+    apiKey: "AIzaSyB6bzpbn8SzyNRMoKH_w2JM97tnVWdcvaM",
+    authDomain: "inkbook-cb595.firebaseapp.com",
+    projectId: "inkbook-cb595",
+    storageBucket: "inkbook-cb595.appspot.com",
+    messagingSenderId: "858371951645",
+    appId: "1:858371951645:web:537e40acc6f305abc10af4",
+    measurementId: "G-9RP1HQXYQR"
 };
 export const firebaseApp = firebase.initializeApp(firebaseConfig)
 const analytics = firebase.analytics(firebaseApp)

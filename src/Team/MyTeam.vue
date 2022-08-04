@@ -615,8 +615,8 @@ export default {
   },
   created() {
     console.log(this.$store.state.loginUser.userId);
-    this.TeamId = 1;
-    // this.checkUserType();
+    this.TeamId = this.$route.params.teamId;
+    this.checkUserType();
     this.getTeamInformation();
     console.log('parseInt(0.0000005) = ',parseInt(0.0000005));
   }

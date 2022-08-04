@@ -17,7 +17,7 @@
           v-for="i in projects.length"
           :key="projects[i-1]"
           :offset="i > 0 ? 2 : 0">
-        <el-card :body-style="{ padding: '0px' }" style="width: 300px" shadow="hover">
+        <el-card :body-style="{ padding: '0px' }" style="width: 300px; margin-bottom: 40px" shadow="hover">
           <img
               src="require({{projects[i-1].imageUrl}})"
               class="image"

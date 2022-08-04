@@ -23,7 +23,7 @@
           <span>{{projects[i-1].name}}</span>
           <div class="bottom">
             <text class="text">{{ projects[i-1].detail }}</text>
-            <el-button type="primary" class="button" @click="openProject">进入</el-button>
+            <el-button type="primary" class="button" @click="this.curProjectId=projects[i].id; openProject">进入</el-button>
 <!--            删除项目对话框-->
             <el-popconfirm
                 confirmButtonText="确定"

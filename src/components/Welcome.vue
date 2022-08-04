@@ -1,7 +1,7 @@
 <template>
   <section>
 <!--    <header>-->
-<!--      <router-link to="#" class="logo"><img src="../assets/logo.png" style="width: 80px; height: 80px"> </router-link>-->
+<!--      <router-link to="#" class="logo"><img src="../assets/logo1.png" style="width: 80px; height: 80px"> </router-link>-->
 <!--      <ul>-->
 <!--        <li><router-link to="#">aaa</router-link></li>-->
 <!--        <li><router-link to="#">bbb</router-link></li>-->

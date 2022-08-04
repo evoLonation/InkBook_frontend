@@ -2,7 +2,7 @@
   <div id="app">
     <router-view></router-view>
   </div>
-<!--  <img alt="Vue logo" src="./assets/logo.png">-->
+<!--  <img alt="Vue logo" src="./assets/logo1.png">-->
 <!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
 </template>
 

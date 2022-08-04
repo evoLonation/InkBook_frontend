@@ -1,7 +1,7 @@
 <template >
   <div class="login">
     <div style="margin-left: auto;margin-right: auto;width: 100px">
-     <img src="../../assets/logo.png" alt="logo" style="width: 100px"/>
+     <img src="../../assets/logo.png" alt="logo" style="width: 250px; margin-top: 115px; margin-left: -70px"/>
     </div>
     <div style="margin:0px auto 10px auto; width: 80px; ">
       <h2 class="title" style="margin:0 auto">登录</h2>

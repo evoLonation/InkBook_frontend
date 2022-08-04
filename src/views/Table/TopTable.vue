@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-<!--    <img src="../../assets/logo.png" style="width: 80px; height: 80px">-->
+<!--    <img src="../../assets/logo1.png" style="width: 80px; height: 80px">-->
     <h2>{{ this.$store.state.selectProject.proName }}</h2>
   </div>
   <el-menu

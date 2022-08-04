@@ -104,7 +104,7 @@ const routes = [
 
     // 团队邀请相关
     {
-        path: "/team/invite",
+        path: "/team/invite/:teamId",
         name: "teamInvite",
         component: () => import('../Team/TeamInvite')
     },

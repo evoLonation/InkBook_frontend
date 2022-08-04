@@ -423,7 +423,7 @@ export default {
       }).then(res=>{
         if(res.status === 200){
           this.$message.success("设置管理员成功！");
-          console.log("设置管理员成功！");
+          console.log("设置管理员成功！")
           location.reload();
         }
       }).catch(err => {
@@ -491,14 +491,14 @@ export default {
     goUser: function (userId){
       console.log("goUser is called");
       console.log(userId);
-      this.$router.push();
+      this.$router.push({ name : 'UserInfo', params: {userId: userId}});
     },
 
     removeMem: function (memberId){
       console.log("removeMem is called");
       this.$axios.post("team/remove", {
         "teamId": this.TeamId,
-        "captainId": this.$store.state.loginUser.userId,
+        "operatorId": this.$store.state.loginUser.userId,
         "memberId": memberId,
       }).then((res)=>{
         if(res.status === 200){
@@ -589,6 +589,7 @@ export default {
 
     getAvatar: function (){
       this.TeamImg = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.TeamId;
+      console.log('getavatar work ' + this.TeamImg)
     },
 
     getTeamInformation: function (){

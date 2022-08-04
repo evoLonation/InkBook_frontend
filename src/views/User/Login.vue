@@ -100,18 +100,15 @@ export default {
           pwd: this.pwd,
         }
       }).then((response)=>{
-        if (response.status === 200){
-          console.log(response.data)
-          this.$store.commit({type: 'login', userId: response.data.userId, nickname: response.data.nickName})
-          console.log(this.$store.state.loginUser.userId);
-          ElMessage('登录成功');
-          this.$router.push({name: 'Table', params:{}})
-        }else {
-          ElMessage({message: response.data.msg, type: 'warning'});
-        }
+        console.log(response.data)
+        this.$store.commit({type: 'login', userId: response.data.userId, nickname: response.data.nickName})
+        console.log(this.$store.state.loginUser.userId);
+        ElMessage('登录成功');
+        this.$router.push({name: 'Table', params:{}})
 
       }).catch((err)=>{
         console.log(err);
+        ElMessage({message: err.response.data.msg, type: 'warning'});
       });
     },
 

@@ -205,7 +205,7 @@ export default {
     }
   },
   created() {
-    this.TeamId = 2;
+    this.TeamId = parseInt(this.$route.params.teamId);
     this.getTeamInformation();
   }
 }

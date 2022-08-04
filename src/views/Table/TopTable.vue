@@ -8,7 +8,7 @@
       class="el-menu-demo"
       mode="horizontal"
       background-color="aliceblue"
-      style="position: absolute; top: 60px; width: 91.65%; border-top: 1px dashed lightgray"
+      style="position: absolute; top: 60px; width: 100%; border-top: 1px dashed lightgray"
   >
     <el-menu-item index="1">文档</el-menu-item>
     <el-menu-item index="2">原型</el-menu-item>

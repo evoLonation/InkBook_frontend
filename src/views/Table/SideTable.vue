@@ -55,7 +55,7 @@
           </el-menu>
         </el-aside>
         <el-main style="padding: 0;margin-bottom: 0;height: 100vh">
-          <div style="height: 100vh;margin-right: auto;margin-left: auto; background: #42b983;">
+          <div style="height: 100vh;margin-right: auto;margin-left: auto;;">
             <router-view></router-view>
 <!--            <el-scrollbar style="height: 100%"></el-scrollbar>-->
           </div>

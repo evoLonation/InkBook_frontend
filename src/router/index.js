@@ -81,12 +81,6 @@ const routes = [
         component: () => import('../Team/BlockSearch')
     },
 
-    // {
-    //     path: '/userInfo/:userId?',
-    //     name: 'UserInfo',
-    //     component: () => import('../User/UserInfo')
-    // },
-
     //项目相关
     {
       path: "/uml",

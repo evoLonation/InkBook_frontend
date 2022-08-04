@@ -29,12 +29,12 @@ const routes = [
         component: () => import('../views/Table/SideTable'),
         children: [
             {
-                path: '/topTable',
+                path: 'topTable',
                 name: 'TopTable',
                 component: () => import('../views/Table/TopTable'),
                 children: [
                     {
-                        path: "/document/list",
+                        path: "document/list",
                         name: "DocumentList",
                         component: () => import('../views/document/list.vue')
                     },

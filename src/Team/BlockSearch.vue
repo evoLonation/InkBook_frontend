@@ -11,7 +11,7 @@ export default {
     }
   },
   created() {
-    this.$router.push();
+    // this.$router.push({path: '/table/list'});
   }
 }
 </script>

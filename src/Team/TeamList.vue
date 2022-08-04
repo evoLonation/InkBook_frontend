@@ -50,7 +50,7 @@
           <el-button
               type="primary"
               style="margin: auto 30px auto auto"
-              @click="EnterTeam"
+              @click="EnterTeam(team.TeamId)"
           >
             进入团队
           </el-button>
@@ -94,10 +94,10 @@
 
     methods: {
       JumpToCreate: function () {
-        this.$router.push('/create');
+        this.$router.push('/table/team/create');
       },
-      EnterTeam: function () {
-        this.$router.push('/team');
+      EnterTeam: function (TeamId) {
+        this.$router.push({ path: '/table/team/information', params: {teamId: TeamId}});
       },
       GoToSearch: function (){
 

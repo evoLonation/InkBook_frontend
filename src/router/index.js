@@ -40,29 +40,29 @@ const routes = [
 
             // 团队相关
             {
-                path: "team",
+                path: "team/information/:teamId",
                 name: "team",
                 component: () => import('../Team/MyTeam')
             },
             {
-                path: "list",
+                path: "team/list/:key?",
                 name: "teamList",
                 component: () => import('../Team/TeamList')
             },
             {
-                path: "create",
+                path: "team/create",
                 name: "teamCreate",
                 component: () => import('../Team/CreateTeam')
             },
             {
-                path: "qrcode",
+                path: "team/qrcode/:teamId",
                 name: "qrcode",
                 component: () => import('../Team/TestQrcode')
             },
             {
                 path: '/teamProject',
                 name: 'teamProject',
-                component: () => import('../project/projectList.vue')
+                component: () => import('../views/project/projectList.vue')
             },
         ],
     },
@@ -73,7 +73,11 @@ const routes = [
     // },
 
     //项目相关
-
+    {
+      path: "/uml",
+      name: "uml",
+      component: () => import('../views/project/UMLEdit/tabs/index')
+    },
 
 
     //文档相关

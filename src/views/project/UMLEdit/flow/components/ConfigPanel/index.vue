@@ -10,10 +10,10 @@
 import ConfigGrid from './ConfigGrid/index.vue'
 import ConfigNode from './ConfigNode/index.vue'
 import ConfigEdge from './ConfigEdge/index.vue'
-import FlowGraph from '@/views/flow/graph'
+import FlowGraph from '@/views/project/UMLEdit/flow/graph'
 import './index.less'
 import { defineComponent, ref, provide } from "vue";
-import { globalGridAttr } from '@/views/flow/models/global'
+import { globalGridAttr } from '@/views/project/UMLEdit/flow/models/global'
 
 export default defineComponent({
   name: "index",

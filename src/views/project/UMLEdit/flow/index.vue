@@ -31,8 +31,8 @@
 <script lang="ts">
 
 import { defineComponent, ref, onMounted } from "vue";
-import '../../reset.less'
-import '../../global.css'
+import '@/reset.less'
+import '@/global.css'
 import './index.less'
 import FlowGraph from './graph'
 import ToolBar from './components/ToolBar/index.vue'

@@ -57,7 +57,7 @@ const routes = [
             {
                 path: '/teamProject',
                 name: 'teamProject',
-                component: () => import('../project/projectList.vue')
+                component: () => import('../views/project/projectList.vue')
             },
 
             // UML与原型构建相关
@@ -83,7 +83,11 @@ const routes = [
     // },
 
     //项目相关
-
+    {
+      path: "/uml",
+      name: "uml",
+      component: () => import('../views/project/UMLEdit/tabs/index')
+    },
 
 
     //文档相关

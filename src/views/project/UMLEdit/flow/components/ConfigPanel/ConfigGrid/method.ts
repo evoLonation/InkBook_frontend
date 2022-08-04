@@ -1,4 +1,4 @@
-import FlowGraph from "@/views/flow/graph";
+import FlowGraph from "@/views/project/UMLEdit/flow/graph";
 
 export function gridOpt(globalGridAttr: any){
     let options

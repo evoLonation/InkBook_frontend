@@ -7,7 +7,8 @@
       :default-active="1"
       class="el-menu-demo"
       mode="horizontal"
-      style="position: absolute; top: 60px; width: 91.57%"
+      background-color="aliceblue"
+      style="position: absolute; top: 60px; width: 91.65%; border-top: 1px dashed lightgray"
   >
     <el-menu-item index="1">文档</el-menu-item>
     <el-menu-item index="2">原型</el-menu-item>
@@ -29,7 +30,7 @@ export default {
     justify-content: flex-start;
     position: absolute;
     top: 0;
-    background-color: white;
+    background-color: aliceblue;
     width: 100%;
   }
   .title h2 {

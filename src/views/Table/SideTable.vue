@@ -29,9 +29,8 @@
 
             <el-menu-item class="abc" index="2" >
 
-              <img :src="this.url" style="width: 20px; margin-right: 10px"
-                   @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">
-              <template #title><span>{{this.$store.state.loginUser.nickname}}</span></template>
+              <img :src="this.url" style="width: 20px; margin-right: 10px">
+              <template #title><span @click="this.$router.push({name: 'UserInfo', params:{userId: this.userId}})">{{this.$store.state.loginUser.nickname}}</span></template>
 
             </el-menu-item>
 

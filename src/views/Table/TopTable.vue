@@ -1,7 +1,7 @@
 <template>
   <div class="title">
-    <img src="../../assets/logo.png" style="width: 80px; height: 80px">
-    <h2>项目名称</h2>
+<!--    <img src="../../assets/logo.png" style="width: 80px; height: 80px">-->
+    <h2>{{ this.$store.state.selectProject.proName }}</h2>
   </div>
   <el-menu
       :default-active="1"
@@ -28,6 +28,6 @@ export default {
     justify-content: flex-start;
   }
   .title h2 {
-    padding: 30px 10px;
+    padding: 10px 10px;
   }
 </style>

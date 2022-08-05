@@ -393,6 +393,22 @@ export default class FlowGraph {
         }
       },
     })
+    const r12 = graph.createNode({
+      x: 40,
+      y: 40,
+      width: 10,
+      height: 10,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('input')
+        wrap.style.width = '100'
+        wrap.style.height = '100'
+        wrap.type = "radio"
+
+        return wrap
+      }
+    })
+
     const c1 = graph.createNode({
       shape: 'flow-chart-image-rect',
     })
@@ -414,7 +430,8 @@ export default class FlowGraph {
         parent: true,
       },
     })
-    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11], 'basic')
+
+    this.stencil.load([r1, r2, r3, r4], 'basic')
     this.stencil.load([c1, c2, c3], 'combination')
     this.stencil.load([g1], 'group')
   }

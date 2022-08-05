@@ -11,9 +11,9 @@
         <flow/>
       </a-tab-pane>
 
-<!--      <a-tab-pane key="quickStart01" tab="快速上手01" >-->
-<!--        <quick-start01/>-->
-<!--      </a-tab-pane>-->
+      <a-tab-pane key="flow2" tab="原型图绘制" >
+        <flow2/>
+      </a-tab-pane>
 <!--      <a-tab-pane key="quickStart02" tab="快速上手02" >-->
 <!--        <quick-start02/>-->
 <!--      </a-tab-pane>-->

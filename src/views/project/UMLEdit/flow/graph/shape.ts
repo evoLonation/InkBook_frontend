@@ -208,6 +208,20 @@ export const FlowChartImageFS = Graph.registerNode('flow-chart-fs', {
   },
 })
 
+// export const FlowChartImageHTML = Graph.registerNode('flow-chart-html', {
+//   x: 40,
+//   y: 40,
+//   width: 100,
+//   height: 40,
+//   shape: 'html',
+//   html() {
+//     const wrap = document.createElement('input')
+//     wrap.style.width = '100'
+//     wrap.style.height = '40'
+//     wrap.type = "radio"
+//   }
+// })
+
 export const FlowChartImageConnect = Graph.registerNode('flow-chart-connect', {
 
   inherit: 'ellipse', // 使用 ellipse 渲染

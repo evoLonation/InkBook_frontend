@@ -1,6 +1,10 @@
 import {Graph, Addon, FunctionExt, Shape} from '@antv/x6'
 import './shape'
 import graphData from './data'
+import {useRouter} from "vue-router";
+import {ElMessage} from "element-plus";
+import axios from "axios";
+import store from "@/store"
 
 export default class FlowGraph {
   public static graph: Graph
@@ -131,7 +135,9 @@ export default class FlowGraph {
     this.initEvent()
     return this.graph
   }
-
+  private static setContent(data) {
+    this.graph.fromJSON(data)
+  }
   private static initStencil() {
     this.stencil = new Addon.Stencil({
       target: this.graph,
@@ -285,102 +291,23 @@ export default class FlowGraph {
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape() {
-    graphData.cells.push({
-      position: {
-        x: 680,
-        y: 440,
-      },
-      size: {
-        width: 200,
-        height: 68,
-      },
-      shape: 'flow-chart-title-rect',
-      ports: {
-        groups: {
-          top: {
-            position: 'top',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-          right: {
-            position: 'right',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-          bottom: {
-            position: 'bottom',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-          left: {
-            position: 'left',
-            attrs: {
-              circle: {
-                r: 3,
-                magnet: true,
-                stroke: '#5F95FF',
-                strokeWidth: 1,
-                fill: '#fff',
-                style: {
-                  visibility: 'hidden',
-                },
-              },
-            },
-          },
-        },
-        items: [
-          {
-            group: 'top',
-            id: '739f9eec-ef8f-4f2e-b328-6b7e0793d582',
-          },
-          {
-            group: 'right',
-            id: '5786e655-df1d-419e-92e2-db91b3c4506c',
-          },
-          {
-            group: 'bottom',
-            id: 'e74c9676-4c27-474f-be96-be4568ed55d0',
-          },
-          {
-            group: 'left',
-            id: '007fa7ae-aa47-4faf-925c-779c35db4f5f',
-          },
-        ],
-      },
-      id: '1297e369-2948-4209-8e13-0dd6dedd07b4',
-      zIndex: 50,
-    },)
-    this.graph.fromJSON(graphData as any)
+    const graphId = store.state.graphId
+    console.log(graphId)
+    axios.get('graph/get', {
+      params: {
+        graphId: graphId
+      }
+    }).then((response) => {
+      if (response.status === 409){
+        ElMessage('当前图正在被编辑！')
+        return
+      }
+      else {
+        console.log(response.data.msg)
+        this.setContent(response.data.content)
+      }
+    })
+    //this.graph.fromJSON(graphData as any)
   }
 
   private static showPorts(ports: NodeListOf<SVGAElement>, show: boolean) {

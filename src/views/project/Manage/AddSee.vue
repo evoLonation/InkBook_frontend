@@ -76,7 +76,7 @@
                 <el-dropdown-menu>
                   <el-dropdown-item
                       style="color: #409EFF"
-                      @click="this.$message.success('您的文件已经修改！')"
+                      @click="openGraph(graph.graphId)"
                   >
                     修改文件
                   </el-dropdown-item>
@@ -114,6 +114,10 @@ export default {
     handleClose: function (){
       this.dialogVisable = false;
       ElMessage.warning('构建图表取消')
+    },
+    openGraph: function (id){
+      this.$store.state.graphId = id;
+      this.$router.push({name: 'uml'})
     },
     createGraph: function (){
       this.$axios.post("graph/create", {

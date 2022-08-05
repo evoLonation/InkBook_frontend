@@ -233,7 +233,6 @@ export default {
       this.$router.push({
         name: 'TopTable'
       })
-      ElMessage('路由跳转到项目页')
     },
     //删除项目接口函数
     deleteProject(){

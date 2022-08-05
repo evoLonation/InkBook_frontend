@@ -24,9 +24,9 @@ export const db = firebase.database();
 // export { Timestamp, GeoPoint }
 // db.settings({ timestampsInSnapshots: true });
 
-export function writeData(path, obj) {
+export async function writeData(path, obj) {
     console.log("will write user data")
-    db.ref(path).set(
+    await db.ref(path).set(
         obj
     ).then(() => {
         console.log("write success")

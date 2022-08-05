@@ -151,42 +151,53 @@ export default {
       return 'doc/' + route.params.docId
     }
     const getContentPath = () => {
-      return getPath() + '/userId'
+      return getPath() + '/content'
+    }
+    const writeContentToFire = async () => {
+      console.log('will write data')
+      await writeData(getPath(), {
+        userId: store.state.loginUser.userId,
+        content: getContent()
+      })
     }
     // const getUserIdPath = () => {
-    //   return getPath() + '/content'
+    //   return getPath() + '/userId'
     // }
     /**
      * 初始时获得文档内容
      */
-    const initializeContent = () => {
+    const initializeContent = async () => {
       console.log("开始获取文档内容")
-      axios.post('document/apply-edit', {
+      await axios.post('document/apply-edit', {
         userId: store.state.loginUser.userId,
         docId : parseInt(route.params.docId),
-      }).then(res => {
-        if(res.data.nowEditorNum === 1){
+      }).then(async res => {
+        if (res.data.nowEditorNum === 1) {
           console.log("当前正在编辑人数为1，即将从数据库获取")
-          axios.get('document/get', {
-            params:{
+          await axios.get('document/get', {
+            params: {
               userId: store.state.loginUser.userId,
-              docId : parseInt(route.params.docId),
+              docId: parseInt(route.params.docId),
             }
-          }).then(res => {
+          }).then(async res => {
             console.log("res.data:")
             console.log(res.data)
-            if(res.data.content !== '{}') {
+            if (res.data.content !== '{}') {
               console.log('数据库中有内容，获得')
               setContent(JSON.parse(res.data.content))
+              await writeContentToFire()
             }
           }).catch(err => {
             console.log(err)
-            ElMessage({message:'获得文档内容失败',type:'warning'})
+            ElMessage({message: '获得文档内容失败', type: 'warning'})
           })
-        }else if(res.data.nowEditorNum >= 1){
+        } else if (res.data.nowEditorNum >= 1) {
           console.log("当前正在编辑人数为" + res.data.nowEditorNum + "，从firebase获取")
-          const data = getData(getContentPath())
-          setContent(data)
+          getData(getContentPath()).then(res => {
+            console.log(res)
+            setContent(res)
+          })
+
         }
       }).catch(err => {
         console.log(err)
@@ -205,10 +216,7 @@ export default {
       intervalUpdateId = setInterval(() => {
         if(!needUpdate.value) return;
         needUpdate.value = false
-        writeData(getPath(), {
-          userId: store.state.loginUser.userId,
-          content: getContent()
-        })
+        writeContentToFire()
       }, 1000)
     }
     const destroyIntervalUpdate = () => {
@@ -252,7 +260,7 @@ export default {
       axios.post('document/save',
           {
             "userId" : store.state.loginUser.userId,
-            "docId" : route.params.docId,
+            "docId" : parseInt(route.params.docId),
             "content" : JSON.stringify(getContent())
           }
       ).then(res => {
@@ -266,12 +274,14 @@ export default {
       axios.post('document/exit',
         {
           "userId" : store.state.loginUser.userId,
-          "docId" : route.params.docId
+          "docId" : parseInt(route.params.docId)
         }
       ).then(res => {
         if(res.data.remain === 0){
           postSave()
         }
+      }).catch(err => {
+        console.log(err)
       })
     }
 
@@ -293,10 +303,10 @@ export default {
       setUpdate()
     }
     onBeforeUnmount(() => {
+      postQuitEdit()
       destroyEditor()
       destroyIntervalUpdate()
       destroyIntervalEdit()
-      postQuitEdit()
     })
 
     return {

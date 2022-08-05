@@ -160,25 +160,37 @@ export default {
      * 初始时获得文档内容
      */
     const initializeContent = () => {
+      console.log("开始获取文档内容")
       axios.post('document/apply-edit', {
         userId: store.state.loginUser.userId,
         docId : parseInt(route.params.docId),
       }).then(res => {
-        console.log('res.data.content : '+ res.data.content)
-        if(res.data.content === null) {
-          console.log("res.data.content is empty!")
-          return
-        }
-        setContent(res.data.content)
-      }).catch(err => {
-        console.log(err)
-        if(err.response.status === 409){
+        if(res.data.nowEditorNum === 1){
+          console.log("当前正在编辑人数为1，即将从数据库获取")
+          axios.get('document/get', {
+            params:{
+              userId: store.state.loginUser.userId,
+              docId : parseInt(route.params.docId),
+            }
+          }).then(res => {
+            console.log("res.data:")
+            console.log(res.data)
+            if(res.data.content !== '{}') {
+              console.log('数据库中有内容，获得')
+              setContent(JSON.parse(res.data.content))
+            }
+          }).catch(err => {
+            console.log(err)
+            ElMessage({message:'获得文档内容失败',type:'warning'})
+          })
+        }else if(res.data.nowEditorNum >= 1){
+          console.log("当前正在编辑人数为" + res.data.nowEditorNum + "，从firebase获取")
           const data = getData(getContentPath())
           setContent(data)
-        }else{
-          console.log('获取文档存在其他错误')
-          console.log(err.response)
         }
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message:'申请编辑失败',type:'warning'})
       })
     }
     /**
@@ -236,12 +248,12 @@ export default {
     }
     const postSave = () => {
       console.log('will save')
-      console.log(getContent())
+      console.log(JSON.stringify(getContent()))
       axios.post('document/save',
           {
             "userId" : store.state.loginUser.userId,
             "docId" : route.params.docId,
-            "content" : getContent()
+            "content" : JSON.stringify(getContent())
           }
       ).then(res => {
         ElMessage({message: res.data.msg, type: 'success'})

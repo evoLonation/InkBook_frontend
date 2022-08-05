@@ -3,7 +3,7 @@
     style="width: 100%; height: 80px; border-bottom: 1px solid lightgray; position: fixed; top: 120px; z-index: 10; background: linear-gradient(45deg, white, #f4f4f5)"
   >
     <el-button
-        style="width: 100px; margin: 20px 50px auto 1410px"
+        style="width: 100px; margin: 20px 50px auto 1200px"
         type="success"
         @click="dialogVisable = true"
     >

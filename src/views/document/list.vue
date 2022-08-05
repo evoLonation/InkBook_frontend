@@ -1,13 +1,16 @@
 <template>
   <div style="position: absolute;top: 120px;z-index: 9;width: 100%;background-color: white; ">
-    <div>
-      <el-button
-          type="success"
-          @click="dialogVisible = true"
-          style="margin: 20px 50px auto 1410px; width: 100px;"
-    >
-        创建文档
-      </el-button>
+    <div style="width: 90%; display: flex">
+      <div style="margin: 20px 50px 20px auto; width: 100px;">
+        <el-button
+            type="success"
+            @click="dialogVisible = true"
+            style="width: 100px;"
+        >
+          创建文档
+        </el-button>
+      </div>
+
     </div>
     <div style="margin: 15px 0 5px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
     </div>
@@ -22,8 +25,8 @@
                 highlight-current-row
                 @row-dblclick="dbClick">
         <el-table-column sortable prop="docName" label="文件名" width="800" style="padding: 20px"></el-table-column>
-        <el-table-column sortable prop="modifyInfo" label="修改信息" width="650" style="padding: 20px"></el-table-column>
-        <el-table-column width="50" label="">
+        <el-table-column sortable prop="modifyInfo" label="修改信息" width="450" style="padding: 20px"></el-table-column>
+        <el-table-column width="100" label="">
           <template #default="scope">
             <!--          <el-button text>-->
             <el-popconfirm

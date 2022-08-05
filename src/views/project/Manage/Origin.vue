@@ -3,7 +3,7 @@
       style="width: 100%; height: 80px; border-bottom: 1px solid lightgray; position: fixed; top: 120px; z-index: 10; background: linear-gradient(45deg, white, #f4f4f5)"
   >
     <el-button
-        style="width: 100px; margin: 20px 50px auto 1410px"
+        style="width: 100px; margin: 20px 50px auto 1200px"
         type="success"
         @click="dialogVisable = true"
     >
@@ -45,6 +45,7 @@
         v-for="graph in graphList"
         :key="graph"
     >
+
       <el-card
           :body-style="{ padding: '0px' }"
           style="width: 250px; height: 350px; margin: 30px 25px 30px 25px"
@@ -92,6 +93,9 @@
           </div>
         </div>
       </el-card>
+    </div>
+    <div style="width: 90%;margin: 200px auto 0 auto">
+      <el-empty v-if="graphList.length===0" description="该项目还没有原型，快去创建一个吧~"></el-empty>
     </div>
   </el-row>
 </template>

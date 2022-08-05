@@ -124,7 +124,7 @@ export default {
       this.$router.push({name: 'uml'})
     },
     createGraph: function (){
-      this.$axios.post("graph/create", {
+      this.$axios.post("prototype/create", {
         "name": this.graphName,
         "creatorId": this.$store.state.loginUser.userId,
         "projectId": this.projectId
@@ -141,8 +141,8 @@ export default {
     deleteGraph: function (graphId){
       console.log(typeof (graphId));
       console.log(graphId)
-      this.$axios.post("graph/complete-delete", {
-        "graphId": graphId,
+      this.$axios.post("prototype/complete-delete", {
+        "protoId": graphId,
         "deleterId": this.$store.state.loginUser.userId
       }).then(res=>{
         if(res.status === 200){
@@ -156,7 +156,7 @@ export default {
     },
     getGraphList: function (){
       console.log("getGraphList is called!")
-      this.$axios.get("graph/list", {
+      this.$axios.get("prototype/list", {
         params:{
           projectId: this.projectId
         }
@@ -164,7 +164,7 @@ export default {
         if(res.status === 200){
           console.log(res.data)
           if(res.data.graphList.length !== 0) {
-            this.graphList = res.data.graphList;
+            this.graphList = res.data.protoList;
           }
         }
       }).catch(err=>{

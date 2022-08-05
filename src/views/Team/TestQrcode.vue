@@ -25,7 +25,8 @@ export default {
   name: "TestQrcode",
   data() {
     return {
-      detailVisible: false
+      detailVisible: false,
+      teamId: -1
     }
   },
   methods: {
@@ -34,7 +35,7 @@ export default {
     // },
     bindQRCode () {
       new QRCode(this.$refs.qrCodeDiv, {
-        text: 'http://43.138.71.108/',
+        text: 'http://43.138.71.108/team/invite/' + this.teamId,
         width: 200,
         height: 200,
         colorDark: '#333333', // 二维码颜色
@@ -66,6 +67,9 @@ export default {
     this.$nextTick(function () {
       this.bindQRCode()
     })
+  },
+  created() {
+    this.teamId = this.$route.params.teamId;
   }
 }
 </script>

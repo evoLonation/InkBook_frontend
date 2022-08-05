@@ -3,7 +3,7 @@
     style="width: 1000px"
   >
     <!--  操作栏，目前只有新建功能-->
-    <div style="border-bottom: 1px solid #e8e8e8;padding-bottom: 0">
+    <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0">
       <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
         <el-button type="success" style="margin-top: 8px; float: right; margin-right: 20px" icon="Plus" >
           <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>

@@ -12,8 +12,8 @@ export default class FlowGraph {
   public static init() {
     this.graph = new Graph({
       container: document.getElementById('container')!,
-      width: 100,
-      height: 100,
+      width: 1000,
+      height: 800,
       grid: {
         size: 10,
         visible: true,

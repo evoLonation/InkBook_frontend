@@ -3,31 +3,32 @@
     style="width: 1000px"
   >
     <!--  操作栏，目前只有新建功能-->
-    <div style="margin: 25px 0 35px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
+    <div style="border-bottom: 1px solid #e8e8e8;padding-bottom: 0">
       <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
-        <el-button type="success" style="margin-top: 0; float: right; margin-right: 20px" icon="Plus" >
+        <el-button type="success" style="margin-top: 8px; float: right; margin-right: 20px" icon="Plus" >
           <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
         </el-button>
       </el-menu>
     </div>
     <!--  项目列表，卡片形式-->
-    <el-row>
+    <el-row >
       <el-col
-          style="margin-top: 40px"
+          style="margin-top: 45px"
           :span="10"
           v-for="i in projects.length"
           :key="projects[i-1]"
           :offset="i > 0 ? 2 : 0">
-        <el-card :body-style="{ padding: '0px' }" style="width: 300px; margin-bottom: 40px" shadow="hover">
+        <el-card id="project-card" :body-style="{ padding: '0px' }" style="width: 400px; height: auto; margin-bottom: 40px; margin-left: -50px" shadow="hover">
+          <meta name="referrer" content="no-referrer" />
           <img
-              src="require({{projects[i-1].imageUrl}})"
+              src="http://inews.gtimg.com/newsapp_bt/0/13680351024/641"
               class="image"
            alt=""/>
           <div style="padding: 14px;">
             <span>{{projects[i-1].name}}</span>
             <div class="bottom">
               <text class="text">{{ projects[i-1].detail }}</text>
-              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()">进入</el-button>
+              <el-button class="button" style="width: 50px; margin-left: 100px; color: #409EFF" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()">进入</el-button>
     <!--            删除项目对话框-->
               <el-popconfirm
                   confirmButtonText="确定"
@@ -37,10 +38,10 @@
                   title="确定删除该项目吗？"
                   @confirm="curProjectId=projects[i-1].id; deleteProject()">
                 <template #reference>
-                  <el-button type="danger" style="width: 50px" class="button">删除</el-button>
+                  <el-button style="width: 50px; color: #F56C6C" class="button">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
+              <el-button style="margin-right: 15px; color: #909399" type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
             </div>
           </div>
         </el-card>
@@ -233,7 +234,6 @@ export default {
       this.$router.push({
         name: 'TopTable'
       })
-      ElMessage('路由跳转到项目页')
     },
     //删除项目接口函数
     deleteProject(){
@@ -259,6 +259,7 @@ export default {
 
 <style scoped>
 .text {
+  width: 100px;
   font-size: 10px;
   color: #999;
 }
@@ -272,6 +273,7 @@ export default {
 }
 
 .button {
+  border: none;
   padding: 0;
   min-height: auto;
 }
@@ -279,5 +281,9 @@ export default {
 .image {
   width: 100%;
   display: block;
+}
+
+#project-card:hover{
+  box-shadow: inset 0 0 10px 2px lightgray;
 }
 </style>

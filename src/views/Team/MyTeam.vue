@@ -161,7 +161,7 @@
       </div>
     </div>
     <!--<el-empty description="团队成员空空如也"/>-->
-    <el-scrollbar height="480px">
+    <el-scrollbar height="380px">
       <div
           v-for="Mem in MemList"
           :key="Mem.userId"
@@ -711,7 +711,7 @@ export default {
 <style scoped>
 #team-layout {
   width: 1000px;
-  height: 800px;
+  height: 700px;
   border: solid #DCDCDC 3px;
   border-radius: 10px;
   margin: 0 auto auto auto;

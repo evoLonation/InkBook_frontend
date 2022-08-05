@@ -1,6 +1,6 @@
 <template>
   <div
-    style="width: 100%; height: 80px; border-bottom: 1px solid lightgray; position: fixed; top: 130px; z-index: 10"
+    style="width: 100%; height: 80px; border-bottom: 1px solid lightgray; position: fixed; top: 120px; z-index: 10; background: linear-gradient(45deg, white, #f4f4f5)"
   >
     <el-button
         style="width: 100px; margin: 20px 50px auto 1410px"
@@ -39,7 +39,7 @@
     </el-dialog>
   </div>
   <el-row
-      style="z-index: 2; float: left; top: -550px; bottom: -550px"
+      style="z-index: 2; float: left; top: -589px; bottom: -550px; min-height: 1530px; background-color: white; width: 100%"
   >
     <div
         v-for="graph in graphList"

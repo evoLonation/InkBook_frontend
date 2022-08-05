@@ -10,13 +10,11 @@
       <a-tab-pane key="flow" tab="流程图" >
         <flow :type="activityType"/>
       </a-tab-pane>
-<<<<<<< HEAD
-=======
 
       <a-tab-pane key="flow" tab="类图" >
         <flow :type="classType"/>
       </a-tab-pane>
->>>>>>> 996784f7ed18191af278cca4a950c041f98db411
+
 <!--      <a-tab-pane key="quickStart02" tab="快速上手02" >-->
 <!--        <quick-start02/>-->
 <!--      </a-tab-pane>-->

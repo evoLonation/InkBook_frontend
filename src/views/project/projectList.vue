@@ -3,9 +3,9 @@
     style="width: 1000px"
   >
     <!--  操作栏，目前只有新建功能-->
-    <div style="margin: 25px 0 35px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
+    <div style="border-bottom: 1px solid #e8e8e8;padding-bottom: 0">
       <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
-        <el-button type="success" style="margin-top: 0; float: right; margin-right: 20px" icon="Plus" >
+        <el-button type="success" style="margin-top: 8px; float: right; margin-right: 20px" icon="Plus" >
           <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
         </el-button>
       </el-menu>
@@ -13,7 +13,7 @@
     <!--  项目列表，卡片形式-->
     <el-row >
       <el-col
-          style="margin-top: 40px"
+          style="margin-top: 45px"
           :span="10"
           v-for="i in projects.length"
           :key="projects[i-1]"

@@ -136,7 +136,7 @@ export default class FlowGraph {
   }
   private static setContent(data) {
     console.log(data)
-    this.graph.fromJSON(data)
+    this.graph.fromJSON(JSON.parse(data))
   }
   // private static getContent() {
   //   return this.graph.toJSON().cells

@@ -116,7 +116,7 @@ export default defineComponent({
       axios.post('/graph/save', {
         "graphId": store.state.graphId,
         "userId": store.state.loginUser.userId,
-        "contents": cells
+        "content": JSON.stringify(cells)
       }).then((response) => {
         if (response.status === 200){
           console.log(response.data.msg)

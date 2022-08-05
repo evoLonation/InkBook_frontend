@@ -104,7 +104,11 @@ const routes = [
       name: "uml",
       component: () => import('../views/project/UMLEdit/tabs/index')
     },
-
+    {
+        path: "/origin",
+        name: "origin",
+        component: () => import('../views/project/OriginEdit/tabs/index')
+    },
 
     //文档相关
 

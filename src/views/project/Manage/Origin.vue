@@ -121,7 +121,7 @@ export default {
     },
     openGraph: function (id){
       this.$store.state.graphId = id;
-      this.$router.push({name: 'uml'})
+      this.$router.push({name: 'origin'})
     },
     createGraph: function (){
       this.$axios.post("prototype/create", {

@@ -46,7 +46,7 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { onBeforeUnmount, ref, shallowRef} from 'vue'
 // import {SlateEditor, SlateElement, SlateTransforms} from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import {getData, onDataChange, writeData} from "./db";
+import {getData, onDataChange, writeData} from "../../db";
 import axios from "axios";
 import {ElMessage} from "element-plus";
 import {useRoute, } from "vue-router/dist/vue-router";

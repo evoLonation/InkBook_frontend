@@ -112,38 +112,43 @@ export default defineComponent({
     const canRedo = ref(history.canRedo())
 
     const saveGraph = (cells) => {
-      axios.post('/graph/save', {
-        "graphId": store.state.graphId,
-        "userId": store.state.loginUser.userId,
-        "content": JSON.stringify(cells)
-      }).then((response) => {
-        if (response.status === 200){
-          console.log(response.data.msg)
-          ElMessage('保存到云端成功')
-        }
-        else {
-          ElMessage('其他错误')
-        }
-      }).catch((err) => {
+      console.log('will save')
+      console.log({
+        "userId" : store.state.loginUser.userId,
+        protoId: parseInt(store.state.originId),
+        "content" : JSON.stringify(FlowGraph.getContent())
+      })
+      axios.post('prototype/save',
+          {
+            "userId" : store.state.loginUser.userId,
+            protoId: parseInt(store.state.originId),
+            "content" : JSON.stringify(FlowGraph.getContent())
+          }
+      ).then(res => {
+        ElMessage({message: res.data.msg, type: 'success'})
+      }).catch(err => {
         console.log(err)
+        ElMessage({message: err.response.data.msg, type: 'warning'})
       })
     }
 
     const quitEdit = () => {
-      axios.post('/graph/exit', {
-        "graphId": store.state.graphId,
-        "userId": store.state.loginUser.userId,
-      }).then((response) => {
-        if (response.status === 200){
-          console.log(response.data.msg)
-          router.push({name: 'TopTable'})
-        }
-        else {
-          ElMessage('其他错误')
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
+      // axios.post('/graph/exit', {
+      //   "graphId": store.state.graphId,
+      //   "userId": store.state.loginUser.userId,
+      // }).then((response) => {
+      //   if (response.status === 200){
+      //     console.log(response.data.msg)
+      //   }
+      //   else {
+      //     ElMessage('其他错误')
+      //   }
+      // }).catch((err) => {
+      //   console.log(err)
+      // })
+      clearInterval(FlowGraph.intervalEditId)
+      clearInterval(FlowGraph.intervalUpdateId)
+      router.push({name: 'TopTable'})
     }
 
     const copy = () => {

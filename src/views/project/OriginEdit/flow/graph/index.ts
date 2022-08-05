@@ -4,6 +4,8 @@ import {ElMessage} from "element-plus";
 import axios from "axios";
 import store from "@/store"
 import router from "@/router"
+import {writeData, getData, onDataChange} from "../../../../../db"
+import {ref} from "vue";
 
 export default class FlowGraph {
   public static graph: Graph
@@ -136,7 +138,7 @@ export default class FlowGraph {
   }
   public static setContent(data) {
     console.log(data)
-    this.graph.fromJSON(JSON.parse(data))
+    this.graph.fromJSON(data)
   }
   public static getContent() {
     return this.graph.toJSON().cells
@@ -297,23 +299,154 @@ export default class FlowGraph {
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape() {
-    const graphId = store.state.graphId
-    console.log(graphId)
-    axios.get('graph/get', {
-      params: {
-        graphId: graphId
-      }
-    }).then((response) => {
-      if (response.status === 409){
-        ElMessage('当前图正在被编辑！')
-        router.push({name: "TopTable"})
-      }
-      else {
-        console.log(response.data.msg)
-        this.setContent(response.data.content)
-      }
-    })
-    //this.graph.fromJSON(graphData as any)
+    const originId = store.state.originId
+    console.log('originId: ' + originId)
+    const getPath = () => {
+      return 'origin/' + originId
+    }
+    const getContentPath = () => {
+      return getPath() + '/content'
+    }
+    const writeContentToFire = async () => {
+      console.log('will write data')
+      await writeData(getPath(), {
+        userId: store.state.loginUser.userId,
+        content: this.getContent()
+      })
+    }
+    // const getUserIdPath = () => {
+    //   return getPath() + '/userId'
+    // }
+    /**
+     * 初始时获得文档内容
+     */
+    const initializeContent = async () => {
+      console.log("开始获取文档内容")
+      await axios.post('prototype/apply-edit', {
+        userId: store.state.loginUser.userId,
+        protoId : parseInt(originId),
+      }).then(async res => {
+        if (res.data.nowEditorNum === 1) {
+          console.log("当前正在编辑人数为1，即将从数据库获取")
+          await axios.get('prototype/get', {
+            params: {
+              userId: store.state.loginUser.userId,
+              protoId: parseInt(originId),
+            }
+          }).then(async res => {
+            console.log("res.data:")
+            console.log(res.data)
+            if (res.data.content !== '') {
+              console.log('数据库中有内容，获得')
+              console.log(JSON.parse(res.data.content))
+              this.setContent(JSON.parse(res.data.content))
+              await writeContentToFire()
+            }
+          }).catch(err => {
+            console.log(err)
+            ElMessage({message: '获得文档内容失败', type: 'warning'})
+          })
+        } else if (res.data.nowEditorNum >= 1) {
+          console.log("当前正在编辑人数为" + res.data.nowEditorNum + "，从firebase获取")
+          getData(getContentPath()).then(res => {
+            console.log(res)
+            this.setContent(res)
+          })
+
+        }
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message:'申请编辑失败',type:'warning'})
+      })
+    }
+    /**
+     * 更新数据库
+     */
+    const needUpdate = ref(false)
+    const setUpdate = () => {
+      needUpdate.value = true
+    }
+    const intervalUpdate = () => {
+      this.intervalUpdateId = setInterval(() => {
+        // if(!needUpdate.value) return;
+        // needUpdate.value = false
+        writeContentToFire()
+      }, 1000)
+    }
+    const destroyIntervalUpdate = () => {
+      clearInterval(this.intervalUpdateId)
+    }
+    /**
+     * 实时获取最新内容
+     */
+    const getUpdate = () => {
+      onDataChange(getPath(), (data)=>{
+        console.log('updater is '+ data.userId + ', userId is '+ store.state.loginUser.userId)
+        if(data.userId === store.state.loginUser.userId)return;
+        this.setContent(data.content)
+      })
+    }
+    /**
+     * 编辑状态定时申请
+     */
+    const intervalEdit = () => {
+      this.intervalEditId = setInterval(() => {
+        console.log({
+          "userId" : store.state.loginUser.userId,
+          protoId: originId,
+        })
+        axios.post('prototype/apply-edit',
+            {
+              "userId" : store.state.loginUser.userId,
+              "protoId": originId,
+            }).then().catch(err => {
+          if(err.response.status !== 409) ElMessage({message:'申请编辑失败',type:'warning'})
+        })
+      }, 2500)
+    }
+    const destroyIntervalEdit = () => {
+      clearInterval(this.intervalEditId)
+    }
+    const postSave = () => {
+      console.log('will save')
+      console.log({
+        "userId" : store.state.loginUser.userId,
+        protoId: parseInt(originId),
+        "content" : JSON.stringify(this.getContent())
+      })
+      axios.post('prototype/save',
+          {
+            "userId" : store.state.loginUser.userId,
+            protoId: parseInt(originId),
+            "content" : JSON.stringify(this.getContent())
+          }
+      ).then(res => {
+        ElMessage({message: res.data.msg, type: 'success'})
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message: err.response.data.msg, type: 'warning'})
+      })
+    }
+    const postQuitEdit = () => {
+      axios.post('prototype/exit',
+          {
+            "userId" : store.state.loginUser.userId,
+            protoId: parseInt(originId),
+          }
+      ).then(res => {
+        if(res.data.remain === 0){
+          postSave()
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+
+    initializeContent()
+    intervalUpdate()
+    setUpdate()
+    getUpdate()
+    intervalEdit()
   }
 
   private static showPorts(ports: NodeListOf<SVGAElement>, show: boolean) {
@@ -321,6 +454,9 @@ export default class FlowGraph {
       ports[i].style.visibility = show ? 'visible' : 'hidden'
     }
   }
+  public static intervalEditId;
+  public static intervalUpdateId;
+
 
   private static initEvent() {
     const { graph } = this

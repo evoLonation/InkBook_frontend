@@ -223,6 +223,6 @@ export default {
   border-radius: 5px;
   position: absolute;
   top: 20%;
-  left: 37%;
+  left: 0;
 }
 </style>

@@ -7,12 +7,12 @@
         :destroy-inactive-tab-pane="true"
         size="small">
 
-      <a-tab-pane key="flow" tab="流程图绘制" >
-        <flow/>
+      <a-tab-pane key="flow" tab="流程图" >
+        <flow :type="activityType"/>
       </a-tab-pane>
 
-      <a-tab-pane key="flow2" tab="原型图绘制" >
-
+      <a-tab-pane key="flow" tab="类图" >
+        <flow :type="classType"/>
       </a-tab-pane>
 <!--      <a-tab-pane key="quickStart02" tab="快速上手02" >-->
 <!--        <quick-start02/>-->
@@ -98,7 +98,16 @@ export default {
     // basic0501,
     // senior01,
     // senior02
+  },
+  setup() {
+    const classType = "class"
+    const activityType = "activity"
+    return {
+      classType,
+      activityType,
+    }
   }
+
 }
 </script>
 

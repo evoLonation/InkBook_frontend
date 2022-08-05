@@ -452,8 +452,9 @@ export default class FlowGraph {
         console.log(response.data.msg)
         this.setContent(response.data.content)
       }
+    }).catch((err) => {
+      console.log(err)
     })
-    //this.graph.fromJSON(graphData as any)
   }
 
   private static showPorts(ports: NodeListOf<SVGAElement>, show: boolean) {

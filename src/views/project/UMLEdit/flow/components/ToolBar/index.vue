@@ -95,7 +95,6 @@
 import { defineComponent, ref } from "vue"// ref, reactive
 import FlowGraph from '../../graph'
 import { DataUri } from '@antv/x6'
-import graphData from "@/views/project/UMLEdit/flow/graph/data";
 import axios from "axios";
 import store from "@/store"
 import {ElMessage} from "element-plus";

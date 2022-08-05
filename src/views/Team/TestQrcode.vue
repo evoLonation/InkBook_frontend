@@ -35,7 +35,7 @@ export default {
     // },
     bindQRCode () {
       new QRCode(this.$refs.qrCodeDiv, {
-        text: 'http://43.138.71.108/team/invite/' + this.teamId,
+        text: 'http://43.138.71.108/#/team/invite/' + this.teamId,
         width: 200,
         height: 200,
         colorDark: '#333333', // 二维码颜色

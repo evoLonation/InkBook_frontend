@@ -159,7 +159,9 @@ export default {
       }).then(res=>{
         if(res.status === 200){
           console.log(res.data)
-          this.graphList = res.data.graphList;
+          if(res.data.graphList.length !== 0) {
+            this.graphList = res.data.graphList;
+          }
         }
       }).catch(err=>{
         console.log(err);

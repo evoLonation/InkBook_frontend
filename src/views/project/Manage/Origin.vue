@@ -95,7 +95,7 @@
       </el-card>
     </div>
     <div style="width: 90%;margin: 200px auto 0 auto">
-      <el-empty v-if="graphList.length===0" description="该项目还没有原型，快去创建一个吧~"></el-empty>
+      <el-empty v-if="graphList === null" description="该项目还没有原型，快去创建一个吧~"></el-empty>
     </div>
   </el-row>
 </template>
@@ -163,7 +163,9 @@ export default {
       }).then(res=>{
         if(res.status === 200){
           console.log(res.data)
-          this.graphList = res.data.graphList;
+          if(res.data.graphList.length !== 0) {
+            this.graphList = res.data.graphList;
+          }
         }
       }).catch(err=>{
         console.log(err);

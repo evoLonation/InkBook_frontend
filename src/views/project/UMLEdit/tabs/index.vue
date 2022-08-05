@@ -11,9 +11,9 @@
         <flow :type="activityType"/>
       </a-tab-pane>
 
-      <a-tab-pane key="flow" tab="类图" >
-        <flow :type="classType"/>
-      </a-tab-pane>
+<!--      <a-tab-pane key="flow" tab="类图" >-->
+<!--        <flow :type="classType"/>-->
+<!--      </a-tab-pane>-->
 
 <!--      <a-tab-pane key="quickStart02" tab="快速上手02" >-->
 <!--        <quick-start02/>-->

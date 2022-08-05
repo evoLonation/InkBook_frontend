@@ -86,10 +86,11 @@
         <span>Cmd + P</span>
       </template>
       <a-button name="toJSON" @click="handleClick" class="item-space" size="small">
-        导出为JSON_会改为相关接口
+        保存(JSON)
       </a-button>
     </a-tooltip>
-
+    <el-button type="primary" @click="quitEdit" icon="el-icon-info"
+               iconColor="red">退出</el-button>
   </div>
 </template>
 
@@ -99,6 +100,10 @@ import { defineComponent, ref } from "vue"// ref, reactive
 import FlowGraph from '../../graph'
 import { DataUri } from '@antv/x6'
 import graphData from "@/views/project/UMLEdit/flow/graph/data";
+import axios from "axios";
+import store from "@/store"
+import {ElMessage} from "element-plus";
+import router from "@/router"
 
 export default defineComponent({
   name: "index",
@@ -110,6 +115,41 @@ export default defineComponent({
 
     const canUndo = ref(history.canUndo())
     const canRedo = ref(history.canRedo())
+
+    const saveGraph = (cells) => {
+      axios.post('/graph/save', {
+        "graphId": store.state.graphId,
+        "userId": store.state.loginUser.userId,
+        "contents": cells
+      }).then((response) => {
+        if (response.status === 200){
+          console.log(response.data.msg)
+          ElMessage('保存到云端成功')
+        }
+        else {
+          ElMessage('其他错误')
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
+    const quitEdit = () => {
+      axios.post('/graph/exit', {
+        "graphId": store.state.graphId,
+        "userId": store.state.loginUser.userId,
+      }).then((response) => {
+        if (response.status === 200){
+          console.log(response.data.msg)
+          router.push({name: 'TopTable'})
+        }
+        else {
+          ElMessage('其他错误')
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
 
     const copy = () => {
       const { graph } = FlowGraph
@@ -188,6 +228,8 @@ export default defineComponent({
         case 'toJSON':
           //将图转为JSON的方式在这
           console.log(graph.toJSON().cells)
+            saveGraph(graph.toJSON().cells)
+
           // graph.fromJSON({cells:[graph.toJSON().cells[0],graph.toJSON().cells[1]]})
           break
         default:
@@ -237,7 +279,8 @@ export default defineComponent({
       copy,
       cut,
       paste,
-      handleClick
+      handleClick,
+      quitEdit
     }
   }
 })

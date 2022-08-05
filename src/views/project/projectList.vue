@@ -18,7 +18,7 @@
           v-for="i in projects.length"
           :key="projects[i-1]"
           :offset="i > 0 ? 2 : 0">
-        <el-card :body-style="{ padding: '0px' }" style="width: 300px; margin-bottom: 40px" shadow="hover">
+        <el-card id="project-card" :body-style="{ padding: '0px' }" style="width: 400px; height: 105px; margin-bottom: 40px; margin-left: -50px" shadow="hover">
           <img
               src="require({{projects[i-1].imageUrl}})"
               class="image"
@@ -27,7 +27,7 @@
             <span>{{projects[i-1].name}}</span>
             <div class="bottom">
               <text class="text">{{ projects[i-1].detail }}</text>
-              <el-button type="primary" class="button" style="width: 50px" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()">进入</el-button>
+              <el-button class="button" style="width: 50px; margin-left: 100px; color: #409EFF" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()">进入</el-button>
     <!--            删除项目对话框-->
               <el-popconfirm
                   confirmButtonText="确定"
@@ -37,10 +37,10 @@
                   title="确定删除该项目吗？"
                   @confirm="curProjectId=projects[i-1].id; deleteProject()">
                 <template #reference>
-                  <el-button type="danger" style="width: 50px" class="button">删除</el-button>
+                  <el-button style="width: 50px; color: #F56C6C" class="button">删除</el-button>
                 </template>
               </el-popconfirm>
-              <el-button type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
+              <el-button style="margin-right: 15px; color: #909399" type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
             </div>
           </div>
         </el-card>
@@ -258,6 +258,7 @@ export default {
 
 <style scoped>
 .text {
+  width: 100px;
   font-size: 10px;
   color: #999;
 }
@@ -271,6 +272,7 @@ export default {
 }
 
 .button {
+  border: none;
   padding: 0;
   min-height: auto;
 }
@@ -278,5 +280,9 @@ export default {
 .image {
   width: 100%;
   display: block;
+}
+
+#project-card:hover{
+  box-shadow: inset 0 0 10px 2px lightgray;
 }
 </style>

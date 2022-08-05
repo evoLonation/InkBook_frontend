@@ -1,10 +1,9 @@
 import {Graph, Addon, FunctionExt, Shape} from '@antv/x6'
 import './shape'
-import graphData from './data'
-import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
 import axios from "axios";
 import store from "@/store"
+import router from "@/router"
 
 export default class FlowGraph {
   public static graph: Graph
@@ -136,6 +135,7 @@ export default class FlowGraph {
     return this.graph
   }
   private static setContent(data) {
+    console.log(data)
     this.graph.fromJSON(data)
   }
   // private static getContent() {
@@ -303,7 +303,7 @@ export default class FlowGraph {
     }).then((response) => {
       if (response.status === 409){
         ElMessage('当前图正在被编辑！')
-        return
+        router.push({name: "TopTable"})
       }
       else {
         console.log(response.data.msg)

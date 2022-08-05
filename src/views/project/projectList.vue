@@ -11,16 +11,17 @@
       </el-menu>
     </div>
     <!--  项目列表，卡片形式-->
-    <el-row>
+    <el-row >
       <el-col
           style="margin-top: 40px"
           :span="10"
           v-for="i in projects.length"
           :key="projects[i-1]"
           :offset="i > 0 ? 2 : 0">
-        <el-card id="project-card" :body-style="{ padding: '0px' }" style="width: 400px; height: 105px; margin-bottom: 40px; margin-left: -50px" shadow="hover">
+        <el-card id="project-card" :body-style="{ padding: '0px' }" style="width: 400px; height: auto; margin-bottom: 40px; margin-left: -50px" shadow="hover">
+          <meta name="referrer" content="no-referrer" />
           <img
-              src="require({{projects[i-1].imageUrl}})"
+              src="http://inews.gtimg.com/newsapp_bt/0/13680351024/641"
               class="image"
            alt=""/>
           <div style="padding: 14px;">

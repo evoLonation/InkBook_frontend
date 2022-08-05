@@ -151,7 +151,7 @@ export default class FlowGraph {
         {
           name: 'basic',
           title: '流程节点',
-          graphHeight: 480,
+          graphHeight: 180,
         },
         {
           name: 'combination',
@@ -452,8 +452,9 @@ export default class FlowGraph {
         console.log(response.data.msg)
         this.setContent(response.data.content)
       }
+    }).catch((err) => {
+      console.log(err)
     })
-    //this.graph.fromJSON(graphData as any)
   }
 
   private static showPorts(ports: NodeListOf<SVGAElement>, show: boolean) {

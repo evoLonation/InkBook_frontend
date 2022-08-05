@@ -141,9 +141,6 @@ export default class FlowGraph {
   public static getContent() {
     return this.graph.toJSON().cells
   }
-  // private static getContent() {
-  //   return this.graph.toJSON().cells
-  // }
   private static initStencil() {
     this.stencil = new Addon.Stencil({
       target: this.graph,

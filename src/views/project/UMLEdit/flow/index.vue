@@ -6,7 +6,7 @@
       <div class="panel">
         <!--流程图工具栏-->
         <div class="toolbar">
-          <tool-bar v-if="isReady" />
+          <tool-bar v-if="isReady" :type="type"/>
         </div>
         <!--流程图画板-->
         <div id="container" class="x6-graph" />
@@ -37,9 +37,10 @@ const getContainerSize = () => {
 }
 export default defineComponent({
   name: "index",
+  props: ["type"],
   components:{
     ToolBar,
-    ConfigPanel
+    ConfigPanel,
   },
   setup(){
     const isReady = ref(false)

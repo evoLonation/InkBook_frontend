@@ -1,19 +1,28 @@
 <template>
-  <div style="position: absolute;top: 120px;z-index: 9;width: 100%;background-color: white;">
-    <div ><el-button @click="dialogVisible = true" >创建文档</el-button></div>
+  <div style="position: absolute;top: 120px;z-index: 9;width: 100%;background-color: white; ">
+    <div>
+      <el-button
+          type="success"
+          @click="dialogVisible = true"
+          style="margin: 20px 50px auto 1410px; width: 100px;"
+    >
+        创建文档
+      </el-button>
+    </div>
     <div style="margin: 15px 0 5px 0;border-bottom: 1px solid #e8e8e8;padding-bottom: 10px">
     </div>
-    <div style="height: 610px;">
+    <div style="height: 730px">
       <el-table :data="tableData" stripe
                 element-loading-text="少女折寿中"
-                style="width:100%;margin-top: 0;"
+                style="width:100%; margin-top: 0;"
                 height="100%"
                 :row-style="{height: '0'}"
                 :cell-style="{padding: '20px'}"
+                :header-cell-style="{padding: '20px'}"
                 highlight-current-row
                 @row-dblclick="dbClick">
-        <el-table-column sortable prop="docName" label="文件名" width="400"></el-table-column>
-        <el-table-column sortable prop="modifyInfo" label="修改信息" width="350"></el-table-column>
+        <el-table-column sortable prop="docName" label="文件名" width="800" style="padding: 20px"></el-table-column>
+        <el-table-column sortable prop="modifyInfo" label="修改信息" width="650" style="padding: 20px"></el-table-column>
         <el-table-column width="50" label="">
           <template #default="scope">
             <!--          <el-button text>-->
@@ -25,7 +34,7 @@
                 title="确定删除该项目吗？"
                 @confirm="sendDeleteDoc(scope.row.docId);sendListDoc()">
               <template #reference>
-                <el-icon><Delete /></el-icon>
+                <el-icon style="color: #c45656"><Delete /></el-icon>
               </template>
             </el-popconfirm>
             <!--          </el-button>-->

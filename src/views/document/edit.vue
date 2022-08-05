@@ -27,7 +27,17 @@
       />
     </div>
   </div>
-  <el-button @click="postSave">保存文档</el-button>
+  <div
+    style="height: 100px;"
+  >
+    <el-button
+        @click="postSave"
+        style="margin-top: 30px; margin-right: 70px; float: right"
+        type="primary"
+    >
+      保存文档
+    </el-button>
+  </div>
   <p></p>
 </template>
 
@@ -338,7 +348,7 @@ body {
 
 #editor-container {
   width: 850px;
-  margin: 30px auto 150px auto;
+  margin: 30px auto 30px auto;
   background-color: #fff;
   padding: 20px 50px 50px 50px;
   border: 1px solid #e8e8e8;

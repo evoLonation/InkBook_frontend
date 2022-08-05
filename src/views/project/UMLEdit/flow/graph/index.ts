@@ -151,7 +151,7 @@ export default class FlowGraph {
         {
           name: 'basic',
           title: '流程节点',
-          graphHeight: 480,
+          graphHeight: 180,
         },
         {
           name: 'combination',

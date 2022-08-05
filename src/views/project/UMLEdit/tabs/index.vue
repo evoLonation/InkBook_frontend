@@ -10,10 +10,6 @@
       <a-tab-pane key="flow" tab="流程图绘制" >
         <flow/>
       </a-tab-pane>
-
-      <a-tab-pane key="flow2" tab="原型图绘制" >
-
-      </a-tab-pane>
 <!--      <a-tab-pane key="quickStart02" tab="快速上手02" >-->
 <!--        <quick-start02/>-->
 <!--      </a-tab-pane>-->

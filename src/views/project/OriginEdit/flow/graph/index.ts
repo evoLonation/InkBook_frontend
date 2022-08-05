@@ -153,8 +153,8 @@ export default class FlowGraph {
       groups: [
         {
           name: 'basic',
-          title: '流程节点',
-          graphHeight: 180,
+          title: '常用节点',
+          graphHeight: 480,
         },
         {
           name: 'combination',
@@ -190,7 +190,7 @@ export default class FlowGraph {
           ry: 24,
         },
         text: {
-          text: '起始节点',
+          text: '',
         },
       },
     })
@@ -198,7 +198,7 @@ export default class FlowGraph {
       shape: 'flow-chart-rect',
       attrs: {
         text: {
-          text: '流程节点',
+          text: '',
         },
       },
     })
@@ -214,7 +214,7 @@ export default class FlowGraph {
           },
         },
         text: {
-          text: '判断节点',
+          text: '',
           transform: 'rotate(-45deg)',
         },
       },
@@ -265,11 +265,152 @@ export default class FlowGraph {
           ry: 35,
         },
         text: {
-          text: '链接节点',
+          text: '',
         },
       },
     })
+    const r5 = graph.createNode({
+      shape: 'flow-chart-rect',
+      width: 70,
+      height: 70,
+      attrs: {
+        body: {
+          rx: 20,
+          ry: 20,
+        },
+        text: {
+          text: '',
+        },
+      },
+      ports: {
+        groups: {
+          top: {
+            position: {
+              name: 'top',
+            },
+            right: {
+              position: {
+                name: 'right',
+              },
+            },
+            bottom: {
+              position: {
+                name: 'bottom',
+              },
+            },
+            left: {
+              position: {
+                name: 'left',
+              },
+            },
+          },
+        },
+      },
+    })
+    const r6 = graph.createNode({
+      shape: 'flow-chart-rect',
+      width: 70,
+      height: 70,
+      attrs: {
+        text: {
+          text: '',
+        },
+      },
+      ports: {
+        groups: {
+          top: {
+            position: {
+              name: 'top',
+            },
+            right: {
+              position: {
+                name: 'right',
+              },
+            },
+            bottom: {
+              position: {
+                name: 'bottom',
+              },
+            },
+            left: {
+              position: {
+                name: 'left',
+              },
+            },
+          },
+        },
+      },
+    })
+    const r7 = graph.createNode({
+      shape: 'flow-chart-rect',
+      attrs: {
+        text: {
+          text: '文本框',
+        },
+        body: {
+          stroke: '#fff',
+        }
+      },
+    })
+    const r8 = graph.createNode({
+      shape: 'flow-chart-polygon',
+      attrs: {
+        text: {
+          text: '',
+        },
+        body: {
+          stroke: '#5F95FF'
+        }
+      },
+    })
+    const r9 = graph.createNode({
+      shape: 'flow-chart-love',
+      attrs: {
+        text: {
+          text: '',
+        },
+        body: {
+          stroke: '#5F95FF'
+        }
+      },
+    })
+    const r10 = graph.createNode({
+      shape: 'flow-chart-fs',
+      attrs: {
+        text: {
+          text: '',
+        },
+        body: {
+          stroke: '#5F95FF'
+        }
+      },
+    })
+    const r11 = graph.createNode({
+      shape: 'flow-chart-connect',
+      attrs: {
+        text: {
+          text: '我也不知道是啥',
+        },
+        body: {
+          stroke: '#5F95FF'
+        }
+      },
+    })
+    const r12 = graph.createNode({
+      x: 40,
+      y: 40,
+      width: 10,
+      height: 10,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('input')
+        wrap.style.width = '100'
+        wrap.style.height = '100'
+        wrap.type = "radio"
 
+        return wrap
+      }
+    })
     const c1 = graph.createNode({
       shape: 'flow-chart-image-rect',
     })
@@ -291,7 +432,7 @@ export default class FlowGraph {
         parent: true,
       },
     })
-    this.stencil.load([r1, r2, r3, r4], 'basic')
+    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12], 'basic')
     this.stencil.load([c1, c2, c3], 'combination')
     this.stencil.load([g1], 'group')
   }

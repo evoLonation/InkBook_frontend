@@ -7,18 +7,18 @@
         type="success"
         @click="dialogVisable = true"
     >
-      添加图表
+      添加UML
     </el-button>
     <el-dialog
       v-model="dialogVisable"
-      title="添加图表"
+      title="添加UML"
       width="30%"
       :before-close="handleClose"
     >
-      <span>图表名称</span>
+      <span>UML名称</span>
       <el-input
         v-model="graphName"
-        placeholder="请输入图表名称"
+        placeholder="请输入UML名称"
         style="margin-top: 10px"
       >
       </el-input>
@@ -113,7 +113,7 @@ export default {
   methods: {
     handleClose: function (){
       this.dialogVisable = false;
-      ElMessage.warning('构建图表取消')
+      ElMessage.warning('构建UML取消')
     },
     openGraph: function (id){
       this.$store.state.graphId = id;
@@ -126,7 +126,7 @@ export default {
         "projectId": this.projectId
       }).then(res=>{
         if(res.status === 200){
-          this.$message.success("构建图表成功！");
+          this.$message.success("构建UML成功！");
           location.reload();
         }
       }).catch(err=>{

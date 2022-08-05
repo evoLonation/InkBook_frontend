@@ -82,15 +82,11 @@
     </a-tooltip>
 
     <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + P</span>
-      </template>
-      <a-button name="toJSON" @click="handleClick" class="item-space" size="small">
-        保存(JSON)
-      </a-button>
+      <el-button name="toJSON" @click="handleClick" class="item-space" type="success">
+        保存
+      </el-button>
     </a-tooltip>
-    <el-button type="primary" @click="quitEdit" icon="el-icon-info"
-               iconColor="red">退出</el-button>
+    <el-button @click="quitEdit" class="item-space" type="danger">退出</el-button>
   </div>
 </template>
 

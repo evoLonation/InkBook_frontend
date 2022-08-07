@@ -1,5 +1,7 @@
 <template>
+  <div class="register-layout">
 
+  </div>
 </template>
 
 <script>
@@ -128,5 +130,11 @@ export default {
 </script>
 
 <style scoped>
-
+.register-layout {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(90deg, white, #E4D2F8);
+  display: flex;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
+}
 </style>

@@ -169,8 +169,10 @@ export default {
 }
 
 .left-pic {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
+  left: 10%;
+  margin-top: 10px;
   position: relative;
   object-fit: contain;
 }

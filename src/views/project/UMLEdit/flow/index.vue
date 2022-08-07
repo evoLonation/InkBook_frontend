@@ -37,7 +37,7 @@ const getContainerSize = () => {
 }
 export default defineComponent({
   name: "index",
-  props: ["type"],
+  props: ["graphId"],
   components:{
     ToolBar,
     ConfigPanel,
@@ -45,7 +45,7 @@ export default defineComponent({
   setup(){
     const isReady = ref(false)
     const initGraph = function(): Function{
-      const graph = FlowGraph.init()
+      const graph = FlowGraph.init(this.graphId)
       isReady.value = true
       const resizeFn = () => {
         const { width, height } = getContainerSize()
@@ -72,4 +72,3 @@ export default defineComponent({
 
 
 </style>
-流程节点

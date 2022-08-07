@@ -8,9 +8,11 @@ import router from "@/router"
 export default class FlowGraph {
   public static graph: Graph
   private static stencil: Addon.Stencil
-
-  public static init() {
+  public static init(graphId) {
     this.graph = new Graph({
+      resizing: {
+        enabled: true,
+      },
       container: document.getElementById('container')!,
       width: 1000,
       height: 800,
@@ -130,7 +132,7 @@ export default class FlowGraph {
     })
     this.initStencil()
     this.initShape()
-    this.initGraphShape()
+    this.initGraphShape(graphId)
     this.initEvent()
     return this.graph
   }
@@ -138,9 +140,6 @@ export default class FlowGraph {
     console.log(data)
     this.graph.fromJSON(JSON.parse(data))
   }
-  // private static getContent() {
-  //   return this.graph.toJSON().cells
-  // }
   private static initStencil() {
     this.stencil = new Addon.Stencil({
       target: this.graph,
@@ -176,7 +175,6 @@ export default class FlowGraph {
     const stencilContainer = document.querySelector('#stencil')
     stencilContainer?.appendChild(this.stencil.container)
   }
-
   private static initShape() {
     const { graph } = this
     const r1 = graph.createNode({
@@ -436,8 +434,7 @@ export default class FlowGraph {
     this.stencil.load([g1], 'group')
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
-  private static initGraphShape() {
-    const graphId = store.state.graphId
+  private static initGraphShape(graphId) {
     console.log(graphId)
     axios.get('graph/get', {
       params: {

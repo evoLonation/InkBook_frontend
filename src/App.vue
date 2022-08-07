@@ -1,15 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <antv/>
+  <my-giao/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import antv from './antv.vue'
+import myGiao from "@/MyGiao";
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    antv,
+    myGiao,
   }
 }
 </script>

@@ -1,92 +1,76 @@
 <template>
   <div class="bar">
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + D</span>
-      </template>
-      <a-button name="delete" @click="handleClick" class="item-space" size="small" >
-        清除
-      </a-button>
-    </a-tooltip>
+    <el-button-group>
+      <el-tooltip placement="bottom" content="清除 Ctrl+D">
+        <el-button name="delete" @click="handleClick" class="item-space" size="small" round>
+          <el-icon><Delete /></el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + Z</span>
-      </template>
-      <a-button :disabled="!canUndo" name="undo" @click="handleClick" class="item-space" size="small" >
-        撤销
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="撤销 Ctrl+Z">
+        <el-button :disabled="!canUndo" name="undo" @click="handleClick" class="item-space" size="small" >
+          <el-icon><RefreshLeft /></el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + Shift + Z</span>
-      </template>
-      <a-button :disabled="!canRedo" name="redo" @click="handleClick" class="item-space" size="small" >
-        重做
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="重做 Ctrl+Y">
+        <el-button :disabled="!canRedo" name="redo" @click="handleClick" class="item-space" size="small" >
+          <el-icon><RefreshRight /></el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + Shift + Z</span>
-      </template>
-      <a-button name="copy" @click="handleClick" class="item-space" size="small" >
-        复制
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="复制 Ctrl+C">
+        <el-button name="copy" @click="handleClick" class="item-space" size="small" >
+          <el-icon><CopyDocument /></el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + X</span>
-      </template>
-      <a-button name="cut" @click="handleClick" class="item-space" size="small" >
-        剪切
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="剪切 Ctrl+X">
+        <el-button name="cut" @click="handleClick" class="item-space" size="small" >
+          <el-icon><Scissor /></el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + V</span>
-      </template>
-      <a-button name="paste" @click="handleClick" class="item-space" size="small" >
-        粘贴
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="粘贴 Ctrl+V">
+        <el-button name="paste" @click="handleClick" class="item-space" size="small" >
+          <el-icon><BrushFilled /></el-icon>
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + S</span>
-      </template>
-      <a-button name="savePNG" @click="handleClick" class="item-space" size="small">
-        保存为PNG
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="下载PNG Ctrl+S">
+        <el-button name="savePNG" @click="handleClick" class="item-space" size="small">
+          <el-icon><Download /></el-icon>PNG
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + S</span>
-      </template>
-      <a-button name="saveSVG" @click="handleClick" class="item-space" size="small">
-        保存为SVG
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="下载SVG">
+        <el-button name="saveSVG" @click="handleClick" class="item-space" size="small">
+          <el-icon><Download /></el-icon>SVG
+        </el-button>
+      </el-tooltip>
 
-    <a-tooltip placement="bottom">
-      <template #title>
-        <span>Cmd + P</span>
-      </template>
-      <a-button name="print" @click="handleClick" class="item-space" size="small">
-        打印
-      </a-button>
-    </a-tooltip>
+      <el-tooltip placement="bottom" content="打印 Ctrl+P">
+        <el-button name="print" @click="handleClick" class="item-space" size="small" round>
+          <el-icon><Printer /></el-icon>
+        </el-button>
+      </el-tooltip>
+    </el-button-group>
 
-    <a-tooltip placement="bottom">
-      <el-button name="toJSON" @click="handleClick" class="item-space" type="success">
-        保存
-      </el-button>
-    </a-tooltip>
-    <el-button @click="quitEdit" class="item-space" type="danger">退出</el-button>
+    <el-button-group>
+      <el-tooltip placement="bottom" content="保存">
+        <el-button name="toJSON" @click="handleClick" class="item-space" round>
+          <el-icon color="lightblue"><Select /></el-icon>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip placement="bottom" content="退出">
+        <el-button @click="quitEdit" class="item-space" round>
+          <el-icon color="red"><CloseBold /></el-icon>
+        </el-button>
+      </el-tooltip>
+    </el-button-group>
+
+
+
   </div>
 </template>
 
@@ -99,10 +83,14 @@ import axios from "axios";
 import store from "@/store"
 import {ElMessage} from "element-plus";
 import router from "@/router"
+import {CopyDocument, Delete, RefreshLeft} from "@element-plus/icons";
 
 export default defineComponent({
   name: "index",
   components:{
+    CopyDocument,
+    RefreshLeft,
+    Delete
   },
   setup(){
     const { graph } = FlowGraph
@@ -286,6 +274,8 @@ export default defineComponent({
   margin-right:16px;
 }
 .item-space{
-  margin-left:16px;
+  margin-left:100px;
+  width: 70px;
+  height: 30px;
 }
 </style>

@@ -12,8 +12,8 @@ export default class FlowGraph {
   public static init() {
     this.graph = new Graph({
       container: document.getElementById('container')!,
-      width: 20,
-      height: 20,
+      width: 1000,
+      height: 800,
       grid: {
         size: 10,
         visible: true,
@@ -35,7 +35,7 @@ export default class FlowGraph {
         enabled: true,
         pageVisible: true,
         pageBreak: true,
-        pannable: true,
+        pannable: false,
       },
       mousewheel: {
         enabled: true,

@@ -1,4 +1,5 @@
 import FlowGraph from "@/views/project/UMLEdit/flow/graph";
+import store from "@/store"
 
 export function gridOpt(globalGridAttr: any){
     let options
@@ -48,9 +49,10 @@ const tryToJSON = (val: string) => {
 
 
 export function backGroundOpt(globalGridAttr: any){
+    const url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + store.state.loginUser.userId
     const options = {
         color: globalGridAttr.bgColor,
-        image: globalGridAttr.showImage? 'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*o-MuTpQaj7EAAAAAAAAAAABkARQnAQ': undefined,
+        image: globalGridAttr.showImage? require('../../../../../../../assets/logo.png') : undefined,
         repeat: globalGridAttr.repeat,
         angle: globalGridAttr.angle,
         size: tryToJSON(globalGridAttr.bgSize),

@@ -7,6 +7,7 @@ import VueAxios from 'vue-axios'
 import VueParticles from "vue-particles";
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
+import '@antv/x6-vue-shape'
 // import VueQuill from 'vue-quill'
 // import { firestorePlugin } from 'vuefire'
 

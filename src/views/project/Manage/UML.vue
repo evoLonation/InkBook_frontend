@@ -116,8 +116,10 @@ export default {
       ElMessage.warning('构建UML取消')
     },
     openGraph: function (id){
-      this.$store.state.graphId = id;
-      this.$router.push({name: 'uml'})
+      this.$router.push({name: 'uml', params:{
+        graphId: id,
+          projectId: this.projectId,
+      }})
     },
     createGraph: function (){
       this.$axios.post("graph/create", {

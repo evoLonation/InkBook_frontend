@@ -102,7 +102,6 @@ export default defineComponent({
       globalGridAttr.nodeUsers = val
       curCel?.attr('approve/users', val)
     }
-
     return{
       globalGridAttr,
       onStrokeChange,
@@ -110,7 +109,7 @@ export default defineComponent({
       onFillChange,
       onFontSizeChange,
       onColorChange,
-      onUsersChange
+      onUsersChange,
     }
   }
 })

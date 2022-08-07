@@ -129,6 +129,11 @@ const routes = [
         name: "teamInvite",
         component: () => import('../views/Team/TeamInvite')
     },
+    {
+        path: "/tool",
+        name: "Tool",
+        component: () => import('../views/unlayer/tool')
+    },
 ];
 
 const router = createRouter({

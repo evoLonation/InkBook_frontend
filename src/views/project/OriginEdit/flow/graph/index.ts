@@ -1,5 +1,6 @@
 import {Graph, Addon, FunctionExt, Shape} from '@antv/x6'
 import './shape'
+import '@antv/x6-vue-shape'
 import {ElMessage} from "element-plus";
 import axios from "axios";
 import store from "@/store"
@@ -151,7 +152,7 @@ export default class FlowGraph {
         {
           name: 'basic',
           title: '常用节点',
-          graphHeight: 480,
+          graphHeight: 580,
         },
         {
           name: 'combination',
@@ -408,6 +409,36 @@ export default class FlowGraph {
         return wrap
       }
     })
+
+
+    // const node = graph.createNode({
+    //   x: 40,
+    //   y: 40,
+    //   width: 100,
+    //   height: 60,
+    //   shape: 'html',
+    //   data: {
+    //     time: new Date().toString(),
+    //   },
+    //   html: {
+    //     render() {
+    //       const data = node.getData() as any
+    //       return(
+    //           `<div>
+    //                 <span>${data.time}</span>
+    //            </div>`
+    //       )
+    //     },
+    //     setInterval(function(){
+    //       shouldComponentUpdate();
+    //     },1000),
+    //     shouldComponentUpdate() {
+    //       // 控制节点重新渲染
+    //       return node.hasChanged('data')
+    //     },
+    //   },
+    // })
+
     const c1 = graph.createNode({
       shape: 'flow-chart-image-rect',
     })

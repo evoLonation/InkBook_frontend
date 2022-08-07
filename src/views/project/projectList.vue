@@ -1,24 +1,21 @@
 <template>
   <div
-    style="width: 1000px"
-  >
-    <!--  操作栏，目前只有新建功能-->
-    <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0">
+    style="width: 1250px">
+    <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0; margin-bottom: 30px">
       <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
-        <el-button type="success" style="margin-top: 8px; float: right; margin-right: 20px" icon="Plus" >
+        <el-button style="margin-top: 8px; float: right; margin-right: 20px"><el-icon><Plus /></el-icon>
           <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
         </el-button>
       </el-menu>
     </div>
-    <!--  项目列表，卡片形式-->
     <el-row >
       <el-col
           style="margin-top: 45px"
-          :span="10"
+          :span="6"
           v-for="i in projects.length"
-          :key="projects[i-1]"
-          :offset="i > 0 ? 2 : 0">
-        <el-card id="project-card" :body-style="{ padding: '0px' }" style="width: 400px; height: auto; margin-bottom: 40px; margin-left: -50px" shadow="hover">
+          :key="projects[i-1]">
+        <el-card id="project-card" :body-style="{ padding: '0px' }"
+                 style="width: 250px; height: auto" shadow="hover">
           <meta name="referrer" content="no-referrer" />
           <img
               src="http://inews.gtimg.com/newsapp_bt/0/13680351024/641"
@@ -28,26 +25,45 @@
             <span>{{projects[i-1].name}}</span>
             <div class="bottom">
               <text class="text">{{ projects[i-1].detail }}</text>
-              <el-button class="button" style="width: 50px; margin-left: 100px; color: #409EFF" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()">进入</el-button>
-    <!--            删除项目对话框-->
-              <el-popconfirm
-                  confirmButtonText="确定"
-                  cancelButtonText="取消"
-                  icon="el-icon-info"
-                  iconColor="red"
-                  title="确定删除该项目吗？"
-                  @confirm="curProjectId=projects[i-1].id; deleteProject()">
-                <template #reference>
-                  <el-button style="width: 50px; color: #F56C6C" class="button">删除</el-button>
-                </template>
-              </el-popconfirm>
-              <el-button style="margin-right: 15px; color: #909399" type="text" class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;">编辑</el-button>
+              <el-button-group>
+                <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="进入"
+                    placement="bottom"
+                >
+              <el-button class="button" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()"><el-icon color="orange"><Folder /></el-icon></el-button>
+                </el-tooltip>
+                <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="编辑"
+                    placement="bottom"
+                >
+              <el-button class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;"><el-icon><Edit /></el-icon></el-button>
+                </el-tooltip>
+                  <el-popconfirm
+                    confirmButtonText="确定"
+                    cancelButtonText="取消"
+                    title="确定删除该项目吗？"
+                    @confirm="curProjectId=projects[i-1].id; deleteProject()">
+                  <template #reference>
+                    <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="删除"
+                        placement="bottom"
+                    >
+                    <el-button class="button"><el-icon color="red"><delete/></el-icon></el-button>
+                    </el-tooltip>
+                  </template>
+                </el-popconfirm>
+              </el-button-group>
             </div>
           </div>
         </el-card>
       </el-col>
     </el-row>
-    <!--  新建项目对话框-->
     <el-dialog
         title="新建项目"
         v-model="createVisible"
@@ -62,7 +78,6 @@
       </span>
       </template>
     </el-dialog>
-    <!--  重命名项目对话框-->
     <el-dialog
         title="编辑项目"
         v-model="renameVisible"
@@ -274,6 +289,7 @@ export default {
 
 .button {
   border: none;
+  width: 30px;
   padding: 0;
   min-height: auto;
 }

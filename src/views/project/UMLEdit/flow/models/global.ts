@@ -8,7 +8,7 @@ export const globalGridAttr = reactive({
     colorSecond: '#d0d0d0',
     thicknessSecond: 1,
     factor: 4,
-    bgColor: '#e5e5e5',
+    bgColor: '#ffffff',
     showImage: true,
     repeat: 'watermark',
     angle: 30,

@@ -1,6 +1,5 @@
 <template>
-  <div
-    style="width: 1250px">
+  <div style="width: 1250px">
     <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0; margin-bottom: 30px">
       <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
         <el-button style="margin-top: 8px; float: right; margin-right: 20px"><el-icon><Plus /></el-icon>
@@ -17,10 +16,10 @@
         <el-card id="project-card" :body-style="{ padding: '0px' }"
                  style="width: 250px; height: auto" shadow="hover">
           <meta name="referrer" content="no-referrer" />
-          <img
-              src="http://inews.gtimg.com/newsapp_bt/0/13680351024/641"
-              class="image"
-           alt=""/>
+          <el-image
+            src='https://inews.gtimg.com/newsapp_bt/0/13680351024/641'
+            class="image">
+          </el-image>
           <div style="padding: 14px;">
             <span>{{projects[i-1].name}}</span>
             <div class="bottom">
@@ -70,6 +69,7 @@
         width="30%">
       <span>请输入项目信息</span>
       <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称" clearable></el-input>
+      <el-image ></el-image>
       <el-input type="textarea" style="margin-top: 10px" v-model="input2" placeholder="项目简介" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
@@ -131,7 +131,6 @@ export default {
       curProjectId: Number,
       curProjectName: String,
       curProjectDetail: String,
-      teamId: 1,
     }
   },
   methods: {
@@ -174,11 +173,9 @@ export default {
         this.createVisible=true;
         return
       }
-      let userId = this.$store.state.loginUser.userId
-      console.log(userId)
       this.$axios.post("/project/create", {
         "name": name,
-        "userId": userId,
+        "userId": this.$store.state.loginUser.userId,
         "teamId":  this.$store.state.selectTeam.teamId,
         "detail": detail,
         "imgUrl": 'https://img.nga.178.com/attachments/mon_202207/05/m6Q2q-rl1ZcT3cSk4-sg.jpg',
@@ -246,9 +243,7 @@ export default {
     },
     openProject(){
       this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: this.curProjectName})
-      this.$router.push({
-        name: 'TopTable'
-      })
+      this.$router.push({name: 'TopTable'})
     },
     //删除项目接口函数
     deleteProject(){
@@ -300,6 +295,6 @@ export default {
 }
 
 #project-card:hover{
-  box-shadow: inset 0 0 10px 2px lightgray;
+  box-shadow: inset 0 0 10px 2px lightgoldenrodyellow;
 }
 </style>

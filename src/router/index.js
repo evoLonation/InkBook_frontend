@@ -86,8 +86,13 @@ const routes = [
             {
                 path: '/teamProject',
                 name: 'teamProject',
-                component: () => import('../views/project/projectList.vue')
+                component: () => import('../views/project/projectList')
             },
+            {
+                path: '/projectRec',
+                name: 'projectRec',
+                component: () => import('../views/project/projectRec')
+            }
         ],
     },
 

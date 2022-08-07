@@ -6,7 +6,7 @@
       <div class="panel">
         <!--流程图工具栏-->
         <div class="toolbar">
-          <tool-bar v-if="isReady" :type="type"/>
+          <tool-bar v-if="isReady" :graphId="this.graphId"/>
         </div>
         <!--流程图画板-->
         <div id="container" class="x6-graph" />
@@ -44,9 +44,17 @@ export default defineComponent({
   },
   setup(){
     const isReady = ref(false)
-    const initGraph = function(): Function{
+    return{
+      isReady
+    }
+  },
+  mounted() {
+    this.initGraph()
+  },
+  methods: {
+    initGraph(){
       const graph = FlowGraph.init(this.graphId)
-      isReady.value = true
+      this.isReady = true
       const resizeFn = () => {
         const { width, height } = getContainerSize()
         graph.resize(width, height)
@@ -57,12 +65,6 @@ export default defineComponent({
         window.removeEventListener('resize', resizeFn)
       }
 
-    }
-    onMounted(() => {
-      initGraph()
-    })
-    return{
-      isReady
     }
   }
 })

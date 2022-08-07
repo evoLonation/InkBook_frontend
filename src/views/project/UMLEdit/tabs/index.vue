@@ -1,18 +1,15 @@
 <template>
-  <div>
     <a-tabs
         style="margin-top:0"
-        default-active-key="flow"
+        default-active-key="1"
         tab-position="top"
         :destroy-inactive-tab-pane="true"
         size="small"
-        v-for="graph in this.graphList"
-        :key="graph">
-        <a-tab-pane key="flow" :tab="graph.name" >
+        >
+        <a-tab-pane :key="graph.graphId" :tab="graph.name" v-for="graph in this.graphList">
           <flow :graphId="graph.graphId"/>
         </a-tab-pane>
     </a-tabs>
-  </div>
 </template>
 
 <script>

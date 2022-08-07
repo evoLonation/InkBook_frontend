@@ -2,7 +2,6 @@ import {Graph, Addon, FunctionExt, Shape} from '@antv/x6'
 import './shape'
 import {ElMessage} from "element-plus";
 import axios from "axios";
-import store from "@/store"
 import router from "@/router"
 
 export default class FlowGraph {
@@ -149,12 +148,12 @@ export default class FlowGraph {
       groups: [
         {
           name: 'basic',
-          title: '流程节点',
+          title: '流程图',
           graphHeight: 180,
         },
         {
           name: 'combination',
-          title: '组合节点',
+          title: '类图',
           layoutOptions: {
             columns: 1,
             marginX: 60,
@@ -260,7 +259,7 @@ export default class FlowGraph {
           ry: 35,
         },
         text: {
-          text: '链接节点',
+          text: '',
         },
       },
     })

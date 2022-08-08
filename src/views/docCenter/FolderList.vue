@@ -1,9 +1,9 @@
 <template>
   <div
-    class="folder-layout"
+      class="folder-layout"
   >
     <div
-      style="display: flex"
+        style="display: flex"
     >
       <el-input
           v-model="search"
@@ -17,30 +17,32 @@
         </template>
         <template #append>
           <el-button
-            style="font-weight: bold"
+              style="font-weight: bold"
           >
             搜索
           </el-button>
         </template>
       </el-input>
       <el-button
-        class="folder-add-button"
+          class="folder-add-button"
       >
-        <el-icon><plus/></el-icon>&nbsp;新建文件&nbsp;
+        <el-icon>
+          <plus/>
+        </el-icon>&nbsp;新建文件&nbsp;
       </el-button>
     </div>
     <div
-      class="folder-guide"
+        class="folder-guide"
     >
       <!--如果所在是根目录，请使用这个-->
-<!--      <el-button-->
-<!--          class="folder-roll-back"-->
-<!--          disabled-->
-<!--      >-->
-<!--        <el-icon>-->
-<!--          <arrow-left/>-->
-<!--        </el-icon>-->
-<!--      </el-button>-->
+      <!--      <el-button-->
+      <!--          class="folder-roll-back"-->
+      <!--          disabled-->
+      <!--      >-->
+      <!--        <el-icon>-->
+      <!--          <arrow-left/>-->
+      <!--        </el-icon>-->
+      <!--      </el-button>-->
       <el-button
           class="folder-roll-back"
       >
@@ -55,20 +57,24 @@
       </span>
     </div>
     <el-scrollbar height="75vh">
-      <el-row class="folder-collection" >
+      <el-row class="folder-collection">
         <v-contextmenu ref="contextmenu">
           <v-contextmenu-item
               class="my-context-item"
               style="color: #409EFF;"
           >
-            <el-icon><edit/></el-icon>
+            <el-icon>
+              <edit/>
+            </el-icon>
             &nbsp;重命名文件
           </v-contextmenu-item>
           <v-contextmenu-item
               class="my-context-item"
               style="color: #F56C6C;"
           >
-            <el-icon><delete/></el-icon>
+            <el-icon>
+              <delete/>
+            </el-icon>
             &nbsp;删除文件
           </v-contextmenu-item>
         </v-contextmenu>
@@ -76,7 +82,7 @@
           <!--如果是文件，请使用：-->
           <img class="folder-picture" src="../../assets/docCenter/文件试用.png" v-if="o % 2 === 1" alt="">
           <img class="folder-picture" src="../../assets/docCenter/文件夹试用.png" v-else alt="">
-          <span class="folder-name" >临时文件</span>
+          <span class="folder-name">临时文件</span>
         </div>
       </el-row>
     </el-scrollbar>
@@ -85,7 +91,7 @@
 
 <script>
 import {ArrowLeft, Delete, Plus, Search} from "@element-plus/icons";
-import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
+import {directive, Contextmenu, ContextmenuItem} from "v-contextmenu";
 import "v-contextmenu/dist/themes/default.css";
 
 export default {
@@ -100,8 +106,8 @@ export default {
   directives: {
     contextmenu: directive,
   },
-  data(){
-    return{
+  data() {
+    return {
       search: ''
     }
   },
@@ -197,7 +203,7 @@ export default {
   background-color: #E2F5F7;
 }
 
-.folder-roll-back:hover{
+.folder-roll-back:hover {
   background-color: #E2F5F7;
 }
 </style>

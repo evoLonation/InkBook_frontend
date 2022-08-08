@@ -58,6 +58,7 @@
               index="1"
               class="my-el-menu-item"
               style="padding-left: 20%"
+              @click="this.$router.push({name:'teamProject'})"
           >
             <template #title>
               <el-icon><data-board /></el-icon>&nbsp;项目中心

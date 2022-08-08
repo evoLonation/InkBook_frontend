@@ -1,5 +1,10 @@
 import { Graph, Dom, Node } from '@antv/x6'
-
+import katock from './katock.vue'
+import '@antv/x6-vue-shape';
+import ElementPlus from 'element-plus';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import 'element-plus/dist/index.css';
+import { ElButton } from 'element-plus';
 export const FlowChartRect = Graph.registerNode('flow-chart-rect', {
   inherit: 'rect',
   width: 80,
@@ -594,6 +599,18 @@ export const FlowChartAnimateText = Graph.registerNode('flow-chart-animate-text'
       },
     ],
   },)
+
+export const FlowChartVueButton = Graph.registerNode('katock',{
+  inherit: "vue-shape",
+  x: 100,
+  y: 150,
+  width: 150,
+  height: 100,
+  component: {
+    template: `<katock/>`,
+    components: {katock},
+  },
+})
 
 export class NodeGroup extends Node {
   private collapsed = true

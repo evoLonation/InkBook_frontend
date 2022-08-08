@@ -3,6 +3,11 @@ import './shape'
 import {ElMessage} from "element-plus";
 import axios from "axios";
 import router from "@/router"
+import '@antv/x6-vue-shape';
+import katock from "@/views/project/UMLEdit/flow/graph/katock.vue";
+import ElementPlus from 'element-plus';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import 'element-plus/dist/index.css';
 
 export default class FlowGraph {
   public static graph: Graph
@@ -434,22 +439,30 @@ export default class FlowGraph {
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {
-    console.log(graphId)
-    axios.get('graph/get', {
-      params: {
-        graphId: graphId
-      }
-    }).then((response) => {
-      if (response.status === 409){
-        ElMessage('当前图正在被编辑！')
-        router.push({name: "TopTable"})
-      }
-      else {
-        console.log(response.data.msg)
-        this.setContent(response.data.content)
-      }
-    }).catch((err) => {
-      console.log(err)
+    // console.log(graphId)
+    // axios.get('graph/get', {
+    //   params: {
+    //     graphId: graphId
+    //   }
+    // }).then((response) => {
+    //   if (response.status === 409){
+    //     ElMessage('当前图正在被编辑！')
+    //     router.push({name: "TopTable"})
+    //   }
+    //   else {
+    //     console.log(response.data.msg)
+    //     this.setContent(response.data.content)
+    //   }
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
+    this.graph.addNode({
+      id: '1',
+      shape: 'katock',
+      x: 400,
+      y: 150,
+      width: 150,
+      height: 100,
     })
   }
 

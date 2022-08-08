@@ -146,7 +146,7 @@ export default class FlowGraph {
       target: this.graph,
       stencilGraphWidth: 280,
       search: { rect: true },
-      collapsable: false,
+      collapsable: true,
       groups: [
         {
           name: 'basic',

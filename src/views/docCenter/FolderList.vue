@@ -59,6 +59,14 @@
         <v-contextmenu ref="contextmenu">
           <v-contextmenu-item
               class="my-context-item"
+              style="color: #409EFF;"
+          >
+            <el-icon><edit/></el-icon>
+            &nbsp;重命名文件
+          </v-contextmenu-item>
+          <v-contextmenu-item
+              class="my-context-item"
+              style="color: #F56C6C;"
           >
             <el-icon><delete/></el-icon>
             &nbsp;删除文件
@@ -173,7 +181,7 @@ export default {
 }
 
 .my-context-item {
-  color: #F56C6C;
+  margin-bottom: 2px;
 }
 
 .my-context-item:hover {

@@ -132,6 +132,11 @@ const routes = [
                         component: () => import('../views/NewDocument/documentList')
                     }
                 ]
+            },
+            {
+                path: '/projectRec',
+                name: 'projectRec',
+                component: () => import('../views/project/projectRec')
             }
         ]
     },

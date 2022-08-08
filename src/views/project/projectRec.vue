@@ -1,15 +1,31 @@
 <template>
-  <div style="width: 1200px">
-    <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0; margin-bottom: 40px">
-      <el-menu default-active="'/' +this.$route.path.split('/')[1]">
-        <el-button style="margin-top: 8px; float: right; margin-right: 20px" round><el-icon color="orange"><delete/></el-icon>
-          <span style="vertical-align: middle" @click="allDelete()">全部删除</span>
-        </el-button>
-        <el-button style="margin-top: 8px; float: right; margin-right: 20px" round><el-icon color="lightblue"><Refresh/></el-icon>
+    <div style="width: 1250px">
+      <div style="display: flex">
+        <el-button
+            style="height: 50px;
+          margin-top: 7%;
+          margin-left: 75%;
+          color: white;
+          font-weight: bold;
+          border-radius: 30px;
+          background-color: royalblue;" round>
+          <el-icon color="lightblue"><Refresh/></el-icon>
           <span style="vertical-align: middle" @click="allRecover()">全部恢复</span>
         </el-button>
-      </el-menu>
-    </div>
+        <el-button
+            style="height: 50px;
+          margin-top: 7%;
+          margin-left: 20px;
+          color: white;
+          font-weight: bold;
+          border-radius: 30px;
+          background-color: lightcoral;" round>
+          <el-icon color="red"><delete/></el-icon>
+          <span style="vertical-align: middle" @click="allDelete()">全部删除</span>
+        </el-button>
+
+      </div>
+      <div class="folder-guide"></div>
       <el-row>
         <el-col
             style="margin-top: 35px"
@@ -21,7 +37,7 @@
                    style="width: 250px; height: auto; border-radius: 25px" shadow="hover">
             <meta name="referrer" content="no-referrer"/>
             <img
-                src="https://inews.gtimg.com/newsapp_bt/0/13680351024/641"
+                src="http://img.nga.178.com/attachments/mon_202203/28/m6Q4rqt-j7scK24T3cSu0-jt.jpg"
                 class="image"
                 alt=""/>
             <div style="padding: 14px;">
@@ -213,13 +229,21 @@ export default {
   align-items: center;
   display: flex;
 }
-
+.folder-guide {
+  width: 100%;
+  margin-top: 30px;
+  height: 50px;
+  display: flex;
+  border-bottom: 4px dashed rgb(0 0 0 / 8%);
+}
 .image {
   width: 100%;
   display: block;
 }
-
+#project-card {
+  margin-left: 10%;
+}
 #project-card:hover {
-  box-shadow: inset 0 0 10px 2px lightskyblue;
+  box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
 }
 </style>

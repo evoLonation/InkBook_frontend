@@ -81,6 +81,7 @@
             <el-menu-item
                 style="padding-left: 25%"
               class="my-el-menu-subItem"
+                @click="this.$router.push({name: 'projectRec'})"
             >
               <template #title>
                 <el-icon><data-board /></el-icon>&nbsp;项目回收

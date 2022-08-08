@@ -91,6 +91,24 @@ const routes = [
         ],
     },
 
+    {
+        path: '/newTable',
+        name: 'newTable',
+        component: () => import('../views/NewTable/NewSideTable'),
+        children: [
+            {
+                path: "team/list/:key?",
+                name: "teamList",
+                component: () => import('../views/Team/TeamList')
+            },
+            {
+                path: "doc/folder",
+                name: "docCenter",
+                component: () => import('../views/docCenter/FolderList')
+            }
+        ]
+    },
+
     // 团队搜索转发
     {
         path: '/team/block/:key?',

@@ -122,6 +122,11 @@ const routes = [
         name: "DocumentEdit",
         component: () => import('../views/document/edit.vue')
     },
+    {
+        path: "/menu",
+        name: "Menu",
+        component: () => import('../views/Table/Menu')
+    },
 
     // 团队邀请相关
     {

@@ -406,38 +406,36 @@ export default class FlowGraph {
         wrap.style.height = '100'
         wrap.type = "radio"
 
+
         return wrap
       }
     })
 
 
-    // const node = graph.createNode({
-    //   x: 40,
-    //   y: 40,
-    //   width: 100,
-    //   height: 60,
-    //   shape: 'html',
-    //   data: {
-    //     time: new Date().toString(),
-    //   },
-    //   html: {
-    //     render() {
-    //       const data = node.getData() as any
-    //       return(
-    //           `<div>
-    //                 <span>${data.time}</span>
-    //            </div>`
-    //       )
-    //     },
-    //     setInterval(function(){
-    //       shouldComponentUpdate();
-    //     },1000),
-    //     shouldComponentUpdate() {
-    //       // 控制节点重新渲染
-    //       return node.hasChanged('data')
-    //     },
-    //   },
-    // })
+    const node = graph.createNode({
+      x: 40,
+      y: 40,
+      width: 100,
+      height: 60,
+      shape: 'html',
+      data: {
+        time: new Date().toString(),
+      },
+      html: {
+        render() {
+          const data = node.getData() as any
+          return(
+              `<div>
+                    <span>${data.time}</span>
+               </div>`
+          )
+        },
+        shouldComponentUpdate() {
+          // 控制节点重新渲染
+          return node.hasChanged('data')
+        },
+      },
+    })
 
     const c1 = graph.createNode({
       shape: 'flow-chart-image-rect',
@@ -460,7 +458,7 @@ export default class FlowGraph {
         parent: true,
       },
     })
-    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12], 'basic')
+    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, node], 'basic')
     this.stencil.load([c1, c2, c3], 'combination')
     this.stencil.load([g1], 'group')
   }

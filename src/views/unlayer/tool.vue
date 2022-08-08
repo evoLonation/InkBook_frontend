@@ -15,6 +15,7 @@
           v-on:ready="editorReady"
           :min-height="minHeight"
           :locale="locale"
+          :tools="tools"
       />
     </div>
   </div>
@@ -32,14 +33,14 @@ export default {
     return {
       minHeight: '1000px',
       locale: 'zh-CN',
-      appearance: {
-        theme: 'dark',
-        panels: {
-          tools: {
-            dock: 'left',
-          },
+      tools: {
+        timer: {
+          enabled: true
         },
-      },
+        video: {
+          enabled: true
+        }
+      }
     }
   },
   methods: {
@@ -57,6 +58,14 @@ export default {
       this.$refs.emailEditor.editor.saveDesign((design) => {
         console.log('saveDesign', design);
         console.log(this.$refs.emailEditor)
+        this.$refs.emailEditor.editor.setAppearance({
+          theme: 'dark',
+          panels: {
+            tools: {
+              dock: 'left'
+            }
+          }
+        });
       });
     },
     exportHtml() {
@@ -65,8 +74,7 @@ export default {
       });
     },
   },
-  created() {
-
+  mounted() {
   }
 };
 </script>

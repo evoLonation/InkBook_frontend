@@ -32,17 +32,43 @@
     <div
       class="folder-guide"
     >
+      <!--如果所在是根目录，请使用这个-->
+<!--      <el-button-->
+<!--          class="folder-roll-back"-->
+<!--          disabled-->
+<!--      >-->
+<!--        <el-icon>-->
+<!--          <arrow-left/>-->
+<!--        </el-icon>-->
+<!--      </el-button>-->
+      <el-button
+          class="folder-roll-back"
+      >
+        <el-icon>
+          <arrow-left/>
+        </el-icon>
+      </el-button>
       <span
           class="folder-guide-words"
       >
-        文件夹列表
+        文件列表
       </span>
     </div>
     <el-scrollbar height="75vh">
-      <el-row class="folder-collection">
-        <div class="folder-info" v-for="o in 10" :key="o">
-          <img class="folder-picture" src="../../assets/docCenter/文件夹使用.png" alt="">
-          <span class="folder-name">临时文件夹</span>
+      <el-row class="folder-collection" >
+        <v-contextmenu ref="contextmenu">
+          <v-contextmenu-item
+              class="my-context-item"
+          >
+            <el-icon><delete/></el-icon>
+            &nbsp;删除文件
+          </v-contextmenu-item>
+        </v-contextmenu>
+        <div class="folder-info" v-for="o in 10" :key="o" v-contextmenu:contextmenu>
+          <!--如果是文件，请使用：-->
+          <img class="folder-picture" src="../../assets/docCenter/文件试用.png" v-if="o % 2 === 1" alt="">
+          <img class="folder-picture" src="../../assets/docCenter/文件夹试用.png" v-else alt="">
+          <span class="folder-name" >临时文件夹</span>
         </div>
       </el-row>
     </el-scrollbar>
@@ -50,13 +76,30 @@
 </template>
 
 <script>
-import {Plus, Search} from "@element-plus/icons";
+import {ArrowLeft, Delete, Plus, Search} from "@element-plus/icons";
+import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
+import "v-contextmenu/dist/themes/default.css";
+
 export default {
   name: "FolderList",
-  components: {Plus, Search},
+  components: {
+    ArrowLeft,
+    Delete,
+    Plus, Search,
+    [Contextmenu.name]: Contextmenu,
+    [ContextmenuItem.name]: ContextmenuItem,
+  },
+  directives: {
+    contextmenu: directive,
+  },
   data(){
     return{
       search: ''
+    }
+  },
+  methods: {
+    check: function () {
+      this.$message.success("success!");
     }
   }
 }
@@ -97,7 +140,7 @@ export default {
   height: 25px;
   font-size: 17px;
   font-weight: bold;
-  margin: auto auto auto 3%;
+  margin: auto auto auto 1%;
 }
 
 .folder-collection {
@@ -121,10 +164,32 @@ export default {
   width: 100%;
   height: 100%;
   margin-right: 0;
+  opacity: 40%;
   cursor: pointer;
 }
 
 .folder-name {
   font-size: 15px;
+}
+
+.my-context-item {
+  color: #F56C6C;
+}
+
+.my-context-item:hover {
+  background-color: rgb(0 0 0 / 8%);
+}
+
+.folder-roll-back {
+  border: none;
+  height: 100%;
+  margin-left: 2%;
+  color: black;
+  font-weight: bold;
+  background-color: #E2F5F7;
+}
+
+.folder-roll-back:hover{
+  background-color: #E2F5F7;
 }
 </style>

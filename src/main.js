@@ -38,6 +38,10 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import 'element-plus/dist/index.css';
 import {QuillEditor} from "@vueup/vue-quill";
 
+import contextmenu from "v-contextmenu";
+import "v-contextmenu/dist/themes/default.css";
+
+
 const app = createApp(App)
 axios.defaults.baseURL = '/api/';
 
@@ -47,6 +51,7 @@ app.use(ElementPlus)
     .use(Antd)
     .use(VueAxios,axios,Request)
     .use(VueParticles)
+    .use(contextmenu)
     // .use(VueQuill)
     // .use(firestorePlugin)
     .mount('#app')

@@ -103,6 +103,12 @@ const routes = [
         component: () => import('../views/Team/BlockSearch')
     },
 
+    //项目相关
+    {
+        path: '/uml',
+        name: 'uml',
+        component: () => import('../views/project/UMLEdit/tabs/index')
+    },
 
     //文档相关
 

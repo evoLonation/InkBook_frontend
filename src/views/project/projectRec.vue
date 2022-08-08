@@ -1,24 +1,24 @@
 <template>
-  <div style="width: 1250px">
-    <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0; margin-bottom: 35px">
+  <div style="width: 1200px">
+    <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0; margin-bottom: 40px">
       <el-menu default-active="'/' +this.$route.path.split('/')[1]">
-        <el-button style="float: right; margin-right: 20px" type="danger"><el-icon><delete/></el-icon>
+        <el-button style="margin-top: 8px; float: right; margin-right: 20px" round><el-icon color="orange"><delete/></el-icon>
           <span style="vertical-align: middle" @click="allDelete()">全部删除</span>
         </el-button>
-        <el-button style="float: right; margin-right: 20px"><el-icon><Refresh/></el-icon>
+        <el-button style="margin-top: 8px; float: right; margin-right: 20px" round><el-icon color="lightblue"><Refresh/></el-icon>
           <span style="vertical-align: middle" @click="allRecover()">全部恢复</span>
         </el-button>
       </el-menu>
     </div>
       <el-row>
         <el-col
-            style="margin-top: 45px"
+            style="margin-top: 35px"
             :span='6'
             v-for="i in projects.length"
             :key="projects[i-1]"
             >
           <el-card id="project-card" :body-style="{ padding: '0px' }"
-                   style="width: 250px; height: auto" shadow="hover">
+                   style="width: 250px; height: auto; border-radius: 25px" shadow="hover">
             <meta name="referrer" content="no-referrer"/>
             <img
                 src="https://inews.gtimg.com/newsapp_bt/0/13680351024/641"
@@ -36,7 +36,7 @@
                       placement="bottom"
                   >
                   <el-button
-                      @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; recoverProject()"><el-icon><Refresh/></el-icon>
+                      @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; recoverProject()" round><el-icon color="lightblue"><Refresh/></el-icon>
                   </el-button>
                     </el-tooltip>
                   <el-popconfirm
@@ -51,7 +51,7 @@
                           content="删除"
                           placement="bottom"
                       >
-                      <el-button type="danger"><el-icon><delete/></el-icon></el-button>
+                      <el-button round><el-icon color="orange"><delete/></el-icon></el-button>
                       </el-tooltip>
                     </template>
                   </el-popconfirm>
@@ -220,6 +220,6 @@ export default {
 }
 
 #project-card:hover {
-  box-shadow: inset 0 0 10px 2px lightgoldenrodyellow;
+  box-shadow: inset 0 0 10px 2px lightskyblue;
 }
 </style>

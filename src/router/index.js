@@ -138,13 +138,6 @@ const routes = [
         name: "teamInvite",
         component: () => import('../views/Team/TeamInvite')
     },
-
-    // 测试右键菜单
-    {
-        path: '/testDelete',
-        name: 'testDelete',
-        component: () => import('../views/docCenter/TestDelete')
-    }
 ];
 
 const router = createRouter({

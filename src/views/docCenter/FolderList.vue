@@ -8,7 +8,7 @@
       <el-input
           v-model="search"
           class="folder-el-input"
-          placeholder="输入文件夹名称"
+          placeholder="输入文件名称"
       >
         <template #prefix>
           <el-icon>
@@ -26,7 +26,7 @@
       <el-button
         class="folder-add-button"
       >
-        <el-icon><plus/></el-icon>&nbsp;新建文件夹
+        <el-icon><plus/></el-icon>&nbsp;新建文件&nbsp;
       </el-button>
     </div>
     <div
@@ -68,7 +68,7 @@
           <!--如果是文件，请使用：-->
           <img class="folder-picture" src="../../assets/docCenter/文件试用.png" v-if="o % 2 === 1" alt="">
           <img class="folder-picture" src="../../assets/docCenter/文件夹试用.png" v-else alt="">
-          <span class="folder-name" >临时文件夹</span>
+          <span class="folder-name" >临时文件</span>
         </div>
       </el-row>
     </el-scrollbar>

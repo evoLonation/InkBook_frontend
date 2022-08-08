@@ -110,7 +110,8 @@ const routes = [
                 path: "doc/folder",
                 name: "docCenter",
                 component: () => import('../views/docCenter/FolderList')
-            }
+            },
+
         ]
     },
 

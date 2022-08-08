@@ -107,6 +107,11 @@ const routes = [
                 component: () => import('../views/Team/TeamList')
             },
             {
+                path: "team/information/:teamId",
+                name: "team",
+                component: () => import('../views/Team/MyTeam')
+            },
+            {
                 path: "doc/folder",
                 name: "docCenter",
                 component: () => import('../views/docCenter/FolderList')
@@ -121,6 +126,11 @@ const routes = [
                 name: "topTable",
                 component: () => import('../views/NewTable/NewTopTable'),
                 children: [
+                    {
+                        path: 'document/list',
+                        name: 'documentList',
+                        component: () => import('../views/NewDocument/documentList')
+                    }
                 ]
             }
         ]

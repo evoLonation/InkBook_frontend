@@ -185,8 +185,8 @@
   height: 800px;
   border: solid #DCDCDC 3px;
   border-radius: 10px;
-  margin: 0 auto auto auto;
-  box-shadow: 0 0 10px 3px #DCDCDC;
+  margin: 4% auto auto auto;
+  box-shadow: 0 0 16px 10px rgb(0 0 0 / 8%);
   background-color: white;
 }
 

@@ -15,11 +15,10 @@
         <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
       </el-button>
     </div>
-    <div class="folder-guide">
-    </div>
+    <div class="folder-guide"></div>
     <el-row>
       <el-col
-          style="margin-top: 50px; margin-left: 35px"
+          style="margin-top: 35px"
           :span="6"
           v-for="i in projects.length"
           :key="projects[i-1]">

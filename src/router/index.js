@@ -122,6 +122,11 @@ const routes = [
                 component: () => import('../views/NewTable/NewTopTable'),
                 children: [
                 ]
+            },
+            {
+                path: '/projectRec',
+                name: 'projectRec',
+                component: () => import('../views/project/projectRec')
             }
         ]
     },

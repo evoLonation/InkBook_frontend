@@ -71,6 +71,13 @@
             <el-icon><delete/></el-icon>
             &nbsp;删除文件
           </v-contextmenu-item>
+          <v-contextmenu-item
+              class="my-context-item"
+              style="color: black"
+          >
+            <el-icon><setting/></el-icon>
+            &nbsp;属性
+          </v-contextmenu-item>
         </v-contextmenu>
         <div class="folder-info" v-for="o in 10" :key="o" v-contextmenu:contextmenu>
           <!--如果是文件，请使用：-->
@@ -84,13 +91,14 @@
 </template>
 
 <script>
-import {ArrowLeft, Delete, Plus, Search} from "@element-plus/icons";
+import {ArrowLeft, Delete, Plus, Search, Setting} from "@element-plus/icons";
 import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
 import "v-contextmenu/dist/themes/default.css";
 
 export default {
   name: "FolderList",
   components: {
+    Setting,
     ArrowLeft,
     Delete,
     Plus, Search,

@@ -115,6 +115,13 @@ const routes = [
                 path: "teamProject",
                 name: "teamProject",
                 component: () => import('../views/project/projectList')
+            },
+            {
+                path: "topTable",
+                name: "topTable",
+                component: () => import('../views/NewTable/NewTopTable'),
+                children: [
+                ]
             }
         ]
     },

@@ -111,7 +111,11 @@ const routes = [
                 name: "docCenter",
                 component: () => import('../views/docCenter/FolderList')
             },
-
+            {
+                path: "teamProject",
+                name: "teamProject",
+                component: () => import('../views/project/projectList')
+            }
         ]
     },
 

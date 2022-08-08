@@ -294,7 +294,11 @@ export default {
   display: block;
 }
 
+#project-card {
+  margin-left: 10%;
+}
+
 #project-card:hover{
-  box-shadow: inset 0 0 10px 2px lightskyblue;
+  box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
 }
 </style>

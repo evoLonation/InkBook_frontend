@@ -109,6 +109,11 @@ const routes = [
         name: 'uml',
         component: () => import('../views/project/UMLEdit/tabs/index')
     },
+    {
+      path: '/uml/preview',
+      name: 'umlPreview',
+      component: () => import('../views/project/UMLEdit/flow/Preview')
+    },
 
     //文档相关
 

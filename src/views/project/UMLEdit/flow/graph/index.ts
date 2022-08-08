@@ -3,9 +3,11 @@ import './shape'
 import {ElMessage} from "element-plus";
 import axios from "axios";
 import router from "@/router"
+import store from "@/store"
 
 export default class FlowGraph {
   public static graph: Graph
+  public static graphId
   private static stencil: Addon.Stencil
   public static init(graphId) {
     this.graph = new Graph({
@@ -174,6 +176,38 @@ export default class FlowGraph {
     const stencilContainer = document.querySelector('#stencil')
     stencilContainer?.appendChild(this.stencil.container)
   }
+  // private static updateGraph() {
+  //   axios.post('/graph/save', {
+  //     "graphId": this.graphId,
+  //     "userId": store.state.loginUser.userId,
+  //     "content": JSON.stringify(this.graph.toJSON().cells)
+  //   }).then((response) => {
+  //     if (response.status === 200) {
+  //       console.log(response.data.msg)
+  //     } else {
+  //       ElMessage('其他错误')
+  //     }
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
+  //   setTimeout(()=>{const i = 1},1000)
+  //   axios.get('graph/get', {
+  //     params: {
+  //       graphId: this.graphId
+  //     }
+  //   }).then((response) => {
+  //     if (response.status === 409){
+  //       ElMessage('当前图正在被编辑！')
+  //       router.push({name: "TopTable"})
+  //     }
+  //     else {
+  //       console.log(response.data.msg)
+  //       this.setContent(response.data.content)
+  //     }
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
+  // }
   private static initShape() {
     const { graph } = this
     const r1 = graph.createNode({
@@ -434,6 +468,7 @@ export default class FlowGraph {
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {
+    this.graphId = graphId
     console.log(graphId)
     axios.get('graph/get', {
       params: {
@@ -513,6 +548,19 @@ export default class FlowGraph {
       if (cells.length) {
         graph.removeCells(cells)
       }
+    })
+    //画布发生改变的监听事件
+    graph.on('cell:changed', () => {
+
+    })
+    graph.on('cell:added', () => {
+
+    })
+    graph.on('node:added', () => {
+
+    })
+    graph.on('node:change:*', () => {
+
     })
   }
 }

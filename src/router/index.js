@@ -86,8 +86,13 @@ const routes = [
             {
                 path: '/teamProject',
                 name: 'teamProject',
-                component: () => import('../views/project/projectList.vue')
+                component: () => import('../views/project/projectList')
             },
+            {
+                path: '/projectRec',
+                name: 'projectRec',
+                component: () => import('../views/project/projectRec')
+            }
         ],
     },
 
@@ -118,11 +123,15 @@ const routes = [
 
     //项目相关
     {
-      path: "/uml",
-      name: "uml",
-      component: () => import('../views/project/UMLEdit/tabs/index')
+        path: '/uml',
+        name: 'uml',
+        component: () => import('../views/project/UMLEdit/tabs/index')
     },
-
+    {
+      path: '/uml/preview',
+      name: 'umlPreview',
+      component: () => import('../views/project/UMLEdit/flow/Preview')
+    },
 
     //文档相关
 
@@ -131,12 +140,22 @@ const routes = [
         name: "DocumentEdit",
         component: () => import('../views/document/edit.vue')
     },
+    {
+        path: "/menu",
+        name: "Menu",
+        component: () => import('../views/Table/Menu')
+    },
 
     // 团队邀请相关
     {
         path: "/team/invite/:teamId",
         name: "teamInvite",
         component: () => import('../views/Team/TeamInvite')
+    },
+    {
+        path: "/tool",
+        name: "Tool",
+        component: () => import('../views/unlayer/tool')
     },
 ];
 

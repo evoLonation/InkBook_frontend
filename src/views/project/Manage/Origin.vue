@@ -120,8 +120,10 @@ export default {
       ElMessage.warning('构建原型取消')
     },
     openGraph: function (id){
-      this.$store.state.graphId = id;
-      this.$router.push({name: 'uml'})
+      console.log('打开一个原型，id为' + id)
+      this.$store.state.originId = id;
+      console.log('打开一个原型，id为' + this.$store.state.originId)
+      this.$router.push({name: 'origin'})
     },
     createGraph: function (){
       this.$axios.post("prototype/create", {

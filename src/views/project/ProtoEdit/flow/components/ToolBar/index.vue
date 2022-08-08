@@ -82,11 +82,6 @@
           <el-icon color="lightblue"><Select/></el-icon>
         </el-button>
       </el-tooltip>
-      <el-tooltip placement="bottom" content="预览">
-      <el-button name="toJSON" @click="preview" class="item-space" round>
-        <el-icon><View /></el-icon>
-      </el-button>
-      </el-tooltip>
       <el-tooltip placement="bottom" content="退出">
         <el-button @click="quitEdit" class="item-space" round>
           <el-icon color="red">
@@ -113,13 +108,13 @@ import {CopyDocument, Delete, RefreshLeft} from "@element-plus/icons";
 
 export default defineComponent({
   name: "index",
-  props: ["graphId", "graphName"],
+  props: ["graphId"],
   components: {
     CopyDocument,
     RefreshLeft,
     Delete
   },
-  setup(props: any) {
+  setup() {
     const {graph} = FlowGraph
     const {history} = graph
 
@@ -177,7 +172,7 @@ export default defineComponent({
     })
     graph.bindKey('ctrl+s', () => {
       graph.toPNG((datauri: string) => {
-        DataUri.downloadDataUri(datauri, props.graphName+'.png')
+        DataUri.downloadDataUri(datauri, 'chart.png')
       })
       return false
     })
@@ -199,11 +194,6 @@ export default defineComponent({
     }
   },
   methods: {
-    preview(){
-      console.log('id1:', this.graphId);
-      this.$router.push({name: 'umlPreview', params:{graphId: this.graphId}})
-    },
-
     saveGraph(cells) {
       axios.post('/graph/save', {
         "graphId": this.graphId,
@@ -253,7 +243,7 @@ export default defineComponent({
         case 'savePNG':
           graph.toPNG((dataUri: string) => {
             // 下载
-            DataUri.downloadDataUri(dataUri, this.graphName+'.png')
+            DataUri.downloadDataUri(dataUri, 'chartx.png')
           }, {
             backgroundColor: 'white',
             padding: {
@@ -268,7 +258,7 @@ export default defineComponent({
         case 'saveSVG':
           graph.toSVG((dataUri: string) => {
             // 下载
-            DataUri.downloadDataUri(DataUri.svgToDataUrl(dataUri), this.graphName+'.svg')
+            DataUri.downloadDataUri(DataUri.svgToDataUrl(dataUri), 'chart.svg')
           })
           break
         case 'print':

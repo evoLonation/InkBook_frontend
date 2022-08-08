@@ -302,7 +302,7 @@ export default {
         if(response.status === 200){
           ElMessage("上传成功！");
           console.log(response.data);
-          location.reload();
+          // location.reload();
           this.getAvatar();
         }else ElMessage({message: response.data.msg, type: 'warning'});
       }).catch((err)=>{

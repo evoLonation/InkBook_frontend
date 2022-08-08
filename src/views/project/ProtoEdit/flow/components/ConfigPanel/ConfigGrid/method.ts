@@ -1,4 +1,4 @@
-import FlowGraph from "@/views/project/UMLEdit/flow/graph";
+import FlowGraph from "@/views/project/ProtoEdit/flow/graph";
 import store from "@/store"
 
 export function gridOpt(globalGridAttr: any){

@@ -20,6 +20,7 @@ export default new createStore({
                 proName: "",
             },
             graphId: "",
+            originId: "",
         };
     },
     mutations: {

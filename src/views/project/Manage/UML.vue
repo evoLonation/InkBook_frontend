@@ -76,7 +76,7 @@
                 <el-dropdown-menu>
                   <el-dropdown-item
                       style="color: #409EFF"
-                      @click="openGraph(graph.graphId)"
+                      @click="openGraph(graph.graphId, graph.name)"
                   >
                     修改文件
                   </el-dropdown-item>
@@ -115,9 +115,12 @@ export default {
       this.dialogVisable = false;
       ElMessage.warning('构建UML取消')
     },
-    openGraph: function (id){
-      this.$store.state.graphId = id;
-      this.$router.push({name: 'uml'})
+    openGraph: function (id, name){
+      this.$router.push({name: 'uml', params:{
+        graphId: id,
+          graphName: name,
+          projectId: this.projectId,
+      }})
     },
     createGraph: function (){
       this.$axios.post("graph/create", {

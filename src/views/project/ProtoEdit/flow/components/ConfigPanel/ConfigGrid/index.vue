@@ -1,21 +1,6 @@
 <template>
   <a-tabs defaultActiveKey="1">
-    <a-tab-pane tab="画布" key="1">
-      <a-row align="middle">
-        <a-col :span=7>画布宽度</a-col>
-        <a-col :span=10>
-          <el-input v-model="width"/>
-        </a-col>
-        <el-button size="small" style="margin-left: 20px" @click="changeSize(width, height)" round>设置</el-button>
-      </a-row>
-      <a-row align="middle">
-        <a-col :span=7>画布高度</a-col>
-        <a-col :span=10>
-          <el-input v-model="height"/>
-        </a-col>
-        <el-button size="small" style="margin-left: 20px" @click="changeSize(width, height)" round>设置</el-button>
-      </a-row>
-
+    <a-tab-pane tab="网格" key="1">
       <a-row align="middle">
         <a-col :span=10>风格</a-col>
         <a-col :span=12>
@@ -207,9 +192,8 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, inject, watch, ref} from "vue";
-import FlowGraph from '@/views/project/UMLEdit/flow/graph'
-
+import { defineComponent, reactive, inject, watch} from "vue";
+// import FlowGraph from '@/views/graph'
 
 import { gridOpt,backGroundOpt,gridSizeOpt } from './method'
 
@@ -287,19 +271,7 @@ export default defineComponent({
     return{
       GRID_TYPE,
       REPEAT_TYPE,
-      globalGridAttr,
-      width: ref('1000'),
-      height: ref('800')
-   }
-  },
-  data(){
-    return{
-      graph: FlowGraph.graph,
-    }
-  },
-  methods: {
-    changeSize(width, height){
-      FlowGraph.graph.resizeGraph(width, height)
+      globalGridAttr
     }
   }
 })

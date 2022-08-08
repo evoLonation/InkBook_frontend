@@ -6,7 +6,7 @@
       <div class="panel">
         <!--流程图工具栏-->
         <div class="toolbar">
-          <tool-bar v-if="isReady" :graphId="this.graphId" :graph-name="this.graphName"/>
+          <tool-bar v-if="isReady" :graphId="this.graphId"/>
         </div>
         <!--流程图画板-->
         <div id="container" class="x6-graph" />
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import '@/views/project/UMLEdit/reset.less'
 import '@/views/project/UMLEdit/global.css'
 import './index.less'
@@ -37,7 +37,7 @@ const getContainerSize = () => {
 }
 export default defineComponent({
   name: "index",
-  props: ["graphId", "graphName"],
+  props: ["graphId"],
   components:{
     ToolBar,
     ConfigPanel,

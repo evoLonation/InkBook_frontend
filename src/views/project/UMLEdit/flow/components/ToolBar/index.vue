@@ -108,13 +108,13 @@ import {CopyDocument, Delete, RefreshLeft} from "@element-plus/icons";
 
 export default defineComponent({
   name: "index",
-  props: ["graphId"],
+  props: ["graphId", "graphName"],
   components: {
     CopyDocument,
     RefreshLeft,
     Delete
   },
-  setup() {
+  setup(props: any) {
     const {graph} = FlowGraph
     const {history} = graph
 
@@ -172,7 +172,7 @@ export default defineComponent({
     })
     graph.bindKey('ctrl+s', () => {
       graph.toPNG((datauri: string) => {
-        DataUri.downloadDataUri(datauri, 'chart.png')
+        DataUri.downloadDataUri(datauri, props.graphName+'.png')
       })
       return false
     })
@@ -243,7 +243,7 @@ export default defineComponent({
         case 'savePNG':
           graph.toPNG((dataUri: string) => {
             // 下载
-            DataUri.downloadDataUri(dataUri, 'chartx.png')
+            DataUri.downloadDataUri(dataUri, this.graphName+'.png')
           }, {
             backgroundColor: 'white',
             padding: {
@@ -258,7 +258,7 @@ export default defineComponent({
         case 'saveSVG':
           graph.toSVG((dataUri: string) => {
             // 下载
-            DataUri.downloadDataUri(DataUri.svgToDataUrl(dataUri), 'chart.svg')
+            DataUri.downloadDataUri(DataUri.svgToDataUrl(dataUri), this.graphName+'.svg')
           })
           break
         case 'print':

@@ -146,7 +146,7 @@ export default class FlowGraph {
       target: this.graph,
       stencilGraphWidth: 280,
       search: { rect: true },
-      collapsable: true,
+      collapsable: false,
       groups: [
         {
           name: 'basic',
@@ -293,7 +293,7 @@ export default class FlowGraph {
           ry: 35,
         },
         text: {
-          text: '',
+          text: '链接节点',
         },
       },
     })

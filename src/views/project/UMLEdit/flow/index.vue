@@ -6,7 +6,7 @@
       <div class="panel">
         <!--流程图工具栏-->
         <div class="toolbar">
-          <tool-bar v-if="isReady" :graphId="this.graphId"/>
+          <tool-bar v-if="isReady" :graphId="this.graphId" :graph-name="this.graphName"/>
         </div>
         <!--流程图画板-->
         <div id="container" class="x6-graph" />
@@ -37,7 +37,7 @@ const getContainerSize = () => {
 }
 export default defineComponent({
   name: "index",
-  props: ["graphId"],
+  props: ["graphId", "graphName"],
   components:{
     ToolBar,
     ConfigPanel,

@@ -7,7 +7,7 @@
         size="small"
         >
         <a-tab-pane :key="graph.graphId" :tab="graph.name" v-for="graph in this.graphList">
-          <flow :graphId="graph.graphId"/>
+          <flow :graphId="graph.graphId" :graphName="graph.name"/>
         </a-tab-pane>
     </a-tabs>
 </template>
@@ -33,11 +33,13 @@ export default {
     return {
       graphList: [],
       graphId: Number,
+      graphName:'',
       projectId: Number,
     }
   },
   mounted() {
     this.graphId = this.$route.params.graphId
+    this.graphName = this.$route.params.graphName
     this.projectId = this.$route.params.projectId
     console.log(this.graphId, this.projectId)
     this.$axios.get("graph/list", {

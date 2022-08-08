@@ -1,20 +1,20 @@
 <template>
   <div style="width: 1250px">
     <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0; margin-bottom: 30px">
-      <el-menu default-active="'/' +this.$route.path.split('/')[1]" >
-        <el-button style="margin-top: 8px; float: right; margin-right: 20px"><el-icon><Plus /></el-icon>
+      <el-menu default-active="'/' +this.$route.path.split('/')[1]">
+        <el-button style="margin-top: 8px; float: right; margin-right: 20px" round><el-icon><Plus /></el-icon>
           <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
         </el-button>
       </el-menu>
     </div>
     <el-row >
       <el-col
-          style="margin-top: 45px"
+          style="margin-top: 35px"
           :span="6"
           v-for="i in projects.length"
           :key="projects[i-1]">
         <el-card id="project-card" :body-style="{ padding: '0px' }"
-                 style="width: 250px; height: auto" shadow="hover">
+                 style="width: 250px; height: auto; border-radius: 25px;" shadow="hover">
           <meta name="referrer" content="no-referrer" />
           <el-image
             src='https://inews.gtimg.com/newsapp_bt/0/13680351024/641'
@@ -31,7 +31,7 @@
                     content="进入"
                     placement="bottom"
                 >
-              <el-button class="button" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()"><el-icon color="orange"><Folder /></el-icon></el-button>
+              <el-button class="button" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()" round><el-icon color="lightblue"><Folder /></el-icon></el-button>
                 </el-tooltip>
                 <el-tooltip
                     class="item"
@@ -39,7 +39,7 @@
                     content="编辑"
                     placement="bottom"
                 >
-              <el-button class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;"><el-icon><Edit /></el-icon></el-button>
+              <el-button class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;" round><el-icon color="gray"><Edit /></el-icon></el-button>
                 </el-tooltip>
                   <el-popconfirm
                     confirmButtonText="确定"
@@ -53,7 +53,7 @@
                         content="删除"
                         placement="bottom"
                     >
-                    <el-button class="button"><el-icon color="red"><delete/></el-icon></el-button>
+                    <el-button class="button" round><el-icon color="orange"><delete/></el-icon></el-button>
                     </el-tooltip>
                   </template>
                 </el-popconfirm>
@@ -295,6 +295,6 @@ export default {
 }
 
 #project-card:hover{
-  box-shadow: inset 0 0 10px 2px lightgoldenrodyellow;
+  box-shadow: inset 0 0 10px 2px lightskyblue;
 }
 </style>

@@ -68,6 +68,11 @@
             <span>团队介绍</span>
           </el-menu-item>
 
+          <el-menu-item index="7">
+            <el-icon><Back /></el-icon>
+            <span>团队介绍</span>
+          </el-menu-item>
+
         </el-menu>
       </el-col>
     </el-row>

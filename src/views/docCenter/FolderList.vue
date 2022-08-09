@@ -59,9 +59,24 @@
         <v-contextmenu ref="contextmenu">
           <v-contextmenu-item
               class="my-context-item"
+              style="color: #409EFF;"
+          >
+            <el-icon><edit/></el-icon>
+            &nbsp;重命名文件
+          </v-contextmenu-item>
+          <v-contextmenu-item
+              class="my-context-item"
+              style="color: #F56C6C;"
           >
             <el-icon><delete/></el-icon>
             &nbsp;删除文件
+          </v-contextmenu-item>
+          <v-contextmenu-item
+              class="my-context-item"
+              style="color: black"
+          >
+            <el-icon><setting/></el-icon>
+            &nbsp;属性
           </v-contextmenu-item>
         </v-contextmenu>
         <div class="folder-info" v-for="o in 10" :key="o" v-contextmenu:contextmenu>
@@ -76,13 +91,14 @@
 </template>
 
 <script>
-import {ArrowLeft, Delete, Plus, Search} from "@element-plus/icons";
+import {ArrowLeft, Delete, Plus, Search, Setting} from "@element-plus/icons";
 import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
 import "v-contextmenu/dist/themes/default.css";
 
 export default {
   name: "FolderList",
   components: {
+    Setting,
     ArrowLeft,
     Delete,
     Plus, Search,
@@ -173,7 +189,7 @@ export default {
 }
 
 .my-context-item {
-  color: #F56C6C;
+  margin-bottom: 2px;
 }
 
 .my-context-item:hover {

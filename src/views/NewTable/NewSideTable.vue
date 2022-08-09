@@ -58,6 +58,7 @@
               index="1"
               class="my-el-menu-item"
               style="padding-left: 20%"
+              @click="this.$router.push({name:'teamProject'})"
           >
             <template #title>
               <el-icon><data-board /></el-icon>&nbsp;项目中心
@@ -80,6 +81,7 @@
             <el-menu-item
                 style="padding-left: 25%"
               class="my-el-menu-subItem"
+                @click="this.$router.push({name: 'projectRec'})"
             >
               <template #title>
                 <el-icon><data-board /></el-icon>&nbsp;项目回收
@@ -141,7 +143,7 @@ export default {
 
 .logo {
   width: 120px;
-  margin: 40px auto 0 auto;
+  margin: 30px auto 0 auto;
 }
 
 .my-main {
@@ -156,7 +158,7 @@ export default {
   padding: 30px;
   border-radius: 20px;
   background-color: #E2F5F7;
-  margin: 40px auto 0 auto;
+  margin: 30px auto 0 auto;
 }
 
 .portrait:hover{
@@ -171,7 +173,7 @@ export default {
   border-radius: 20px;
   vertical-align: center;
   background-color: #E2F5F7;
-  margin: 40px auto 0 auto;
+  margin: 25px auto 0 auto;
   cursor: pointer;
 }
 

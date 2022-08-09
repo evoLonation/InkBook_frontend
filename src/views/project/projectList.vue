@@ -1,13 +1,22 @@
 <template>
   <div style="width: 1250px">
-    <div style="border-bottom: 0 solid #e8e8e8;padding-bottom: 0; margin-bottom: 30px">
-      <el-menu default-active="'/' +this.$route.path.split('/')[1]">
-        <el-button style="margin-top: 8px; float: right; margin-right: 20px" round><el-icon><Plus /></el-icon>
-          <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
-        </el-button>
-      </el-menu>
+    <div style="display: flex">
+      <el-button
+          style="height: 50px;
+          margin-top: 7%;
+          margin-left: 75%;
+          color: white;
+          font-weight: bold;
+          border-radius: 30px;
+          background-color: royalblue;" round>
+        <el-icon>
+          <Plus/>
+        </el-icon>
+        <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
+      </el-button>
     </div>
-    <el-row >
+    <div class="folder-guide"></div>
+    <el-row>
       <el-col
           style="margin-top: 35px"
           :span="6"
@@ -15,15 +24,15 @@
           :key="projects[i-1]">
         <el-card id="project-card" :body-style="{ padding: '0px' }"
                  style="width: 250px; height: auto; border-radius: 25px;" shadow="hover">
-          <meta name="referrer" content="no-referrer" />
+          <meta name="referrer" content="no-referrer"/>
           <el-image
-            src='https://inews.gtimg.com/newsapp_bt/0/13680351024/641'
-            class="image">
+              src='http://img.nga.178.com/attachments/mon_202203/28/m6Q4rqt-j7scK24T3cSu0-jt.jpg'
+              class="image">
           </el-image>
           <div style="padding: 14px;">
-            <span>{{projects[i-1].name}}</span>
+            <span>{{ projects[i - 1].name }}</span>
             <div class="bottom">
-              <text class="text">{{ projects[i-1].detail }}</text>
+              <text class="text">{{ projects[i - 1].detail }}</text>
               <el-button-group>
                 <el-tooltip
                     class="item"
@@ -31,7 +40,13 @@
                     content="进入"
                     placement="bottom"
                 >
-              <el-button class="button" @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()" round><el-icon color="lightblue"><Folder /></el-icon></el-button>
+                  <el-button class="button"
+                             @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()"
+                             round>
+                    <el-icon color="lightblue">
+                      <Folder/>
+                    </el-icon>
+                  </el-button>
                 </el-tooltip>
                 <el-tooltip
                     class="item"
@@ -39,9 +54,15 @@
                     content="编辑"
                     placement="bottom"
                 >
-              <el-button class="button" @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;" round><el-icon color="gray"><Edit /></el-icon></el-button>
+                  <el-button class="button"
+                             @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;"
+                             round>
+                    <el-icon color="gray">
+                      <Edit/>
+                    </el-icon>
+                  </el-button>
                 </el-tooltip>
-                  <el-popconfirm
+                <el-popconfirm
                     confirmButtonText="确定"
                     cancelButtonText="取消"
                     title="确定删除该项目吗？"
@@ -53,7 +74,11 @@
                         content="删除"
                         placement="bottom"
                     >
-                    <el-button class="button" round><el-icon color="orange"><delete/></el-icon></el-button>
+                      <el-button class="button" round>
+                        <el-icon color="orange">
+                          <delete/>
+                        </el-icon>
+                      </el-button>
                     </el-tooltip>
                   </template>
                 </el-popconfirm>
@@ -69,12 +94,13 @@
         width="30%">
       <span>请输入项目信息</span>
       <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称" clearable></el-input>
-      <el-image ></el-image>
+      <el-image></el-image>
       <el-input type="textarea" style="margin-top: 10px" v-model="input2" placeholder="项目简介" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="createVisible = false; input=input2=''">取 消</el-button>
-        <el-button type="primary" @click="createVisible = false; createProject(input, input2); input=input2=''">确 定</el-button>
+        <el-button type="primary"
+                   @click="createVisible = false; createProject(input, input2); input=input2=''">确 定</el-button>
       </span>
       </template>
     </el-dialog>
@@ -88,7 +114,8 @@
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="renameVisible = false;input=input2=''">取 消</el-button>
-        <el-button type="primary" @click="renameVisible = false; renameProject(input, input2); input=input2=''">确 定</el-button>
+        <el-button type="primary"
+                   @click="renameVisible = false; renameProject(input, input2); input=input2=''">确 定</el-button>
       </span>
       </template>
     </el-dialog>
@@ -97,7 +124,7 @@
 
 <script>
 import {ElMessage} from "element-plus";
-import {ref } from 'vue'
+import {ref} from 'vue'
 
 export default {
   name: "projectList",
@@ -113,7 +140,7 @@ export default {
   },
   data() {
     return {
-      projects:[
+      projects: [
         {
           name: "原神3.0开发计划",
           detail: "须弥小草神啊啊啊啊啊啊啊啊啊",
@@ -122,7 +149,7 @@ export default {
         {
           name: "荒野大镖客2重制版",
           detail: "1145141919810",
-          imageUrl:'https://i0.hdslb.com/bfs/article/000dc2700c488c3317936a34d4575cf69e1c77a3.png@942w_531h_progressive.webp',
+          imageUrl: 'https://i0.hdslb.com/bfs/article/000dc2700c488c3317936a34d4575cf69e1c77a3.png@942w_531h_progressive.webp',
         },
       ],
       projectNum: Number,
@@ -135,22 +162,22 @@ export default {
   },
   methods: {
     //获取项目列表接口函数
-    getProject(){
+    getProject() {
       console.log('get project......')
-      if(this.$store.state.isSelectTeam){
+      if (this.$store.state.isSelectTeam) {
         this.$axios.get('/project/list-team', {
           params: {
             teamId: this.$store.state.selectTeam.teamId
           }
         }).then((response) => {
-            this.projects = response.data.projects
-            console.log(response.data.msg)
-            console.log(this.projects)
+          this.projects = response.data.projects
+          console.log(response.data.msg)
+          console.log(this.projects)
         }).catch((err) => {
           console.log(err);
           ElMessage('列表获取失败')
         })
-      }else{
+      } else {
         this.$axios.get('/project/list-user', {
           params: {
             userId: this.$store.state.loginUser.userId
@@ -167,28 +194,27 @@ export default {
 
     },
     //创建项目接口函数
-    createProject(name, detail, imgUrl){
-      if (name===''){
+    createProject(name, detail, imgUrl) {
+      if (name === '') {
         ElMessage('名字不能为空！')
-        this.createVisible=true;
+        this.createVisible = true;
         return
       }
       this.$axios.post("/project/create", {
         "name": name,
         "userId": this.$store.state.loginUser.userId,
-        "teamId":  this.$store.state.selectTeam.teamId,
+        "teamId": this.$store.state.selectTeam.teamId,
         "detail": detail,
         "imgUrl": 'https://img.nga.178.com/attachments/mon_202207/05/m6Q2q-rl1ZcT3cSk4-sg.jpg',
       }).then((response) => {
-        if (response.status === 200){
+        if (response.status === 200) {
           console.log(response.data.projectId)
           console.log(response.data.msg)
           ElMessage('创建成功')
           setTimeout(() => {
             this.getProject();
           }, 700);
-        }
-        else {
+        } else {
           ElMessage('其他错误')
         }
       }).catch((err) => {
@@ -196,10 +222,10 @@ export default {
       })
     },
     //重命名项目接口函数
-    renameProject(name, detail){
-      if (name===''){
+    renameProject(name, detail) {
+      if (name === '') {
         ElMessage('名字不能为空！')
-        this.renameVisible=true;
+        this.renameVisible = true;
         return
       }
       console.log(this.curProjectId, name, detail)
@@ -207,56 +233,53 @@ export default {
         "projectId": this.curProjectId,
         "newName": name,
       }).then((response) => {
-        if (response.status === 200){
+        if (response.status === 200) {
           ElMessage('重命名成功')
           setTimeout(() => {
             this.getProject();
           }, 700);
-        }
-        else {
+        } else {
           ElMessage('其他错误')
         }
       }).catch((err) => {
         console.log(err);
       })
-      if (detail==='') return;
+      if (detail === '') return;
       console.log(detail)
       setTimeout(() => {
         this.$axios.post("project/modify/intro", {
           "projectId": this.curProjectId,
           "newIntro": detail,
         }).then((response) => {
-          if (response.status === 200){
+          if (response.status === 200) {
             ElMessage('修改简介成功')
             console.log(response.data.msg)
             setTimeout(() => {
               this.getProject();
             }, 700);
-          }
-          else {
+          } else {
             ElMessage('其他错误')
           }
         }).catch((err) => {
           console.log(err);
         })
-      },1500)
+      }, 1500)
     },
-    openProject(){
+    openProject() {
       this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: this.curProjectName})
       this.$router.push({name: 'TopTable'})
     },
     //删除项目接口函数
-    deleteProject(){
+    deleteProject() {
       this.$axios.post("project/delete", {
         "projectId": this.curProjectId,
       }).then((response) => {
-        if (response.status === 200){
+        if (response.status === 200) {
           ElMessage('删除成功')
           setTimeout(() => {
             this.getProject();
           }, 700);
-        }
-        else {
+        } else {
           ElMessage('其他错误')
         }
       }).catch((err) => {
@@ -293,8 +316,18 @@ export default {
   width: 100%;
   display: block;
 }
+.folder-guide {
+  width: 100%;
+  margin-top: 30px;
+  height: 50px;
+  display: flex;
+  border-bottom: 4px dashed rgb(0 0 0 / 8%);
+}
+#project-card {
+  margin-left: 10%;
+}
 
-#project-card:hover{
-  box-shadow: inset 0 0 10px 2px lightskyblue;
+#project-card:hover {
+  box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
 }
 </style>

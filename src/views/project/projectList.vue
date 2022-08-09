@@ -26,7 +26,7 @@
                  style="width: 250px; height: auto; border-radius: 25px;" shadow="hover">
           <meta name="referrer" content="no-referrer"/>
           <el-image
-              :src='projects[i-1].imgUrl'
+              :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
               class="image"></el-image>
           <div style="padding: 14px;">
             <span>{{ projects[i - 1].name }}</span>
@@ -40,7 +40,7 @@
                     placement="bottom"
                 >
                   <el-button class="button"
-                             @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; openProject()"
+                             @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
                              round>
                     <el-icon color="lightblue">
                       <Folder/>
@@ -54,7 +54,7 @@
                     placement="bottom"
                 >
                   <el-button class="button"
-                             @click="renameVisible=true; curProjectId=projects[i-1].id; curProjectName= input = projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;"
+                             @click="renameVisible=true; curProjectId=this.projects[i-1].id; curProjectName= input = this.projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;"
                              round>
                     <el-icon color="gray">
                       <Edit/>
@@ -67,7 +67,7 @@
                         content="删除"
                         placement="bottom"
                     >
-                      <el-button class="button" @click="this.curProjectId=projects[i-1].id;deleteVisible=true" round>
+                      <el-button class="button" @click="this.curProjectId=this.projects[i-1].id;deleteVisible=true" round>
                         <el-icon color="orange">
                           <delete/>
                         </el-icon>
@@ -80,10 +80,10 @@
       </el-col>
     </el-row>
     <el-dialog
-        title="新建项目"
         v-model="createVisible"
         width="25%"
         custom-class="dialog">
+      <h1>新建项目</h1>
       <span>请输入项目信息</span>
       <el-input class="input" v-model="input" placeholder="项目名称" clearable></el-input>
       <el-image></el-image>
@@ -95,21 +95,21 @@
       </template>
     </el-dialog>
     <el-dialog
-        title="编辑项目"
         v-model="renameVisible"
         width="25%"
         custom-class="dialog">
+      <h1>编辑项目</h1>
       <span>请输入新的项目信息</span>
       <el-input class="input" v-model="input" placeholder="项目名称" clearable></el-input>
       <el-upload
           name="file"
-          accept=".jpg, .jpeg, .png"
+          :accept="this.fileType"
           action
+          :http-request="this.uploadImage"
           ref="upload"
-          :limit="this.fileLimit"
+          :limit="1"
           :file-list="this.fileList"
-          :auto-upload="false"
-          :data="{projectId: this.curProjectId}"
+          :auto-upload="true"
           >
         <el-button style="margin-top: 15px" round><i ></i><el-icon><Upload/></el-icon>封面</el-button>
       </el-upload>
@@ -149,23 +149,11 @@ export default {
     }
   },
   mounted() {
-
     this.getProject()
   },
   data() {
     return {
-      projects: [
-        {
-          name: "原神3.0开发计划",
-          detail: "须弥小草神啊啊啊啊啊啊啊啊啊",
-          imageUrl: 'https://img.nga.178.com/attachments/mon_202207/05/m6Q2q-rl1ZcT3cSk4-sg.jpg',
-        },
-        {
-          name: "荒野大镖客2重制版",
-          detail: "1145141919810",
-          imageUrl: 'https://i0.hdslb.com/bfs/article/000dc2700c488c3317936a34d4575cf69e1c77a3.png@942w_531h_progressive.webp',
-        },
-      ],
+      projects: [],
       projectNum: Number,
       createVisible: false,
       renameVisible: false,
@@ -175,8 +163,6 @@ export default {
       curProjectDetail: String,
       fileList: [],
       fileType: ["png", "jpg", "bmp", "jpeg"],
-      fileSize: 50,
-      fileLimit: 1,
       headers: { "Content-Type": "multipart/form-data" },
     }
   },
@@ -184,11 +170,12 @@ export default {
     uploadImage(list){
       console.log('in upload')
       const f = new FormData()
-      f.append('newImg', list[0])
+      f.append('newImg', list.file)
       f.append('projectId', this.curProjectId.toString())
       this.$axios.post('/project/modify/img', f).then(res=>{
         if (res.status === 200){
           ElMessage('上传封面成功')
+          this.fileList = []
           console.log(res.data.msg)
         }
       })

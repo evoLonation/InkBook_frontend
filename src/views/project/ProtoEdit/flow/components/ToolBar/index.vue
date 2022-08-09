@@ -197,6 +197,7 @@ export default defineComponent({
   },
   methods: {
     preview(){
+      this.saveGraph(this.graph)
       this.$router.push({name: 'protoPreview', params:{protoId: this.graphId}})
     },
     saveGraph(cells) {

@@ -7,17 +7,16 @@
           font-weight: bold;
           border-radius: 30px;
           background-color: royalblue;" round
-        @click="dialogVisable = true">
+        @click="dialogVisible = true">
       <el-icon>
         <Plus/>
       </el-icon>
     </el-button>
   </div>
   <el-dialog
-      v-model="dialogVisable"
-      title="新建UML"
+      v-model="dialogVisible"
+      title="新建原型"
       width="25%"
-      :before-close="handleClose"
       custom-class="dialog"
   >
     <span>请输入信息</span>
@@ -31,7 +30,7 @@
     </el-input>
     <template #footer>
         <span class="dialog-footer">
-      <el-button @click="createGraph(); this.dialogVisable=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
+      <el-button @click="createGraph(); this.dialogVisible=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
         </span>
     </template>
   </el-dialog>
@@ -52,7 +51,7 @@
         <div style="padding: 10px">
           <span>{{graph.docName}}</span>
           <div class="bottom">
-            <span>{{graph.name}}</span>
+            <span>{{graph.protoName}}</span>
             <el-button-group>
               <el-tooltip
                   class="item"
@@ -61,7 +60,7 @@
                   placement="bottom"
               >
                 <el-button class="button"
-                           @click="openGraph(graph.graphId, graph.name)"
+                           @click="openGraph(graph.protoId, graph.name)"
                            round>
                   <el-icon color="lightblue">
                     <Document/>
@@ -75,7 +74,7 @@
                   placement="bottom"
               >
                 <el-button class="button"
-                           @click="this.dialogVisible2=true; this.curGraphId=graph.graphId;"
+                           @click="this.dialogVisible2=true; this.curGraphId=graph.protoId;"
                            round>
                   <el-icon color="gray">
                     <Edit/>
@@ -88,7 +87,7 @@
                   content="删除"
                   placement="bottom"
               >
-                <el-button class="button" @click="this.curGraphId=graph.graphId; dialogVisible3=true" round>
+                <el-button class="button" @click="this.curGraphId=graph.protoId; dialogVisible3=true" round>
                   <el-icon color="orange">
                     <delete/>
                   </el-icon>
@@ -101,12 +100,12 @@
     </el-col>
   </el-row>
   <el-dialog
-      title="编辑UML信息"
+      title="编辑原型信息"
       v-model="dialogVisible2"
       width="25%"
       custom-class="dialog">
-    <span>请输入新的UML信息</span>
-    <el-input class="input" v-model="protoName" placeholder="UML名称" clearable></el-input>
+    <span>请输入新的原型信息</span>
+    <el-input class="input" v-model="protoName" placeholder="原型名称" clearable></el-input>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible2 = false; renameGraph(protoName); protoName=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
@@ -196,6 +195,18 @@ export default {
         }
       }).catch(err=>{
         console.log(err);
+      })
+    },
+    renameGraph(name){
+      this.$axios.post('prototype/rename', {
+        "protoId": this.curGraphId,
+        "newName": name,
+      }).then((res)=>{
+        if (res.status === 200){
+          location.reload()
+        }
+      }).catch(err=>{
+        console.log(err)
       })
     }
   },

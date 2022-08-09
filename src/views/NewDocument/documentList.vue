@@ -16,7 +16,7 @@
       class="my-el-table"
     >
       <el-table
-          :data="tableData"
+          :data="docList"
           style="width: 100%; height: 100%"
           :header-row-style="{height: '70px'}"
           :row-style="{height: '50px'}"
@@ -24,26 +24,28 @@
         <el-table-column
             prop="docName"
             label="文件名"
-            width="400"
+            width="300"
             class="my-el-table-column"
             sortable
         />
         <el-table-column
-            prop="createInfo"
+            prop="modifyInfo"
             label="修改信息"
-            width="400"
+            width="350"
             class="my-el-table-column"
             sortable
         />
         <el-table-column label="操作">
           <template #default="scope">
             <el-button size="small"
+             @click="this.$refs.rename.open(scope.row.docId, 'doc')"
             >
-              修改
+              重命名
             </el-button>
             <el-button
                 size="small"
                 type="danger"
+
             >
               删除
             </el-button>
@@ -53,24 +55,48 @@
     </div>
   </div>
 </div>
+  <Rename v-model="renameVisible" ref="rename"/>
 </template>
 
 <script>
 import {Plus} from "@element-plus/icons";
+import Rename from "@/components/dialog/Rename";
+
+import {ElMessage} from "element-plus";
 export default {
   name: "documentEdit",
-  components: {Plus},
+  components: {Plus, Rename},
   data(){
     return{
-      tableData: [
+      docList: [
         {
           docId: 0,
           docName: '金刚石需求文档',
-          createInfo : '2022-8-2 14:32 by evoLonation',
-          creatorId: 'giaoge',
+          modifyInfo : '2022-8-2 14:32 by evoLonation',
+          modifierId: 'giaoge',
         },
-      ]
+      ],
+      createVisible : false,
+      renameVisible : false,
+      projectId: this.$store.state.selectProject.proId,
     }
+  },
+  methods: {
+    getListDocs() {
+      this.axios.get('document/list', {
+        params: {
+          "projectId": this.projectId,
+        }
+      }).then((res) => {
+        this.docList = res.data.docList;
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message: err.response.data.msg, type: 'warning'})
+      })
+    },
+  },
+  created() {
+    this.getListDocs();
   }
 }
 </script>

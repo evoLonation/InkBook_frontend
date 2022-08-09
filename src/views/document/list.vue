@@ -24,8 +24,8 @@
                 :header-cell-style="{padding: '20px'}"
                 highlight-current-row
                 @row-dblclick="dbClick">
-        <el-table-column sortable prop="docName" label="文件名" width="800" style="padding: 20px"></el-table-column>
-        <el-table-column sortable prop="modifyInfo" label="修改信息" width="450" style="padding: 20px"></el-table-column>
+        <el-table-column sortable prop="docName" label="文件名" width="600px" style="padding: 20px"></el-table-column>
+        <el-table-column sortable prop="modifyInfo" label="修改信息" width="300" style="padding: 20px"></el-table-column>
         <el-table-column width="100" label="">
           <template #default="scope">
             <!--          <el-button text>-->

@@ -105,6 +105,7 @@
                 style="padding-left: 25%"
                 index="5"
               class="my-el-menu-subItem"
+                @click="this.$router.push({name: 'fileRec'})"
             >
               <template #title>
                 <el-icon><list /></el-icon>&nbsp;文档回收

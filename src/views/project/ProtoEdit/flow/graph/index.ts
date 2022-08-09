@@ -721,12 +721,12 @@ export default class FlowGraph {
     });
 
     const k4 = graph.createNode({
-      width: 50,
+      width: 100,
       height: 50,
       shape: 'html',
       html() {
         const wrap = document.createElement('input')
-        wrap.style.width = '160%'
+        wrap.style.width = '100%'
         wrap.style.height = '100%'
         wrap.style.textAlign = 'center'
         wrap.placeholder = '输入框'

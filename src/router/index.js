@@ -132,6 +132,11 @@ const routes = [
       name: 'umlPreview',
       component: () => import('../views/project/UMLEdit/flow/Preview')
     },
+    {
+        path: '/proto',
+        name: 'proto',
+        component: () => import('../views/project/ProtoEdit/tabs/index')
+    },
 
     //文档相关
 
@@ -141,9 +146,19 @@ const routes = [
         component: () => import('../views/document/edit.vue')
     },
     {
-        path: "/menu",
-        name: "Menu",
-        component: () => import('../views/Table/Menu')
+        path: "/docMenu",
+        name: "DocMenu",
+        component: () => import('../views/Table/DocMenu')
+    },
+    {
+        path: "/umlMenu",
+        name: "UMLMenu",
+        component: () => import('../views/Table/UMLMenu')
+    },
+    {
+        path: "/oriMenu",
+        name: "OriMenu",
+        component: () => import('../views/Table/OriMenu')
     },
 
     // 团队邀请相关

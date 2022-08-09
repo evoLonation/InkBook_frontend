@@ -149,7 +149,7 @@ export default class FlowGraph {
         {
           name: 'basic',
           title: '流程图',
-          graphHeight: 680,
+          graphHeight: 780,
         },
         {
           name: 'combination',
@@ -565,49 +565,74 @@ export default class FlowGraph {
         },
       },
     })
-    graph.on('node:click', ({ node }) => {
-      const attrPath = 'attrs/switch/transform'
-      const current = node.prop(attrPath)
-      const target = current === switchOpen ? switchClose : switchOpen
+    // graph.on('node:click', ({ node }) => {
+    //   const attrPath = 'attrs/switch/transform'
+    //   const current = node.prop(attrPath)
+    //   const target = current === switchOpen ? switchClose : switchOpen
+    //
+    //   node.transition(attrPath, target, {
+    //     interp: (a: string, b: string) => {
+    //       const reg = /-?\d+/g
+    //       const start = parseInt(a.match(reg)![0], 10)
+    //       const end = parseInt(b.match(reg)![0], 10)
+    //       const d = end - start
+    //       return (t: number) => {
+    //         return `rotate(${start + d * t} ${switchCenter.x} ${switchCenter.y})`
+    //       }
+    //     },
+    //   })
+    // })
 
-      node.transition(attrPath, target, {
-        interp: (a: string, b: string) => {
-          const reg = /-?\d+/g
-          const start = parseInt(a.match(reg)![0], 10)
-          const end = parseInt(b.match(reg)![0], 10)
-          const d = end - start
-          return (t: number) => {
-            return `rotate(${start + d * t} ${switchCenter.x} ${switchCenter.y})`
-          }
-        },
-      })
-    })
-
-    const c1 = graph.createNode({
-      shape: 'flow-chart-image-Rect',
-    })
-    const c2 = graph.createNode({
-      shape: 'flow-chart-title-Rect',
-    })
-    const c3 = graph.createNode({
-      shape: 'flow-chart-animate-Text',
-    })
-
-    const g1 = graph.createNode({
-      shape: 'groupNode',
-      attrs: {
-        text: {
-          text: 'Group Name',
-        },
-      },
-      data: {
-        parent: true,
-      },
+    const r16 = graph.createNode({
+      x: 280,
+      y: 120,
+      width: 80,
+      height: 60,
+      shape: 'image',
+      imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.yuzhaoyang.cn%2Fuploads%2Fallimg%2F181030%2F1-1Q0302214101Q.jpg&refer=http%3A%2F%2Fwww.yuzhaoyang.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1662608575&t=092596b1443c8ef481a204162ca7a569'
     })
 
-    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15], 'basic')
-    this.stencil.load([c1, c2, c3], 'combination')
-    this.stencil.load([g1], 'group')
+    const r17 = graph.createNode({
+      shape: "my-image",
+      x: 400,
+      y: 150,
+      width: 150,
+      height: 100,
+    });
+
+    const r18 = graph.createNode({
+      shape: "my-avatar",
+      x: 400,
+      y: 150,
+      width: 150,
+      height: 100,
+    });
+
+    // const c1 = graph.createNode({
+    //   shape: 'flow-chart-image-Rect',
+    // })
+    // const c2 = graph.createNode({
+    //   shape: 'flow-chart-title-Rect',
+    // })
+    // const c3 = graph.createNode({
+    //   shape: 'flow-chart-animate-Text',
+    // })
+    //
+    // const g1 = graph.createNode({
+    //   shape: 'groupNode',
+    //   attrs: {
+    //     text: {
+    //       text: 'Group Name',
+    //     },
+    //   },
+    //   data: {
+    //     parent: true,
+    //   },
+    // })
+
+    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18], 'basic')
+    this.stencil.load([], 'combination')
+    this.stencil.load([], 'group')
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {

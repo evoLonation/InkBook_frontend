@@ -93,6 +93,38 @@ const routes = [
                 path: 'doc-center',
                 name: 'docCenter',
                 component: () => import('../views/docCenter/FolderList')
+            },
+            {
+                path: "teamProject",
+                name: "teamProject",
+                component: () => import('../views/project/projectList')
+            },
+            {
+                path: "topTable",
+                name: "topTable",
+                component: () => import('../views/NewTable/NewTopTable'),
+                children: [
+                    {
+                        path: 'document/list',
+                        name: 'documentList',
+                        component: () => import('../views/NewDocument/documentList')
+                    },
+                    {
+                        path: 'uml/list',
+                        name: 'umlList',
+                        component: () => import('../views/project/Manage/NewUML')
+                    },
+                    {
+                        path: 'proto/list',
+                        name: 'protoList',
+                        component: () => import('../views/project/Manage/NewOrigin')
+                    }
+                ]
+            },
+            {
+                path: '/projectRec',
+                name: 'projectRec',
+                component: () => import('../views/project/projectRec')
             }
         ],
     },
@@ -114,6 +146,11 @@ const routes = [
       path: '/uml/preview',
       name: 'umlPreview',
       component: () => import('../views/project/UMLEdit/flow/Preview')
+    },
+    {
+        path: '/proto',
+        name: 'uml',
+        component: () => import('../views/project/ProtoEdit/tabs/index')
     },
 
     //文档相关
@@ -139,6 +176,13 @@ const routes = [
         path: "/tool",
         name: "Tool",
         component: () => import('../views/unlayer/tool')
+    },
+
+    //测试
+    {
+        path: "/image",
+        name: "Image",
+        component: () => import('../components/Image')
     },
 ];
 

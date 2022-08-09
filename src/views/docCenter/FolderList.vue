@@ -25,6 +25,7 @@
       </el-input>
       <el-button
         class="folder-add-button"
+        @click="visible=true"
       >
         <el-icon><plus/></el-icon>&nbsp;新建文件&nbsp;
       </el-button>
@@ -88,11 +89,13 @@
       </el-row>
     </el-scrollbar>
   </div>
+  <CreateDocument v-model="visible" @new-created="" team-id="TeamId" parent-id=""/>
 </template>
 
 <script>
 import {ArrowLeft, Delete, Plus, Search, Setting} from "@element-plus/icons";
 import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
+import CreateDocument from "@/components/dialog/CreateDocument";
 import "v-contextmenu/dist/themes/default.css";
 
 export default {
@@ -104,21 +107,28 @@ export default {
     Plus, Search,
     [Contextmenu.name]: Contextmenu,
     [ContextmenuItem.name]: ContextmenuItem,
+    CreateDocument,
+
   },
   directives: {
     contextmenu: directive,
   },
   data(){
     return{
-      search: ''
+      search: '',
+      visible: false,
+      TeamId: '',
     }
   },
   methods: {
     check: function () {
       this.$message.success("success!");
     }
+  },
+  created() {
+    this.TeamId = this.$store.state.selectTeam.teamId;
   }
- }
+}
 </script>
 
 <style scoped>

@@ -1,4 +1,7 @@
 import { Graph, Dom, Node } from '@antv/x6'
+import '@antv/x6-vue-shape'
+import Image from '@/components/Image.vue'
+import avatar from '@/components/icon/avatar.vue'
 
 export const FlowChartRect = Graph.registerNode('flow-chart-Rect', {
   inherit: 'rect',
@@ -163,6 +166,34 @@ export const FlowChartPolygon = Graph.registerNode('flow-chart-Polygon', {
   },
 })
 
+export const FlowChartImage = Graph.registerNode('my-image', {
+  inherit: "vue-shape",
+  x: 200,
+  y: 150,
+  width: 150,
+  height: 100,
+  component: {
+    template: `<Image />`,
+    components: {
+      Image,
+    },
+  },
+})
+
+export const FlowChartAvatar = Graph.registerNode('my-avatar', {
+  inherit: "vue-shape",
+  x: 200,
+  y: 150,
+  width: 150,
+  height: 100,
+  component: {
+    template: `<avatar />`,
+    components: {
+      avatar,
+    },
+  },
+})
+
 export const FlowChartImageRect = Graph.registerNode('flow-chart-image-Rect', {
   inherit: 'rect',
   width: 200,
@@ -296,145 +327,16 @@ export const FlowChartImageRect = Graph.registerNode('flow-chart-image-Rect', {
   },
 })
 
-export const FlowChartTitleRect = Graph.registerNode('flow-chart-title-Rect', {
+export const FlowChartTitleRect = Graph.registerNode('icon', {
   inherit: 'rect',
   width: 200,
   height: 68,
   attrs: {
-    body: {
-      stroke: '#5F95FF',
-      strokeWidth: 1,
-      fill: 'rgba(95,149,255,0.05)',
-    },
-    head: {
-      refWidth: '100%',
-      stroke: 'transparent',
-      height: 28,
-      fill: 'rgb(95,149,255)',
-    },
     image: {
-      'xlink:href':
-        'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
       height: 16,
       x: 6,
       y: 6,
     },
-    title: {
-      text: 'Node',
-      refX: 30,
-      refY: 9,
-      fill: '#ffffff',
-      fontSize: 12,
-      'text-anchor': 'start',
-    },
-    text: {
-      text: 'this is content text',
-      refX: 8,
-      refY: 45,
-      fontSize: 12,
-      fill: 'rgba(0,0,0,0.6)',
-      'text-anchor': 'start',
-    },
-  },
-  markup: [
-    {
-      tagName: 'rect',
-      selector: 'body',
-    },
-    {
-      tagName: 'rect',
-      selector: 'head',
-    },
-    {
-      tagName: 'image',
-      selector: 'image',
-    },
-    {
-      tagName: 'text',
-      selector: 'title',
-    },
-    {
-      tagName: 'text',
-      selector: 'text',
-    },
-  ],
-  ports: {
-    groups: {
-      top: {
-        position: 'top',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      right: {
-        position: 'right',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      bottom: {
-        position: 'bottom',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-      left: {
-        position: 'left',
-        attrs: {
-          circle: {
-            r: 3,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
-      },
-    },
-    items: [
-      {
-        group: 'top',
-      },
-      {
-        group: 'right',
-      },
-      {
-        group: 'bottom',
-      },
-      {
-        group: 'left',
-      },
-    ],
   },
 })
 

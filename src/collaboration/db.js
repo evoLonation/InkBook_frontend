@@ -25,7 +25,7 @@ export const db = firebase.database();
 // db.settings({ timestampsInSnapshots: true });
 
 export async function writeData(path, obj) {
-    console.log("will write user data")
+    // console.log("will write user data")
     await db.ref(path).set(
         obj
     ).then(() => {

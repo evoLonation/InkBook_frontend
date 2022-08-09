@@ -185,7 +185,7 @@ export default {
                 break;
               }
             }
-            console.log('将新的修改信息复制给响应式变量');
+            // console.log('将新的修改信息复制给响应式变量');
             editors.value = newEditors;
             writeData(getEditorsPath(), editors.value);
           });
@@ -249,7 +249,8 @@ export default {
     };
   },
   created() {
-    console.log('i am created!')
+    console.log('collaboration are created!')
+    console.log('id is ', this.id)
   }
 
 }

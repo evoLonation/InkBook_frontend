@@ -1,7 +1,7 @@
 <template>
   <el-dialog
       title=""
-      v-model="visible"
+      v-model="value"
       width="30%"
       :before-close="newDocName = ''"
   >
@@ -29,7 +29,7 @@
 import {ElMessage} from "element-plus";
 
 export default {
-  name: "createDocument",
+  name: "CreateDocument",
   data() {
     return {
       visible: false,
@@ -38,21 +38,36 @@ export default {
 
     }
   },
-  emits: ['newCreated'],
+  emits: ['newCreated', 'update:modelValue'],
   props: {
-    proId: Number
+    teamId: Number,
+    modelValue: Boolean,
+    parentId: Number,
   },
   methods: {
     createClick(){
       this.axios.post("document/create", {
         "name": this.newDocName,
         "creatorId": this.userId,
-        "projectId" : this.proId,
+        "teamId" : this.teamId,
+        "parentId": this.parentId,
       }).then(() => {
         this.$emit('newCreated');
+        this.visible = false;
+        ElMessage({message: '文档创建成功', type: 'success'});
       }).catch(err => {
         ElMessage({message: err.response.data.msg, type: 'warning'});
       })
+    }
+  },
+  computed: {
+    value: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+      }
     }
   }
 }

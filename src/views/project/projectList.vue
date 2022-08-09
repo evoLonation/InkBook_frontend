@@ -26,7 +26,7 @@
                  style="width: 250px; height: auto; border-radius: 25px;" shadow="hover">
           <meta name="referrer" content="no-referrer"/>
           <el-image
-              src='http://img.nga.178.com/attachments/mon_202203/28/m6Q4rqt-j7scK24T3cSu0-jt.jpg'
+              :src='projects[i-1].imgUrl'
               class="image"></el-image>
           <div style="padding: 14px;">
             <span>{{ projects[i - 1].name }}</span>
@@ -101,10 +101,23 @@
         custom-class="dialog">
       <span>请输入新的项目信息</span>
       <el-input class="input" v-model="input" placeholder="项目名称" clearable></el-input>
+      <el-upload
+          name="file"
+          accept=".jpg, .jpeg, .png"
+          action
+          ref="upload"
+          :limit="this.fileLimit"
+          :file-list="this.fileList"
+          :auto-upload="false"
+          :data="{projectId: this.curProjectId}"
+          >
+        <el-button style="margin-top: 15px" round><i ></i><el-icon><Upload/></el-icon>封面</el-button>
+      </el-upload>
+
       <el-input  type="textarea" class="input" v-model="input2" placeholder="项目简介" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="renameVisible = false; renameProject(input, input2); input=input2=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
+        <el-button @click="renameVisible = false; modifyProject(input, input2); input=input2=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
       </span>
       </template>
     </el-dialog>
@@ -160,9 +173,26 @@ export default {
       curProjectId: Number,
       curProjectName: String,
       curProjectDetail: String,
+      fileList: [],
+      fileType: ["png", "jpg", "bmp", "jpeg"],
+      fileSize: 50,
+      fileLimit: 1,
+      headers: { "Content-Type": "multipart/form-data" },
     }
   },
   methods: {
+    uploadImage(list){
+      console.log('in upload')
+      const f = new FormData()
+      f.append('newImg', list[0])
+      f.append('projectId', this.curProjectId.toString())
+      this.$axios.post('/project/modify/img', f).then(res=>{
+        if (res.status === 200){
+          ElMessage('上传封面成功')
+          console.log(res.data.msg)
+        }
+      })
+    },
     //获取项目列表接口函数
     getProject() {
       console.log('get project......')
@@ -173,7 +203,6 @@ export default {
           }
         }).then((response) => {
           this.projects = response.data.projects
-          console.log(response.data.msg)
           console.log(this.projects)
         }).catch((err) => {
           console.log(err);
@@ -193,7 +222,6 @@ export default {
           ElMessage('列表获取失败')
         })
       }
-
     },
     //创建项目接口函数
     createProject(name, detail, imgUrl) {
@@ -223,39 +251,16 @@ export default {
         console.log(err);
       })
     },
-    //重命名项目接口函数
-    renameProject(name, detail) {
-      if (name === '') {
-        ElMessage('名字不能为空！')
-        this.renameVisible = true;
-        return
-      }
-      console.log(this.curProjectId, name, detail)
-      this.$axios.post("project/rename", {
-        "projectId": this.curProjectId,
-        "newName": name,
-      }).then((response) => {
-        if (response.status === 200) {
-          ElMessage('重命名成功')
-          setTimeout(() => {
-            this.getProject();
-          }, 700);
-        } else {
-          ElMessage('其他错误')
-        }
-      }).catch((err) => {
-        console.log(err);
-      })
-      if (detail === '') return;
-      console.log(detail)
-      setTimeout(() => {
-        this.$axios.post("project/modify/intro", {
+    //编辑项目接口函数
+    modifyProject(name, detail) {
+      if (name!==''){
+        console.log(this.curProjectId, name)
+        this.$axios.post("/project/rename", {
           "projectId": this.curProjectId,
-          "newIntro": detail,
+          "newName": name,
         }).then((response) => {
           if (response.status === 200) {
-            ElMessage('修改简介成功')
-            console.log(response.data.msg)
+            ElMessage('重命名成功')
             setTimeout(() => {
               this.getProject();
             }, 700);
@@ -265,7 +270,31 @@ export default {
         }).catch((err) => {
           console.log(err);
         })
-      }, 1500)
+      }
+      if (detail!==''){
+        setTimeout(() => {
+          this.$axios.post("/project/modify/intro", {
+            "projectId": this.curProjectId,
+            "newIntro": detail,
+          }).then((response) => {
+            if (response.status === 200) {
+              ElMessage('修改简介成功')
+              console.log(response.data.msg)
+              setTimeout(() => {
+                this.getProject();
+              }, 700);
+            } else {
+              ElMessage('其他错误')
+            }
+          }).catch((err) => {
+            console.log(err);
+          })
+        }, 1000)
+      }
+      if (this.fileList.length!==0){
+        this.uploadImage(this.fileList)
+      }
+      this.fileList = []
     },
     openProject() {
       this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: this.curProjectName})

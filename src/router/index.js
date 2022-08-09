@@ -152,6 +152,11 @@ const routes = [
         name: 'proto',
         component: () => import('../views/project/ProtoEdit/tabs/index')
     },
+    {
+        path: '/proto/preview',
+        name: 'protoPreview',
+        component: () => import('../views/project/ProtoEdit/flow/Preview')
+    },
 
     //文档相关
 

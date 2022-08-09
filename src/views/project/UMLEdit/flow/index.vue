@@ -22,8 +22,8 @@
 <script lang="ts">
 
 import { defineComponent, ref } from "vue";
-import '@/views/project/UMLEdit/reset.less'
-import '@/views/project/UMLEdit/global.css'
+import '@/views/project/reset.less'
+import '@/views/project/global.css'
 import './index.less'
 import FlowGraph from './graph'
 import ToolBar from './components/ToolBar/index.vue'

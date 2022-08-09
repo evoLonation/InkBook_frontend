@@ -741,9 +741,9 @@ export default class FlowGraph {
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {
     console.log(graphId)
-    axios.get('graph/get', {
+    axios.get('/prototype/get', {
       params: {
-        graphId: graphId
+        protoId: graphId
       }
     }).then((response) => {
       if (response.status === 409){

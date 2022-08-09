@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import { ref } from "vue";
-import '@/views/project/UMLEdit/reset.less'
-import '@/views/project/UMLEdit/global.css'
+import '@/views/project/reset.less'
+import '@/views/project/global.css'
 import './index.less'
 import {Graph} from '@antv/x6'
 import axios from "axios";

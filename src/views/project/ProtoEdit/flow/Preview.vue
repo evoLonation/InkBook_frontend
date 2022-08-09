@@ -9,12 +9,11 @@
 
 <script lang="ts">
 import { ref } from "vue";
-import '@/views/project/ProtoEdit/reset.less'
-import '@/views/project/ProtoEdit/global.css'
+import '@/views/project/reset.less'
+import '@/views/project/global.css'
 import './index.less'
 import {Graph} from '@antv/x6'
 import axios from "axios";
-import {ElMessage} from "element-plus/es";
 
 export default {
   name: "Preview",
@@ -49,7 +48,7 @@ export default {
           grid: false,
 
         });
-        axios.get('proto/get', {
+        axios.get('prototype/get', {
           params: {
             protoId: this.protoId
           }

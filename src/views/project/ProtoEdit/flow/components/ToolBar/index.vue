@@ -74,12 +74,14 @@
           </el-icon>
         </el-button>
       </el-tooltip>
-    </el-button-group>
-
-    <el-button-group>
       <el-tooltip placement="bottom" content="保存">
         <el-button name="toJSON" @click="handleClick" class="item-space" round>
           <el-icon color="lightblue"><Select/></el-icon>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip placement="bottom" content="预览">
+        <el-button name="toJSON" @click="preview" class="item-space" round>
+          <el-icon><View /></el-icon>
         </el-button>
       </el-tooltip>
       <el-tooltip placement="bottom" content="退出">
@@ -194,9 +196,12 @@ export default defineComponent({
     }
   },
   methods: {
+    preview(){
+      this.$router.push({name: 'protoPreview', params:{protoId: this.graphId}})
+    },
     saveGraph(cells) {
-      axios.post('/graph/save', {
-        "graphId": this.graphId,
+      axios.post('/prototype/save', {
+        "protoId": this.graphId,
         "userId": store.state.loginUser.userId,
         "content": JSON.stringify(cells)
       }).then((response) => {

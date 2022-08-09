@@ -35,6 +35,7 @@ export default {
     let setContent;
     let getContent;
     const userId = useStore().state.loginUser.userId;
+    const nickname = useStore().state.loginUser.nickname;
     // eslint-disable-next-line vue/no-setup-props-destructure
     const docId = props.docId;
     const keepEditTime = 2500;
@@ -42,8 +43,8 @@ export default {
     let needUpdate = false;
     const editorNumber = ref(0);
     const editors = ref([]);
-    const lastModifier = ref('');
-    const lastModifyTime = ref(new Date());
+    const lastModifier = ref({userId: userId, nickname: nickname});
+    const lastModifyTime = ref(new Date().getTime());
     let intervalId1;
     let intervalId2;
 
@@ -78,8 +79,7 @@ export default {
       getData(getUsersPath()).then((res) => {
         console.log('已获得编辑信息，准备更新编辑信息（申请）')
         let newEditorNumber = 1;
-        const newEditors = [{userId: userId, time: new Date()}];
-        const newEditorIds = [userId];
+        const newEditors = [{userId: userId, nickname: nickname, time: new Date().getTime()}];
         if(res !== null && res.editors !== undefined) {
           console.log(res, res.editors)
           for (const editor of res.editors) {

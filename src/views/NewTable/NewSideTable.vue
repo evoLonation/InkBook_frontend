@@ -93,7 +93,8 @@
             </template>
             <el-menu-item
                 style="padding-left: 25%"
-              class="my-el-menu-subItem"
+                class="my-el-menu-subItem"
+                index="4"
                 @click="this.$router.push({name: 'projectRec'})"
             >
               <template #title>
@@ -102,6 +103,7 @@
             </el-menu-item>
             <el-menu-item
                 style="padding-left: 25%"
+                index="5"
               class="my-el-menu-subItem"
             >
               <template #title>

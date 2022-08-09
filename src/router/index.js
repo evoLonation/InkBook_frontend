@@ -36,7 +36,7 @@ const routes = [
                     {
                         path: "document/list",
                         name: "DocumentList",
-                        component: () => import('../views/document/list')
+                        component: () => import('../views/NewDocument/documentList')
                     },
                     // UML与原型构建相关
                     {

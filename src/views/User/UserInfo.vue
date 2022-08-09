@@ -1,16 +1,19 @@
 <template>
   <div style="
     width: 1000px;
-    margin-left: 30px;
+    margin-left: auto;
     margin-right: auto;
     margin-top: 80px;"
   >
-    <el-card shadow="always" :body-style="{ padding: '0 0 0 0 ' }">
+    <el-card
+        shadow="always"
+        :body-style="{ padding: '0 0 0 0 ', height: '450px'}"
+    >
       <div v-if="isOwner === true" >
-        <el-tabs v-model="cardSite" type="border-card" @tab-click="clean">
+        <el-tabs style="height: 450px" v-model="cardSite" type="border-card" @tab-click="clean">
           <el-tab-pane label="个人信息" name="1">
 
-            <div style="width: 80%; margin: 0 auto">
+            <div style="width: 80%;margin: 0 auto">
               <input type="file"
                      ref="clearFile"
                      style="display:none"
@@ -131,11 +134,11 @@
                   label-width="100px"
                   style="max-width: 460px"
               >
-                <el-form-item label="原密码：">
+                <el-form-item style="margin-top: 10%" label="原密码：">
                   <el-input v-model="oldPwd" type="password"/>
                 </el-form-item>
 
-                <el-form-item label="新密码：">
+                <el-form-item style="margin-top: 7%" label="新密码：">
                   <el-input v-model="newPwd" type="password" @change="checkPwd"/>
                   <p v-if="(pwdCheckRes === 1 || pwdCheckRes === 2)" style="
                font-size: 12px;
@@ -145,13 +148,11 @@
                   </p>
                 </el-form-item>
 
-
-
-                <el-form-item label="确认密码：">
+                <el-form-item style="margin-top: 7%" label="确认密码：">
                   <el-input v-model="confirm" type="password" />
                 </el-form-item>
 
-                <div style="margin-left: 200px;">
+                <div style="margin-left: 200px; margin-top: 7%">
                   <el-button type="success" @click="changePwd">
                     提交修改
                   </el-button>
@@ -207,8 +208,6 @@
         </div>
       </div>
     </el-card>
-
-
   </div>
 </template>
 

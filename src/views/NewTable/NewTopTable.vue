@@ -9,7 +9,13 @@
       mode="horizontal"
       class="my-el-menu"
     >
-      <el-menu-item class="my-el-menu-item" index="1">文档</el-menu-item>
+      <el-menu-item
+          class="my-el-menu-item"
+          index="1"
+          @click="this.$router.push({name: 'DocumentList'})"
+      >
+        文档
+      </el-menu-item>
       <el-menu-item class="my-el-menu-item" index="2">原型</el-menu-item>
       <el-menu-item class="my-el-menu-item" index="3">UML</el-menu-item>
     </el-menu>

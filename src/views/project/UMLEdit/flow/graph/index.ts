@@ -137,8 +137,11 @@ export default class FlowGraph {
     this.initEvent()
     return this.graph
   }
-  private static setContent(data) {
-    this.graph.fromJSON(JSON.parse(data))
+  public static setContent(data) {
+    this.graph.fromJSON(data)
+  }
+  public static getContent(){
+    return this.graph.toJSON().cells
   }
   private static initStencil() {
     this.stencil = new Addon.Stencil({
@@ -448,7 +451,7 @@ export default class FlowGraph {
       }
       else {
         console.log(response.data.msg)
-        this.setContent(response.data.content)
+        this.setContent(JSON.parse(response.data.content))
       }
     }).catch((err) => {
       console.log(err)

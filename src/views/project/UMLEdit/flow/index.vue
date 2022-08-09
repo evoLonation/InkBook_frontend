@@ -16,6 +16,7 @@
         <config-panel v-if="isReady"/>
       </div>
     </div>
+    <Collaboration :docId="this.graphId" ref="Collaboration"/>
   </div>
 </template>
 
@@ -26,8 +27,10 @@ import '@/views/project/reset.less'
 import '@/views/project/global.css'
 import './index.less'
 import FlowGraph from './graph'
+import {Graph} from '@antv/x6'
 import ToolBar from './components/ToolBar/index.vue'
 import ConfigPanel from './components/ConfigPanel/index.vue'
+import Collaboration from '@/components/Collaboration.vue'
 
 const getContainerSize = () => {
   return {
@@ -41,23 +44,58 @@ export default defineComponent({
   components:{
     ToolBar,
     ConfigPanel,
+    Collaboration
   },
   setup(){
     const isReady = ref(false)
     return{
-      isReady
+      isReady,
+
+    }
+  },
+  data(){
+    return{
+      graph: Graph
     }
   },
   mounted() {
     this.initGraph()
+    this.$refs.Collaboration.setSetter(this.setContent)
+    this.$refs.Collaboration.setGetter(this.getContent)
+    this.$refs.Collaboration.start()
+    this.graph.on('cell:changed', () => {
+      this.$refs.Collaboration.update()
+    })
+    this.graph.on('cell:added', () => {
+      this.$refs.Collaboration.update()
+    })
+    this.graph.on('node:added', () => {
+      this.$refs.Collaboration.update()
+    })
+    this.graph.on('node:change:*', () => {
+      this.$refs.Collaboration.update()
+    })
+    this.graph.on('cell:removed', () => {
+      this.$refs.Collaboration.update()
+    })
+    this.graph.on('node:removed', () => {
+      this.$refs.Collaboration.update()
+    })
+
   },
   methods: {
+    setContent(data) {
+      this.graph.fromJSON(data)
+    },
+    getContent(){
+      return this.graph.toJSON().cells
+    },
     initGraph(){
-      const graph = FlowGraph.init(this.graphId)
+      this.graph = FlowGraph.init(this.graphId)
       this.isReady = true
       const resizeFn = () => {
         const { width, height } = getContainerSize()
-        graph.resize(width, height)
+        this.graph.resize(width, height)
       }
       resizeFn()
       window.addEventListener('resize', resizeFn)

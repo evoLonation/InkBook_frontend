@@ -50,16 +50,16 @@ export default {
           let form = new FormData();
           form.append('file', files); // 可以传到后台的数据
 
-        this.axios.post("img",form).then((response)=>{
-          if(response.status === 200){
-            ElMessage("上传成功！");
-            console.log(response.data);
-            // location.reload();
-            that.valueUrl = response.data.url
-          }else ElMessage({message: response.data.msg, type: 'warning'});
-        }).catch((err)=>{
-          console.log(err);
-        });
+        // this.axios.post("img",form).then((response)=>{
+        //   if(response.status === 200){
+        //     ElMessage("上传成功！");
+        //     console.log(response.data);
+        //     // location.reload();
+        //     that.valueUrl = response.data.url
+        //   }else ElMessage({message: response.data.msg, type: 'warning'});
+        // }).catch((err)=>{
+        //   console.log(err);
+        // });
       }
     }
   },

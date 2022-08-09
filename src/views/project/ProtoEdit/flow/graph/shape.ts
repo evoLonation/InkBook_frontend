@@ -2,6 +2,22 @@ import { Graph, Dom, Node } from '@antv/x6'
 import '@antv/x6-vue-shape'
 import Image from '@/components/Image.vue'
 import avatar from '@/components/icon/avatar.vue'
+import avatar2 from '@/components/icon/avatar2.vue'
+import avatar3 from '@/components/icon/avatar3.vue'
+import avatar4 from '@/components/icon/avatar4.vue'
+import avatar5 from '@/components/icon/avatar5.vue'
+import avatar6 from '@/components/icon/avatar6.vue'
+import avatar7 from '@/components/icon/avatar7.vue'
+import avatar8 from '@/components/icon/avatar8.vue'
+import avatar9 from '@/components/icon/avatar9.vue'
+import avatar10 from '@/components/icon/avatar10.vue'
+import avatar11 from '@/components/icon/avatar11.vue'
+import avatar12 from '@/components/icon/avatar12.vue'
+import avatar13 from '@/components/icon/avatar13.vue'
+import avatar14 from '@/components/icon/avatar14.vue'
+import avatar15 from '@/components/icon/avatar15.vue'
+import avatar16 from '@/components/icon/avatar16.vue'
+
 
 export const FlowChartRect = Graph.registerNode('flow-chart-Rect', {
   inherit: 'rect',
@@ -166,26 +182,19 @@ export const FlowChartPolygon = Graph.registerNode('flow-chart-Polygon', {
   },
 })
 
-export const FlowChartImage = Graph.registerNode('my-image', {
-  inherit: "vue-shape",
-  x: 200,
-  y: 150,
-  width: 150,
-  height: 100,
-  component: {
-    template: `<Image />`,
-    components: {
-      Image,
+Graph.registerVueComponent(
+    "image",
+    {
+      template: `<Image/>`,
+      components: {
+        Image,
+      },
     },
-  },
-})
+    true
+);
 
-export const FlowChartAvatar = Graph.registerNode('my-avatar', {
+Graph.registerNode('my-avatar', {
   inherit: "vue-shape",
-  x: 200,
-  y: 150,
-  width: 150,
-  height: 100,
   component: {
     template: `<avatar />`,
     components: {
@@ -193,6 +202,157 @@ export const FlowChartAvatar = Graph.registerNode('my-avatar', {
     },
   },
 })
+
+Graph.registerNode('my-avatar2', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar2 />`,
+    components: {
+      avatar2,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar3', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar3 />`,
+    components: {
+      avatar3,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar4', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar4 />`,
+    components: {
+      avatar4,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar5', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar5 />`,
+    components: {
+      avatar5,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar6', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar6 />`,
+    components: {
+      avatar6,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar7', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar7 />`,
+    components: {
+      avatar7,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar8', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar8 />`,
+    components: {
+      avatar8,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar9', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar9 />`,
+    components: {
+      avatar9,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar10', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar10 />`,
+    components: {
+      avatar10,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar11', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar11 />`,
+    components: {
+      avatar11,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar12', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar12 />`,
+    components: {
+      avatar12,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar13', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar13 />`,
+    components: {
+      avatar13,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar14', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar14 />`,
+    components: {
+      avatar14,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar15', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar15 />`,
+    components: {
+      avatar15,
+    },
+  },
+})
+
+Graph.registerNode('my-avatar16', {
+  inherit: "vue-shape",
+  component: {
+    template: `<avatar16 />`,
+    components: {
+      avatar16,
+    },
+  },
+})
+
 
 export const FlowChartImageRect = Graph.registerNode('flow-chart-image-Rect', {
   inherit: 'rect',

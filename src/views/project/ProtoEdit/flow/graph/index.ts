@@ -148,17 +148,17 @@ export default class FlowGraph {
       groups: [
         {
           name: 'basic',
-          title: '流程图',
+          title: '图形',
           graphHeight: 780,
         },
         {
           name: 'combination',
-          title: '类图',
-          layoutOptions: {
-            columns: 1,
-            marginX: 60,
-          },
-          graphHeight: 260,
+          title: '图标',
+          // layoutOptions: {
+          //   columns: 1,
+          //   marginX: 60,
+          // },
+          graphHeight: 650,
         },
         {
           name: 'group',
@@ -589,23 +589,112 @@ export default class FlowGraph {
       width: 80,
       height: 60,
       shape: 'image',
-      imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.yuzhaoyang.cn%2Fuploads%2Fallimg%2F181030%2F1-1Q0302214101Q.jpg&refer=http%3A%2F%2Fwww.yuzhaoyang.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1662608575&t=092596b1443c8ef481a204162ca7a569'
+      imageUrl: ''
     })
 
-    const r17 = graph.createNode({
-      shape: "my-image",
-      x: 400,
-      y: 150,
-      width: 150,
-      height: 100,
+    const r17 = graph.addNode({
+      x: 40,
+      y: 40,
+      width: 100,
+      height: 40,
+      shape: 'vue-shape',
+      component: 'image',
     });
 
-    const r18 = graph.createNode({
+    const i1 = graph.createNode({
       shape: "my-avatar",
-      x: 400,
-      y: 150,
-      width: 150,
-      height: 100,
+      width: 50,
+      height: 50,
+    });
+
+    const i2 = graph.createNode({
+      shape: "my-avatar2",
+      width: 50,
+      height: 50,
+    });
+
+    const i3 = graph.createNode({
+      shape: "my-avatar3",
+      width: 50,
+      height: 50,
+    });
+
+    const i4 = graph.createNode({
+      shape: "my-avatar4",
+      width: 50,
+      height: 50,
+    });
+
+    const i5 = graph.createNode({
+      shape: "my-avatar5",
+      width: 50,
+      height: 50,
+    });
+
+    const i6 = graph.createNode({
+      shape: "my-avatar6",
+      width: 50,
+      height: 50,
+    });
+
+    const i7 = graph.createNode({
+      shape: "my-avatar7",
+      width: 50,
+      height: 50,
+    });
+
+    const i8 = graph.createNode({
+      shape: "my-avatar8",
+      width: 50,
+      height: 50,
+    });
+
+    const i9 = graph.createNode({
+      shape: "my-avatar9",
+      width: 50,
+      height: 50,
+    });
+
+    const i10 = graph.createNode({
+      shape: "my-avatar10",
+      width: 50,
+      height: 50,
+    });
+
+    const i11 = graph.createNode({
+      shape: "my-avatar11",
+      width: 50,
+      height: 50,
+    });
+
+    const i12 = graph.createNode({
+      shape: "my-avatar12",
+      width: 50,
+      height: 50,
+    });
+
+    const i13 = graph.createNode({
+      shape: "my-avatar13",
+      width: 50,
+      height: 50,
+    });
+
+    const i14 = graph.createNode({
+      shape: "my-avatar14",
+      width: 50,
+      height: 50,
+    });
+
+    const i15 = graph.createNode({
+      shape: "my-avatar15",
+      width: 50,
+      height: 50,
+    });
+
+    const i16 = graph.createNode({
+      shape: "my-avatar16",
+      width: 50,
+      height: 50,
     });
 
     // const c1 = graph.createNode({
@@ -630,8 +719,8 @@ export default class FlowGraph {
     //   },
     // })
 
-    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18], 'basic')
-    this.stencil.load([], 'combination')
+    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17], 'basic')
+    this.stencil.load([i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16], 'combination')
     this.stencil.load([], 'group')
   }
   //从data.ts读取JSON图的方式和修改data的方式在这

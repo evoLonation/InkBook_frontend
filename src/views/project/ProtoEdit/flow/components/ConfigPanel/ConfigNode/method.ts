@@ -1,4 +1,4 @@
-import FlowGraph from "@/views/project/UMLEdit/flow/graph";
+import FlowGraph from "@/views/project/ProtoEdit/flow/graph";
 
 export function nodeOpt(id: any, globalGridAttr: any){
     let curCel: any = null;

@@ -15,10 +15,10 @@
   </div>
   <el-dialog
       v-model="dialogVisible"
-      title="新建原型"
       width="25%"
       custom-class="dialog"
   >
+    <h1 >新建原型</h1>
     <span>请输入信息</span>
     <el-input
         v-model="protoName"
@@ -36,13 +36,13 @@
   </el-dialog>
   <el-row>
     <el-col
-        style="margin-top: 10px"
+        style="margin-top: 20px"
         :span="6"
         v-for="graph in graphList"
         :key="graph"
     >
       <el-card id="project-card" :body-style="{ padding: '0px' }"
-               style="width: 200px; height: auto; border-radius: 20px;" shadow="hover">
+               style="width: 250px; height: auto; border-radius: 20px;" shadow="hover">
         <meta name="referrer" content="no-referrer"/>
         <img
             src="../../../assets/Project/设计原型.jpeg"
@@ -87,7 +87,7 @@
                   content="删除"
                   placement="bottom"
               >
-                <el-button class="button" @click="this.curGraphId=graph.protoId; dialogVisible3=true" round>
+                <el-button class="button" @click="this.curGraphId=graph.protoId; deleteGraph(graph.protoId)" round>
                   <el-icon color="orange">
                     <delete/>
                   </el-icon>
@@ -112,18 +112,6 @@
       </span>
     </template>
   </el-dialog>
-  <el-dialog
-      title="确认删除吗"
-      v-model="dialogVisible3"
-      width="25%"
-      custom-class="dialog">
-    <span>删除后无法找回</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible3 = false; deleteGraph(this.curGraphId)" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
-      </span>
-    </template>
-  </el-dialog>
 </template>
 
 <script>
@@ -133,7 +121,6 @@ export default {
     return {
       dialogVisible: false,
       dialogVisible2: false,
-      dialogVisible3: false,
       curGraphId: Number,
       currentDate: new Date(),
       protoName: '',
@@ -142,9 +129,6 @@ export default {
     }
   },
   methods: {
-    handleClose: function (){
-      this.dialogVisable = false;
-    },
     openGraph: function (id){
       console.log('打开一个原型，id为' + id)
       this.$store.state.originId = id;

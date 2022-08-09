@@ -130,6 +130,7 @@
         console.log(index);
         console.log("EnterTeam is called!");
         this.$router.push({name: "team", params: {teamId: this.teamList[index].teamId}});
+        this.$store.commit({type: 'selectTeam', teamId: this.teamList[index].teamId, teamName: this.teamList[index].name})
       },
       GoToSearch: function (){
         this.$router.push({name: "teamBlock", params: {key: this.key}})

@@ -34,7 +34,7 @@ export async function writeData(path, obj) {
 }
 export function onDataChange(path, func){
 
-    let starCountRef = db.ref(path);
+    const starCountRef = db.ref(path);
     // starCountRef.on('value', (snapshot) => {
     //     const data = snapshot.val();
     //     updateStarCount(postElement, data);

@@ -113,6 +113,11 @@ const routes = [
                         path: 'uml/list',
                         name: 'umlList',
                         component: () => import('../views/project/Manage/NewUML')
+                    },
+                    {
+                        path: 'proto/list',
+                        name: 'protoList',
+                        component: () => import('../views/project/Manage/NewOrigin')
                     }
                 ]
             },

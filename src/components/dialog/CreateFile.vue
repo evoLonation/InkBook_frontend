@@ -8,9 +8,9 @@
     <div >
       <div style="height: 30px"></div>
       <header style="line-height: 30px;text-align: center; font-weight: bold;margin-bottom: 20px;">创建新文件</header>
-      <div style="margin-left: 40px;margin-right: 50px;">
+      <div style="margin-left: 40px;margin-right: 50px;" v-if="type==='team'">
         <el-form  label-width="100px">
-          <el-form-item label="文档名" >
+          <el-form-item label="文件类型" >
             <el-radio-group v-model="createType"  style=" !important;margin-left: 20px;margin-right: 0;">>
               <el-radio label="folder" size="large">文件夹</el-radio>
               <el-radio label="doc" size="large">文档</el-radio>
@@ -21,7 +21,7 @@
 
       <div style="margin-left: 40px;margin-right: 50px;">
         <el-form  label-width="100px">
-          <el-form-item label="文档名">
+          <el-form-item label="文件名">
             <el-input v-model="newDocName" placeholder="文档名称" style=" !important;margin-left: 20px;margin-right: 0;"></el-input>
           </el-form-item>
         </el-form>
@@ -67,7 +67,17 @@ export default {
   methods: {
     createClick(){
       if(this.type === 'project'){
-
+        this.axios.post("document/project-create", {
+          "name": this.newDocName,
+          "creatorId": this.userId,
+          "projectId" : this.projectId,
+        }).then(() => {
+          this.$emit('newCreated');
+          this.value = false;
+          ElMessage({message: '文档创建成功', type: 'success'});
+        }).catch(err => {
+          ElMessage({message: err.response.data.msg, type: 'warning'});
+        })
       }else {
         if(this.createType === 'doc'){
           this.axios.post("document/create", {

@@ -8,6 +8,7 @@
     >
       <el-button
           class="document-add"
+          @click="createVisible=true"
       >
         <el-icon><plus/></el-icon>&nbsp;新建文档&nbsp;
       </el-button>
@@ -45,7 +46,7 @@
             <el-button
                 size="small"
                 type="danger"
-
+                @click="clickDelete(scope.row.docId)"
             >
               删除
             </el-button>
@@ -55,7 +56,8 @@
     </div>
   </div>
 </div>
-  <Rename v-model="renameVisible" ref="rename"/>
+  <Rename v-model="renameVisible" ref="rename" @haveRenamed="getListDocs" />
+  <CreateFile v-model="createVisible" type="project" @newCreated="getListDocs"/>
 </template>
 
 <script>
@@ -63,9 +65,10 @@ import {Plus} from "@element-plus/icons";
 import Rename from "@/components/dialog/Rename";
 
 import {ElMessage} from "element-plus";
+import CreateFile from "@/components/dialog/CreateFile";
 export default {
   name: "documentEdit",
-  components: {Plus, Rename},
+  components: {CreateFile, Plus, Rename},
   data(){
     return{
       docList: [
@@ -93,6 +96,18 @@ export default {
         console.log(err)
         ElMessage({message: err.response.data.msg, type: 'warning'})
       })
+    },
+    clickDelete(docId) {
+      this.axios.post('document/delete', {
+        docId : docId,
+        deleterId : this.userId,
+      }).then(() => {
+          ElMessage({message: '删除成功', type: 'success'});
+          this.getListDocs()
+        }).catch(err =>{
+          console.log(err)
+          ElMessage({message: err.response.data.msg, type: 'warning'})
+        })
     },
   },
   created() {

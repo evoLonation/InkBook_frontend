@@ -10,7 +10,8 @@
         <div style="display: flex;">
           <div style="width: 900px; height: 600px">
             <el-scrollbar height="600px">
-                <slot></slot>
+<!--                <slot></slot>-->
+              <Preview :content="currentTempContent" :title="currentTempName"/>
             </el-scrollbar>
           </div>
           <div style="width: 300px">
@@ -20,27 +21,36 @@
                 <el-input v-model="newDocName" placeholder="文档名称" style=" !important;margin-left: 20px;margin-right: 0;"></el-input>
               </el-form-item>
             </el-form>
-            <el-scrollbar height="480px">
-              <el-menu
-                  default-active="2"
-                  class="el-menu-vertical-demo"
-                  @open="handleOpen"
-                  @close="handleClose"
-              >
-                <el-menu-item index="2" style="height: 40px">
-                  <el-icon><Document /></el-icon>
-                  <span>Navigator Two</span>
-                </el-menu-item>
-                <el-menu-item index="2" style="height: 40px">
-                  <el-icon><Document /></el-icon>
-                  <span>Navigator Two</span>
-                </el-menu-item>
-                <el-menu-item index="2" style="height: 40px">
-                  <el-icon><Document /></el-icon>
-                  <span>Navigator Two</span>
-                </el-menu-item>
-              </el-menu>
-            </el-scrollbar>
+            <div style="height: 480px">
+              <el-scrollbar height="480px">
+                <el-menu
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                >
+                  <el-menu-item :index="index" v-for="(temp, index) in tempList" :key="{temp, index}"  style="height: 40px" @click="clickItem(temp)">
+                    <el-icon><Document /></el-icon>
+                    <span> {{temp.name}} </span>
+                  </el-menu-item>
+                  <!--                <el-menu-item index="2" style="height: 40px">-->
+                  <!--                  <el-icon><Document /></el-icon>-->
+                  <!--                  <span>Navigator Two</span>-->
+                  <!--                </el-menu-item>-->
+                  <!--                <el-menu-item index="2" style="height: 40px">-->
+                  <!--                  <el-icon><Document /></el-icon>-->
+                  <!--                  <span>Navigator Two</span>-->
+                  <!--                </el-menu-item>-->
+                  <!--                <el-menu-item index="2" style="heigh40px">-->
+                  <!--                  <el-icon><Document /></el-icon>-->
+                  <!--                  <span>Navigator Two</span>-->
+                  <!--                </el-menu-item>-->
+                </el-menu>
+              </el-scrollbar>
+            </div>
+
+            <div style="display: flex;margin-top: 40px;">
+              <el-button type="primary" style="margin: auto auto auto 40px " @click="createClick"><span>确定</span></el-button>
+              <el-button type="primary" style="margin: auto 40px auto auto " @click="value=false"><span>取消</span></el-button>
+            </div>
           </div>
 
         </div>
@@ -58,47 +68,93 @@
 
 <script>
 import {ElMessage} from "element-plus";
+import Preview from "@/views/document/Preview";
 
 export default {
   name: "CreateByTmp",
+  components: {
+    Preview
+  },
   data() {
     return {
       newDocName: '',
       userId: this.$store.state.loginUser.userId,
+      teamId : this.$store.state.selectTeam.teamId,
+      projectId: this.$store.state.selectProject.proId,
 
+      currentTempId : 0,
+      currentTempContent : '',
+      currentTempName: '',
+      tempList: [],
     }
   },
-  emits: ['newCreated', 'update:modelValue'],
+  emits: [ 'update:modelValue'],
   props: {
-    teamId: Number,
     modelValue: Boolean,
     parentId: Number,
+    type: String, // project 或者 team
   },
   methods: {
-    createClick(){
-      this.axios.post("document/create", {
-        "name": this.newDocName,
-        "creatorId": this.userId,
-        "teamId" : this.teamId,
-        "parentId": this.parentId,
-      }).then(() => {
-        this.$emit('newCreated');
-        this.visible = false;
-        ElMessage({message: '文档创建成功', type: 'success'});
-      }).catch(err => {
-        ElMessage({message: err.response.data.msg, type: 'warning'});
-      })
+    clickItem(temp) {
+      this.currentTempId = temp.templateId;
+      this.currentTempContent = temp.content;
+      this.currentTempName = temp.name;
+    },
+    createClick() {
+      if(this.type === 'project'){
+        this.axios.post("document/project-create", {
+          "name": this.newDocName,
+          "creatorId": this.userId,
+          "projectId" : this.projectId,
+          "templateId" : this.currentTempId,
+        }).then(() => {
+          this.$emit('newCreated');
+          this.value = false;
+          ElMessage({message: '文档创建成功', type: 'success'});
+        }).catch(err => {
+          ElMessage({message: err.response.data.msg, type: 'warning'});
+        })
+      }else {
+        this.axios.post("document/create", {
+          "name": this.newDocName,
+          "creatorId": this.userId,
+          "teamId" : this.teamId,
+          "parentId": this.parentId,
+          "templateId" : this.currentTempId,
+        }).then(() => {
+          this.$emit('newCreated');
+          this.value = false;
+          ElMessage({message: '文档创建成功', type: 'success'});
+        }).catch(err => {
+          ElMessage({message: err.response.data.msg, type: 'warning'});
+        })
+      }
     }
   },
+  created() {
+    console.log('created by tmp created!')
+    this.axios.get('template/list', {
+      params: {
+        type: 1,
+      }
+    }).then(res=>{
+      this.tempList = res.data.templateList;
+      console.log(this.tempList)
+    }).catch(err => {
+      console.log(err)
+      ElMessage({message: err.response.data.msg, type: 'warning'});
+    })
+  },
+
   computed: {
     value: {
       get() {
         return this.modelValue
       },
       set(value) {
-        this.$emit('update:modelValue', value)
+        this.$emit('update:modelValue', value);
       }
-    }
+    },
   }
 }
 </script>
@@ -110,7 +166,7 @@ export default {
 #create-by-tmp .el-dialog {
   border-radius: 40px;
   object-fit:cover;
-  /*width: 1200px;*/
+  width: 1200px;
 
 }
 .el-dialog__body{

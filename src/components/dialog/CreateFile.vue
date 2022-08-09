@@ -25,7 +25,7 @@
             <el-input v-model="newDocName" placeholder="文档名称" style=" !important;margin-left: 20px;margin-right: 0;"></el-input>
           </el-form-item>
         </el-form>
-        <el-button @click="tmpVisible = true;value = false">从模板创建</el-button>
+        <el-button @click="clickCreateTemp">从模板创建</el-button>
         <div style="display: flex;margin-top: 40px;">
           <el-button type="primary" style="margin: auto auto auto 40px " @click="createClick"><span>确定</span></el-button>
           <el-button type="primary" style="margin: auto 40px auto auto " @click="value=false"><span>取消</span></el-button>
@@ -36,7 +36,7 @@
     </div>
 
   </el-dialog>
-  <CreateByTmp v-model="tmpVisible">
+  <CreateByTmp v-if="tmpVisible" v-model="tmpVisible" @new-created="this.$emit('newCreated')" :type="this.type">
     <el-button style="width: 1200px;height: 1000px"></el-button>
   </CreateByTmp>
 </template>
@@ -108,7 +108,12 @@ export default {
       }
 
 
-    }
+    },
+    clickCreateTemp() {
+      this.tmpVisible = true;
+      this.value = false;
+
+    },
   },
   computed: {
     value: {

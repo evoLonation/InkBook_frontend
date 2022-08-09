@@ -14,6 +14,11 @@
         <el-icon><Download /></el-icon>
       </div>
       <Collaboration :id="docId" ref="collaboration" type="doc"></Collaboration>
+      <div>
+        <input v-model="tempName"/>
+        <input v-model="tempIntro"/>
+        <el-button @click="clickCreateTemp">创建模板</el-button>
+      </div>
 
     </div>
     <div >
@@ -80,6 +85,7 @@ export default {
     const route = useRoute();
     const store = useStore();
     const docId = parseInt(route.params.docId);
+    const userId = store.state.loginUser.userId;
 
     /**
      * 编辑器初始化与销毁相关操作
@@ -171,6 +177,23 @@ export default {
       collaboration.value.save();
     }
 
+    const tempName = ref('');
+    const tempIntro = ref('');
+    const clickCreateTemp = () => {
+      axios.post('template/create', {
+        "name": tempName.value,
+        "type": 1,
+        "creatorId": userId,
+        "intro": tempIntro.value,
+        "content": JSON.stringify(getContent()),
+      }).then(() => {
+        ElMessage({message: '保存成功', type: 'success'});
+      }).catch((err) => {
+        console.log(err)
+        ElMessage({message: err.response.data.msg, type: 'warning'})
+      });
+    };
+
     return {
       // 编辑器相关
       editorRef,
@@ -182,6 +205,10 @@ export default {
       docId,
       collaboration,
       save,
+
+      tempName,
+      tempIntro,
+      clickCreateTemp,
     };
   },
 }

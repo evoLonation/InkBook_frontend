@@ -12,6 +12,7 @@
     </div>
     <div
       class="portrait"
+      @click="this.$router.push({name: 'UserInfo', params: {userId: this.userId}})"
     >
       <div style="display: flex">
         <img class="picture" src="../../assets/Team/人员.png" alt="" />

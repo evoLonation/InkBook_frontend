@@ -74,9 +74,6 @@
           </el-icon>
         </el-button>
       </el-tooltip>
-    </el-button-group>
-
-    <el-button-group>
       <el-tooltip placement="bottom" content="保存">
         <el-button name="toJSON" @click="handleClick" class="item-space" round>
           <el-icon color="lightblue"><Select/></el-icon>
@@ -300,11 +297,11 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .bar {
-  margin-right: 16px;
+  margin-left: 15%;
 }
 .item-space {
-  margin-left: 100px;
+  display: flex;
   width: 70px;
-  height: 30px;
+  height: 38px;
 }
 </style>

@@ -55,42 +55,48 @@ export default {
       tmpVisible : false,
       createType: 'doc',
       teamId : this.$store.state.selectTeam.teamId,
-
+      projectId: this.$store.state.selectProject.proId,
     }
   },
   emits: ['newCreated', 'update:modelValue'],
   props: {
     modelValue: Boolean,
     parentId: Number,
+    type: String, // project 或者 team
   },
   methods: {
     createClick(){
-      if(this.createType === 'doc'){
-        this.axios.post("document/create", {
-          "name": this.newDocName,
-          "creatorId": this.userId,
-          "teamId" : this.teamId,
-          "parentId": this.parentId,
-        }).then(() => {
-          this.$emit('newCreated');
-          this.value = false;
-          ElMessage({message: '文档创建成功', type: 'success'});
-        }).catch(err => {
-          ElMessage({message: err.response.data.msg, type: 'warning'});
-        })
+      if(this.type === 'project'){
+
       }else {
-        this.axios.post("folder/create", {
-          "name": this.newDocName,
-          "creatorId": this.userId,
-          "teamId" : this.teamId,
-        }).then(() => {
-          this.$emit('newCreated');
-          this.value = false;
-          ElMessage({message: '文件夹创建成功', type: 'success'});
-        }).catch(err => {
-          ElMessage({message: err.response.data.msg, type: 'warning'});
-        })
+        if(this.createType === 'doc'){
+          this.axios.post("document/create", {
+            "name": this.newDocName,
+            "creatorId": this.userId,
+            "teamId" : this.teamId,
+            "parentId": this.parentId,
+          }).then(() => {
+            this.$emit('newCreated');
+            this.value = false;
+            ElMessage({message: '文档创建成功', type: 'success'});
+          }).catch(err => {
+            ElMessage({message: err.response.data.msg, type: 'warning'});
+          })
+        }else {
+          this.axios.post("folder/create", {
+            "name": this.newDocName,
+            "creatorId": this.userId,
+            "teamId" : this.teamId,
+          }).then(() => {
+            this.$emit('newCreated');
+            this.value = false;
+            ElMessage({message: '文件夹创建成功', type: 'success'});
+          }).catch(err => {
+            ElMessage({message: err.response.data.msg, type: 'warning'});
+          })
+        }
       }
+
 
     }
   },

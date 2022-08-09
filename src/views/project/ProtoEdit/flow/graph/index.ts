@@ -565,23 +565,23 @@ export default class FlowGraph {
         },
       },
     })
-    graph.on('node:click', ({ node }) => {
-      const attrPath = 'attrs/switch/transform'
-      const current = node.prop(attrPath)
-      const target = current === switchOpen ? switchClose : switchOpen
-
-      node.transition(attrPath, target, {
-        interp: (a: string, b: string) => {
-          const reg = /-?\d+/g
-          const start = parseInt(a.match(reg)![0], 10)
-          const end = parseInt(b.match(reg)![0], 10)
-          const d = end - start
-          return (t: number) => {
-            return `rotate(${start + d * t} ${switchCenter.x} ${switchCenter.y})`
-          }
-        },
-      })
-    })
+    // graph.on('node:click', ({ node }) => {
+    //   const attrPath = 'attrs/switch/transform'
+    //   const current = node.prop(attrPath)
+    //   const target = current === switchOpen ? switchClose : switchOpen
+    //
+    //   node.transition(attrPath, target, {
+    //     interp: (a: string, b: string) => {
+    //       const reg = /-?\d+/g
+    //       const start = parseInt(a.match(reg)![0], 10)
+    //       const end = parseInt(b.match(reg)![0], 10)
+    //       const d = end - start
+    //       return (t: number) => {
+    //         return `rotate(${start + d * t} ${switchCenter.x} ${switchCenter.y})`
+    //       }
+    //     },
+    //   })
+    // })
 
     const r16 = graph.createNode({
       x: 280,
@@ -594,6 +594,14 @@ export default class FlowGraph {
 
     const r17 = graph.createNode({
       shape: "my-image",
+      x: 400,
+      y: 150,
+      width: 150,
+      height: 100,
+    });
+
+    const r18 = graph.createNode({
+      shape: "my-avatar",
       x: 400,
       y: 150,
       width: 150,
@@ -622,7 +630,7 @@ export default class FlowGraph {
     //   },
     // })
 
-    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17], 'basic')
+    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18], 'basic')
     this.stencil.load([], 'combination')
     this.stencil.load([], 'group')
   }

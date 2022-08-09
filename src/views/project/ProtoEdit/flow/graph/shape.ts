@@ -1,6 +1,7 @@
 import { Graph, Dom, Node } from '@antv/x6'
 import '@antv/x6-vue-shape'
 import Image from '@/components/Image.vue'
+import avatar from '@/components/icon/avatar.vue'
 
 export const FlowChartRect = Graph.registerNode('flow-chart-Rect', {
   inherit: 'rect',
@@ -175,6 +176,20 @@ export const FlowChartImage = Graph.registerNode('my-image', {
     template: `<Image />`,
     components: {
       Image,
+    },
+  },
+})
+
+export const FlowChartAvatar = Graph.registerNode('my-avatar', {
+  inherit: "vue-shape",
+  x: 200,
+  y: 150,
+  width: 150,
+  height: 100,
+  component: {
+    template: `<avatar />`,
+    components: {
+      avatar,
     },
   },
 })

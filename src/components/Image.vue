@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import {ElMessage} from "element-plus";
+
 let inputElement = null
 export default {
   data() {
@@ -40,15 +42,24 @@ export default {
         const that = this;
         const reader = new FileReader(); // 创建读取文件对象
         reader.readAsDataURL(el.target.files[0]); // 发起异步请求，读取文件
-        reader.onload = function () { // 文件读取完成后
+         // 文件读取完成后
           // 读取完成后，将结果赋值给img的src
           that.valueUrl = this.result;
           console.log(this.result);
           // 数据传到后台
-          //const formData = new FormData()
-          //formData.append('file', files); // 可以传到后台的数据
-          };
+          let form = new FormData();
+          form.append('file', files); // 可以传到后台的数据
 
+        this.axios.post("img",form).then((response)=>{
+          if(response.status === 200){
+            ElMessage("上传成功！");
+            console.log(response.data);
+            // location.reload();
+            that.valueUrl = response.data.url
+          }else ElMessage({message: response.data.msg, type: 'warning'});
+        }).catch((err)=>{
+          console.log(err);
+        });
       }
     }
   },

@@ -81,26 +81,18 @@
                           </el-icon>
                         </el-button>
                       </el-tooltip>
-                      <el-popconfirm
-                          confirmButtonText="确定"
-                          cancelButtonText="取消"
-                          title="确定删除吗？"
-                          @confirm="deleteGraph(this.curGraphId)">
-                        <template #reference>
                           <el-tooltip
                               class="item"
                               effect="dark"
                               content="删除"
                               placement="bottom"
                           >
-                            <el-button class="button" @click="this.curGraphId=graph.graphId" round>
+                            <el-button class="button" @click="this.curGraphId=graph.graphId; dialogVisible3=true" round>
                               <el-icon color="orange">
                                 <delete/>
                               </el-icon>
                             </el-button>
                           </el-tooltip>
-                        </template>
-                      </el-popconfirm>
                     </el-button-group>
                   </div>
                 </div>
@@ -120,6 +112,18 @@
       </span>
     </template>
   </el-dialog>
+  <el-dialog
+    title="确认删除吗"
+    v-model="dialogVisible3"
+    width="25%"
+    custom-class="dialog">
+    <span>删除后无法找回</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible3 = false; deleteGraph(this.curGraphId)" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
@@ -131,6 +135,7 @@ export default {
     return {
       dialogVisable: false,
       dialogVisible2: false,
+      dialogVisible3: false,
       curGraphId: Number,
       currentDate: new Date(),
       graphName: '',
@@ -139,6 +144,9 @@ export default {
     }
   },
   methods: {
+    delBtn(e){
+      e.stopPropagation();
+    },
     handleClose: function () {
       this.dialogVisable = false;
     },

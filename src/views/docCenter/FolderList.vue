@@ -33,17 +33,10 @@
     <div
       class="folder-guide"
     >
-      <!--如果所在是根目录，请使用这个-->
-<!--      <el-button-->
-<!--          class="folder-roll-back"-->
-<!--          disabled-->
-<!--      >-->
-<!--        <el-icon>-->
-<!--          <arrow-left/>-->
-<!--        </el-icon>-->
-<!--      </el-button>-->
       <el-button
           class="folder-roll-back"
+          :disabled="this.folderLayer.length === 1"
+          @click="clickBack"
       >
         <el-icon>
           <arrow-left/>
@@ -52,7 +45,7 @@
       <span
           class="folder-guide-words"
       >
-        文件列表
+        {{this.folderLayer[this.folderLayer.length - 1].folderName}}
       </span>
     </div>
     <el-scrollbar height="75vh">
@@ -61,16 +54,17 @@
           <v-contextmenu-item
               class="my-context-item"
               style="color: #409EFF;"
+
           >
             <el-icon><edit/></el-icon>
-            &nbsp;重命名文件
+            &nbsp;重命名
           </v-contextmenu-item>
           <v-contextmenu-item
               class="my-context-item"
               style="color: #F56C6C;"
           >
             <el-icon><delete/></el-icon>
-            &nbsp;删除文件
+            &nbsp;删除
           </v-contextmenu-item>
           <v-contextmenu-item
               class="my-context-item"
@@ -80,23 +74,26 @@
             &nbsp;属性
           </v-contextmenu-item>
         </v-contextmenu>
-        <div class="folder-info" v-for="o in 10" :key="o" v-contextmenu:contextmenu>
-          <!--如果是文件，请使用：-->
-          <img class="folder-picture" src="../../assets/docCenter/文件试用.png" v-if="o % 2 === 1" alt="">
-          <img class="folder-picture" src="../../assets/docCenter/文件夹试用.png" v-else alt="">
-          <span class="folder-name" >临时文件</span>
+        <div class="folder-info" v-for="doc of this.docList" :key="doc" v-contextmenu:contextmenu @click="this.clickDoc(doc.docId)">
+          <img class="folder-picture" src="../../assets/docCenter/文件试用.png"  alt="">
+          <span class="folder-name" >{{doc.docName}}</span>
+        </div>
+        <div class="folder-info" v-for="folder of this.folderList" :key="folder" v-contextmenu:contextmenu @click="this.clickFolder(folder.folderId, folder.name)">
+          <img class="folder-picture" src="../../assets/docCenter/文件夹试用.png" alt="">
+          <span class="folder-name" >{{folder.name}}</span>
         </div>
       </el-row>
     </el-scrollbar>
   </div>
-  <CreateDocument v-model="visible" @new-created="" team-id="TeamId" parent-id=""/>
+  <CreateFile v-model="visible" @new-created="this.getListFiles" :parent-id="this.folderLayer[this.folderLayer.length - 1].folderId"/>
 </template>
 
 <script>
 import {ArrowLeft, Delete, Plus, Search, Setting} from "@element-plus/icons";
 import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
-import CreateDocument from "@/components/dialog/CreateDocument";
+import CreateFile from "@/components/dialog/CreateFile";
 import "v-contextmenu/dist/themes/default.css";
+import {ElMessage} from "element-plus";
 
 export default {
   name: "FolderList",
@@ -107,7 +104,7 @@ export default {
     Plus, Search,
     [Contextmenu.name]: Contextmenu,
     [ContextmenuItem.name]: ContextmenuItem,
-    CreateDocument,
+    CreateFile,
 
   },
   directives: {
@@ -117,16 +114,55 @@ export default {
     return{
       search: '',
       visible: false,
-      TeamId: '',
+      renameVisible: false,
+      currentFolderName: '根目录',
+      folderLayer: [
+        {
+          folderId: 0,
+          folderName: '根目录',
+        },
+      ],
+      parentName: '',
+      folderList: [],
+      docList: [],
+      teamId: this.$store.state.selectTeam.teamId,
     }
   },
   methods: {
     check: function () {
       this.$message.success("success!");
-    }
+    },
+    getListFiles() {
+      this.axios.get('file/list', {
+        params: {
+          "teamId": this.teamId,
+          "parentId" : this.folderLayer[this.folderLayer.length - 1].folderId,
+        }
+      }).then((res) => {
+        this.folderList = res.data.folderList;
+        this.docList = res.data.docList;
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message: err.response.data.msg, type: 'warning'})
+      })
+    },
+    clickDoc(docId) {
+      this.$router.push({name: 'DocumentEdit', docId: docId})
+    },
+    clickFolder(folderId, folderName) {
+      this.folderLayer.push( {
+        folderId: folderId,
+        folderName: folderName,
+      })
+      this.getListFiles();
+    },
+    clickBack() {
+      this.folderLayer.pop()
+      this.getListFiles()
+    },
   },
   created() {
-    this.TeamId = this.$store.state.selectTeam.teamId;
+    this.getListFiles();
   }
 }
 </script>

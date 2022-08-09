@@ -1,6 +1,21 @@
 <template>
 
+
   <div id = "top">
+    <div style="display: flex;height: 50px">
+      <img src="@/assets/logo.png"/>
+      <div style="margin: auto 0 auto 0"><h2>123</h2></div>
+      <el-button  icon="Expand"  style="width: 50px;height: 40px" />
+      <el-button  icon="Download"  style="width: 50px;height: 40px" />
+      <div style="margin: auto 0 auto 0">
+        <el-icon><Expand /></el-icon>
+      </div>
+      <div style="margin: auto 0 auto 0">
+        <el-icon><Download /></el-icon>
+      </div>
+      <Collaboration :docId="docId" ref="collaboration"></Collaboration>
+
+    </div>
     <div >
       <Toolbar
           id="editor-toolbar"
@@ -31,54 +46,40 @@
     style="height: 100px;"
   >
     <el-button
-        @click="postSave"
+        @click="save"
         style="margin-top: 30px; margin-right: 70px; float: right"
         type="primary"
     >
       保存文档
     </el-button>
   </div>
-  <p></p>
+  <p>{{valueHtml}}</p>
 </template>
 
 <script>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { onBeforeUnmount, ref, shallowRef} from 'vue'
+import {onBeforeUnmount, ref, shallowRef, provide, onMounted} from 'vue'
 // import {SlateEditor, SlateElement, SlateTransforms} from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import {getData, onDataChange, writeData} from "../../db";
+import {getData, onDataChange, writeData} from "../../collaboration/db";
 import axios from "axios";
 import {ElMessage} from "element-plus";
 import {useRoute, } from "vue-router/dist/vue-router";
 import {useStore} from "vuex";
+import Collaboration from "@/components/Collaboration";
 
 export default {
-  components: { Editor, Toolbar},
+  components: { Editor, Toolbar, Collaboration},
   data(){
     return {
-      otherEditing: false,
-      myDocName : "",
-      valueHtml : "",
-      title : "未命名",
-      auth: 2,
-      drawerDisplay : false,
-      commentContent : "",
-      displayNewComment : false,
-      myDocId: '',
-      myEditor: '',
-      myAuthority: 2 ,
-      myModifyTime: '',
-      editIntervalId: 0,
+      valueHtml : '',
       myTitle: '',
-      isUpdate: false, // is some others update the content
-      updateId: 0
     };
   },
   setup() {
-
-    const route = useRoute()
-    const store = useStore()
-
+    const route = useRoute();
+    const store = useStore();
+    const docId = parseInt(route.params.docId);
 
     /**
      * 编辑器初始化与销毁相关操作
@@ -145,169 +146,30 @@ export default {
     }
 
 
-
-
-    const getPath = () => {
-      return 'doc/' + route.params.docId
-    }
-    const getContentPath = () => {
-      return getPath() + '/content'
-    }
-    const writeContentToFire = async () => {
-      console.log('will write data')
-      await writeData(getPath(), {
-        userId: store.state.loginUser.userId,
-        content: getContent()
-      })
-    }
-    // const getUserIdPath = () => {
-    //   return getPath() + '/userId'
-    // }
-    /**
-     * 初始时获得文档内容
-     */
-    const initializeContent = async () => {
-      console.log("开始获取文档内容")
-      await axios.post('document/apply-edit', {
-        userId: store.state.loginUser.userId,
-        docId : parseInt(route.params.docId),
-      }).then(async res => {
-        if (res.data.nowEditorNum === 1) {
-          console.log("当前正在编辑人数为1，即将从数据库获取")
-          await axios.get('document/get', {
-            params: {
-              userId: store.state.loginUser.userId,
-              docId: parseInt(route.params.docId),
-            }
-          }).then(async res => {
-            console.log("res.data:")
-            console.log(res.data)
-            if (res.data.content !== '{}') {
-              console.log('数据库中有内容，获得')
-              setContent(JSON.parse(res.data.content))
-              await writeContentToFire()
-            }
-          }).catch(err => {
-            console.log(err)
-            ElMessage({message: '获得文档内容失败', type: 'warning'})
-          })
-        } else if (res.data.nowEditorNum >= 1) {
-          console.log("当前正在编辑人数为" + res.data.nowEditorNum + "，从firebase获取")
-          getData(getContentPath()).then(res => {
-            console.log(res)
-            setContent(res)
-          })
-
-        }
-      }).catch(err => {
-        console.log(err)
-        ElMessage({message:'申请编辑失败',type:'warning'})
-      })
-    }
-    /**
-     * 更新数据库
-     */
-    const needUpdate = ref(false)
-    const setUpdate = () => {
-      needUpdate.value = true
-    }
-    let intervalUpdateId ;
-    const intervalUpdate = () => {
-      intervalUpdateId = setInterval(() => {
-        if(!needUpdate.value) return;
-        needUpdate.value = false
-        writeContentToFire()
-      }, 1000)
-    }
-    const destroyIntervalUpdate = () => {
-      clearInterval(intervalUpdateId)
-    }
-    /**
-     * 实时获取最新内容
-     */
-    const getUpdate = () => {
-      onDataChange(getPath(), (data)=>{
-        console.log('updater is '+ data.userId + ', userId is '+ store.state.loginUser.userId)
-        if(data.userId === store.state.loginUser.userId)return;
-        setContent(data.content)
-      })
-    }
-    /**
-     * 编辑状态定时申请
-     */
-    let intervalEditId ;
-    const intervalEdit = () => {
-      intervalEditId = setInterval(() => {
-        console.log({
-          "userId" : store.state.loginUser.userId,
-          "docId" : parseInt(route.params.docId)
-        })
-        axios.post('document/apply-edit',
-        {
-          "userId" : store.state.loginUser.userId,
-          "docId" : parseInt(route.params.docId)
-        }).then().catch(err => {
-          if(err.response.status !== 409) ElMessage({message:'申请编辑失败',type:'warning'})
-        })
-      }, 2500)
-    }
-    const destroyIntervalEdit = () => {
-      clearInterval(intervalEditId)
-    }
-    const postSave = () => {
-      console.log('will save')
-      console.log(JSON.stringify(getContent()))
-      axios.post('document/save',
-          {
-            "userId" : store.state.loginUser.userId,
-            "docId" : parseInt(route.params.docId),
-            "content" : JSON.stringify(getContent())
-          }
-      ).then(res => {
-        ElMessage({message: res.data.msg, type: 'success'})
-      }).catch(err => {
-        console.log(err)
-        ElMessage({message: err.response.data.msg, type: 'warning'})
-      })
-    }
-    const postQuitEdit = () => {
-      axios.post('document/exit',
-        {
-          "userId" : store.state.loginUser.userId,
-          "docId" : parseInt(route.params.docId)
-        }
-      ).then(res => {
-        if(res.data.remain === 0){
-          postSave()
-        }
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-
-
-
-
-
     const handleCreated = (editor) => {
       console.log("编辑器创建成功");
       editorRef.value = editor // 记录 editor 实例，重要！
       console.log(editorRef.value.children)
-      initializeContent()
-      intervalUpdate()
-      setUpdate()
-      getUpdate()
-      intervalEdit()
     };
-    const onChange = () => {
-      setUpdate()
-    }
+
+
+    const collaboration = ref(null);
+
     onBeforeUnmount(() => {
-      postQuitEdit()
       destroyEditor()
-      destroyIntervalUpdate()
-      destroyIntervalEdit()
     })
+
+    onMounted(() => {
+      collaboration.value.setSetter(setContent);
+      collaboration.value.setGetter(getContent);
+      collaboration.value.start();
+    })
+    const onChange = () => {
+      collaboration.value.update();
+    }
+    const save = () => {
+      collaboration.value.save();
+    }
 
     return {
       // 编辑器相关
@@ -317,7 +179,9 @@ export default {
       editorConfig,
       handleCreated,
       onChange,
-      postSave
+      docId,
+      collaboration,
+      save,
     };
   },
 }

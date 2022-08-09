@@ -1,0 +1,403 @@
+<template>
+
+  <div id = "top">
+    <div >
+      <Toolbar
+          id="editor-toolbar"
+          style="border-bottom: 1px solid #ccc"
+          :editor="editorRef"
+          :defaultConfig="toolbarConfig"
+          :mode="mode"
+      />
+    </div>
+  </div>
+
+  <div id="content">
+    <div id="editor-container">
+      <div id="title-container">
+        <input v-model="myTitle">
+      </div>
+      <Editor
+          id = "editor-text-area"
+          v-model="valueHtml"
+          :defaultConfig="editorConfig"
+          :mode="mode"
+          @onCreated="handleCreated"
+          @onChange="onChange"
+      />
+    </div>
+  </div>
+  <div
+    style="height: 100px;"
+  >
+    <el-button
+        @click="postSave"
+        style="margin-top: 30px; margin-right: 70px; float: right"
+        type="primary"
+    >
+      保存文档
+    </el-button>
+  </div>
+  <p></p>
+</template>
+
+<script>
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { onBeforeUnmount, ref, shallowRef} from 'vue'
+// import {SlateEditor, SlateElement, SlateTransforms} from '@wangeditor/editor'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import {getData, onDataChange, writeData} from "../../db";
+import axios from "axios";
+import {ElMessage} from "element-plus";
+import {useRoute, } from "vue-router/dist/vue-router";
+import {useStore} from "vuex";
+
+export default {
+  components: { Editor, Toolbar},
+  data(){
+    return {
+      otherEditing: false,
+      myDocName : "",
+      valueHtml : "",
+      title : "未命名",
+      auth: 2,
+      drawerDisplay : false,
+      commentContent : "",
+      displayNewComment : false,
+      myDocId: '',
+      myEditor: '',
+      myAuthority: 2 ,
+      myModifyTime: '',
+      editIntervalId: 0,
+      myTitle: '',
+      isUpdate: false, // is some others update the content
+      updateId: 0
+    };
+  },
+  setup() {
+
+    const route = useRoute()
+    const store = useStore()
+
+
+    /**
+     * 编辑器初始化与销毁相关操作
+     * @type {ShallowRef<any>}
+     */
+    // 创建一个跟踪自身 .value 变化的 ref，但不会使其值也变成响应式的。
+    const editorRef = shallowRef()
+
+    // 组件销毁时，也及时销毁编辑器
+    const destroyEditor =  () => {
+      const editor = editorRef.value
+      if (editor == null) return
+      editor.destroy()
+    }
+    const mode = ref('default')
+    const toolbarConfig = {
+      excludeKeys: 'fullScreen',
+    }
+    const editorConfig = {
+      scroll: false, // 禁止编辑器滚动
+      readonly: true,
+      MENU_CONF: {
+        uploadImage: {
+          server: 'http://localhost/api/document/img',
+          async customUpload(file, insertFn) {
+            const form = new FormData();
+            form.append("file",file);
+            axios.post("document/img", form).then((response)=>{
+                console.log(response.data);
+                console.log(insertFn);
+                insertFn(response.data.url);
+            }).catch((err)=>{
+              ElMessage(err.response.data.msg, 'warning')
+            });
+          },
+          fieldName: 'custom-fileName',
+          onProgress(progress) {
+            console.log('onProgress', progress)
+          },
+          onSuccess(file, res) {
+            console.log('onSuccess', file, res)
+          },
+          onFailed(file, res) {
+            alert(res.message)
+            console.log('onFailed', file, res)
+          },
+          onError(file, err, res) {
+            alert(err.message)
+            console.error('onError', file, err, res)
+          },
+        }
+      }
+    }
+
+
+    /** 文档内容获取保存同步相关 */
+    const setContent = (data) => {
+      console.log(editorRef.value)
+      editorRef.value.children = data
+      editorRef.value.updateView()
+    }
+    const getContent = () => {
+      return editorRef.value.children;
+    }
+
+
+
+
+    const getPath = () => {
+      return 'doc/' + route.params.docId
+    }
+    const getContentPath = () => {
+      return getPath() + '/content'
+    }
+    const writeContentToFire = async () => {
+      console.log('will write data')
+      await writeData(getPath(), {
+        userId: store.state.loginUser.userId,
+        content: getContent()
+      })
+    }
+    // const getUserIdPath = () => {
+    //   return getPath() + '/userId'
+    // }
+    /**
+     * 初始时获得文档内容
+     */
+    const initializeContent = async () => {
+      console.log("开始获取文档内容")
+      await axios.post('document/apply-edit', {
+        userId: store.state.loginUser.userId,
+        docId : parseInt(route.params.docId),
+      }).then(async res => {
+        if (res.data.nowEditorNum === 1) {
+          console.log("当前正在编辑人数为1，即将从数据库获取")
+          await axios.get('document/get', {
+            params: {
+              userId: store.state.loginUser.userId,
+              docId: parseInt(route.params.docId),
+            }
+          }).then(async res => {
+            console.log("res.data:")
+            console.log(res.data)
+            if (res.data.content !== '{}') {
+              console.log('数据库中有内容，获得')
+              setContent(JSON.parse(res.data.content))
+              await writeContentToFire()
+            }
+          }).catch(err => {
+            console.log(err)
+            ElMessage({message: '获得文档内容失败', type: 'warning'})
+          })
+        } else if (res.data.nowEditorNum >= 1) {
+          console.log("当前正在编辑人数为" + res.data.nowEditorNum + "，从firebase获取")
+          getData(getContentPath()).then(res => {
+            console.log(res)
+            setContent(res)
+          })
+
+        }
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message:'申请编辑失败',type:'warning'})
+      })
+    }
+    /**
+     * 更新数据库
+     */
+    const needUpdate = ref(false)
+    const setUpdate = () => {
+      needUpdate.value = true
+    }
+    let intervalUpdateId ;
+    const intervalUpdate = () => {
+      intervalUpdateId = setInterval(() => {
+        if(!needUpdate.value) return;
+        needUpdate.value = false
+        writeContentToFire()
+      }, 1000)
+    }
+    const destroyIntervalUpdate = () => {
+      clearInterval(intervalUpdateId)
+    }
+    /**
+     * 实时获取最新内容
+     */
+    const getUpdate = () => {
+      onDataChange(getPath(), (data)=>{
+        console.log('updater is '+ data.userId + ', userId is '+ store.state.loginUser.userId)
+        if(data.userId === store.state.loginUser.userId)return;
+        setContent(data.content)
+      })
+    }
+    /**
+     * 编辑状态定时申请
+     */
+    let intervalEditId ;
+    const intervalEdit = () => {
+      intervalEditId = setInterval(() => {
+        console.log({
+          "userId" : store.state.loginUser.userId,
+          "docId" : parseInt(route.params.docId)
+        })
+        axios.post('document/apply-edit',
+        {
+          "userId" : store.state.loginUser.userId,
+          "docId" : parseInt(route.params.docId)
+        }).then().catch(err => {
+          if(err.response.status !== 409) ElMessage({message:'申请编辑失败',type:'warning'})
+        })
+      }, 2500)
+    }
+    const destroyIntervalEdit = () => {
+      clearInterval(intervalEditId)
+    }
+    const postSave = () => {
+      console.log('will save')
+      console.log(JSON.stringify(getContent()))
+      axios.post('document/save',
+          {
+            "userId" : store.state.loginUser.userId,
+            "docId" : parseInt(route.params.docId),
+            "content" : JSON.stringify(getContent())
+          }
+      ).then(res => {
+        ElMessage({message: res.data.msg, type: 'success'})
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message: err.response.data.msg, type: 'warning'})
+      })
+    }
+    const postQuitEdit = () => {
+      axios.post('document/exit',
+        {
+          "userId" : store.state.loginUser.userId,
+          "docId" : parseInt(route.params.docId)
+        }
+      ).then(res => {
+        if(res.data.remain === 0){
+          postSave()
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+
+
+
+
+
+    const handleCreated = (editor) => {
+      console.log("编辑器创建成功");
+      editorRef.value = editor // 记录 editor 实例，重要！
+      console.log(editorRef.value.children)
+      initializeContent()
+      intervalUpdate()
+      setUpdate()
+      getUpdate()
+      intervalEdit()
+    };
+    const onChange = () => {
+      setUpdate()
+    }
+    onBeforeUnmount(() => {
+      postQuitEdit()
+      destroyEditor()
+      destroyIntervalUpdate()
+      destroyIntervalEdit()
+    })
+
+    return {
+      // 编辑器相关
+      editorRef,
+      mode,
+      toolbarConfig,
+      editorConfig,
+      handleCreated,
+      onChange,
+      postSave
+    };
+  },
+}
+</script>
+
+<style scoped>
+html,
+body {
+  background-color: #fff;
+  height: 100%;
+  overflow: hidden;
+  color: #333;
+}
+#top{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FCFCFC;
+  z-index: 1;
+}
+#function {
+  position: fixed;
+  top: 100px;
+  left: 5%;
+  /*width: 100%;*/
+  z-index: 1;
+}
+#top-container {
+  display: flex;
+  border-bottom: 1px solid #e8e8e8;
+  padding-left: 0px;
+  height: 50px;
+}
+
+#editor-toolbar {
+  width: 1350px;
+  background-color: #FCFCFC;
+  margin: 0 auto;
+}
+
+#content {
+  margin-top: 80px;
+  height: calc(100% - 40px);
+  background-color: rgb(245, 245, 245);
+  overflow-y: auto;
+
+  position: relative;
+}
+
+#editor-container {
+  width: 850px;
+  margin: 30px auto 30px auto;
+  background-color: #fff;
+  padding: 20px 50px 50px 50px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
+}
+
+#title-container {
+  padding: 20px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+#title-container input {
+  font-size: 30px;
+  border: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1;
+}
+
+#editor-text-area {
+  min-height: 900px;
+  margin-top: 20px;
+}
+.top-ele{
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+
+</style>

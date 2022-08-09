@@ -34,16 +34,16 @@
     </div>
     <div
       class="my-team"
-      @click="this.$router.push({name: 'team', params: {teamId: 1}})"
+      @click="this.$router.push({name: 'teamList'})"
     >
       <div>
-        <img src="../../assets/Team/测试头像.jpg" class="teamPic" alt="">
+        <img :src="'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.$store.state.selectTeam.teamId" class="teamPic" alt="">
       </div>
       <div
         class="team-name"
       >
         <span>
-          我们的团队
+          {{this.$store.state.selectTeam.teamName}}
         </span>
       </div>
       <el-icon style="margin: auto"><Switch/></el-icon>
@@ -80,7 +80,8 @@
               index="3"
               class="my-el-menu-item"
               style="padding-left: 20%;"
-              @click="this.$router.push({name: 'teamList', params: {key: ''}})"
+              @click="this.$router.push({name: 'team', params: {teamId: 1}})"
+
           >
             <template #title>
               <el-icon><discount /></el-icon>&nbsp;团队管理

@@ -1,13 +1,13 @@
 <template>
   <el-button @click="isOpen = true">
-    {{lastModifyTime.toString().substring(10, 25)}} by {{lastModifier}}
+    {{editors.length}} 人编辑， 最后修改：{{formatTime(lastModifier.time)}} by {{lastModifier.nickname}}
   </el-button>
-<div>Collaboration{{docId}}</div>
-  <div>编辑人数：{{editorNumber}}</div>
-  <div v-for="id in editors" v-bind:key="id">{{id}}</div>
   <el-drawer v-model="isOpen" :with-header="false" size="300px" :modal="true">
     <span style="font-size: 20px">参与协作成员：</span>
-    <div></div>
+    <div v-for="editor of editors" v-bind:key="editor" style="display: flex;">
+      <el-avatar :size="50" :src="'http://43.138.71.108/api/user/get-avatar/?userId=' + editor.userId" />
+      <div>{{editor.nickname}}</div>
+    </div>
   </el-drawer>
 </template>
 
@@ -38,13 +38,11 @@ export default {
     const nickname = useStore().state.loginUser.nickname;
     // eslint-disable-next-line vue/no-setup-props-destructure
     const docId = props.docId;
-    const keepEditTime = 2500;
+    const keepEditTime = 3000;
     const checkUpdateTime = 1000;
     let needUpdate = false;
-    const editorNumber = ref(0);
     const editors = ref([]);
-    const lastModifier = ref({userId: userId, nickname: nickname});
-    const lastModifyTime = ref(new Date().getTime());
+    const lastModifier = ref({userId: userId, nickname: nickname, time: new Date().getTime()});
     let intervalId1;
     let intervalId2;
 
@@ -80,43 +78,39 @@ export default {
         console.log('已获得编辑信息，准备更新编辑信息（申请）')
         let newEditorNumber = 1;
         const newEditors = [{userId: userId, nickname: nickname, time: new Date().getTime()}];
-        if(res !== null && res.editors !== undefined) {
-          console.log(res, res.editors)
+
+        if(res !== null && res.editors !== null) {
           for (const editor of res.editors) {
             if (editor.userId === userId) {
               continue;
-            } else if (editor.time.getTime() - new Date().getTime() <= keepEditTime) {
+            } else if (new Date().getTime() - editor.time <= keepEditTime) {
               newEditorNumber++;
               newEditors.push(editor);
-              newEditorIds.push(editor.userId);
             } else {
               break;
             }
           }
         }
         console.log('将新的修改信息复制给响应式变量');
-        editors.value = newEditorIds;
-        editorNumber.value = newEditorNumber;
-        if(res === null || res.lastModifier === undefined){
-          lastModifier.value = userId;
-          lastModifyTime.value = new Date().getTime();
+        editors.value = newEditors;
+        if(res === null || res.lastModifier === null){
+          lastModifier.value = {userId: userId, nickname: nickname, time: new Date().getTime()};
         }else {
-          lastModifier.value = res.lastModifier.userId;
-          lastModifyTime.value = res.lastModifier.time;
+          lastModifier.value = res.lastModifier;
         }
 
         writeData(getUsersPath(), {
-          lastModifier: {userId: lastModifier.value, time: lastModifyTime.value},
-          editors: newEditors,
+          lastModifier: lastModifier.value,
+          editors: editors.value,
         })
 
 
-        if (editorNumber.value === 1) {
+        if (editors.value.length === 1) {
           console.log('编辑人数为1，从数据库获得内容')
           axios.get('document/get', {
             params: {
               userId: userId,
-              docId: parseInt(docId),
+              docId: docId,
             }
           }).then(async res => {
             if (res.data.content !== '') {
@@ -128,36 +122,40 @@ export default {
             ElMessage({message: '获得文档内容失败', type: 'warning'})
           })
         } else {
-          console.log('编辑人数不为1，从firebase获得内容')
+          console.log('编辑人数大于1，从firebase获得内容')
           getData(getContentPath()).then(res => {
             setContent(res);
           })
         }
+
         console.log("设置定时器任务")
         intervalId1 = setInterval(() => {
-          getData(getEditorsPath()).then((res) => {
+          getData(getUsersPath()).then((res) => {
             let newEditorNumber = 1;
-            const newEditors = [{userId: userId, time: new Date()}];
-            const newEditorIds = [userId];
+            const newEditors = [{userId: userId, nickname: nickname, time: new Date().getTime()}];
 
-            for (const editor of res) {
+            for (const editor of res.editors) {
               if (editor.userId === userId) {
                 continue;
-              } else if (editor.time.getTime() - new Date().getTime() <= keepEditTime) {
-                newEditorNumber ++;
+              } else if (new Date().getTime() - editor.time <= keepEditTime) {
+                newEditorNumber++;
                 newEditors.push(editor);
-                newEditorIds.push(editor.userId);
               } else {
                 break;
               }
             }
-            writeData(getEditorsPath(), newEditors);
-            editors.value = newEditorIds;
-            editorNumber.value = newEditorNumber;
+            console.log('将新的修改信息复制给响应式变量');
+            editors.value = newEditors;
+            writeData(getEditorsPath(), editors.value);
           });
-        }, keepEditTime);
+        }, keepEditTime - 1000);
         intervalId2 = setInterval(() => {
-          needUpdate = true;
+          if(needUpdate === false)return;
+          needUpdate = false;
+          writeData(getContentPath(), getContent()).then(() => {
+            lastModifier.value = {userId: userId, nickname: nickname, time: new Date().getTime()};
+            writeData(getLastModifierPath(), lastModifier.value);
+          });
         }, checkUpdateTime);
 
         console.log('设置firebase的modifier变化监听器')
@@ -166,6 +164,7 @@ export default {
             getData(getContentPath()).then(res => {
               setContent(res);
             });
+            lastModifier.value = res;
           }
         });
 
@@ -177,10 +176,8 @@ export default {
 
 
     const update = () => {
-      if(needUpdate === false)return;
-      needUpdate = false;
-      writeData(getContentPath(), getContent());
-      writeData(getLastModifierPath(), {userId: userId, time: new Date()});
+      needUpdate = true;
+
     };
     onUnmounted(() => {
       clearInterval(intervalId1);
@@ -188,9 +185,9 @@ export default {
     });
     const save = () => {
       axios.post('document/save', {
-        "docId" : parseInt(docId),
+        "docId" : docId,
         "userId" : userId,
-        "content" : getContent(),
+        "content" : JSON.stringify(getContent()),
       }).then(() => {
         ElMessage({message: '保存成功', type: 'success'})
       }).catch((err) => {
@@ -198,6 +195,9 @@ export default {
       })
     };
 
+    const formatTime = (time) => {
+      return new Date(time).toString().substring(10, 25)
+    }
 
 
     return {
@@ -206,10 +206,9 @@ export default {
       update,
       save,
       start,
-      editorNumber,
       editors,
       lastModifier,
-      lastModifyTime
+      formatTime,
     };
   },
   created() {

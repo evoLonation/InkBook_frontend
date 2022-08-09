@@ -31,7 +31,7 @@
     </el-input>
     <template #footer>
         <span class="dialog-footer">
-      <el-button @click="createGraph; this.dialogVisable=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
+      <el-button @click="createGraph(); this.dialogVisable=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
         </span>
     </template>
   </el-dialog>
@@ -43,9 +43,9 @@
         :key="graph"
     >
       <el-card id="project-card" :body-style="{ padding: '0px' }"
-               style="width: 150px; height: auto; border-radius: 25px;" shadow="hover">
+               style="width: 200px; height: auto; border-radius: 20px;" shadow="hover">
         <meta name="referrer" content="no-referrer"/>
-        <el-image
+        <img
             src="../../../assets/Project/UML图布局.jpeg"
             class="image"/>
                 <div style="padding: 10px">
@@ -63,7 +63,7 @@
                                    @click="openGraph(graph.graphId, graph.name)"
                                    round>
                           <el-icon color="lightblue">
-                            <DocumentEdit/>
+                            <Document/>
                           </el-icon>
                         </el-button>
                       </el-tooltip>
@@ -81,26 +81,18 @@
                           </el-icon>
                         </el-button>
                       </el-tooltip>
-                      <el-popconfirm
-                          confirmButtonText="确定"
-                          cancelButtonText="取消"
-                          title="确定删除吗？"
-                          @confirm="deleteGraph(graph.graphId)">
-                        <template #reference>
                           <el-tooltip
                               class="item"
                               effect="dark"
                               content="删除"
                               placement="bottom"
                           >
-                            <el-button class="button" round>
+                            <el-button class="button" @click="this.curGraphId=graph.graphId; dialogVisible3=true" round>
                               <el-icon color="orange">
                                 <delete/>
                               </el-icon>
                             </el-button>
                           </el-tooltip>
-                        </template>
-                      </el-popconfirm>
                     </el-button-group>
                   </div>
                 </div>
@@ -120,9 +112,22 @@
       </span>
     </template>
   </el-dialog>
+  <el-dialog
+    title="确认删除吗"
+    v-model="dialogVisible3"
+    width="25%"
+    custom-class="dialog">
+    <span>删除后无法找回</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible3 = false; deleteGraph(this.curGraphId)" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
+import {ref} from 'vue'
 
 export default {
   name: "NewUML",
@@ -130,6 +135,7 @@ export default {
     return {
       dialogVisable: false,
       dialogVisible2: false,
+      dialogVisible3: false,
       curGraphId: Number,
       currentDate: new Date(),
       graphName: '',
@@ -138,6 +144,9 @@ export default {
     }
   },
   methods: {
+    delBtn(e){
+      e.stopPropagation();
+    },
     handleClose: function () {
       this.dialogVisable = false;
     },
@@ -163,6 +172,7 @@ export default {
       })
     },
     createGraph: function () {
+      console.log(this.graphName, this.projectId)
       this.$axios.post("graph/create", {
         "name": this.graphName,
         "creatorId": this.$store.state.loginUser.userId,
@@ -213,7 +223,7 @@ export default {
     }
   },
   created() {
-    this.projectId = parseInt(this.$route.params.projectId);
+    this.projectId =this.$store.state.selectProject.proId;
     this.getGraphList();
   }
 }

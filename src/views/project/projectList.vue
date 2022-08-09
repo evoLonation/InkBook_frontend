@@ -61,26 +61,18 @@
                     </el-icon>
                   </el-button>
                 </el-tooltip>
-                <el-popconfirm
-                    confirmButtonText="确定"
-                    cancelButtonText="取消"
-                    title="确定删除该项目吗？"
-                    @confirm="curProjectId=projects[i-1].id; deleteProject()">
-                  <template #reference>
                     <el-tooltip
                         class="item"
                         effect="dark"
                         content="删除"
                         placement="bottom"
                     >
-                      <el-button class="button" round>
+                      <el-button class="button" @click="this.curProjectId=projects[i-1].id;deleteVisible=true" round>
                         <el-icon color="orange">
                           <delete/>
                         </el-icon>
                       </el-button>
                     </el-tooltip>
-                  </template>
-                </el-popconfirm>
               </el-button-group>
             </div>
           </div>
@@ -113,6 +105,18 @@
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="renameVisible = false; renameProject(input, input2); input=input2=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
+      </span>
+      </template>
+    </el-dialog>
+    <el-dialog
+        title="确认删除吗"
+        v-model="deleteVisible"
+        width="25%"
+        custom-class="dialog">
+      <span>删除后可以在回收站找回</span>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="deleteVisible = false; deleteProject()" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
       </span>
       </template>
     </el-dialog>
@@ -152,6 +156,7 @@ export default {
       projectNum: Number,
       createVisible: false,
       renameVisible: false,
+      deleteVisible: false,
       curProjectId: Number,
       curProjectName: String,
       curProjectDetail: String,
@@ -264,7 +269,7 @@ export default {
     },
     openProject() {
       this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: this.curProjectName})
-      this.$router.push({name: 'topTable'})
+      this.$router.push({name: 'topTable', params:{projectId: this.curProjectId}})
     },
     //删除项目接口函数
     deleteProject() {

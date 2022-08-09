@@ -137,7 +137,7 @@ const routes = [
                 path: '/projectRec',
                 name: 'projectRec',
                 component: () => import('../views/project/projectRec')
-            }
+            },
         ]
     },
 
@@ -146,6 +146,13 @@ const routes = [
         path: '/team/block/:key?',
         name: "teamBlock",
         component: () => import('../views/Team/BlockSearch')
+    },
+
+    // 团队创建相关
+    {
+        path: "/team/create",
+        name: "teamCreate",
+        component: () => import('../views/Team/CreateTeam')
     },
 
     //项目相关

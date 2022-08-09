@@ -33,6 +33,7 @@
     </div>
     <div
       class="my-team"
+      @click="this.$router.push({name: 'team', params: {teamId: 1}})"
     >
       <div>
         <img src="../../assets/Team/测试头像.jpg" class="teamPic" alt="">
@@ -68,9 +69,20 @@
               index="2"
               class="my-el-menu-item"
               style="padding-left: 20%;"
+              @click="this.$router.push({name:'docCenter'})"
           >
             <template #title>
               <el-icon><list /></el-icon>&nbsp;文档中心
+            </template>
+          </el-menu-item>
+          <el-menu-item
+              index="3"
+              class="my-el-menu-item"
+              style="padding-left: 20%;"
+              @click="this.$router.push({name: 'teamList', params: {key: ''}})"
+          >
+            <template #title>
+              <el-icon><discount /></el-icon>&nbsp;团队管理
             </template>
           </el-menu-item>
           <el-sub-menu
@@ -109,10 +121,10 @@
 </template>
 
 <script>
-import {DataBoard, Delete, List, Switch} from "@element-plus/icons";
+import {DataBoard, Delete, Discount, List, Switch} from "@element-plus/icons";
 export default {
   name: "NewSideTable",
-  components: {Switch, List, Delete, DataBoard},
+  components: {Discount, Switch, List, Delete, DataBoard},
   data(){
     return {
       userId: '',
@@ -143,7 +155,7 @@ export default {
 
 .logo {
   width: 120px;
-  margin: 30px auto 0 auto;
+  margin: 10px auto 0 auto;
 }
 
 .my-main {
@@ -158,7 +170,7 @@ export default {
   padding: 30px;
   border-radius: 20px;
   background-color: #E2F5F7;
-  margin: 30px auto 0 auto;
+  margin: 10px auto 0 auto;
 }
 
 .portrait:hover{
@@ -204,9 +216,9 @@ export default {
 }
 
 .my-el-menu-item {
-  padding-top: 10%;
-  padding-bottom: 10%;
-  font-size: 20px
+  padding-top: 5%;
+  padding-bottom: 5%;
+  font-size: 17px
 }
 
 .my-el-menu-item:hover{
@@ -214,15 +226,15 @@ export default {
 }
 
 .my-el-menu-subItem{
-    padding-top: 7%;
-    padding-bottom: 7%;
-    font-size: 17px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-size: 15px;
 }
 
 .my-el-aside >>>.el-sub-menu__title{
-  padding-top: 10%;
-  padding-bottom: 10%;
-  font-size: 20px;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  font-size: 17px;
 }
 
 .my-el-aside >>>.el-sub-menu__title:hover{

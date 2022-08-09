@@ -134,16 +134,16 @@
             </template>
           </el-popconfirm>
         </div>
-        <div>
-          <el-button
-            style="width: 150px; margin-top: 15px; margin-right: 50px"
-            type="success"
-            @click="getProject"
-            v-if="(this.UserType === 0) || (this.UserType === 1) || (this.UserType === 2)"
-          >
-            进入团队
-          </el-button>
-        </div>
+<!--        <div>-->
+<!--          <el-button-->
+<!--            style="width: 150px; margin-top: 15px; margin-right: 50px"-->
+<!--            type="success"-->
+<!--            @click="getProject"-->
+<!--            v-if="(this.UserType === 0) || (this.UserType === 1) || (this.UserType === 2)"-->
+<!--          >-->
+<!--            进入团队-->
+<!--          </el-button>-->
+<!--        </div>-->
       </div>
     </div>
     <div

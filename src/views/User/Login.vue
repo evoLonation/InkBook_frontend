@@ -122,7 +122,7 @@ export default {
         this.$store.commit({type: 'login', userId: response.data.userId, nickname: response.data.nickName})
         console.log(this.$store.state.loginUser.userId);
         ElMessage('登录成功');
-        this.$router.push({name: 'Table', params:{}})
+        this.$router.push({name: 'newTable', params:{}})
 
       }).catch((err)=>{
         console.log(err);

@@ -1,63 +1,54 @@
 <template>
-  <div id="creation">
-    <div id="create-header">
-      <span>新建团队</span>
-    </div>
-    <div id="new-name">
-      <div>
-        <span class="mention">团队名称</span>
+  <div class="team-create-layout">
+    <div class="left-part">
+      <div class="logo-and-name">
+        <img src="../../assets/logo.png" class="logo" alt="">
       </div>
-      <div id="name-input">
-        <el-input
+      <img src="../../assets/Team/新建团队界面试用.png" class="left-pic" alt="">
+    </div>
+    <div class="right-part">
+      <div class="right-container">
+        <span class="team-create-in">新建团队</span>
+        <div>
+          <el-input
+            class="my-el-input"
             v-model="TeamName"
-            autosize
-            type="text"
             placeholder="请输入团队名称"
-        >
-        </el-input>
+          >
+            <template #prefix>
+              <el-icon class="el-input__icon"><coordinate/></el-icon>
+            </template>
+          </el-input>
+          <el-input
+              class="my-el-input"
+              v-model="TeamIntro"
+              type="textarea"
+              :autosize="{ minRows: 8, maxRows: 10 }"
+              placeholder="&nbsp;&nbsp;请输入团队简介"
+          >
+          </el-input>
+          <div
+              style="width: 100%; display: flex"
+          >
+            <el-button
+                class="my-el-button"
+                @click="TryCreate"
+            >
+              完成创建
+            </el-button>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="new-intro">
-      <div>
-        <span class="mention">团队简介</span>
-      </div>
-      <div id="intro-input">
-        <el-input
-            v-model="TeamIntro"
-            :autosize="{minRows: 2, maxRows: 4}"
-            type="textarea"
-            placeholder="请输入团队简介"
-        >
-        </el-input>
-      </div>
-    </div>
-    <div id="remind">
-      <div id="remind-words">
-        <Warning style="width: 1.2em; height: 1.2em; margin: 15px 5px auto auto"/>
-        <span
-            style="margin: 13px auto auto 0"
-        >
-          创建您的团队！
-        </span>
-      </div>
-    </div>
-    <el-button
-        type="success"
-        style="margin: 25px auto auto 260px"
-        @click="TryCreate"
-    >
-      创建团队
-    </el-button>
   </div>
 </template>
 
 <script>
 
-import {Warning} from "@element-plus/icons"
-
+import {Coordinate} from "@element-plus/icons";
 export default {
   name: "CreateTeam",
-  components: {Warning},
+  components: {Coordinate},
   data(){
     return{
       TeamName: '',
@@ -110,66 +101,97 @@ export default {
 </script>
 
 <style scoped>
-#creation {
-  width: 600px;
-  height: 600px;
-  margin: 50px auto auto 200px;
-  /*border: solid;*/
-}
-
-#create-header {
+.team-create-layout {
   width: 100%;
-  height: 25px;
-  font-size: 25px;
-  text-align: center;
-  margin-top: 50px;
-  font-weight: 1000;
-  /*border: solid;*/
-}
-
-#new-name {
-  width: 100%;
-  height: 80px;
-  margin-top: 20px;
-  /*border: solid;*/
-  text-align: left;
-}
-
-#new-intro {
-  width: 100%;
-  height: 120px;
-  margin-top: 20px;
-  /*border: solid;*/
-  text-align: left;
-}
-
-.mention {
-  width: 100%;
-  height: 16px;
-  font-size: 16px;
-  color: #606266;
-  margin-left: 70px;
-}
-
-#name-input {
-  width: 460px;
-  margin: 20px auto 0 auto;
-}
-
-#intro-input {
-  width: 460px;
-  margin: 20px auto 0 auto;
-}
-
-#remind {
-  width: 460px;
-  height: 50px;
-  margin: 10px auto auto auto;
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-}
-
-#remind-words {
+  min-height: 100vh;
+  background: linear-gradient(90deg, white, #E2F5F7);
   display: flex;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
+}
+
+.left-part {
+  width: 50%;
+  min-height: 100vh;
+}
+
+.right-part {
+  width: 50%;
+  min-height: 100vh;
+}
+
+.logo-and-name {
+  position: absolute;
+  top: 30px;
+  left: 75px;
+  width: 96px;
+  height: 72px;
+}
+
+.logo {
+  width: 96px;
+}
+
+.left-pic {
+  width: 90%;
+  height: 90%;
+  left: 10%;
+  margin-top: 10px;
+  position: relative;
+  object-fit: contain;
+}
+
+.right-container {
+  position: absolute;
+  top: 45%;
+  right: 50%;
+  margin-right: -650px;
+  background: #FFF;
+  border-radius: 32px;
+  box-shadow: 0 16px 32px 0 rgb(0 0 0 / 8%);
+  transform: translateY(-50%);
+  padding: 64px;
+  width: 92%;
+  max-width: 488px;
+}
+
+.team-create-in {
+  font-size: 40px;
+  line-height: 48px;
+  margin-bottom: 32px;
+  font-weight: bold;
+}
+
+.my-el-input {
+  margin: 30px auto 0 0;
+}
+
+.my-el-input >>>.el-input__inner {
+  font-size: 18px;
+  line-height: 23px;
+  height: 40px;
+}
+
+.my-el-input >>>.el-input__wrapper {
+  border-radius: 30px;
+}
+
+.my-el-input >>>.el-textarea__inner{
+  font-size: 17px;
+  border-radius: 20px;
+}
+
+.my-el-button {
+  width: 150px;
+  height: 50px;
+  color: gray;
+  font-size: 23px;
+  line-height: 28px;
+  border-radius: 30px;
+  background-color: #E2F5F7;
+  margin: 30px auto 0 auto;
+}
+
+.my-el-button:hover {
+  color: lightskyblue;
 }
 </style>

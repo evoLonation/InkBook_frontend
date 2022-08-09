@@ -138,7 +138,6 @@ export default class FlowGraph {
     return this.graph
   }
   private static setContent(data) {
-    console.log(data)
     this.graph.fromJSON(JSON.parse(data))
   }
   private static initStencil() {
@@ -176,38 +175,6 @@ export default class FlowGraph {
     const stencilContainer = document.querySelector('#stencil')
     stencilContainer?.appendChild(this.stencil.container)
   }
-  // private static updateGraph() {
-  //   axios.post('/graph/save', {
-  //     "graphId": this.graphId,
-  //     "userId": store.state.loginUser.userId,
-  //     "content": JSON.stringify(this.graph.toJSON().cells)
-  //   }).then((response) => {
-  //     if (response.status === 200) {
-  //       console.log(response.data.msg)
-  //     } else {
-  //       ElMessage('其他错误')
-  //     }
-  //   }).catch((err) => {
-  //     console.log(err)
-  //   })
-  //   setTimeout(()=>{const i = 1},1000)
-  //   axios.get('graph/get', {
-  //     params: {
-  //       graphId: this.graphId
-  //     }
-  //   }).then((response) => {
-  //     if (response.status === 409){
-  //       ElMessage('当前图正在被编辑！')
-  //       router.push({name: "TopTable"})
-  //     }
-  //     else {
-  //       console.log(response.data.msg)
-  //       this.setContent(response.data.content)
-  //     }
-  //   }).catch((err) => {
-  //     console.log(err)
-  //   })
-  // }
   private static initShape() {
     const { graph } = this
     const r1 = graph.createNode({

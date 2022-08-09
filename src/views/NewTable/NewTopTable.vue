@@ -16,8 +16,8 @@
       >
         文档
       </el-menu-item>
-      <el-menu-item class="my-el-menu-item" index="2">原型</el-menu-item>
-      <el-menu-item class="my-el-menu-item" index="3">UML</el-menu-item>
+      <el-menu-item class="my-el-menu-item" index="2" @click="this.$router.push({name: 'protoList'})">原型</el-menu-item>
+      <el-menu-item class="my-el-menu-item" index="3" @click="this.$router.push({name: 'umlList'})">UML</el-menu-item>
     </el-menu>
   </div>
   <div class="main-container">

@@ -1,5 +1,8 @@
 <template>
-  <div id="container1" class="x6-graph" />
+  <el-button round style="margin: 20px 120px;float: right" >退出预览</el-button>
+  <div style="margin: 50px 100px 50px 100px;background-color: lightcyan;border-radius: 30px">
+    <div id="container1" class="x6-graph" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -30,7 +33,6 @@ export default {
       this.graphId = this.$route.params.graphId
       console.log("id:", this.graphId)
       this.initGraph()
-      this.graph.centerContent()
     },
     methods: {
       setContent(data) {

@@ -85,6 +85,11 @@ const routes = [
                 component: () => import('../views/project/projectRec')
             },
             {
+              path: 'file-rec',
+              name: 'fileRec',
+              component: () => import('../views/docCenter/fileRec')
+            },
+            {
                 path: 'userInfo/:userId?',
                 name: 'UserInfo',
                 component: () => import('../views/User/UserInfo')
@@ -93,11 +98,6 @@ const routes = [
                 path: 'doc-center',
                 name: 'docCenter',
                 component: () => import('../views/docCenter/FolderList')
-            },
-            {
-                path: "teamProject",
-                name: "teamProject",
-                component: () => import('../views/project/projectList')
             },
             {
                 path: "topTable",
@@ -149,7 +149,7 @@ const routes = [
     },
     {
         path: '/proto',
-        name: 'uml',
+        name: 'proto',
         component: () => import('../views/project/ProtoEdit/tabs/index')
     },
 

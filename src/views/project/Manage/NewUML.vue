@@ -22,7 +22,7 @@
   >
     <span>请输入信息</span>
     <el-input
-        v-model="protoName"
+        v-model="graphName"
         class="input"
         placeholder="名称"
         style="margin-top: 10px"
@@ -105,10 +105,10 @@
       width="25%"
       custom-class="dialog">
     <span>请输入新的UML信息</span>
-    <el-input class="input" v-model="protoName" placeholder="UML名称" clearable></el-input>
+    <el-input class="input" v-model="graphName" placeholder="UML名称" clearable></el-input>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogVisible2 = false; renameGraph(protoName); protoName=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
+        <el-button @click="dialogVisible2 = false; renameGraph(graphName); graphName=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
       </span>
     </template>
   </el-dialog>
@@ -138,7 +138,7 @@ export default {
       dialogVisible3: false,
       curGraphId: Number,
       currentDate: new Date(),
-      protoName: '',
+      graphName: '',
       projectId: -1,
       graphList: null,
     }
@@ -154,7 +154,7 @@ export default {
       this.$router.push({
         name: 'uml', params: {
           graphId: id,
-          protoName: name,
+          graphName: name,
           projectId: this.projectId,
         }
       })
@@ -172,9 +172,9 @@ export default {
       })
     },
     createGraph: function () {
-      console.log(this.protoName, this.projectId)
+      console.log(this.graphName, this.projectId)
       this.$axios.post("graph/create", {
-        "name": this.protoName,
+        "name": this.graphName,
         "creatorId": this.$store.state.loginUser.userId,
         "projectId": this.projectId
       }).then(res => {

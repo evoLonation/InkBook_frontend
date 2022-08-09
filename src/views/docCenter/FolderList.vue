@@ -89,7 +89,7 @@
       </el-row>
     </el-scrollbar>
   </div>
-  <CreateDocument v-model="visible" @new-created="" team-id="" parent-id=""/>
+  <CreateDocument v-model="visible" @new-created="" team-id="TeamId" parent-id=""/>
 </template>
 
 <script>
@@ -117,14 +117,18 @@ export default {
     return{
       search: '',
       visible: false,
+      TeamId: '',
     }
   },
   methods: {
     check: function () {
       this.$message.success("success!");
     }
+  },
+  created() {
+    this.TeamId = this.$store.state.selectTeam.teamId;
   }
- }
+}
 </script>
 
 <style scoped>

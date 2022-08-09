@@ -142,6 +142,11 @@ const routes = [
       name: 'umlPreview',
       component: () => import('../views/project/UMLEdit/flow/Preview')
     },
+    {
+        path: '/proto',
+        name: 'uml',
+        component: () => import('../views/project/ProtoEdit/tabs/index')
+    },
 
     //文档相关
 
@@ -166,6 +171,13 @@ const routes = [
         path: "/tool",
         name: "Tool",
         component: () => import('../views/unlayer/tool')
+    },
+
+    //测试
+    {
+        path: "/image",
+        name: "Image",
+        component: () => import('../components/Image')
     },
 ];
 

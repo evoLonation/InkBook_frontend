@@ -17,9 +17,10 @@ import avatar13 from '@/components/icon/avatar13.vue'
 import avatar14 from '@/components/icon/avatar14.vue'
 import avatar15 from '@/components/icon/avatar15.vue'
 import avatar16 from '@/components/icon/avatar16.vue'
+import button from '@/components/button/button.vue'
 
 
-export const FlowChartRect = Graph.registerNode('flow-chart-Rect', {
+Graph.registerNode('flow-chart-Rect', {
   inherit: 'rect',
   width: 80,
   height: 42,
@@ -165,7 +166,7 @@ export const FlowChartRect = Graph.registerNode('flow-chart-Rect', {
   },
 })
 
-export const FlowChartPolygon = Graph.registerNode('flow-chart-Polygon', {
+Graph.registerNode('flow-chart-Polygon', {
   inherit: 'polygon',
   width: 66,
   height: 36,
@@ -182,16 +183,16 @@ export const FlowChartPolygon = Graph.registerNode('flow-chart-Polygon', {
   },
 })
 
-Graph.registerVueComponent(
-    "image",
-    {
-      template: `<Image/>`,
-      components: {
-        Image,
-      },
-    },
-    true
-);
+// Graph.registerVueComponent(
+//     "image",
+//     {
+//       template: `<Image/>`,
+//       components: {
+//         Image,
+//       },
+//     },
+//     true
+// );
 
 Graph.registerNode('my-avatar', {
   inherit: "vue-shape",
@@ -349,6 +350,16 @@ Graph.registerNode('my-avatar16', {
     template: `<avatar16 />`,
     components: {
       avatar16,
+    },
+  },
+})
+
+Graph.registerNode('my-button', {
+  inherit: "vue-shape",
+  component: {
+    template: `<button />`,
+    components: {
+      button
     },
   },
 })

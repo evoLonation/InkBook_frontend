@@ -142,32 +142,24 @@ export default class FlowGraph {
   private static initStencil() {
     this.stencil = new Addon.Stencil({
       target: this.graph,
-      stencilGraphWidth: 280,
+      stencilGraphWidth: 270,
       search: { rect: true },
       collapsable: false,
       groups: [
         {
           name: 'basic',
           title: '图形',
-          graphHeight: 780,
+          graphHeight: 500,
         },
         {
           name: 'combination',
           title: '图标',
-          // layoutOptions: {
-          //   columns: 1,
-          //   marginX: 60,
-          // },
           graphHeight: 650,
         },
         {
           name: 'group',
-          title: '节点组',
-          graphHeight: 100,
-          layoutOptions: {
-            columns: 1,
-            marginX: 60,
-          },
+          title: '功能',
+          graphHeight: 300,
         },
       ],
     })
@@ -328,6 +320,7 @@ export default class FlowGraph {
       attrs: {
         text: {
           text: '文本框',
+          fontSize: 16
         },
         body: {
           stroke: '#fff',
@@ -404,21 +397,6 @@ export default class FlowGraph {
           fill: '#ED8A19',
           fillOpacity: 0.8,
         },
-      },
-    })
-    const r13 = graph.createNode({
-      x: 280,
-      y: 120,
-      width: 120,
-      height: 45,
-      shape: 'html',
-      html() {
-        const wrap = document.createElement('div')
-        wrap.innerHTML = `
-      <div class="my-btn">
-        Submit
-      </div>`
-        return wrap
       },
     })
     const r14 = graph.createNode({
@@ -583,6 +561,13 @@ export default class FlowGraph {
     //   })
     // })
 
+    graph.on('node:click', ({ node }) => {
+      const attrPath = 'attrs/switch/transform'
+      const current = node.prop(attrPath)
+      const target = current === switchOpen ? switchClose : switchOpen
+
+    })
+
     const r16 = graph.createNode({
       x: 280,
       y: 120,
@@ -592,14 +577,14 @@ export default class FlowGraph {
       imageUrl: ''
     })
 
-    const r17 = graph.addNode({
-      x: 40,
-      y: 40,
-      width: 100,
-      height: 40,
-      shape: 'vue-shape',
-      component: 'image',
-    });
+    // const r17 = graph.addNode({
+    //   x: 40,
+    //   y: 40,
+    //   width: 100,
+    //   height: 40,
+    //   shape: 'vue-shape',
+    //   component: 'image',
+    // });
 
     const i1 = graph.createNode({
       shape: "my-avatar",
@@ -697,31 +682,61 @@ export default class FlowGraph {
       height: 50,
     });
 
-    // const c1 = graph.createNode({
-    //   shape: 'flow-chart-image-Rect',
-    // })
-    // const c2 = graph.createNode({
-    //   shape: 'flow-chart-title-Rect',
-    // })
-    // const c3 = graph.createNode({
-    //   shape: 'flow-chart-animate-Text',
-    // })
-    //
-    // const g1 = graph.createNode({
-    //   shape: 'groupNode',
-    //   attrs: {
-    //     text: {
-    //       text: 'Group Name',
-    //     },
-    //   },
-    //   data: {
-    //     parent: true,
-    //   },
-    // })
+    const k1 = graph.createNode({
+      width: 100,
+      height: 50,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('img')
+        wrap.style.width = '100%'
+        wrap.style.height = '100%'
+        return wrap
+      },
+    });
 
-    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17], 'basic')
+    const k2 = graph.createNode({
+      width: 100,
+      height: 50,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('input')
+        wrap.style.width = '100%'
+        wrap.style.height = '100%'
+        wrap.style.background = '#f0f0f0'
+        wrap.style.textAlign = 'center'
+        wrap.placeholder = '按钮文本'
+        return wrap
+      },
+    });
+
+    const k3 = graph.createNode({
+      width: 50,
+      height: 50,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('hr')
+        wrap.color = '#111'
+        return wrap
+      },
+    });
+
+    const k4 = graph.createNode({
+      width: 50,
+      height: 50,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('input')
+        wrap.style.width = '160%'
+        wrap.style.height = '100%'
+        wrap.style.textAlign = 'center'
+        wrap.placeholder = '输入框'
+        return wrap
+      },
+    });
+
+    this.stencil.load([r1, r2, r5, r6, r3, r4, r8, r9, r10, r11, r12, r14], 'basic')
     this.stencil.load([i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16], 'combination')
-    this.stencil.load([], 'group')
+    this.stencil.load([r7, k4, k1, k2, k3], 'group')
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {

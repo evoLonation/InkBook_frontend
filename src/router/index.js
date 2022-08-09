@@ -172,17 +172,17 @@ const routes = [
         name: "teamInvite",
         component: () => import('../views/Team/TeamInvite')
     },
-    {
-        path: "/tool",
-        name: "Tool",
-        component: () => import('../views/unlayer/tool')
-    },
 
     //测试
     {
         path: "/image",
         name: "Image",
         component: () => import('../components/Image')
+    },
+    {
+        path: "/button",
+        name: "Image",
+        component: () => import('../components/button/button')
     },
 ];
 

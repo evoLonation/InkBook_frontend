@@ -24,14 +24,6 @@ export default {
     flow,
 
   },
-  setup() {
-    const classType = "class"
-    const activityType = "activity"
-    return {
-      classType,
-      activityType,
-    }
-  },
   data(){
     return {
       graphList: [],

@@ -60,7 +60,7 @@
                   placement="bottom"
               >
                 <el-button class="button"
-                           @click="openGraph(graph.protoId, graph.name)"
+                           @click="openGraph(graph.protoId, graph.protoName)"
                            round>
                   <el-icon color="lightblue">
                     <Document/>
@@ -129,11 +129,13 @@ export default {
     }
   },
   methods: {
-    openGraph: function (id){
-      console.log('打开一个原型，id为' + id)
+    openGraph: function (id, name){
       this.$store.state.originId = id;
-      console.log('打开一个原型，id为' + this.$store.state.originId)
-      this.$router.push({name: 'origin'})
+      this.$router.push({name: 'proto',
+        params:{
+          'protoId': id,
+          'projectId': this.projectId,
+          'protoName': name}})
     },
     createGraph: function (){
       this.$axios.post("prototype/create", {

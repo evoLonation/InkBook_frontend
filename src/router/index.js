@@ -149,7 +149,7 @@ const routes = [
     },
     {
         path: '/proto',
-        name: 'uml',
+        name: 'proto',
         component: () => import('../views/project/ProtoEdit/tabs/index')
     },
 

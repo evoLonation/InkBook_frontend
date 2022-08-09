@@ -80,7 +80,7 @@
             <template #reference>
               <el-button
                   type="danger"
-                  style="width: 150px; margin-top: 20px; margin-right: 50px"
+                  style="width: 150px; margin-top: 30px; margin-right: 50px"
               >
                 解散团队
               </el-button>
@@ -90,7 +90,7 @@
         <div v-if="UserType !== 2 && UserType !== 3">
           <el-button
               type="primary"
-              style="width: 150px; margin-top: 15px; margin-right: 50px"
+              style="width: 150px; margin-top: 25px; margin-right: 50px"
               @click="ShowQRCode"
           >
             邀请新成员
@@ -110,7 +110,7 @@
             <template #reference>
               <el-button
                   type="danger"
-                  style="width: 150px; margin-top: 50px; margin-right: 50px"
+                  style="width: 150px; margin-top: 55px; margin-right: 50px"
                   v-if="UserType === 2"
               >
                 离开团队
@@ -126,7 +126,7 @@
             <template #reference>
               <el-button
                   type="danger"
-                  style="width: 150px; margin-top: 15px; margin-right: 50px"
+                  style="width: 150px; margin-top: 25px; margin-right: 50px"
                   v-if="UserType === 1"
               >
                 离开团队

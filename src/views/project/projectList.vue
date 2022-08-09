@@ -27,8 +27,7 @@
           <meta name="referrer" content="no-referrer"/>
           <el-image
               src='http://img.nga.178.com/attachments/mon_202203/28/m6Q4rqt-j7scK24T3cSu0-jt.jpg'
-              class="image">
-          </el-image>
+              class="image"></el-image>
           <div style="padding: 14px;">
             <span>{{ projects[i - 1].name }}</span>
             <div class="bottom">
@@ -265,7 +264,7 @@ export default {
     },
     openProject() {
       this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: this.curProjectName})
-      this.$router.push({name: 'TopTable'})
+      this.$router.push({name: 'topTable'})
     },
     //删除项目接口函数
     deleteProject() {

@@ -124,7 +124,7 @@
 
     methods: {
       JumpToCreate: function () {
-        this.$router.push('/table/team/create');
+        this.$router.push('/team/create');
       },
       EnterTeam: function (index) {
         console.log(index);

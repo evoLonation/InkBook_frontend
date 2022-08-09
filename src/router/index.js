@@ -93,6 +93,33 @@ const routes = [
                 path: 'doc-center',
                 name: 'docCenter',
                 component: () => import('../views/docCenter/FolderList')
+            },
+            {
+                path: "teamProject",
+                name: "teamProject",
+                component: () => import('../views/project/projectList')
+            },
+            {
+                path: "topTable",
+                name: "topTable",
+                component: () => import('../views/NewTable/NewTopTable'),
+                children: [
+                    {
+                        path: 'document/list',
+                        name: 'documentList',
+                        component: () => import('../views/NewDocument/documentList')
+                    },
+                    {
+                        path: 'uml/list',
+                        name: 'umlList',
+                        component: () => import('../views/project/Manage/NewUML')
+                    }
+                ]
+            },
+            {
+                path: '/projectRec',
+                name: 'projectRec',
+                component: () => import('../views/project/projectRec')
             }
         ],
     },

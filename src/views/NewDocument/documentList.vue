@@ -21,6 +21,7 @@
           style="width: 100%; height: 100%"
           :header-row-style="{height: '70px'}"
           :row-style="{height: '50px'}"
+          @row-dblclick="clickRow"
       >
         <el-table-column
             prop="docName"
@@ -108,6 +109,14 @@ export default {
           console.log(err)
           ElMessage({message: err.response.data.msg, type: 'warning'})
         })
+    },
+    clickRow(row) {
+      this.$router.push({
+        name: "DocumentEdit",
+        params: {
+          docId: row.docId,
+        }
+      })
     },
   },
   created() {

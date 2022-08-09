@@ -241,7 +241,7 @@ export default {
   display: block;
 }
 #project-card {
-  margin-left: 10%;
+  margin-left: 20%;
 }
 #project-card:hover {
   box-shadow: 0 16px 32px rgb(0 0 0 / 8%);

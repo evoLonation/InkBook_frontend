@@ -91,31 +91,29 @@
     <el-dialog
         title="新建项目"
         v-model="createVisible"
-        width="30%">
+        width="25%"
+        custom-class="dialog">
       <span>请输入项目信息</span>
-      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称" clearable></el-input>
+      <el-input class="input" v-model="input" placeholder="项目名称" clearable></el-input>
       <el-image></el-image>
-      <el-input type="textarea" style="margin-top: 10px" v-model="input2" placeholder="项目简介" clearable></el-input>
+      <el-input class="input" type="textarea" v-model="input2" placeholder="项目简介" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="createVisible = false; input=input2=''">取 消</el-button>
-        <el-button type="primary"
-                   @click="createVisible = false; createProject(input, input2); input=input2=''">确 定</el-button>
+        <el-button @click="createVisible = false; createProject(input, input2); input=input2=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
       </span>
       </template>
     </el-dialog>
     <el-dialog
         title="编辑项目"
         v-model="renameVisible"
-        width="30%">
+        width="25%"
+        custom-class="dialog">
       <span>请输入新的项目信息</span>
-      <el-input style="margin-top: 10px" v-model="input" placeholder="项目名称" clearable></el-input>
-      <el-input type="textarea" style="margin-top: 10px" v-model="input2" placeholder="项目简介" clearable></el-input>
+      <el-input class="input" v-model="input" placeholder="项目名称" clearable></el-input>
+      <el-input  type="textarea" class="input" v-model="input2" placeholder="项目简介" clearable></el-input>
       <template #footer>
       <span class="dialog-footer">
-        <el-button @click="renameVisible = false;input=input2=''">取 消</el-button>
-        <el-button type="primary"
-                   @click="renameVisible = false; renameProject(input, input2); input=input2=''">确 定</el-button>
+        <el-button @click="renameVisible = false; renameProject(input, input2); input=input2=''" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
       </span>
       </template>
     </el-dialog>
@@ -323,11 +321,22 @@ export default {
   display: flex;
   border-bottom: 4px dashed rgb(0 0 0 / 8%);
 }
-#project-card {
-  margin-left: 10%;
+.input {
+  margin-top: 10px;
 }
-
+.input >>> .el-input__wrapper{
+  border-radius: 20px;
+}
+#project-card {
+  margin-left: 20%;
+}
 #project-card:hover {
   box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
+}
+</style>
+
+<style>
+.dialog {
+  border-radius: 25px;
 }
 </style>

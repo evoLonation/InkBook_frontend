@@ -22,7 +22,8 @@ import {onUnmounted} from "vue";
 export default {
   name: "Collaboration",
   props: {
-    docId: Number,
+    id: Number,
+    type: String, // 可以为 doc, uml , prototype
   },
   expose: ['update', 'setSetter', 'start', 'setGetter', 'save'],
   data() {
@@ -37,17 +38,60 @@ export default {
     const userId = useStore().state.loginUser.userId;
     const nickname = useStore().state.loginUser.nickname;
     // eslint-disable-next-line vue/no-setup-props-destructure
-    const docId = props.docId;
+    const id = props.id;
     const keepEditTime = 3000;
-    const checkUpdateTime = 1000;
+    const checkUpdateTime = 500;
     let needUpdate = false;
     const editors = ref([]);
     const lastModifier = ref({userId: userId, nickname: nickname, time: new Date().getTime()});
     let intervalId1;
     let intervalId2;
 
+    const getGetRoute = () => {
+      if(props.type === 'doc'){
+        return 'document/get';
+      }else if(props.type === 'uml'){
+        return 'graph/get';
+      }else if(props.type === 'prototype'){
+        return 'prototype/get';
+      }
+    }
+    const getSaveRoute = () => {
+      if(props.type === 'doc'){
+        return 'document/save';
+      }else if(props.type === 'uml'){
+        return 'graph/save';
+      }else if(props.type === 'prototype'){
+        return 'prototype/save';
+      }
+    }
+    const getGetParam = () => {
+      if(props.type === 'doc'){
+        return {docId: id};
+      }else if(props.type === 'uml'){
+        return {graphId: id};
+      }else if(props.type === 'prototype'){
+        return {protoId: id};
+      }
+    }
+    const getSaveParam = (content) => {
+      if(props.type === 'doc'){
+        return {docId: id, userId : userId, content: content};
+      }else if(props.type === 'uml'){
+        return {graphId: id, userId : userId, content: content};
+      }else if(props.type === 'prototype'){
+        return {protoId: id, userId : userId, content: content};
+      }
+    }
+
     const getPath = () => {
-      return 'doc/' + props.docId;
+      if(props.type === 'doc'){
+        return 'doc/' + id;
+      }else if(props.type === 'uml'){
+        return 'uml/' + id;
+      }else if(props.type === 'prototype'){
+        return 'prototype/' + id;
+      }
     }
     const getContentPath = () => {
       return getPath() + '/content'
@@ -107,11 +151,8 @@ export default {
 
         if (editors.value.length === 1) {
           console.log('编辑人数为1，从数据库获得内容')
-          axios.get('document/get', {
-            params: {
-              userId: userId,
-              docId: docId,
-            }
+          axios.get(getGetRoute(), {
+            params: getGetParam()
           }).then(async res => {
             if (res.data.content !== '') {
               console.log('数据库中有内容，获得')
@@ -119,7 +160,7 @@ export default {
             }
           }).catch(err => {
             console.log(err)
-            ElMessage({message: '获得文档内容失败', type: 'warning'})
+            ElMessage({message: '获得内容失败', type: 'warning'})
           })
         } else {
           console.log('编辑人数大于1，从firebase获得内容')
@@ -184,11 +225,7 @@ export default {
       clearInterval(intervalId2);
     });
     const save = () => {
-      axios.post('document/save', {
-        "docId" : docId,
-        "userId" : userId,
-        "content" : JSON.stringify(getContent()),
-      }).then(() => {
+      axios.post(getSaveRoute(), getSaveParam(JSON.stringify(getContent()))).then(() => {
         ElMessage({message: '保存成功', type: 'success'})
       }).catch((err) => {
         ElMessage({message: err.response.data.msg, type: 'warning'})

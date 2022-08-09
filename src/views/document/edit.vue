@@ -13,7 +13,7 @@
       <div style="margin: auto 0 auto 0">
         <el-icon><Download /></el-icon>
       </div>
-      <Collaboration :docId="docId" ref="collaboration"></Collaboration>
+      <Collaboration :id="docId" ref="collaboration" type="doc"></Collaboration>
 
     </div>
     <div >

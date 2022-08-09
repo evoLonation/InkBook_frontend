@@ -149,7 +149,7 @@ export default class FlowGraph {
         {
           name: 'basic',
           title: '流程图',
-          graphHeight: 180,
+          graphHeight: 680,
         },
         {
           name: 'combination',
@@ -177,27 +177,21 @@ export default class FlowGraph {
   private static initShape() {
     const { graph } = this
     const r1 = graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: 'flow-chart-Rect',
       attrs: {
         body: {
           rx: 24,
           ry: 24,
         },
-        text: {
-          text: '起始节点',
-        },
       },
     })
     const r2 = graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: 'flow-chart-Rect',
       attrs: {
-        text: {
-          text: '流程节点',
-        },
       },
     })
     const r3 = graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: 'flow-chart-Rect',
       width: 52,
       height: 52,
       angle: 45,
@@ -208,7 +202,7 @@ export default class FlowGraph {
           },
         },
         text: {
-          text: '判断节点',
+
           transform: 'rotate(-45deg)',
         },
       },
@@ -250,7 +244,7 @@ export default class FlowGraph {
       },
     })
     const r4 = graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: 'flow-chart-Rect',
       width: 70,
       height: 70,
       attrs: {
@@ -264,16 +258,13 @@ export default class FlowGraph {
       },
     })
     const r5 = graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: 'flow-chart-Rect',
       width: 70,
       height: 70,
       attrs: {
         body: {
           rx: 20,
           ry: 20,
-        },
-        text: {
-          text: 'xx节点',
         },
       },
       ports: {
@@ -302,13 +293,10 @@ export default class FlowGraph {
       },
     })
     const r6 = graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: 'flow-chart-Rect',
       width: 70,
       height: 70,
       attrs: {
-        text: {
-          text: 'xx节点',
-        },
       },
       ports: {
         groups: {
@@ -336,7 +324,7 @@ export default class FlowGraph {
       },
     })
     const r7 = graph.createNode({
-      shape: 'flow-chart-rect',
+      shape: 'flow-chart-Rect',
       attrs: {
         text: {
           text: '文本框',
@@ -347,73 +335,262 @@ export default class FlowGraph {
       },
     })
     const r8 = graph.createNode({
-      shape: 'flow-chart-polygon',
+      width: 80,
+      height: 60,
+      shape: 'flow-chart-Polygon',
       attrs: {
-        text: {
-          text: '',
-        },
         body: {
-          stroke: '#5F95FF'
-        }
+          refPoints: '10,0 40,0 30,20 0,20',
+        },
       },
     })
     const r9 = graph.createNode({
-      shape: 'flow-chart-love',
+      shape: 'path',
+      x: 370,
+      y: 180,
+      width: 80,
+      height: 80,
+      path:
+          'M52.104,0.249c-0.216-0.189-0.501-0.275-0.789-0.241l-31,4.011c-0.499,0.065-0.872,0.489-0.872,0.992v6.017v4.212v26.035C17.706,39.285,14.997,38,11.944,38c-5.247,0-9.5,3.781-9.5,8.444s4.253,8.444,9.5,8.444s9.5-3.781,9.5-8.444c0-0.332-0.027-0.658-0.069-0.981c0.04-0.108,0.069-0.221,0.069-0.343V16.118l29-3.753v18.909C48.706,29.285,45.997,28,42.944,28c-5.247,0-9.5,3.781-9.5,8.444s4.253,8.444,9.5,8.444s9.5-3.781,9.5-8.444c0-0.092-0.012-0.181-0.015-0.272c0.002-0.027,0.015-0.05,0.015-0.077V11.227V7.016V1C52.444,0.712,52.32,0.438,52.104,0.249z',
       attrs: {
-        text: {
-          text: '',
-        },
         body: {
-          stroke: '#5F95FF'
-        }
+          fill: '#eb2f96',
+          stroke: 'none',
+        },
       },
     })
     const r10 = graph.createNode({
-      shape: 'flow-chart-fs',
+      shape: 'path',
+      x: 50,
+      y: 180,
+      width: 80,
+      height: 80,
+      path:
+          'M24.85,10.126c2.018-4.783,6.628-8.125,11.99-8.125c7.223,0,12.425,6.179,13.079,13.543c0,0,0.353,1.828-0.424,5.119c-1.058,4.482-3.545,8.464-6.898,11.503L24.85,48L7.402,32.165c-3.353-3.038-5.84-7.021-6.898-11.503c-0.777-3.291-0.424-5.119-0.424-5.119C0.734,8.179,5.936,2,13.159,2C18.522,2,22.832,5.343,24.85,10.126z',
       attrs: {
-        text: {
-          text: '',
-        },
         body: {
-          stroke: '#5F95FF'
-        }
+          fill: '#D75A4A',
+          stroke: 'none',
+        },
       },
     })
     const r11 = graph.createNode({
-      shape: 'flow-chart-connect',
+      shape: 'path',
+      x: 210,
+      y: 180,
+      width: 80,
+      height: 80,
+      path:
+          'M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956C22.602,0.567,25.338,0.567,26.285,2.486z',
       attrs: {
-        text: {
-          text: '我也不知道是啥',
-        },
         body: {
-          stroke: '#5F95FF'
-        }
+          fill: '#ED8A19',
+          stroke: 'none',
+        },
       },
     })
     const r12 = graph.createNode({
-      x: 40,
-      y: 40,
-      width: 10,
-      height: 10,
+      shape: 'cylinder',
+      x: 30,
+      y: 100,
+      width: 50,
+      height: 70,
+      attrs: {
+        top: {
+          fill: '#fe854f',
+          fillOpacity: 0.5,
+        },
+        body: {
+          fill: '#ED8A19',
+          fillOpacity: 0.8,
+        },
+      },
+    })
+    const r13 = graph.createNode({
+      x: 280,
+      y: 120,
+      width: 120,
+      height: 45,
       shape: 'html',
       html() {
-        const wrap = document.createElement('input')
-        wrap.style.width = '100'
-        wrap.style.height = '100'
-        wrap.type = "radio"
-
+        const wrap = document.createElement('div')
+        wrap.innerHTML = `
+      <div class="my-btn">
+        Submit
+      </div>`
         return wrap
-      }
+      },
+    })
+    const r14 = graph.createNode({
+      x: 320,
+      y: 120,
+      width: 96,
+      height: 96,
+      markup: [
+        {
+          tagName: 'path',
+          selector: 'eye1',
+          groupSelector: 'eye',
+          attrs: {
+            d:
+                'M24.82,48.678c5.422,0,9.832-6.644,9.832-14.811c0-8.165-4.41-14.809-9.832-14.809s-9.833,6.644-9.833,14.809C14.987,42.034,19.399,48.678,24.82,48.678z',
+          },
+        },
+        {
+          tagName: 'path',
+          selector: 'eye2',
+          groupSelector: 'eye',
+          attrs: {
+            d:
+                'M71.606,48.678c5.422,0,9.833-6.644,9.833-14.811c0-8.165-4.411-14.809-9.833-14.809c-5.421,0-9.831,6.644-9.831,14.809C61.775,42.034,66.186,48.678,71.606,48.678z',
+          },
+        },
+        {
+          tagName: 'path',
+          selector: 'lip',
+          attrs: {
+            d:
+                'M95.855,55.806c-0.6-0.605-1.516-0.77-2.285-0.4C81.232,61.29,65.125,64.53,48.214,64.53c-16.907,0-33.015-3.24-45.354-9.123c-0.77-0.367-1.688-0.205-2.284,0.4c-0.599,0.606-0.747,1.526-0.369,2.29c5.606,11.351,25.349,19.277,48.008,19.277c22.668,0,42.412-7.929,48.012-19.279C96.603,57.332,96.453,56.411,95.855,55.806z',
+          },
+        },
+      ],
+      attrs: {
+        lip: {
+          fill: '#E0A31A',
+        },
+        eye: {
+          fill: '#730000',
+        },
+      },
+    })
+    const switchCenter = {
+      x: 35,
+      y: -2,
+    }
+    const switchOpen = `rotate(-30 ${switchCenter.x} ${switchCenter.y})`
+    const switchClose = `rotate(-12 ${switchCenter.x} ${switchCenter.y})`
+    const r15 = graph.createNode({
+      x: 20,
+      y: 20,
+      width: 100,
+      height: 10,
+      markup: [
+        {
+          tagName: 'g',
+          selector: 'left-group',
+          children: [
+            {
+              tagName: 'rect',
+              selector: 'left',
+              groupSelector: 'line',
+              attrs: {
+                x: 0,
+                y: 0,
+              },
+            },
+            {
+              tagName: 'circle',
+              selector: 'lco',
+              groupSelector: 'co',
+              attrs: {
+                cx: 30,
+              },
+            },
+            {
+              tagName: 'circle',
+              selector: 'lci',
+              groupSelector: 'ci',
+              attrs: {
+                cx: 30,
+              },
+            },
+          ],
+        },
+        {
+          tagName: 'rect',
+          selector: 'switch',
+          groupSelector: 'line',
+        },
+        {
+          tagName: 'g',
+          selector: 'right-group',
+          children: [
+            {
+              tagName: 'rect',
+              selector: 'right',
+              groupSelector: 'line',
+              attrs: {
+                x: 70,
+                y: 0,
+              },
+            },
+            {
+              tagName: 'circle',
+              selector: 'rco',
+              groupSelector: 'co',
+              attrs: {
+                cx: 70,
+              },
+            },
+            {
+              tagName: 'circle',
+              selector: 'rci',
+              groupSelector: 'ci',
+              attrs: {
+                cx: 70,
+              },
+            },
+          ],
+        },
+      ],
+      attrs: {
+        line: {
+          width: 30,
+          height: 2,
+          fill: '#000',
+          stroke: '#000',
+        },
+        co: {
+          r: 8,
+          fill: '#000',
+        },
+        ci: {
+          r: 4,
+          fill: '#fff',
+        },
+        switch: {
+          ...switchCenter,
+          width: 35,
+          transform: switchOpen,
+        },
+      },
+    })
+    graph.on('node:click', ({ node }) => {
+      const attrPath = 'attrs/switch/transform'
+      const current = node.prop(attrPath)
+      const target = current === switchOpen ? switchClose : switchOpen
+
+      node.transition(attrPath, target, {
+        interp: (a: string, b: string) => {
+          const reg = /-?\d+/g
+          const start = parseInt(a.match(reg)![0], 10)
+          const end = parseInt(b.match(reg)![0], 10)
+          const d = end - start
+          return (t: number) => {
+            return `rotate(${start + d * t} ${switchCenter.x} ${switchCenter.y})`
+          }
+        },
+      })
     })
 
     const c1 = graph.createNode({
-      shape: 'flow-chart-image-rect',
+      shape: 'flow-chart-image-Rect',
     })
     const c2 = graph.createNode({
-      shape: 'flow-chart-title-rect',
+      shape: 'flow-chart-title-Rect',
     })
     const c3 = graph.createNode({
-      shape: 'flow-chart-animate-text',
+      shape: 'flow-chart-animate-Text',
     })
 
     const g1 = graph.createNode({
@@ -428,7 +605,7 @@ export default class FlowGraph {
       },
     })
 
-    this.stencil.load([r1, r2, r3, r4], 'basic')
+    this.stencil.load([r1, r2, r5, r6, r3, r4, r7, r8, r9, r10, r11, r12, r13, r14, r15], 'basic')
     this.stencil.load([c1, c2, c3], 'combination')
     this.stencil.load([g1], 'group')
   }

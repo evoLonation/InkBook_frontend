@@ -118,7 +118,7 @@ export default {
       this.$message.success("success!");
     }
   }
-}
+ }
 </script>
 
 <style scoped>

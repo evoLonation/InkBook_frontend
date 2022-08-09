@@ -14,7 +14,7 @@
     </el-button>
   </div>
   <el-dialog
-      v-model="dialogVisable"
+      v-model="dialogVisible"
       title="新建UML"
       width="25%"
       :before-close="handleClose"
@@ -31,7 +31,7 @@
     </el-input>
     <template #footer>
         <span class="dialog-footer">
-      <el-button @click="createGraph(); this.dialogVisable=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
+      <el-button @click="createGraph(); this.dialogVisible=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
         </span>
     </template>
   </el-dialog>
@@ -133,7 +133,7 @@ export default {
   name: "NewUML",
   data() {
     return {
-      dialogVisable: false,
+      dialogVisible: false,
       dialogVisible2: false,
       dialogVisible3: false,
       curGraphId: Number,
@@ -253,6 +253,7 @@ export default {
 }
 
 .image {
+  height: 150px;
   width: 100%;
   display: block;
 }

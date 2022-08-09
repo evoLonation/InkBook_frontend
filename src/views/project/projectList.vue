@@ -264,7 +264,7 @@ export default {
     },
     openProject() {
       this.$store.commit({type: 'selectProject', proId: this.curProjectId, proName: this.curProjectName})
-      this.$router.push({name: 'topTable'})
+      this.$router.push({name: 'topTable', params:{projectId: this.curProjectId}})
     },
     //删除项目接口函数
     deleteProject() {

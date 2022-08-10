@@ -27,8 +27,7 @@
         <img
             :src="'http://43.138.71.108/api/prototype/get-img/?protoId='+graph.protoId"
             @click="openGraph(graph.protoId, graph.protoName)"
-            class="image"
-            alt=""/>
+            class="image"/>
         <div style="padding: 10px">
           <span>{{graph.docName}}</span>
           <div class="bottom">

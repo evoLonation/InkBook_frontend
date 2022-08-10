@@ -28,7 +28,9 @@ export default new createStore({
             proto: {
                 protoId: "",
                 protoName: "",
-            }
+            },
+            teamAvatar: '',
+            userAvatar: ''
         };
     },
     mutations: {
@@ -98,6 +100,15 @@ export default new createStore({
             state.isSelectProject = localStorage.getItem('isSelectProject') !== null;
             state.isGraph = localStorage.getItem('isGraph') !== null;
             state.isProto = localStorage.getItem('isProto') !== null;
+
+            state.userAvatar = 'http://43.138.71.108/api/user/get-avatar/?userId=' + state.loginUser.userId + '&t=' + Math.random();
+            state.teamAvatar = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + state.selectTeam.teamId + '&t=' + Math.random();
+        },
+        changeTeamAvatar(state) {
+            state.teamAvatar = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + state.selectTeam.teamId + '&t=' + Math.random()
+        },
+        changeUserAvatar(state) {
+            state.userAvatar = 'http://43.138.71.108/api/user/get-avatar/?userId=' + state.loginUser.userId + '&t=' + Math.random()
         }
     },
     actions: {

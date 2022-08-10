@@ -3,7 +3,7 @@
     <div id="team-header">
       <el-avatar :size="125" style="float: left; margin-left: 80px" @click="changeImg" class="teamImg" >
         <template #default>
-          <el-avatar :size="120" :src="TeamImg" fit="cover"/>
+          <el-avatar :size="120" :src="this.$store.state.teamAvatar" fit="cover"/>
         </template>
       </el-avatar>
       <div
@@ -404,7 +404,7 @@ export default {
         tmp += '…';
         return tmp;
       }
-    }
+    },
   },
   methods : {
     changing: function () {
@@ -507,7 +507,7 @@ export default {
       console.log("upload is called!");
       console.log(e.currentTarget.files);
       console.log(e.currentTarget.files[0].name);
-      let form = new FormData();
+      const form = new FormData();
       form.append("file", e.currentTarget.files[0]);
       console.log(this.TeamId);
       console.log(typeof (this.TeamId))
@@ -519,7 +519,8 @@ export default {
           console.log(response.data);
           this.$message.success("上传图片成功！");
           this.getAvatar();
-          location.reload()
+          // location.reload()
+          this.$store.commit('changeTeamAvatar')
         }
       }).catch((err) => {
         console.log(err);

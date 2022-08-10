@@ -5,7 +5,7 @@
       mode="horizontal"
       @select="handleSelect"
   >
-    <el-menu-item index="1" v-for="proto in this.protoList" :key="proto.protoId">{{proto.protoName}}</el-menu-item>
+    <el-menu-item :index="proto" v-for="proto in this.protoList" :key="proto.protoId">{{proto.protoName}}</el-menu-item>
   </el-menu>
   <div style="width: 100%;min-height: 100vh;margin-top: 0">
     <div style="margin-left: auto;margin-right:auto; min-width: 200px; max-width: 800px; border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: lightcyan; ">
@@ -41,23 +41,32 @@ export default {
     }
   },
     mounted() {
-      this.$axios.get('/prototype/list-preview', {
-        params: {
-          projectId: this.$route.params.projectId
-        }
-      }).then(res=>{
-        this.protoList = res.data.previewList
-        console.log(this.protoList)
-      }).catch(err=>{
-        console.log(err)
-      })
+      this.getProtoList()
       this.protoId = this.$route.params.protoId
       console.log("id:", this.protoId)
       this.initGraph()
     },
     methods: {
+      getProtoList(){
+        this.$axios.get('/prototype/list-preview', {
+          params: {
+            protoId: this.protoId,
+            projectId: this.$route.params.projectId
+          }
+        }).then(res=>{
+          this.protoList = res.data.previewList
+          console.log(this.protoList)
+        }).catch(err=>{
+          console.log(err)
+        })
+      },
       handleSelect(key, keyPath) {
-        console.log(key, keyPath)
+        console.log('content',key.content)
+        this.setContent(JSON.parse(key.content))
+      },
+      setContent(data) {
+        console.log('data',data)
+        this.proto.fromJSON(data)
       },
       initGraph(){
         this.proto = new Graph({
@@ -65,15 +74,14 @@ export default {
           width: 1000,
           height: 800,
           grid: false,
-
         });
         axios.get('prototype/get', {
           params: {
             protoId: this.protoId
           }
         }).then((response) => {
-            console.log(response.data.msg)
-            this.setContent(response.data.content)
+            console.log('res',response.data.content)
+            this.setContent(JSON.parse(response.data.content))
         }).catch((err) => {
           console.log(err)
         })

@@ -25,7 +25,7 @@
                >
         <meta name="referrer" content="no-referrer"/>
         <img
-            src="../../../assets/Project/UML图布局.jpeg"
+            :src="'http://43.138.71.108/api/graph/get-img/?graphId='+graph.graphId"
             @click="this.curGraphId=graph.graphId;openGraph(graph.graphId, graph.name)"
             class="image"/>
                 <div style="padding: 10px">

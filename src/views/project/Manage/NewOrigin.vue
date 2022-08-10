@@ -25,7 +25,7 @@
                >
         <meta name="referrer" content="no-referrer"/>
         <img
-            src="../../../assets/Project/设计原型.jpeg"
+            :src="'http://43.138.71.108/api/prototype/get-img/?protoId='+graph.protoId"
             @click="openGraph(graph.protoId, graph.protoName)"
             class="image"
             alt=""/>

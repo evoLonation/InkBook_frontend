@@ -14,6 +14,7 @@
         <template #append>
           <el-button
               style="font-weight: bold"
+              @click="this.searchProject()"
           >
             搜索
           </el-button>
@@ -32,12 +33,8 @@
         </el-icon>
         <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
       </el-button>
-      <div
-          style="margin-left: 10%; margin-top: 7%; float: right;"
-      >
-        <el-dropdown
-            class="my-el-dropdown"
-        >
+      <div style="margin-left: 10%; margin-top: 7%; float: right;">
+        <el-dropdown class="my-el-dropdown">
         <span
             class="el-dropdown-link"
         >
@@ -53,33 +50,12 @@
                   id="my-el-btn-group1"
                   style="margin-left: 60px;"
                 >
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="早到晚"
-                      placement="bottom"
-                  >
                     <el-button class="button"
-                               round>
-                      <el-icon>
-                        <sort-down/>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="晚到早"
-                      placement="bottom"
-                  >
+                               @click="sortProject('time1')"
+                               round><el-icon><sort-down/></el-icon></el-button>
                     <el-button class="button"
-                               @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
-                               round>
-                      <el-icon>
-                        <sort-up/>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
+                               @click="sortProject('time2')"
+                               round><el-icon><sort-up/></el-icon></el-button>
                 </el-button-group>
               </el-dropdown-item>
               <el-dropdown-item
@@ -90,33 +66,12 @@
                     id="my-el-btn-group2"
                     style="margin-left: 60px"
                 >
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="早到晚"
-                      placement="bottom"
-                  >
                     <el-button class="button"
-                               round>
-                      <el-icon>
-                        <sort-down/>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="晚到早"
-                      placement="bottom"
-                  >
+                               @click="sortProject('name2')"
+                               round><el-icon><sort-down/></el-icon></el-button>
                     <el-button class="button"
-                               @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
-                               round>
-                      <el-icon>
-                        <sort-up/>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
+                               @click="sortProject('name1')"
+                               round><el-icon><sort-up/></el-icon></el-button>
                 </el-button-group>
               </el-dropdown-item>
               <el-dropdown-item
@@ -127,33 +82,12 @@
                     id="my-el-btn-group3"
                     style="margin-left: 60px"
                 >
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="早到晚"
-                      placement="bottom"
-                  >
                     <el-button class="button"
-                               round>
-                      <el-icon>
-                        <sort-down/>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="晚到早"
-                      placement="bottom"
-                  >
+                               @click="sortProject('author1')"
+                               round><el-icon><sort-down/></el-icon></el-button>
                     <el-button class="button"
-                               @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
-                               round>
-                      <el-icon>
-                        <sort-up/>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
+                               @click="sortProject('author2')"
+                               round><el-icon><sort-up/></el-icon></el-button>
                 </el-button-group>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -291,6 +225,7 @@ import {Filter, Rank, SortDown, SortUp} from "@element-plus/icons";
 
 export default {
   name: "projectList",
+  // eslint-disable-next-line vue/no-unused-components
   components: {SortUp, SortDown, Filter, Rank},
   setup() {
     return {
@@ -315,6 +250,58 @@ export default {
     }
   },
   methods: {
+    sortProject(mod){
+      if (mod === 'time1')
+        this.projects.sort(function(a,b){
+          const x = a.createInfo;
+          const y = b.createInfo;
+          console.log('time1')
+          return ((x<y)?-1:(x>y)?1:0)
+        })
+      else if (mod === 'time2')
+        this.projects.sort(function(a,b){
+          const x = a.createInfo;
+          const y = b.createInfo;
+          console.log('time2')
+          return -((x<y)?-1:(x>y)?1:0)
+        })
+      else if (mod === 'name1')
+        this.projects.sort(function(a,b){
+          const x = a.name;
+          const y = b.name;
+          return ((x<y)?-1:(x>y)?1:0)
+        })
+      else if (mod === 'name2')
+        this.projects.sort(function(a,b){
+          const x = a.name;
+          const y = b.name;
+          return -((x<y)?1:(x>y)?-1:0)
+        })
+      else if (mod === 'author1')
+        this.projects.sort(function(a,b){
+          const x = a.creatorId;
+          const y = b.creatorId;
+          return ((x<y)?-1:(x>y)?1:0)
+        })
+      else
+        this.projects.sort(function(a,b){
+          const x = a.creatorId;
+          const y = b.creatorId;
+          return -((x<y)?1:(x>y)?-1:0)
+        })
+    },
+    searchProject(){
+      this.$axios.get('/project/search', {
+        params:{
+          keyword: this.search,
+          teamId: this.$store.state.selectTeam.teamId
+      }}).then(res=>{
+        console.log(res.data.msg)
+        this.projects = res.data.projects
+      }).catch(err=>{
+        console.log(err)
+      })
+    },
     uploadImage(list){
       console.log('in upload')
       const f = new FormData()
@@ -489,8 +476,8 @@ export default {
 
 .image {
   width: 100%;
-  height: 150px;
-  display: block;
+  max-height: 150px;
+  object-fit: contain;
 }
 .folder-guide {
   width: 100%;
@@ -504,6 +491,9 @@ export default {
 }
 .input >>> .el-input__wrapper{
   border-radius: 20px;
+}
+.my-dropdown-item:hover{
+  cursor: default;
 }
 #project-card {
   margin-left: 20%;

@@ -228,8 +228,8 @@ export default {
 
 .image {
   width: 100%;
-  height: 150px;
-  display: block;
+  max-height: 150px;
+  object-fit: contain;
 }
 
 .input {

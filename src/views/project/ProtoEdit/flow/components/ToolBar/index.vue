@@ -199,6 +199,16 @@ export default defineComponent({
   methods: {
     preview(){
       this.saveGraph(this.graph.toJSON().cells)
+      setTimeout(()=>{
+        axios.post('/prototype/set-preview',{
+          'protoId': this.graphId,
+          'type': 'open',
+        }).then(res=>{
+          console.log(res.data.msg)
+        }).catch(err=>{
+          console.log(err)
+        })
+      },500)
       setTimeout(()=>{this.$router.push({name: 'protoPreview', params:{protoId: this.graphId}})},500)
     },
     saveGraph(cells) {

@@ -244,7 +244,7 @@ export default {
 }
 
 .image {
-  height: 150px;
+  width: 100%;
   height: 150px;
   object-fit: cover;
 }

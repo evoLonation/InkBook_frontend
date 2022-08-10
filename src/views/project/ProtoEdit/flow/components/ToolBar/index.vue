@@ -226,7 +226,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.link='http://192.168.0.102:8080/#/proto/preview/'+this.graphId.toString() + '/' + this.$store.state.selectProject.proId.toString()
+    this.link='http://43.138.71.108/#/proto/preview/'+this.graphId.toString() + '/' + this.$store.state.selectProject.proId.toString()
     console.log('protoId',this.graphId)
     this.$axios.get('/prototype/get-preview',{
       params:{

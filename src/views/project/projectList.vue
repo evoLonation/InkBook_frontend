@@ -503,6 +503,7 @@ export default {
 }
 #project-card {
   margin-left: 20%;
+  min-height: 251px;
 }
 #project-card:hover {
   box-shadow: 0 16px 32px rgb(0 0 0 / 8%);

@@ -225,7 +225,7 @@ export default defineComponent({
         f.append('graphId', this.graphId)
         f.append('newImg', blob)
         this.$axios.post('/graph/modify/img', f).then(res=>{
-          console.log(res.data.mag)
+          console.log(res.data.msg)
         })
       })
 
@@ -302,7 +302,7 @@ export default defineComponent({
 }
 .item-space {
   display: flex;
-  width: 60px;
+  width: 50px;
   height: 38px;
 }
 </style>

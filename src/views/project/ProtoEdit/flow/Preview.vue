@@ -1,7 +1,14 @@
 <template >
-  <div style="background-color: lightcyan; width: 100%;min-height: 100vh;margin-top: 0">
-    <el-button round style="margin: 20px 120px;float: right;color: white;background-color: royalblue" @click="this.quit()">退出预览</el-button>
-    <div style="margin: 50px 100px 50px 100px;border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: white">
+  <el-menu
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
+  >
+    <el-menu-item index="1" v-for="proto in this.protoList" :key="proto.protoId">{{proto.protoName}}</el-menu-item>
+  </el-menu>
+  <div style="width: 100%;min-height: 100vh;margin-top: 0">
+    <div style="margin-left: auto;margin-right:auto; min-width: 200px; max-width: 800px; border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: lightcyan; ">
       <div id="container1" class="x6-proto" style="display: inline-block;"/>
     </div>
   </div>
@@ -14,7 +21,7 @@ import '@/views/project/global.css'
 import './index.less'
 import {Graph} from '@antv/x6'
 import axios from "axios";
-
+import './graph/shape.ts'
 export default {
   name: "Preview",
 
@@ -27,29 +34,30 @@ export default {
   data(){
     return{
       protoId: Number,
-      proto: Graph
+      proto: Graph,
+      activeIndex: '1',
+      activeIndex2: '1',
+      protoList: [],
     }
   },
     mounted() {
+      this.$axios.get('/prototype/list-preview', {
+        params: {
+          projectId: this.$route.params.projectId
+        }
+      }).then(res=>{
+        this.protoList = res.data.previewList
+        console.log(this.protoList)
+      }).catch(err=>{
+        console.log(err)
+      })
       this.protoId = this.$route.params.protoId
       console.log("id:", this.protoId)
       this.initGraph()
     },
     methods: {
-      quit(){
-        axios.post('/prototype/set-preview',{
-          'protoId': this.protoId,
-          'type': 'close',
-        }).then(res=>{
-          console.log(res.data.msg)
-        }).catch(err=>{
-          console.log(err)
-        })
-        this.$router.push({name: 'proto'})
-      },
-      setContent(data) {
-        console.log(data)
-        this.proto.fromJSON(JSON.parse(data))
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath)
       },
       initGraph(){
         this.proto = new Graph({

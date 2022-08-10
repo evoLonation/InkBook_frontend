@@ -80,8 +80,13 @@
         </el-button>
       </el-tooltip>
       <el-tooltip placement="bottom" content="预览">
-        <el-button name="toJSON" @click="preview" class="item-space" round>
+        <el-button name="toJSON" @click="this.setPreview()" class="item-space" round>
           <el-icon><View /></el-icon>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip placement="bottom" content="关闭预览">
+        <el-button v-if="showClose" v-model="showClose" name="toJSON" @click="this.closePreview()" class="item-space" round>
+          <el-icon><Hide /></el-icon>
         </el-button>
       </el-tooltip>
       <el-tooltip placement="bottom" content="退出">
@@ -92,8 +97,24 @@
         </el-button>
       </el-tooltip>
     </el-button-group>
-
-
+  <el-dialog
+    v-model="this.previewVisible"
+    width="25%"
+    custom-class="dialog">
+    <input id="input" value="这是幕后黑手" style="opacity:0;position:absolute" />
+    <h1>预览</h1>
+    <span style="width: 100%;margin-top: 70px">已生成预览链接:</span>
+    <el-link type="primary" :href="this.link" style="margin-top: 30%">{{link}}</el-link>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-tooltip
+          content="复制"
+          placement="bottom">
+          <el-button @click="this.copyLink()" color="royalblue" circle><el-icon><CopyDocument /></el-icon></el-button>
+        </el-tooltip>
+      </span>
+    </template>
+  </el-dialog>
   </div>
 </template>
 
@@ -102,7 +123,7 @@
 import {defineComponent, ref} from "vue"// ref, reactive
 import FlowGraph from '../../graph'
 import {DataUri} from '@antv/x6'
-import axios from "axios";
+import axios from "axios"
 import store from "@/store"
 import {ElMessage} from "element-plus";
 import router from "@/router"
@@ -196,9 +217,63 @@ export default defineComponent({
       graph,
     }
   },
+
+  data(){
+    return{
+      previewVisible: false,
+      link:'',
+      showClose: false,
+    }
+  },
+  mounted() {
+    this.link='http://192.168.0.102:8080/#/proto/preview/'+this.graphId.toString() + '/' + this.$store.state.selectProject.proId.toString()
+    console.log('protoId',this.graphId)
+    this.$axios.get('/prototype/get-preview',{
+      params:{
+        protoId: this.graphId
+      }
+    }).then(res=>{
+      console.log(res.data.msg)
+      if (res.data.type === 'close')
+        this.showClose = false
+      else
+        this.showClose = true
+      console.log('show', this.showClose)
+    })
+  },
   methods: {
-    preview(){
-      this.saveGraph(this.graph.toJSON().cells)
+    closePreview(){
+      axios.post('/prototype/set-preview',{
+        'protoId': this.graphId,
+        'type': 'close',
+      }).then(res=>{
+        console.log(res.data.msg)
+        ElMessage('已关闭预览')
+      }).catch(err=>{
+        console.log(err)
+      })
+      this.showClose = false
+      // this.$axios.post('/prototype/get-preview',{
+      //   'protoId': this.graphId
+      // }).then(res=>{
+      //   console.log(res.data.msg)
+      //   if (res.data.type === 'close')
+      //     this.showClose = false
+      //   else
+      //     this.showClose = true
+      // })
+    },
+    copyLink(){
+      const input = document.getElementById('input')! as any; // 承载复制内容
+      input.value = this.link; // 修改文本框的内容
+      input.select(); // 选中文本
+      document.execCommand('copy'); // 执行浏览器复制命令
+      ElMessage('复制成功')
+    },
+    setPreview(){
+      this.saveGraph(this.graph.toJSON().cells);
+      this.previewVisible=true
+      this.showClose=true
       setTimeout(()=>{
         axios.post('/prototype/set-preview',{
           'protoId': this.graphId,
@@ -209,7 +284,9 @@ export default defineComponent({
           console.log(err)
         })
       },500)
-      setTimeout(()=>{this.$router.push({name: 'protoPreview', params:{protoId: this.graphId}})},500)
+    },
+    preview(){
+      this.$router.push({path:`/proto/preview/${this.graphId}/${this.$store.selectProject.proId}`})
     },
     saveGraph(cells) {
       axios.post('/prototype/save', {
@@ -308,12 +385,18 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+
 .bar {
   margin-right: 16px;
 }
 .item-space {
-  margin-left: 100px;
-  width: 70px;
+  margin-left: 50px;
+  width: 50px;
   height: 30px;
+}
+</style>
+<style>
+.dialog {
+  border-radius: 25px;
 }
 </style>

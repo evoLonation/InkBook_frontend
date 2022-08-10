@@ -301,6 +301,7 @@ export default {
         if(response.status === 200){
           ElMessage("上传成功！");
           console.log(response.data);
+          this.$store.commit('changeUserAvatar')
           // location.reload();
           this.getAvatar();
         }else ElMessage({message: response.data.msg, type: 'warning'});
@@ -454,7 +455,7 @@ export default {
       // }).then((response)=>{
       //   if (response.status === 200){
       //     console.log(response.data.js)
-      this.url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.userId;
+      this.url = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.userId + '&t=' + Math.random();
       console.log(this.url)
       //   }else ElMessage({message: response.data.js.msg, type: 'warning'});
       // }).catch((err)=>{

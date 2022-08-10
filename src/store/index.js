@@ -28,6 +28,11 @@ export default new createStore({
             proto: {
                 protoId: "",
                 protoName: "",
+            },
+            teamAvatar: '',
+            userAvatar: '',
+            list: {
+                listType: "",
             }
         };
     },
@@ -72,6 +77,10 @@ export default new createStore({
             state.proto.protoName = proto.protoName;
             localStorage.setItem('proto', JSON.stringify(state.proto));
         },
+        list(state, list){
+            state.list.listType = list.listType;
+            localStorage.setItem('list', JSON.stringify(state.list))
+        },
         init(state){
             state.isLogin = localStorage.getItem('isLogin') !== null;
             const localLoginUser = localStorage.getItem('loginUser');
@@ -94,10 +103,23 @@ export default new createStore({
             if (localProto !== null){
                 state.proto = JSON.parse(localProto)
             }
+            const localList = localStorage.getItem('list');
+            if (localList !== null){
+                state.list = JSON.parse(localList)
+            }
             state.isSelectTeam = localStorage.getItem('isSelectTeam') !== null;
             state.isSelectProject = localStorage.getItem('isSelectProject') !== null;
             state.isGraph = localStorage.getItem('isGraph') !== null;
             state.isProto = localStorage.getItem('isProto') !== null;
+
+            state.userAvatar = 'http://43.138.71.108/api/user/get-avatar/?userId=' + state.loginUser.userId + '&t=' + Math.random();
+            state.teamAvatar = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + state.selectTeam.teamId + '&t=' + Math.random();
+        },
+        changeTeamAvatar(state) {
+            state.teamAvatar = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + state.selectTeam.teamId + '&t=' + Math.random()
+        },
+        changeUserAvatar(state) {
+            state.userAvatar = 'http://43.138.71.108/api/user/get-avatar/?userId=' + state.loginUser.userId + '&t=' + Math.random()
         }
     },
     actions: {

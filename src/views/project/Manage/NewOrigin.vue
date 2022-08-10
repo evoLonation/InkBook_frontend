@@ -242,6 +242,7 @@ export default {
 
 #project-card {
   margin-left: 5%;
+  min-height: 218px;
 }
 
 #project-card:hover {

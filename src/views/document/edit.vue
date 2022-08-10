@@ -2,15 +2,33 @@
 
 
   <div id = "top">
-    <div style="display: flex;height: 50px">
-
+    <div style="display: flex;height: 50px; border-bottom: 1px dashed lightgrey">
+      <el-button text style="height: 50px">
+        <el-icon><arrow-left/></el-icon>
+      </el-button>
+      <span class="doc-name">文件名称</span>
       <Collaboration :id="docId" ref="collaboration" type="doc"></Collaboration>
 <!--      <div>-->
 <!--        <input v-model="tempName"/>-->
 <!--        <input v-model="tempIntro"/>-->
 <!--        <el-button @click="clickCreateTemp">创建模板</el-button>-->
 <!--      </div>-->
-
+      <el-tooltip content="保存">
+        <el-button class="my-el-button" text>
+          <el-icon><CircleCheck/></el-icon>
+        </el-button>
+      </el-tooltip>
+      <el-dropdown
+        class="my-el-dropdown"
+      >
+        <el-icon><copy-document/></el-icon>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item>转换为PDF</el-dropdown-item>
+            <el-dropdown-item>转换为Markdown</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
     <div >
       <Toolbar
@@ -63,9 +81,10 @@ import {ElMessage} from "element-plus";
 import {useRoute, } from "vue-router/dist/vue-router";
 import {useStore} from "vuex";
 import Collaboration from "@/components/Collaboration";
+import {ArrowLeft, CopyDocument} from "@element-plus/icons";
 
 export default {
-  components: { Editor, Toolbar, Collaboration},
+  components: {CopyDocument, ArrowLeft, Editor, Toolbar, Collaboration},
   data(){
     return {
       myTitle: '',
@@ -302,6 +321,29 @@ body {
   margin-bottom: auto;
   margin-top: auto;
 }
+.doc-name {
+  height: 25px;
+  font-size: 17px;
+  font-weight: bold;
+  margin: auto 20px auto 20px;
+}
 
+.my-el-button {
+  height: 50px;
+  margin: auto 3% auto auto;
+}
 
+.my-el-button:hover {
+  color: #4c84ff;
+}
+
+.my-el-dropdown {
+  height: 50px;
+  margin: auto 7% auto 0;
+  align-items: center;
+}
+
+.my-el-dropdown:hover {
+  color: #67C23A;
+}
 </style>

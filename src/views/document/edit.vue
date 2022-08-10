@@ -10,7 +10,10 @@
       <div style="margin: auto 0 auto 0">
         <el-icon><Expand /></el-icon>
       </div>
-      <div style="margin: auto 0 auto 0">
+      <div style="margin: auto 0 auto 0" @click="clickExportPdf">
+        <el-icon><Download /></el-icon>
+      </div>
+      <div style="margin: auto 0 auto 0" @click="clickExportMd">
         <el-icon><Download /></el-icon>
       </div>
       <Collaboration :id="docId" ref="collaboration" type="doc"></Collaboration>
@@ -77,7 +80,6 @@ export default {
   components: { Editor, Toolbar, Collaboration},
   data(){
     return {
-      valueHtml : '',
       myTitle: '',
     };
   },
@@ -86,6 +88,7 @@ export default {
     const store = useStore();
     const docId = parseInt(route.params.docId);
     const userId = store.state.loginUser.userId;
+    const valueHtml = ref('');
 
     /**
      * 编辑器初始化与销毁相关操作
@@ -194,7 +197,27 @@ export default {
       });
     };
 
+    const clickExportPdf = () => {
+      axios.post('translate2pdf', {
+        data: valueHtml.value,
+      }).then(() => {
+        window.open('http://43.138.71.108/api/downloadpdf')
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    const clickExportMd = () => {
+      axios.post('translate2md', {
+        data: valueHtml.value,
+      }).then(() => {
+        window.open('http://43.138.71.108/api/downloadmd')
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+
     return {
+      valueHtml,
       // 编辑器相关
       editorRef,
       mode,
@@ -209,6 +232,8 @@ export default {
       tempName,
       tempIntro,
       clickCreateTemp,
+      clickExportPdf,
+      clickExportMd,
     };
   },
 }

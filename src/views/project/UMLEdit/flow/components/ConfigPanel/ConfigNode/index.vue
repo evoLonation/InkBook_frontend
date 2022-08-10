@@ -38,21 +38,33 @@
         <a-col :span=14>
           <a-input type="color" :value="globalGridAttr.nodeColor" style="width: 100%" @change="onColorChange"/>
         </a-col>
+        <a-row align="middle">
+          <a-col :span=8>文本内容</a-col>
+          <a-col :span=14>
+            <a-input :value="globalGridAttr.nodeText" style="width: 100%" @change="onTextChange"/>
+          </a-col>
+        </a-row>
+        <a-row align="middle" v-if="currentShape==='flow-chart-image-rect' || currentShape === 'flow-chart-title-rect'">
+          <a-col :span=8>类名</a-col>
+          <a-col :span=14>
+            <a-input :value="globalGridAttr.nodeTitle" style="width: 100%" @change="onTitleChange"/>
+          </a-col>
+        </a-row>
       </a-row>
     </a-tab-pane>
-    <a-tab-pane tab="属性" key="3">
-      <a-row align="middle">
-        <a-col :span=8>分配用户</a-col>
-        <a-col :span=14>
-          <a-input :value="globalGridAttr.nodeUsers" style="width: 100%" @change="onUsersChange"/>
-        </a-col>
-      </a-row>
-    </a-tab-pane>
+<!--    <a-tab-pane tab="属性" key="3">-->
+<!--      <a-row align="middle">-->
+<!--        <a-col :span=8>分配用户</a-col>-->
+<!--        <a-col :span=14>-->
+<!--          <a-input :value="globalGridAttr.nodeUsers" style="width: 100%" @change="onUsersChange"/>-->
+<!--        </a-col>-->
+<!--      </a-row>-->
+<!--    </a-tab-pane>-->
   </a-tabs>
 </template>
 
 <script lang="ts">
-import {defineComponent, inject, watch} from "vue";
+import {defineComponent, inject, ref, watch} from "vue";
 import {Cell} from "@antv/x6";
 import {nodeOpt} from "@/views/project/UMLEdit/flow/components/ConfigPanel/ConfigNode/method";
 
@@ -62,8 +74,10 @@ export default defineComponent({
     const globalGridAttr: any = inject('globalGridAttr')
     const id: any = inject('id')
     let curCel: Cell;
+    const currentShape = ref('');
     watch([()=>id.value],()=>{
       curCel = nodeOpt(id, globalGridAttr)
+      currentShape.value = curCel.shape;
     },{
       immediate:false,
       deep:false
@@ -102,7 +116,21 @@ export default defineComponent({
       globalGridAttr.nodeUsers = val
       curCel?.attr('approve/users', val)
     }
+
+    const onTextChange = (e: any) =>{
+      const val = e.target.value
+      globalGridAttr.nodeText = val
+      curCel?.attr('text/text', val)
+    }
+    const onTitleChange = (e: any) => {
+      const val = e.target.value
+      globalGridAttr.nodeTitle = val
+      curCel?.attr('title/text', val)
+    }
+
+
     return{
+      currentShape,
       globalGridAttr,
       onStrokeChange,
       onStrokeWidthChange,
@@ -110,6 +138,8 @@ export default defineComponent({
       onFontSizeChange,
       onColorChange,
       onUsersChange,
+      onTextChange,
+      onTitleChange,
     }
   }
 })

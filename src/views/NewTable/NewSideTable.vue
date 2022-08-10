@@ -14,8 +14,8 @@
       class="portrait"
       @click="this.$router.push({name: 'UserInfo', params: {userId: this.userId}})"
     >
-      <div style="display: flex">
-        <img class="picture" src="../../assets/Team/人员.png" alt="" />
+      <div style="display: flex;">
+        <img class="picture" :src="'http://43.138.71.108/api/user/get-avatar/?userId=' + this.$store.state.loginUser.userId" alt="" />
       </div>
       <div
         style="width: 100%; margin-top: 15px; text-align: center"
@@ -36,14 +36,14 @@
       class="my-team"
       @click="this.$router.push({name: 'teamList'})"
     >
-      <div>
+      <div style="width: 50px;height: 50px">
         <img :src="'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.$store.state.selectTeam.teamId" class="teamPic" alt="">
       </div>
       <div
         class="team-name"
       >
-        <span>
-          {{this.$store.state.selectTeam.teamName}}
+        <span style="max-width: fit-content">
+          {{limitName}}
         </span>
       </div>
       <el-icon style="margin: auto"><Switch/></el-icon>
@@ -59,7 +59,7 @@
           <el-menu-item
               index="1"
               class="my-el-menu-item"
-              style="padding-left: 20%"
+              style="padding-left: 15%"
               @click="this.$router.push({name:'teamProject'})"
           >
             <template #title>
@@ -69,7 +69,7 @@
           <el-menu-item
               index="2"
               class="my-el-menu-item"
-              style="padding-left: 20%;"
+              style="padding-left: 15%;"
               @click="this.$router.push({name:'docCenter'})"
           >
             <template #title>
@@ -79,8 +79,8 @@
           <el-menu-item
               index="3"
               class="my-el-menu-item"
-              style="padding-left: 20%;"
-              @click="this.$router.push({name: 'team', params: {teamId: 1}})"
+              style="padding-left: 15%;"
+              @click="this.$router.push({name: 'team', params: {teamId: this.$store.state.selectTeam.teamId}})"
 
           >
             <template #title>
@@ -140,7 +140,22 @@ export default {
     this.userId = this.$store.state.loginUser.userId;
     this.nickName = this.$store.state.loginUser.nickname;
     this.$router.push({name:'teamProject'})
-  }
+  },
+  computed: {
+    limitName() {
+      if(this.$store.state.selectTeam.teamName.length <= 7){
+        return this.$store.state.selectTeam.teamName;
+      }
+      else{
+        let tmp = "";
+        for(let i = 0; i < 7; i++){
+          tmp += this.$store.state.selectTeam.teamName[i];
+        }
+        tmp += '…';
+        return tmp;
+      }
+    }
+  },
 }
 </script>
 
@@ -170,10 +185,10 @@ export default {
 }
 
 .portrait {
-  width: 70%;
-  height: 25%;
+  width: 80%;
+  /*height: 22%;*/
   display: block;
-  padding: 30px;
+  padding: 15px 50px 15px 50px;
   border-radius: 20px;
   background-color: #E2F5F7;
   margin: 10px auto 0 auto;
@@ -184,8 +199,8 @@ export default {
 }
 
 .my-team {
-  width: 70%;
-  height: 8%;
+  width: 80%;
+  /*height: 8%;*/
   display: flex;
   padding: 15px;
   border-radius: 20px;
@@ -224,7 +239,7 @@ export default {
 .my-el-menu-item {
   padding-top: 5%;
   padding-bottom: 5%;
-  font-size: 17px
+  font-size: 15px
 }
 
 .my-el-menu-item:hover{
@@ -234,13 +249,13 @@ export default {
 .my-el-menu-subItem{
     padding-top: 2%;
     padding-bottom: 2%;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .my-el-aside >>>.el-sub-menu__title{
   padding-top: 5%;
   padding-bottom: 5%;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .my-el-aside >>>.el-sub-menu__title:hover{
@@ -248,7 +263,7 @@ export default {
 }
 
 .my-el-aside >>>.el-menu--vertical:not(.el-menu--collapse):not(.el-menu--popup-container) .el-sub-menu__title{
-  padding-left: 20%;
+  padding-left: 15%;
 }
 
 .teamPic {
@@ -271,6 +286,6 @@ export default {
   height: 20px;
   font-size: 15px;
   font-weight: bold;
-  margin: auto auto auto 12%;
+  margin: auto auto auto 10px;
 }
 </style>

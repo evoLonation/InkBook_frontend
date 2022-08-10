@@ -275,13 +275,12 @@ export default {
         "userCode" : this.code, //5位数字字符串
         "sendCode" : this.trueCode
       }).then(res => {
-        if (res.status === 200){
           ElMessage("注册成功！");
           this.$router.push({name: 'login', params:{}})
 
-        }else  ElMessage({message: res.data.msg, type: 'warning'});
       }).catch(err => {
         console.log(err);
+        ElMessage({message: err.response.data.msg, type: 'warning'});
       })
     }
   }

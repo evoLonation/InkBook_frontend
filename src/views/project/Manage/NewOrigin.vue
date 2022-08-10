@@ -87,7 +87,8 @@
       width="25%"
       custom-class="dialog"
   >
-    <h1 >新建原型</h1>
+    <div style="font-size: large; ">新建原型</div>
+    <br/>
     <span>请输入信息</span>
     <el-input
         v-model="protoName"

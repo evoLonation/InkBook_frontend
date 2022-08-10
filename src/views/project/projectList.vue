@@ -173,7 +173,8 @@
         v-model="createVisible"
         width="25%"
         custom-class="dialog">
-      <h1>新建项目</h1>
+      <div style="font-size: large; ">新建</div>
+      <br/>
       <span>请输入项目信息</span>
       <el-input class="input" v-model="input" placeholder="项目名称" clearable></el-input>
       <el-image></el-image>
@@ -188,7 +189,8 @@
         v-model="renameVisible"
         width="25%"
         custom-class="dialog">
-      <h1>编辑项目</h1>
+      <div style="font-size: large; ">编辑</div>
+      <br/>
       <span>请输入新的项目信息</span>
       <el-input class="input" v-model="input" placeholder="项目名称" clearable></el-input>
       <el-upload

@@ -99,8 +99,9 @@
       width="25%"
       custom-class="dialog"
   >
-    <h1>新建UML</h1>
-    <span>请输入信息</span>
+    <div style="font-size: large; ">新建UML</div>
+    <br/>
+    <span style="">请输入信息</span>
     <el-input
         v-model="graphName"
         class="input"

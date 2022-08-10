@@ -11,14 +11,15 @@
           <div style="width: 900px; height: 600px">
             <el-scrollbar height="600px">
 <!--                <slot></slot>-->
-              <Preview :content="currentTempContent" :title="currentTempName"/>
+              <Preview :content="currentTempContent" :title="currentTempName" v-if="type === 'team' || type === 'project'"/>
+
             </el-scrollbar>
           </div>
           <div style="width: 300px">
             <header style="line-height: 30px;text-align: center; font-weight: bold;margin-bottom: 20px;">按模板创建</header>
             <el-form  label-width="100px">
-              <el-form-item label="文档名">
-                <el-input v-model="newDocName" placeholder="文档名称" style=" !important;margin-left: 20px;margin-right: 0;"></el-input>
+              <el-form-item :label="text+'名称'">
+                <el-input v-model="newDocName" :placeholder="text+'名称'" style=" !important;margin-left: 20px;margin-right: 0;"></el-input>
               </el-form-item>
             </el-form>
             <div style="height: 480px">
@@ -28,7 +29,10 @@
                     class="el-menu-vertical-demo"
                 >
                   <el-menu-item :index="index" v-for="(temp, index) in tempList" :key="{temp, index}"  style="height: 40px" @click="clickItem(temp)">
-                    <el-icon><Document /></el-icon>
+                    <el-icon v-if="type === 'team' || type === 'project'"><Document /></el-icon>
+                    <el-icon v-else-if="type === 'prototype'"><Monitor /> /></el-icon>
+                    <el-icon v-else-if="type === 'uml'"><Postcard /></el-icon>
+
                     <span> {{temp.name}} </span>
                   </el-menu-item>
                   <!--                <el-menu-item index="2" style="height: 40px">-->
@@ -86,13 +90,14 @@ export default {
       currentTempContent : '',
       currentTempName: '',
       tempList: [],
+      text: '文档',
     }
   },
   emits: [ 'update:modelValue'],
   props: {
     modelValue: Boolean,
     parentId: Number,
-    type: String, // project , team, uml , prototype
+    type: String, // project , team(前两个是文档), uml , prototype
   },
   methods: {
     clickItem(temp) {
@@ -114,7 +119,7 @@ export default {
         }).catch(err => {
           ElMessage({message: err.response.data.msg, type: 'warning'});
         })
-      }else {
+      }else if(this.type === 'team') {
         this.axios.post("document/create", {
           "name": this.newDocName,
           "creatorId": this.userId,
@@ -128,14 +133,51 @@ export default {
         }).catch(err => {
           ElMessage({message: err.response.data.msg, type: 'warning'});
         })
+      }else if(this.type === 'prototype') {
+        this.axios.post("prototype/create", {
+          "name": this.newDocName,
+          "creatorId": this.userId,
+          "projectId" : this.projectId,
+          "templateId" : this.currentTempId,
+        }).then(() => {
+          this.$emit('newCreated');
+          this.value = false;
+          ElMessage({message: '页面创建成功', type: 'success'});
+        }).catch(err => {
+          ElMessage({message: err.response.data.msg, type: 'warning'});
+        })
+      }else {
+        this.axios.post("graph/create", {
+          "name": this.newDocName,
+          "creatorId": this.userId,
+          "projectId" : this.projectId,
+          "templateId" : this.currentTempId,
+        }).then(() => {
+          this.$emit('newCreated');
+          this.value = false;
+          ElMessage({message: 'UML图创建成功', type: 'success'});
+        }).catch(err => {
+          ElMessage({message: err.response.data.msg, type: 'warning'});
+        })
       }
     }
   },
   created() {
+    let type;
+    if(this.type === 'project' || this.type === 'team'){
+      type = 1;
+      this.text = '文档';
+    }else if(this.type === 'prototype'){
+      type = 2;
+      this.text = '页面';
+    }else if(this.type === 'uml'){
+      type = 3;
+      this.text = 'UML图';
+    }
     console.log('created by tmp created!')
     this.axios.get('template/list', {
       params: {
-        type: 1,
+        type: type,
       }
     }).then(res=>{
       this.tempList = res.data.templateList;

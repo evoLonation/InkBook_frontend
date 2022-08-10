@@ -245,7 +245,7 @@ export default {
 
 .image {
   height: 150px;
-  max-height: 150px;
+  height: 150px;
   object-fit: cover;
 }
 

@@ -25,7 +25,7 @@
                  style="width: 200px; height: auto; border-radius: 20px; " shadow="hover"
         >
           <meta name="referrer" content="no-referrer"/>
-          <img
+          <el-image
               :src="'http://43.138.71.108/api/prototype/get-img/?protoId='+graph.protoId+'&rand?='+this.rand.toString()"
               @click="openGraph(graph.protoId, graph.protoName)"
               class="image"
@@ -227,8 +227,8 @@ export default {
 }
 
 .image {
-  width: 100%;
-  max-height: 150px;
+  width: 200px;
+  height: 150px;
   object-fit: cover;
 }
 

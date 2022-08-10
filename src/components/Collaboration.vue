@@ -172,6 +172,7 @@ export default {
             if (res.data.content !== '') {
               console.log('数据库中有内容，获得')
               setContent(JSON.parse(res.data.content))
+              writeData(getContentPath(), res.data.content)
             }
           }).catch(err => {
             console.log(err)
@@ -180,7 +181,7 @@ export default {
         } else {
           console.log('编辑人数大于1，从firebase获得内容')
           getData(getContentPath()).then(res => {
-            setContent(res);
+            setContent(JSON.stringify(res));
           })
         }
 
@@ -208,7 +209,7 @@ export default {
         intervalId2 = setInterval(() => {
           if(needUpdate === false)return;
           needUpdate = false;
-          writeData(getContentPath(), getContent()).then(() => {
+          writeData(getContentPath(), JSON.stringify(getContent())).then(() => {
             lastModifier.value = {userId: userId, nickname: nickname, time: new Date().getTime()};
             writeData(getLastModifierPath(), lastModifier.value);
           });
@@ -218,7 +219,7 @@ export default {
         onDataChange(getLastModifierPath(), (res) => {
           if (res.userId !== userId) {
             getData(getContentPath()).then(res => {
-              setContent(res);
+              setContent(JSON.parse(res));
             });
             lastModifier.value = res;
           }

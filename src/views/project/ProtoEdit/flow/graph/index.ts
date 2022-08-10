@@ -738,9 +738,15 @@ export default class FlowGraph {
       },
     });
 
+    const zzy = graph.createNode({
+      shape: 'zzy-image',
+      width: 100,
+      height: 50,
+    });
+
     this.stencil.load([r1, r2, r5, r6, r3, r4, r8, r9, r10, r11, r12, r14], 'basic')
     this.stencil.load([i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16], 'combination')
-    this.stencil.load([r7, k4, k1, k2, k3], 'group')
+    this.stencil.load([r7, k4, k1, k2, k3, zzy], 'group')
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {

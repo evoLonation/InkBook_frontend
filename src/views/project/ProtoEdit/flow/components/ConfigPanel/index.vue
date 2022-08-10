@@ -3,6 +3,7 @@
     <config-grid v-show="type === 'grid'" />
     <config-node v-show="type === 'node'" />
     <config-edge v-show="type === 'edge'" />
+    <config-image v-show="type === 'image'" />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import ConfigGrid from './ConfigGrid/index.vue'
 import ConfigNode from './ConfigNode/index.vue'
 import ConfigEdge from './ConfigEdge/index.vue'
+import ConfigImage from './ConfigImage/index.vue'
 import FlowGraph from '@/views/project/ProtoEdit/flow/graph'
 import './index.less'
 import { defineComponent, ref, provide } from "vue";
@@ -20,7 +22,8 @@ export default defineComponent({
   components:{
     ConfigGrid,
     ConfigNode,
-    ConfigEdge
+    ConfigEdge,
+    ConfigImage
   },
   setup(){
     const type = ref("grid")
@@ -32,7 +35,16 @@ export default defineComponent({
         type.value = "grid"
       })
       graph.on('cell:click', ({ cell }) => {
-        type.value = cell.isNode() ? "node" : "edge"
+        if(cell.isNode()){
+          if(cell.shape === 'zzy-image'){
+            type.value = 'image';
+          }else{
+            type.value = "node";
+          }
+        }else{
+          type.value = "edge";
+        }
+
         id.value = cell.id
       })
     }

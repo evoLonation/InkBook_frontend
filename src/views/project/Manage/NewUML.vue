@@ -112,7 +112,6 @@
 
     <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible=false;tmpVisible=true" style="float: left;background-color: royalblue;color: white" round>模板</el-button>
       <el-button @click="createGraph(); this.dialogVisible=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
         </span>
     </template>

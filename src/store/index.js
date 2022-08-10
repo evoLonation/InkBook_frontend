@@ -28,6 +28,9 @@ export default new createStore({
             proto: {
                 protoId: "",
                 protoName: "",
+            },
+            list: {
+                listType: "",
             }
         };
     },
@@ -72,6 +75,10 @@ export default new createStore({
             state.proto.protoName = proto.protoName;
             localStorage.setItem('proto', JSON.stringify(state.proto));
         },
+        list(state, list){
+            state.list.listType = list.listType;
+            localStorage.setItem('list', JSON.stringify(state.list))
+        },
         init(state){
             state.isLogin = localStorage.getItem('isLogin') !== null;
             const localLoginUser = localStorage.getItem('loginUser');
@@ -93,6 +100,10 @@ export default new createStore({
             const localProto = localStorage.getItem('proto');
             if (localProto !== null){
                 state.proto = JSON.parse(localProto)
+            }
+            const localList = localStorage.getItem('list');
+            if (localList !== null){
+                state.list = JSON.parse(localList)
             }
             state.isSelectTeam = localStorage.getItem('isSelectTeam') !== null;
             state.isSelectProject = localStorage.getItem('isSelectProject') !== null;

@@ -12,12 +12,12 @@
       <el-menu-item
           class="my-el-menu-item"
           index="1"
-          @click="this.$router.push({name: 'DocumentList'})"
+          @click="this.toDoc()"
       >
         文档
       </el-menu-item>
-      <el-menu-item class="my-el-menu-item" index="2" @click="this.$router.push({name: 'protoList'})">原型</el-menu-item>
-      <el-menu-item class="my-el-menu-item" index="3" @click="this.$router.push({name: 'umlList'})">UML</el-menu-item>
+      <el-menu-item class="my-el-menu-item" index="2" @click="this.toProto()">原型</el-menu-item>
+      <el-menu-item class="my-el-menu-item" index="3" @click="this.toUML()">UML</el-menu-item>
     </el-menu>
   </div>
   <div class="main-container">
@@ -27,20 +27,45 @@
 
 <script>
 import {Switch} from "@element-plus/icons";
+import store from'@/store'
 export default {
   name: "NewTopTable",
   components: {Switch},
   data() {
     return{
+      listType: '',
     }
   },
   mounted() {
-    if (this.$route.params.type==='uml')
+    if (this.$route.params.type !== 'uml' && this.$route.params.type !== 'proto' ){
+      this.listType = this.$store.state.list.listType
+    }
+    else{
+      this.listType = this.$route.params.type
+    }
+    if (this.listType==='uml')
       this.$router.push({name: 'umlList'})
-    else if (this.$route.params.type==='proto')
+    else if (this.listType==='proto')
       this.$router.push({name: 'protoList'})
     else
       this.$router.push({name: 'DocumentList'})
+  },
+  methods:{
+    toDoc(){
+      this.$store.commit({type: 'list', listType: this.listType})
+      console.log(this.$store.state.list.listType)
+      this.$router.push({name: 'DocumentList'})
+    },
+    toProto(){
+      this.$store.commit({type: 'list', listType: 'proto'})
+      console.log(this.$store.state.list.listType)
+      this.$router.push({name: 'protoList'})
+    },
+    toUML(){
+      this.$store.commit({type: 'list', listType: 'uml'})
+      console.log(this.$store.state.list.listType)
+      this.$router.push({name: 'umlList'})
+    }
   }
 }
 </script>

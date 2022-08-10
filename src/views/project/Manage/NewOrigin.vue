@@ -26,7 +26,7 @@
         >
           <meta name="referrer" content="no-referrer"/>
           <img
-              :src="'http://43.138.71.108/api/prototype/get-img/?protoId='+graph.protoId"
+              :src="'http://43.138.71.108/api/prototype/get-img/?protoId='+graph.protoId+'&rand?='+this.rand"
               @click="openGraph(graph.protoId, graph.protoName)"
               class="image"
               alt=""/>
@@ -138,6 +138,7 @@ export default {
       protoName: '',
       projectId: -1,
       graphList: null,
+      rand: null,
     }
   },
   methods: {
@@ -181,6 +182,7 @@ export default {
       })
     },
     getGraphList: function (){
+      this.rand = Math.random()
       console.log("getGraphList is called!")
       this.$axios.get("prototype/list", {
         params:{

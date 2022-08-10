@@ -42,7 +42,7 @@ const getContainerSize = () => {
 }
 export default defineComponent({
   name: "index",
-  props: ["graphId", 'graphName'],
+  props: ["graphId", "graphName"],
   components:{
     ToolBar,
     ConfigPanel,
@@ -61,6 +61,7 @@ export default defineComponent({
   },
   mounted() {
     console.log('indexid:', this.graphId)
+    console.log('name:',this.graphName)
     this.initGraph()
     this.$refs.Collaboration.setSetter(this.setContent)
     this.$refs.Collaboration.setGetter(this.getContent)
@@ -87,7 +88,7 @@ export default defineComponent({
   methods: {
     toTemplate(){
       this.$axios.post('/template/create',{
-        'name': this.graphName,
+        'name': this.$store.state.loginUser.userId+Math.random().toString(),
         'type': 2,
         'creatorId': this.$store.state.loginUser.userId,
         'intro': '我是模板',

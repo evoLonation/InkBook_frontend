@@ -11,7 +11,7 @@ import {Graph} from '@antv/x6'
 import axios from "axios";
 export default {
   name: "GraphPreview",
-  props: ["graphId", "graphName"],
+  props: ["content"],
   setup(){
     const isReady = ref(false)
     return{
@@ -39,16 +39,7 @@ export default {
         height: 800,
         grid: false,
       });
-      axios.get('graph/get', {
-        params: {
-          graphId: this.graphId
-        }
-      }).then((response) => {
-          console.log(response.data.msg)
-          this.setContent(response.data.content)
-      }).catch((err) => {
-        console.log(err)
-      })
+      this.graph.fromJSON(JSON.parse(this.content))
     }
   }
 }

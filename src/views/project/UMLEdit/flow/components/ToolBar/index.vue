@@ -104,6 +104,7 @@ import FlowGraph from '../../graph'
 import {DataUri} from '@antv/x6'
 import axios from "axios";
 import store from "@/store"
+import {Graph} from "@antv/x6";
 import {ElMessage} from "element-plus";
 import router from "@/router"
 import {CopyDocument, Delete, RefreshLeft} from "@element-plus/icons";
@@ -193,16 +194,16 @@ export default defineComponent({
       copy,
       cut,
       paste,
+      graph,
     }
   },
   methods: {
     preview(){
-      console.log('id1:', this.graphId);
-      this.$router.push({name: 'umlPreview', params:{graphId: this.graphId}})
+      this.saveGraph(this.graph.toJSON().cells)
+      setTimeout(()=>{this.$router.push({name: 'umlPreview', params:{graphId: this.graphId}})},500)
     },
 
     saveGraph(cells) {
-
       axios.post('/graph/save', {
         "graphId": parseInt(this.graphId),
         "userId": store.state.loginUser.userId,
@@ -217,6 +218,17 @@ export default defineComponent({
       }).catch((err) => {
         console.log(err)
       })
+      let blob
+      this.graph.toPNG((datauri: string) => {
+        blob = DataUri.dataUriToBlob(datauri)
+        const f = new FormData()
+        f.append('graphId', this.graphId)
+        f.append('newImg', blob)
+        this.$axios.post('/graph/modify/img', f).then(res=>{
+          console.log(res.data.mag)
+        })
+      })
+
     },
 
     quitEdit() {

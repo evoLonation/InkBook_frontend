@@ -1,8 +1,8 @@
 <template>
   <div class="top-layout">
-    <div class="project-name">
-      <img class="project-pic" src="../../assets/Team/测试头像.jpg" alt="">
-      <span class="project-my-name">我们的项目</span>
+    <div class="project-name" @click="this.$router.push({name: 'teamProject'})">
+      <img class="project-pic" :src="'http://43.138.71.108/api/project/get-img?projectId='+ this.$store.state.selectProject.proId" alt="">
+      <span class="project-my-name">{{ this.$store.state.selectProject.proName }}</span>
       <el-icon class="change-project"><Switch/></el-icon>
     </div>
     <el-menu
@@ -53,8 +53,8 @@ export default {
 }
 
 .project-name {
-  width: 30%;
-  height: 50%;
+  width: 250px;
+  height: 50px;
   float: right;
   margin-right: 5%;
   display: flex;
@@ -69,14 +69,17 @@ export default {
 }
 
 .project-pic {
-  width: 18%;
-  height: 70%;
-  border-radius: 40px;
-  margin: auto 0 auto 10%;
+  width: 70px;
+  height: 50px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-right: 1px dashed lightgray;
+  /*border-radius: 40px;*/
+  margin: auto 0 auto 0;
 }
 
 .project-my-name {
-  height: 25px;
+  height: 17px;
   font-size: 17px;
   font-weight: bold;
   margin: auto;
@@ -103,8 +106,8 @@ export default {
 
 .main-container {
   width: 80%;
-  height: 69vh;
-  margin: 4% auto 0 auto;
+  height: 70vh;
+  margin: 2% auto 0 auto;
   padding: 40px;
   background-color: white;
   border-top-left-radius: 20px;

@@ -1,6 +1,6 @@
 <template >
   <div style="background-color: lightcyan; width: 100%;min-height: 100vh;margin-top: 0">
-    <el-button round style="margin: 20px 120px;float: right;color: white;background-color: royalblue" @click="this.$router.push({name: 'protoList'})">退出预览</el-button>
+    <el-button round style="margin: 20px 120px;float: right;color: white;background-color: royalblue" @click="this.quit()">退出预览</el-button>
     <div style="margin: 50px 100px 50px 100px;border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: white">
       <div id="container1" class="x6-proto" style="display: inline-block;"/>
     </div>
@@ -36,6 +36,17 @@ export default {
       this.initGraph()
     },
     methods: {
+      quit(){
+        axios.post('/prototype/set-preview',{
+          'protoId': this.protoId,
+          'type': 'close',
+        }).then(res=>{
+          console.log(res.data.msg)
+        }).catch(err=>{
+          console.log(err)
+        })
+        this.$router.push({name: 'proto'})
+      },
       setContent(data) {
         console.log(data)
         this.proto.fromJSON(JSON.parse(data))

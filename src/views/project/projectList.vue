@@ -1,10 +1,28 @@
 <template>
   <div style="width: 1250px">
-    <div style="display: flex">
+    <div style="width: 100%; display: flex">
+      <el-input
+          v-model="search"
+          class="project-el-input"
+          placeholder="输入文件名称"
+      >
+        <template #prefix>
+          <el-icon>
+            <search/>
+          </el-icon>
+        </template>
+        <template #append>
+          <el-button
+              style="font-weight: bold"
+          >
+            搜索
+          </el-button>
+        </template>
+      </el-input>
       <el-button
           style="height: 50px;
           margin-top: 7%;
-          margin-left: 75%;
+          margin-left: 25%;
           color: white;
           font-weight: bold;
           border-radius: 30px;
@@ -14,9 +32,139 @@
         </el-icon>
         <span style="vertical-align: middle" @click="createVisible=true">新建项目</span>
       </el-button>
+      <div
+          style="margin-left: 10%; margin-top: 7%; float: right;"
+      >
+        <el-dropdown
+            class="my-el-dropdown"
+        >
+        <span
+            class="el-dropdown-link"
+        >
+          &nbsp;<el-icon><Filter/></el-icon>
+        </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                  class="my-dropdown-item"
+              >
+                按创建时间排序
+                <el-button-group
+                  id="my-el-btn-group1"
+                  style="margin-left: 60px;"
+                >
+                  <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="早到晚"
+                      placement="bottom"
+                  >
+                    <el-button class="button"
+                               round>
+                      <el-icon>
+                        <sort-down/>
+                      </el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="晚到早"
+                      placement="bottom"
+                  >
+                    <el-button class="button"
+                               @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
+                               round>
+                      <el-icon>
+                        <sort-up/>
+                      </el-icon>
+                    </el-button>
+                  </el-tooltip>
+                </el-button-group>
+              </el-dropdown-item>
+              <el-dropdown-item
+                  class="my-dropdown-item"
+              >
+                按项目名称排序
+                <el-button-group
+                    id="my-el-btn-group2"
+                    style="margin-left: 60px"
+                >
+                  <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="早到晚"
+                      placement="bottom"
+                  >
+                    <el-button class="button"
+                               round>
+                      <el-icon>
+                        <sort-down/>
+                      </el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="晚到早"
+                      placement="bottom"
+                  >
+                    <el-button class="button"
+                               @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
+                               round>
+                      <el-icon>
+                        <sort-up/>
+                      </el-icon>
+                    </el-button>
+                  </el-tooltip>
+                </el-button-group>
+              </el-dropdown-item>
+              <el-dropdown-item
+                  class="my-dropdown-item"
+              >
+                按创建作者排序
+                <el-button-group
+                    id="my-el-btn-group3"
+                    style="margin-left: 60px"
+                >
+                  <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="早到晚"
+                      placement="bottom"
+                  >
+                    <el-button class="button"
+                               round>
+                      <el-icon>
+                        <sort-down/>
+                      </el-icon>
+                    </el-button>
+                  </el-tooltip>
+                  <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="晚到早"
+                      placement="bottom"
+                  >
+                    <el-button class="button"
+                               @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
+                               round>
+                      <el-icon>
+                        <sort-up/>
+                      </el-icon>
+                    </el-button>
+                  </el-tooltip>
+                </el-button-group>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
     <div class="folder-guide"></div>
-    <el-row>
+    <el-row
+      style="width: 100%;"
+    >
       <el-col
           style="margin-top: 35px"
           :span="6"
@@ -139,20 +287,20 @@
 <script>
 import {ElMessage} from "element-plus";
 import {ref} from 'vue'
+import {Filter, Rank, SortDown, SortUp} from "@element-plus/icons";
 
 export default {
   name: "projectList",
+  components: {SortUp, SortDown, Filter, Rank},
   setup() {
     return {
       input: ref(''),
       input2: ref(''),
     }
   },
-  mounted() {
-    this.getProject()
-  },
   data() {
     return {
+      search: '',
       projects: [],
       projectNum: Number,
       createVisible: false,
@@ -302,7 +450,10 @@ export default {
       }).catch((err) => {
         console.log(err);
       })
-    }
+    },
+  },
+  mounted() {
+    this.getProject()
   }
 }
 </script>
@@ -312,6 +463,13 @@ export default {
   width: 100px;
   font-size: 10px;
   color: #999;
+}
+
+.project-el-input {
+  left: 15%;
+  width: 40%;
+  height: 50px;
+  margin-top: 7%;
 }
 
 .bottom {
@@ -358,5 +516,40 @@ export default {
 <style>
 .dialog {
   border-radius: 25px;
+}
+
+.el-dropdown-link {
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.my-el-dropdown {
+  background-color: royalblue;
+  width: 50px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 15px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.my-dropdown-item {
+  display: flex;
+  width: 250px;
+  height: 50px;
+}
+
+.my-dropdown-item:hover {
+  background-color: white;
 }
 </style>

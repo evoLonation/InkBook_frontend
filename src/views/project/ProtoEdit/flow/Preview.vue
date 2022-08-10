@@ -8,7 +8,7 @@
     <el-menu-item :index="proto" v-for="proto in this.protoList" :key="proto.protoId">{{proto.protoName}}</el-menu-item>
   </el-menu>
   <div style="width: 100%;min-height: 100vh;margin-top: 10px">
-    <div style="margin-left: auto;margin-right:auto; min-width: 200px; max-width: 800px; border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: lightcyan; ">
+    <div style="margin-left: auto;margin-right:auto; min-width: 200px; max-width: 1500px; border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: lightcyan; ">
       <div id="container1" class="x6-proto" style="display: inline-block;"/>
     </div>
   </div>

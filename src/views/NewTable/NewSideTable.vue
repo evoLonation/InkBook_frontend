@@ -120,7 +120,9 @@
   <div
     class="my-main"
   >
-    <router-view/>
+    <el-scrollbar>
+      <router-view/>
+    </el-scrollbar>
   </div>
 </div>
 </template>
@@ -239,6 +241,7 @@ export default {
 .my-el-menu-item {
   padding-top: 5%;
   padding-bottom: 5%;
+  height: 45px;
   font-size: 15px
 }
 

@@ -18,7 +18,7 @@
       </el-button>
     </div>
     <div id="team-list">
-      <el-scrollbar height="630px">
+      <el-scrollbar height="530px">
         <div
             v-for="(team, index) in teamList"
              :key="team.teamId"
@@ -183,7 +183,7 @@
 <style scoped>
 #list-layout {
   width: 1000px;
-  height: 800px;
+  height: 700px;
   border: solid #DCDCDC 3px;
   border-radius: 10px;
   margin: 4% auto auto auto;

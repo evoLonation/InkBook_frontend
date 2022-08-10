@@ -1,18 +1,18 @@
 <template>
-    <a-tabs
-        style="margin-top:0"
-        default-active-key="1"
-        tab-position="top"
-        :destroy-inactive-tab-pane="true"
-        size="small"
-        >
-      <a-tab-pane :key="graphId" :tab="graphName">
+<!--    <a-tabs-->
+<!--        style="margin-top:0"-->
+<!--        default-active-key="1"-->
+<!--        tab-position="top"-->
+<!--        :destroy-inactive-tab-pane="true"-->
+<!--        size="small"-->
+<!--        >-->
+<!--      <a-tab-pane :key="graphId" :tab="graphName">-->
       <flow :graphId="graphId" :graphName="graphName"/>
-      </a-tab-pane>
+<!--      </a-tab-pane>-->
 <!--        <a-tab-pane :key="graph.graphId" :tab="graph.name" v-for="graph in this.graphList">-->
 <!--          <flow :graphId="graph.graphId" :graphName="graph.name"/>-->
 <!--        </a-tab-pane>-->
-    </a-tabs>
+<!--    </a-tabs>-->
 </template>
 
 <script>

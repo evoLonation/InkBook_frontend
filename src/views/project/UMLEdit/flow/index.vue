@@ -16,7 +16,7 @@
         <config-panel v-if="isReady"/>
       </div>
     </div>
-    <Collaboration :docId="this.graphId" ref="Collaboration"/>
+    <Collaboration :id="this.graphId" ref="Collaboration" type="uml"/>
   </div>
 </template>
 
@@ -60,6 +60,7 @@ export default defineComponent({
   },
   mounted() {
     this.initGraph()
+    console.log('即将调用一次start！！！！！！！！！！！')
     this.$refs.Collaboration.setSetter(this.setContent)
     this.$refs.Collaboration.setGetter(this.getContent)
     this.$refs.Collaboration.start()

@@ -776,22 +776,6 @@ export default class FlowGraph {
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {
     console.log('id:',graphId)
-    axios.get('/prototype/get', {
-      params: {
-        protoId: parseInt(graphId)
-      }
-    }).then((response) => {
-      if (response.status === 409){
-        ElMessage('当前图正在被编辑！')
-        router.push({name: "TopTable"})
-      }
-      else {
-        console.log(response.data.msg)
-        this.setContent(JSON.parse(response.data.content))
-      }
-    }).catch((err) => {
-      console.log(err)
-    })
   }
 
   private static showPorts(ports: NodeListOf<SVGAElement>, show: boolean) {

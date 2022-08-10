@@ -1,18 +1,18 @@
 <template>
-  <a-tabs
-      style="margin-top:0"
-      default-active-key="1"
-      tab-position="top"
-      :destroy-inactive-tab-pane="true"
-      size="small"
-  >
-    <a-tab-pane :key="this.protoId" :tab="this.protoName">
+<!--  <a-tabs-->
+<!--      style="margin-top:0"-->
+<!--      default-active-key="1"-->
+<!--      tab-position="top"-->
+<!--      :destroy-inactive-tab-pane="true"-->
+<!--      size="small"-->
+<!--  >-->
+<!--    <a-tab-pane :key="this.protoId" :tab="this.protoName">-->
       <flow :graphId="this.protoId" :graphName="this.protoName"/>
-    </a-tab-pane>
+<!--    </a-tab-pane>-->
 <!--    <a-tab-pane :key="graph.protoId" :tab="graph.protoName" v-for="graph in this.graphList">-->
 <!--      <flow :graphId="graph.protoId" :graphName="graph.protoName"/>-->
 <!--    </a-tab-pane>-->
-  </a-tabs>
+<!--  </a-tabs>-->
 </template>
 
 <script>

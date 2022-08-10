@@ -41,12 +41,19 @@ export default {
   },
 
   setup(props) {
+
     let setContent;
     let getContent;
     const userId = useStore().state.loginUser.userId;
     const nickname = useStore().state.loginUser.nickname;
     // eslint-disable-next-line vue/no-setup-props-destructure
-    const id = props.id;
+    let id = props.id;
+    if(props.type === 'uml'){
+      id = useStore().state.graph.graphId;
+    }else if(props.type === 'prototype'){
+      id = useStore().state.proto.protoId;
+    }
+    console.log('in collaboration, id is' + id)
     const keepEditTime = 3000;
     const checkUpdateTime = 500;
     let needUpdate = false;

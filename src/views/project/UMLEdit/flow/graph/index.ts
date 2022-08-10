@@ -440,22 +440,6 @@ export default class FlowGraph {
   private static initGraphShape(graphId) {
     this.graphId = graphId
     console.log(graphId)
-    axios.get('graph/get', {
-      params: {
-        graphId: graphId
-      }
-    }).then((response) => {
-      if (response.status === 409){
-        ElMessage('当前图正在被编辑！')
-        router.push({name: "TopTable"})
-      }
-      else {
-        console.log(response.data.msg)
-        this.setContent(JSON.parse(response.data.content))
-      }
-    }).catch((err) => {
-      console.log(err)
-    })
   }
 
   private static showPorts(ports: NodeListOf<SVGAElement>, show: boolean) {

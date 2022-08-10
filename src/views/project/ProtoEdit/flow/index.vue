@@ -16,7 +16,7 @@
         <config-panel v-if="isReady"/>
       </div>
     </div>
-    <Collaboration :docId="this.graphId" ref="Collaboration"/>
+    <Collaboration :id="this.graphId" ref="Collaboration"  type="prototype"/>
   </div>
 </template>
 

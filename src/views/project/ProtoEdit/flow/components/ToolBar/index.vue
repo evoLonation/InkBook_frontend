@@ -218,19 +218,7 @@ export default defineComponent({
     },
 
     quitEdit() {
-      axios.post('/prototype/exit', {
-        "protoId": parseInt(this.graphId),
-        "userId": store.state.loginUser.userId,
-      }).then((response) => {
-        if (response.status === 200) {
-          console.log(response.data.msg)
           router.push({name: 'TopTable'})
-        } else {
-          ElMessage('其他错误')
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
     },
 
     handleClick(event: Event) {

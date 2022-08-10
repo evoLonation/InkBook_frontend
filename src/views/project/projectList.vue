@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 1250px">
+  <div style="width: 1200px">
     <div style="width: 100%; display: flex">
       <el-input
           v-model="search"
@@ -96,55 +96,57 @@
       </div>
     </div>
     <div class="folder-guide"></div>
-    <el-row
-      style="width: 100%;"
-    >
-      <el-col
-          style="margin-top: 35px"
-          :span="6"
-          v-for="i in projects.length"
-          :key="projects[i-1]">
-        <el-card id="project-card" :body-style="{ padding: '0px' }"
-                 style="width: 250px; height: auto; border-radius: 25px;" shadow="hover"
-                  >
-          <meta name="referrer" content="no-referrer"/>
-          <el-image
-              :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
-              @click="this.curProjectId=projects[i-1].id; this.curProjectName=projects[i-1].name; this.openProject()"
-              class="image"></el-image>
-          <div style="padding: 14px;">
-            <span>{{ projects[i - 1].name }}</span>
-            <div class="bottom">
-              <text class="text">{{ projects[i - 1].detail }}</text>
-              <el-button-group>
-                <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="拷贝"
-                    placement="bottom"
-                >
-                  <el-button class="button"
-                             @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; this.copyProject()"
-                             round>
-                    <el-icon color="lightblue">
-                      <CopyDocument/>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="编辑"
-                    placement="bottom"
-                >
-                  <el-button class="button"
-                             @click="renameVisible=true; curProjectId=this.projects[i-1].id; curProjectName= input = this.projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;"
-                             round>
-                    <el-icon color="gray">
-                      <Edit/>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
+    <div style="height: 69vh">
+      <el-scrollbar>
+        <el-row
+            style="width: 80%; margin-left: auto;margin-right: auto;"
+        >
+          <el-col
+              style="margin-top: 35px"
+              :span="7"
+              v-for="i in projects.length"
+              :key="projects[i-1]">
+            <el-card id="project-card" :body-style="{ padding: '0px' }"
+                     style="width: 230px; height: auto; border-radius: 25px;" shadow="hover"
+            >
+              <meta name="referrer" content="no-referrer"/>
+              <el-image
+                  :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
+                  @click="this.curProjectId=projects[i-1].id; this.curProjectName=projects[i-1].name; this.openProject()"
+                  class="image"></el-image>
+              <div style="padding: 14px;">
+                <span>{{ projects[i - 1].name }}</span>
+                <div class="bottom">
+                  <text class="text">{{ projects[i - 1].detail }}</text>
+                  <el-button-group>
+                    <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="拷贝"
+                        placement="bottom"
+                    >
+                      <el-button class="button"
+                                 @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; this.copyProject()"
+                                 round>
+                        <el-icon color="lightblue">
+                          <CopyDocument/>
+                        </el-icon>
+                      </el-button>
+                    </el-tooltip>
+                    <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="编辑"
+                        placement="bottom"
+                    >
+                      <el-button class="button"
+                                 @click="renameVisible=true; curProjectId=this.projects[i-1].id; curProjectName= input = this.projects[i-1].name; curProjectDetail = input2 = projects[i-1].detail;"
+                                 round>
+                        <el-icon color="gray">
+                          <Edit/>
+                        </el-icon>
+                      </el-button>
+                    </el-tooltip>
                     <el-tooltip
                         class="item"
                         effect="dark"
@@ -157,12 +159,16 @@
                         </el-icon>
                       </el-button>
                     </el-tooltip>
-              </el-button-group>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+                  </el-button-group>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </el-scrollbar>
+    </div>
+
+
     <el-dialog
         v-model="createVisible"
         width="25%"

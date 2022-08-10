@@ -15,6 +15,8 @@ export function nodeOpt(id: any, globalGridAttr: any){
         globalGridAttr.nodeFontSize = cell.attr('text/fontSize')
         globalGridAttr.nodeColor = cell.attr('text/fill')
         globalGridAttr.nodeUsers = cell.attr('approve/users')
+        globalGridAttr.imageUrl = cell.attr('image/href')
+        globalGridAttr.nodeText = cell.attr('text/text')
     }
     return curCel;
 }

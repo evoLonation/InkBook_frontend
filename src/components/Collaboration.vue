@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="isOpen = true">
+  <el-button style="height: 50px" text @click="isOpen = true">
     {{editors.length}} 人编辑， 最后修改：{{formatTime(lastModifier.time)}} by {{lastModifier.nickname}}
   </el-button>
   <el-drawer v-model="isOpen" :with-header="false" size="300px" :modal="true">

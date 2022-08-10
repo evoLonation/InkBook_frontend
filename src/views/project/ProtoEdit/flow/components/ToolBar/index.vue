@@ -193,12 +193,23 @@ export default defineComponent({
       copy,
       cut,
       paste,
+      graph,
     }
   },
   methods: {
     preview(){
-      this.saveGraph(this.graph)
-      this.$router.push({name: 'protoPreview', params:{protoId: this.graphId}})
+      this.saveGraph(this.graph.toJSON().cells)
+      setTimeout(()=>{
+        axios.post('/prototype/set-preview',{
+          'protoId': this.graphId,
+          'type': 'open',
+        }).then(res=>{
+          console.log(res.data.msg)
+        }).catch(err=>{
+          console.log(err)
+        })
+      },500)
+      setTimeout(()=>{this.$router.push({name: 'protoPreview', params:{protoId: this.graphId}})},500)
     },
     saveGraph(cells) {
       axios.post('/prototype/save', {
@@ -214,6 +225,16 @@ export default defineComponent({
         }
       }).catch((err) => {
         console.log(err)
+      })
+      let blob
+      this.graph.toPNG((datauri: string) => {
+        blob = DataUri.dataUriToBlob(datauri)
+      })
+      const f = new FormData()
+      f.append('protoId', this.graphId)
+      f.append('newImg', blob)
+      this.$axios.post('/prototype/modify/img', f).then(res=>{
+        console.log(res.data.mag)
       })
     },
 

@@ -687,78 +687,33 @@ export default class FlowGraph {
     });
 
     const k1 = graph.createNode({
-      width: 100,
-      height: 50,
-      shape: 'html',
-      html() {
-        const wrap = document.createElement('img')
-        wrap.style.width = '100%'
-        wrap.style.height = '100%'
-        wrap.src = ''
-        return wrap
-      },
-    });
-
-    const k2 = graph.createNode({
-      width: 100,
-      height: 50,
-      shape: 'html',
-      html() {
-        const wrap = document.createElement('input')
-        wrap.style.width = '100%'
-        wrap.style.height = '100%'
-        wrap.style.background = '#f0f0f0'
-        wrap.style.textAlign = 'center'
-        wrap.placeholder = '按钮文本'
-        return wrap
-      },
+      shape: "my-button",
+      width: 80,
+      height: 40,
     });
 
     const k3 = graph.createNode({
+      shape: "my-hr",
       width: 50,
       height: 50,
-      shape: 'html',
-      html() {
-        const wrap = document.createElement('hr')
-        wrap.color = '#111'
-        return wrap
-      },
     });
 
     const k4 = graph.createNode({
-      width: 100,
-      height: 50,
-      shape: 'html',
-      html() {
-        const wrap = document.createElement('input')
-        wrap.style.width = '100%'
-        wrap.style.height = '100%'
-        wrap.style.textAlign = 'center'
-        wrap.placeholder = '输入框'
-        return wrap
-      },
+      shape: "my-input",
+      width: 80,
+      height: 40,
     });
 
     const k5 = graph.createNode({
+      shape: "my-select1",
       width: 10,
       height: 50,
-      shape: 'html',
-      html() {
-        const wrap = document.createElement('input')
-        wrap.type = 'radio'
-        return wrap
-      },
     });
 
     const k6 = graph.createNode({
+      shape: "my-select2",
       width: 10,
       height: 50,
-      shape: 'html',
-      html() {
-        const wrap = document.createElement('input')
-        wrap.type = 'checkbox'
-        return wrap
-      },
     });
 
 
@@ -771,7 +726,7 @@ export default class FlowGraph {
 
     this.stencil.load([r1, r2, r5, r6, r3, r4, r8, r9, r10, r11, r12, r14], 'basic')
     this.stencil.load([i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16], 'combination')
-    this.stencil.load([r7, k4, k1, k2, k3, zzy, k5, k6], 'group')
+    this.stencil.load([r7, k4, k1, k3, zzy, k5, k6], 'group')
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {

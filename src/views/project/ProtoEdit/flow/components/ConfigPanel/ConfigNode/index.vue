@@ -27,7 +27,7 @@
       <a-row align="middle">
         <a-col :span=8>字体大小</a-col>
         <a-col :span=12>
-          <a-slider :min=8 :max=16 :step=1 :value="globalGridAttr.nodeFontSize" @change="onFontSizeChange"/>
+          <a-slider :min=8 :max=32 :step=1 :value="globalGridAttr.nodeFontSize" @change="onFontSizeChange"/>
         </a-col>
         <a-col :span=2>
           <div class="result">{{ globalGridAttr.nodeFontSize }}</div>

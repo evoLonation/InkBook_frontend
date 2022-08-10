@@ -17,8 +17,11 @@ import avatar13 from '@/components/icon/avatar13.vue'
 import avatar14 from '@/components/icon/avatar14.vue'
 import avatar15 from '@/components/icon/avatar15.vue'
 import avatar16 from '@/components/icon/avatar16.vue'
-import button from '@/components/button/button.vue'
-
+import Button from '@/components/button/button.vue'
+import HR from '@/components/button/hr.vue'
+import Input from '@/components/button/input.vue'
+import select1 from '@/components/button/select1.vue'
+import select2 from '@/components/button/select2.vue'
 
 Graph.registerNode('flow-chart-Rect', {
   inherit: 'rect',
@@ -357,9 +360,49 @@ Graph.registerNode('my-avatar16', {
 Graph.registerNode('my-button', {
   inherit: "vue-shape",
   component: {
-    template: `<button />`,
+    template: `<Button />`,
     components: {
-      button
+      Button
+    },
+  },
+})
+
+Graph.registerNode('my-hr', {
+  inherit: "vue-shape",
+  component: {
+    template: `<HR />`,
+    components: {
+      HR
+    },
+  },
+})
+
+Graph.registerNode('my-input', {
+  inherit: "vue-shape",
+  component: {
+    template: `<Input />`,
+    components: {
+      Input
+    },
+  },
+})
+
+Graph.registerNode('my-select1', {
+  inherit: "vue-shape",
+  component: {
+    template: `<select1 />`,
+    components: {
+      select1
+    },
+  },
+})
+
+Graph.registerNode('my-select2', {
+  inherit: "vue-shape",
+  component: {
+    template: `<select2 />`,
+    components: {
+      select2
     },
   },
 })

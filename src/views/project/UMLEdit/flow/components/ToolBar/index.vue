@@ -302,7 +302,7 @@ export default defineComponent({
 }
 .item-space {
   display: flex;
-  width: 60px;
+  width: 50px;
   height: 38px;
 }
 </style>

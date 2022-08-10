@@ -27,7 +27,7 @@
 
 <script>
 import {Switch} from "@element-plus/icons";
-import store from'@/store'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default {
   name: "NewTopTable",
   components: {Switch},
@@ -39,6 +39,7 @@ export default {
   mounted() {
     if (this.$route.params.type !== 'uml' && this.$route.params.type !== 'proto' ){
       this.listType = this.$store.state.list.listType
+      console.log('neither', this.listType)
     }
     else{
       this.listType = this.$route.params.type
@@ -52,7 +53,7 @@ export default {
   },
   methods:{
     toDoc(){
-      this.$store.commit({type: 'list', listType: this.listType})
+      this.$store.commit({type: 'list', listType: ''})
       console.log(this.$store.state.list.listType)
       this.$router.push({name: 'DocumentList'})
     },

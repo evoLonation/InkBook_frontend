@@ -312,8 +312,8 @@ export default defineComponent({
   margin-right: 16px;
 }
 .item-space {
-  margin-left: 100px;
-  width: 70px;
+  margin-left: 50px;
+  width: 50px;
   height: 30px;
 }
 </style>

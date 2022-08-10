@@ -22,6 +22,7 @@ import './index.less'
 import {Graph} from '@antv/x6'
 import axios from "axios";
 import './graph/shape.ts'
+import {ElMessage} from "element-plus";
 export default {
   name: "Preview",
 
@@ -62,7 +63,17 @@ export default {
       },
       handleSelect(key, keyPath) {
         console.log('content',key.content)
-        this.setContent(JSON.parse(key.content))
+        this.$axios.get('/prototype/get-preview',{
+          params: {
+            'protoId': key.protoId
+          }
+        }).then(res=>{
+          console.log(res.data.msg)
+          if (res.data.type === 'close')
+            ElMessage('该页面预览已关闭')
+          else
+            this.setContent(JSON.parse(key.content))
+        })
       },
       setContent(data) {
         console.log('data',data)

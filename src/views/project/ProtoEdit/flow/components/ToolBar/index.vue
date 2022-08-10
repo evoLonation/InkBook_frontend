@@ -253,15 +253,6 @@ export default defineComponent({
         console.log(err)
       })
       this.showClose = false
-      // this.$axios.post('/prototype/get-preview',{
-      //   'protoId': this.graphId
-      // }).then(res=>{
-      //   console.log(res.data.msg)
-      //   if (res.data.type === 'close')
-      //     this.showClose = false
-      //   else
-      //     this.showClose = true
-      // })
     },
     copyLink(){
       const input = document.getElementById('input')! as any; // 承载复制内容

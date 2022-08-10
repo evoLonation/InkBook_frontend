@@ -3,7 +3,11 @@
     {{editors.length}} 人编辑， 最后修改：{{formatTime(lastModifier.time)}} by {{lastModifier.nickname}}
   </el-button>
   <el-drawer v-model="isOpen" :with-header="false" size="300px" :modal="true">
-    <span style="font-size: 20px">参与协作成员：</span>
+    <span
+        class="participants"
+    >
+      参与协作成员：
+    </span>
     <div v-for="editor of editors" v-bind:key="editor" style="display: flex;">
       <el-avatar :size="50" :src="'http://43.138.71.108/api/user/get-avatar/?userId=' + editor.userId" />
       <div>{{editor.nickname}}</div>
@@ -257,5 +261,8 @@ export default {
 </script>
 
 <style scoped>
-
+.participants {
+  font-size: 20px;
+  font-weight: bold;
+}
 </style>

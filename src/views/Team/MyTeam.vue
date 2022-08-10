@@ -13,7 +13,7 @@
             id="team-name"
             v-if="isChanged === false"
         >
-          <span>{{TeamName}}</span>
+          <span>{{ModifiedName}}</span>
         </div>
         <div>
           <el-input
@@ -389,6 +389,21 @@ export default {
       MemList: null,
       isChanged: false,
       MonitorNum: -1,
+    }
+  },
+  computed: {
+    ModifiedName() {
+      if(this.TeamName.length <= 7){
+        return this.TeamName;
+      }
+      else{
+        var tmp = "";
+        for(var i = 0; i < 4; i++){
+          tmp += this.TeamName[i];
+        }
+        tmp += '…';
+        return tmp;
+      }
     }
   },
   methods : {

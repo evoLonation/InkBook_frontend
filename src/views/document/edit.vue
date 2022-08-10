@@ -3,25 +3,13 @@
 
   <div id = "top">
     <div style="display: flex;height: 50px">
-      <img src="@/assets/logo.png"/>
-      <div style="margin: auto 0 auto 0"><h2>123</h2></div>
-      <el-button  icon="Expand"  style="width: 50px;height: 40px" />
-      <el-button  icon="Download"  style="width: 50px;height: 40px" />
-      <div style="margin: auto 0 auto 0">
-        <el-icon><Expand /></el-icon>
-      </div>
-      <div style="margin: auto 0 auto 0" @click="clickExportPdf">
-        <el-icon><Download /></el-icon>
-      </div>
-      <div style="margin: auto 0 auto 0" @click="clickExportMd">
-        <el-icon><Download /></el-icon>
-      </div>
+
       <Collaboration :id="docId" ref="collaboration" type="doc"></Collaboration>
-      <div>
-        <input v-model="tempName"/>
-        <input v-model="tempIntro"/>
-        <el-button @click="clickCreateTemp">创建模板</el-button>
-      </div>
+<!--      <div>-->
+<!--        <input v-model="tempName"/>-->
+<!--        <input v-model="tempIntro"/>-->
+<!--        <el-button @click="clickCreateTemp">创建模板</el-button>-->
+<!--      </div>-->
 
     </div>
     <div >

@@ -226,16 +226,20 @@ export default defineComponent({
       }).catch((err) => {
         console.log(err)
       })
+      console.log('inpng')
       let blob
       this.graph.toPNG((datauri: string) => {
         blob = DataUri.dataUriToBlob(datauri)
+        console.log(blob)
+        const f = new FormData()
+        f.append('protoId', this.graphId)
+        f.append('newImg', blob)
+        console.log(blob)
+        this.$axios.post('/prototype/modify/img', f).then(res=>{
+          console.log(res.data.mag)
+        })
       })
-      const f = new FormData()
-      f.append('protoId', this.graphId)
-      f.append('newImg', blob)
-      this.$axios.post('/prototype/modify/img', f).then(res=>{
-        console.log(res.data.mag)
-      })
+
     },
 
     quitEdit() {

@@ -221,13 +221,14 @@ export default defineComponent({
       let blob
       this.graph.toPNG((datauri: string) => {
         blob = DataUri.dataUriToBlob(datauri)
+        const f = new FormData()
+        f.append('graphId', this.graphId)
+        f.append('newImg', blob)
+        this.$axios.post('/graph/modify/img', f).then(res=>{
+          console.log(res.data.mag)
+        })
       })
-      const f = new FormData()
-      f.append('graphId', this.graphId)
-      f.append('newImg', blob)
-      this.$axios.post('/graph/modify/img', f).then(res=>{
-        console.log(res.data.mag)
-      })
+
     },
 
     quitEdit() {

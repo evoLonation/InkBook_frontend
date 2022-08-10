@@ -36,8 +36,8 @@
           <el-card id="project-card" :body-style="{ padding: '0px' }"
                    style="width: 250px; height: auto; border-radius: 25px" shadow="hover">
             <meta name="referrer" content="no-referrer"/>
-            <img
-                :src="projects[i-1].imgUrl"
+            <el-image
+                :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
                 class="image"
                 alt=""/>
             <div style="padding: 14px;">

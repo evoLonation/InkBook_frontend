@@ -105,7 +105,8 @@
           v-for="i in projects.length"
           :key="projects[i-1]">
         <el-card id="project-card" :body-style="{ padding: '0px' }"
-                 style="width: 250px; height: auto; border-radius: 25px;" shadow="hover">
+                 style="width: 250px; height: auto; border-radius: 25px;" shadow="hover"
+                  @click="this.curProjectId=projects[i-1].id; this.curProjectName=projects[i-1].name; this.openProject()">
           <meta name="referrer" content="no-referrer"/>
           <el-image
               :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
@@ -118,14 +119,14 @@
                 <el-tooltip
                     class="item"
                     effect="dark"
-                    content="进入"
+                    content="拷贝"
                     placement="bottom"
                 >
                   <el-button class="button"
-                             @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; openProject()"
+                             @click="curProjectId=this.projects[i-1].id; curProjectName= this.projects[i-1].name; this.copyProject()"
                              round>
                     <el-icon color="lightblue">
-                      <Folder/>
+                      <CopyDocument/>
                     </el-icon>
                   </el-button>
                 </el-tooltip>
@@ -149,7 +150,7 @@
                         content="删除"
                         placement="bottom"
                     >
-                      <el-button class="button" @click="this.curProjectId=this.projects[i-1].id;deleteVisible=true" round>
+                      <el-button class="button" @click="this.curProjectId=this.projects[i-1].id;this.deleteProject()" round>
                         <el-icon color="orange">
                           <delete/>
                         </el-icon>
@@ -203,30 +204,18 @@
       </span>
       </template>
     </el-dialog>
-    <el-dialog
-        title="确认删除吗"
-        v-model="deleteVisible"
-        width="25%"
-        custom-class="dialog">
-      <span>删除后可以在回收站找回</span>
-      <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="deleteVisible = false; deleteProject()" color="royalblue" circle><el-icon><Select /></el-icon></el-button>
-      </span>
-      </template>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import {ElMessage} from "element-plus";
 import {ref} from 'vue'
-import {Filter, Rank, SortDown, SortUp} from "@element-plus/icons";
+import {CopyDocument, Filter, Rank, SortDown, SortUp} from "@element-plus/icons";
 
 export default {
   name: "projectList",
   // eslint-disable-next-line vue/no-unused-components
-  components: {SortUp, SortDown, Filter, Rank},
+  components: {CopyDocument, SortUp, SortDown, Filter, Rank},
   setup() {
     return {
       input: ref(''),
@@ -250,6 +239,14 @@ export default {
     }
   },
   methods: {
+    copyProject(){
+      this.axios.post('project/copy',{
+        'projectId': this.curProjectId
+      }).then(res=>{
+        console.log(res.data.msg)
+        setTimeout(()=>{this.getProject()},700)
+      })
+    },
     sortProject(mod){
       if (mod === 'time1')
         this.projects.sort(function(a,b){
@@ -500,6 +497,7 @@ export default {
 }
 #project-card:hover {
   box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
+  cursor: pointer;
 }
 </style>
 

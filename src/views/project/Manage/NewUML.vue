@@ -22,10 +22,11 @@
     >
       <el-card id="project-card" :body-style="{ padding: '0px' }"
                style="width: 230px; height: auto; border-radius: 20px;" shadow="hover"
-               @click="this.curGraphId=graph.graphId;deleteGraph(graph.graphId)">
+               >
         <meta name="referrer" content="no-referrer"/>
         <img
             src="../../../assets/Project/UML图布局.jpeg"
+            @click="this.curGraphId=graph.graphId;openGraph(graph.graphId, graph.name)"
             class="image"/>
                 <div style="padding: 10px">
                   <span>{{graph.docName}}</span>
@@ -79,11 +80,11 @@
     </el-col>
   </el-row>
   <el-dialog
-      title="编辑UML信息"
       v-model="dialogVisible2"
       width="25%"
       custom-class="dialog">
-    <span>请输入新的UML信息</span>
+    <h1>重命名</h1>
+    <span>请输入新的UML名称</span>
     <el-input class="input" v-model="graphName" placeholder="UML名称" clearable></el-input>
     <template #footer>
       <span class="dialog-footer">

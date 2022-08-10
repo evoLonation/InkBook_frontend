@@ -22,10 +22,11 @@
     >
       <el-card id="project-card" :body-style="{ padding: '0px' }"
                style="width: 230px; height: auto; border-radius: 20px;" shadow="hover"
-               @click="openGraph(graph.protoId, graph.protoName)">
+               >
         <meta name="referrer" content="no-referrer"/>
         <img
             src="../../../assets/Project/设计原型.jpeg"
+            @click="openGraph(graph.protoId, graph.protoName)"
             class="image"
             alt=""/>
         <div style="padding: 10px">
@@ -80,11 +81,11 @@
     </el-col>
   </el-row>
   <el-dialog
-      title="编辑原型信息"
       v-model="dialogVisible2"
       width="25%"
       custom-class="dialog">
-    <span>请输入新的原型信息</span>
+    <h1>重命名</h1>
+    <span>请输入新的原型名称</span>
     <el-input class="input" v-model="protoName" placeholder="原型名称" clearable></el-input>
     <template #footer>
       <span class="dialog-footer">

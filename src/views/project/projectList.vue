@@ -106,10 +106,11 @@
           :key="projects[i-1]">
         <el-card id="project-card" :body-style="{ padding: '0px' }"
                  style="width: 250px; height: auto; border-radius: 25px;" shadow="hover"
-                  @click="this.curProjectId=projects[i-1].id; this.curProjectName=projects[i-1].name; this.openProject()">
+                  >
           <meta name="referrer" content="no-referrer"/>
           <el-image
               :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
+              @click="this.curProjectId=projects[i-1].id; this.curProjectName=projects[i-1].name; this.openProject()"
               class="image"></el-image>
           <div style="padding: 14px;">
             <span>{{ projects[i - 1].name }}</span>

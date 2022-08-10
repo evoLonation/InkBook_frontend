@@ -45,8 +45,14 @@
           <a-input :value="globalGridAttr.nodeText" style="width: 100%" @change="onTextChange"/>
         </a-col>
       </a-row>
+      <a-row align="middle">
+        <a-col :span=8>选择按钮文本内容</a-col>
+        <a-col :span=14>
+          <a-input :value="globalGridAttr.nodeSelectText" style="width: 100%" @change="onSelectTextChange"/>
+        </a-col>
+      </a-row>
     </a-tab-pane>
-    <a-tab-pane tab="属性" key="3">
+    <a-tab-pane tab="图片属性" key="3">
       <a-row align="middle" >
         <a-col :span=8>修改图片</a-col>
         <a-col :span=14>
@@ -54,6 +60,7 @@
           <el-upload
               name="file"
               action
+              drag
               :http-request="this.uploadImage"
               ref="upload"
               :limit="1"
@@ -62,6 +69,12 @@
             <el-button style="margin-top: 15px" round><i ></i><el-icon><Upload/></el-icon>封面</el-button>
           </el-upload>
           <!--          <a-input :value="globalGridAttr.imageUrl" style="width: 100%" @change="onImageUrlChange"/>-->
+        </a-col>
+      </a-row>
+      <a-row align="middle">
+        <a-col :span=8>图片url</a-col>
+        <a-col :span=14>
+          <a-input :value="globalGridAttr.imageUrl" style="width: 100%" @change="onImageUrlChange"/>
         </a-col>
       </a-row>
     </a-tab-pane>
@@ -141,11 +154,11 @@ export default defineComponent({
       })
     }
 
-      const onTextChange = (e: any) =>{
-        const val = e.target.value
-        globalGridAttr.nodeText = val
-        curCel?.attr('text/text', val)
-      }
+    const onTextChange = (e: any) =>{
+      const val = e.target.value
+      globalGridAttr.nodeText = val
+      curCel?.attr('text/text', val)
+    }
 
 
     return{

@@ -168,6 +168,22 @@ Graph.registerNode('flow-chart-Rect', {
     ],
   },
 })
+Graph.registerNode('flow-chart-Circle', {
+  inherit: 'circle',
+  width: 66,
+  height: 36,
+  attrs: {
+    body: {
+      strokeWidth: 1,
+      stroke: '#5F95FF',
+      fill: '#EFF4FF',
+    },
+    text: {
+      fontSize: 12,
+      fill: '#262626',
+    },
+  },
+})
 
 Graph.registerNode('flow-chart-Polygon', {
   inherit: 'polygon',
@@ -413,7 +429,7 @@ Graph.registerNode('zzy-image', {
   height: 60,
   attrs: {
     image: {
-      href: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
+      href: 'http://43.138.71.108/api/url/localFile/document/4a79fdd92b05dea5img.png',
       refWidth: '100%',
       refHeight: '100%',
     }

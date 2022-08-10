@@ -240,16 +240,12 @@ export default class FlowGraph {
       },
     })
     const r4 = graph.createNode({
-      shape: 'flow-chart-Rect',
-      width: 70,
-      height: 70,
+      shape: 'flow-chart-Circle',
+      width: 80,
+      height: 60,
       attrs: {
         body: {
-          rx: 35,
-          ry: 35,
-        },
-        text: {
-          text: '',
+          refPoints: '10,0 40,0 30,20 0,20',
         },
       },
     })

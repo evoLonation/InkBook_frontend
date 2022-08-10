@@ -1,5 +1,5 @@
 <template>
-  <input style="text-align: center; width: 80px; height: 40px" placeholder="输入框">
+  <input style="text-align: center; width: 100%; height: 100%" placeholder="输入框">
 </template>
 
 <script>

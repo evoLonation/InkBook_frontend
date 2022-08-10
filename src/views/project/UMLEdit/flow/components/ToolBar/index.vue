@@ -225,7 +225,7 @@ export default defineComponent({
         f.append('graphId', this.graphId)
         f.append('newImg', blob)
         this.$axios.post('/graph/modify/img', f).then(res=>{
-          console.log(res.data.mag)
+          console.log(res.data.msg)
         })
       })
 

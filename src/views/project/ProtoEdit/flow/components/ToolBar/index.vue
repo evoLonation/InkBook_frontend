@@ -80,7 +80,7 @@
         </el-button>
       </el-tooltip>
       <el-tooltip placement="bottom" content="预览">
-        <el-button name="toJSON" @click="preview" class="item-space" round>
+        <el-button name="toJSON" @click="this.saveGraph(this.graph.toJSON().cells);this.previewVisible=true" class="item-space" round>
           <el-icon><View /></el-icon>
         </el-button>
       </el-tooltip>
@@ -92,8 +92,24 @@
         </el-button>
       </el-tooltip>
     </el-button-group>
-
-
+  <el-dialog
+    v-model="this.previewVisible"
+    width="25%"
+    custom-class="dialog">
+    <input id="input" value="这是幕后黑手" style="opacity:0;position:absolute" />
+    <h1>预览</h1>
+    <span style="width: 100%;margin-top: 70px">已生成预览链接:</span>
+    <el-link type="primary" :href="this.link" style="margin-top: 30%">{{link}}</el-link>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-tooltip
+          content="复制"
+          placement="bottom">
+          <el-button @click="this.copyLink()" color="royalblue" circle><el-icon><CopyDocument /></el-icon></el-button>
+        </el-tooltip>
+      </span>
+    </template>
+  </el-dialog>
   </div>
 </template>
 
@@ -196,9 +212,24 @@ export default defineComponent({
       graph,
     }
   },
+  mounted() {
+    this.link='http://192.168.0.102:8080/#/proto/preview/'+this.graphId
+  },
+  data(){
+    return{
+      previewVisible: false,
+      link:'',
+    }
+  },
   methods: {
+    copyLink(){
+      const input = document.getElementById('input')! as any; // 承载复制内容
+      input.value = this.link; // 修改文本框的内容
+      input.select(); // 选中文本
+      document.execCommand('copy'); // 执行浏览器复制命令
+      ElMessage('复制成功')
+    },
     preview(){
-      this.saveGraph(this.graph.toJSON().cells)
       setTimeout(()=>{
         axios.post('/prototype/set-preview',{
           'protoId': this.graphId,
@@ -209,7 +240,7 @@ export default defineComponent({
           console.log(err)
         })
       },500)
-      setTimeout(()=>{this.$router.push({name: 'protoPreview', params:{protoId: this.graphId}})},500)
+      setTimeout(()=>{this.$router.push({path:`/proto/preview/${this.graphId}`})},500)
     },
     saveGraph(cells) {
       axios.post('/prototype/save', {
@@ -308,6 +339,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+
 .bar {
   margin-right: 16px;
 }
@@ -315,5 +347,10 @@ export default defineComponent({
   margin-left: 50px;
   width: 50px;
   height: 30px;
+}
+</style>
+<style>
+.dialog {
+  border-radius: 25px;
 }
 </style>

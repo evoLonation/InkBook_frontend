@@ -1,7 +1,7 @@
 <template >
   <div style="background-color: lightcyan; width: 100%;min-height: 100vh;margin-top: 0">
     <el-button round style="margin: 20px 120px;float: right;color: white;background-color: royalblue" @click="this.quit()">退出预览</el-button>
-    <div style="margin: 50px 100px 50px 100px;border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: white">
+    <div style="margin-left: auto;margin-right:auto; min-width: 200px; max-width: 800px; border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: white">
       <div id="container1" class="x6-proto" style="display: inline-block;"/>
     </div>
   </div>
@@ -14,7 +14,7 @@ import '@/views/project/global.css'
 import './index.less'
 import {Graph} from '@antv/x6'
 import axios from "axios";
-
+import './graph/shape.ts'
 export default {
   name: "Preview",
 

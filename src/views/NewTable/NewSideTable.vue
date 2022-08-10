@@ -15,7 +15,7 @@
       @click="this.$router.push({name: 'UserInfo', params: {userId: this.userId}})"
     >
       <div style="display: flex;">
-        <img class="picture" :src="'http://43.138.71.108/api/user/get-avatar/?userId=' + this.$store.state.loginUser.userId" alt="" />
+        <img class="picture" :src="this.$store.state.userAvatar" alt="" />
       </div>
       <div
         style="width: 100%; margin-top: 15px; text-align: center"
@@ -37,7 +37,7 @@
       @click="this.$router.push({name: 'teamList'})"
     >
       <div style="width: 50px;height: 50px">
-        <img :src="'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.$store.state.selectTeam.teamId" class="teamPic" alt="">
+        <img :src="this.$store.state.teamAvatar" class="teamPic" alt="">
       </div>
       <div
         class="team-name"
@@ -135,8 +135,17 @@ export default {
   data(){
     return {
       userId: '',
-      nickName: ''
+      nickName: '',
+      teamUrl: 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.$store.state.selectTeam.teamId + '&t=' + Math.random(),
+      userUrl: 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.$store.state.loginUser.userId + '&t=' + Math.random(),
+
     }
+  },
+  methods: {
+    reComputeUrl() {
+      this.teamUrl = 'http://43.138.71.108/api/team/get-avatar/?teamId=' + this.$store.state.selectTeam.teamId + '&t=' + Math.random();
+      this.userUrl = 'http://43.138.71.108/api/user/get-avatar/?userId=' + this.$store.state.loginUser.userId + '&t=' + Math.random();
+    },
   },
   created() {
     this.userId = this.$store.state.loginUser.userId;
@@ -156,7 +165,7 @@ export default {
         tmp += '…';
         return tmp;
       }
-    }
+    },
   },
 }
 </script>

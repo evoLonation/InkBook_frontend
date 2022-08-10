@@ -27,6 +27,7 @@ export default {
     }
   },
   mounted() {
+    console.log('in mounted!!!!!!!!')
     console.log("id:", this.graphId)
     this.initGraph()
   },
@@ -43,6 +44,12 @@ export default {
         grid: false,
       });
       this.graph.fromJSON(JSON.parse(this.content))
+    }
+  },
+  watch: {
+    content(newValue, oldValue) {
+      console.log('watched')
+      this.graph.fromJSON(JSON.parse(newValue))
     }
   }
 }

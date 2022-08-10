@@ -43,7 +43,7 @@ export default {
 <style scoped>
 .top-layout {
   width: 80%;
-  height: 30%;
+  height: 25%;
   margin: auto;
   padding: 40px;
   background-color: white;
@@ -54,7 +54,7 @@ export default {
 
 .project-name {
   width: 30%;
-  height: 40%;
+  height: 50%;
   float: right;
   margin-right: 5%;
   display: flex;
@@ -90,7 +90,7 @@ export default {
 }
 
 .my-el-menu {
-  top: 23%;
+  top: 10%;
   width: 100%;
   float: bottom;
   border-bottom: 2px dashed lightgray;
@@ -103,8 +103,8 @@ export default {
 
 .main-container {
   width: 80%;
-  height: 60vh;
-  margin: 6.5% auto 0 auto;
+  height: 69vh;
+  margin: 4% auto 0 auto;
   padding: 40px;
   background-color: white;
   border-top-left-radius: 20px;

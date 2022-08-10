@@ -17,6 +17,7 @@
       class="my-el-table"
     >
       <el-table
+          height="500"
           :data="docList"
           style="width: 100%; height: 100%"
           :header-row-style="{height: '70px'}"
@@ -154,7 +155,7 @@ export default {
 
 .my-el-table {
   width: 100%;
-  height: 44vh;
+  height: 52vh;
   border: 1px dashed lightgray;
   margin-top: 2%;
 }

@@ -26,7 +26,7 @@
         >
           <meta name="referrer" content="no-referrer"/>
           <img
-              :src="'http://43.138.71.108/api/prototype/get-img/?protoId='+graph.protoId"
+              :src="'http://43.138.71.108/api/prototype/get-img/?protoId='+graph.protoId+'&rand?='+this.rand.toString()"
               @click="openGraph(graph.protoId, graph.protoName)"
               class="image"
               alt=""/>
@@ -35,20 +35,6 @@
             <div class="bottom">
               <span>{{graph.protoName}}</span>
               <el-button-group>
-                <!--              <el-tooltip-->
-                <!--                  class="item"-->
-                <!--                  effect="dark"-->
-                <!--                  content="进入"-->
-                <!--                  placement="bottom"-->
-                <!--              >-->
-                <!--                <el-button class="button"-->
-                <!--                           @click="openGraph(graph.protoId, graph.protoName)"-->
-                <!--                           round>-->
-                <!--                  <el-icon color="lightblue">-->
-                <!--                    <Document/>-->
-                <!--                  </el-icon>-->
-                <!--                </el-button>-->
-                <!--              </el-tooltip>-->
                 <el-tooltip
                     class="item"
                     effect="dark"
@@ -138,6 +124,7 @@ export default {
       protoName: '',
       projectId: -1,
       graphList: null,
+      rand: null,
     }
   },
   methods: {
@@ -181,6 +168,7 @@ export default {
       })
     },
     getGraphList: function (){
+      this.rand = Math.random()
       console.log("getGraphList is called!")
       this.$axios.get("prototype/list", {
         params:{

@@ -12,7 +12,7 @@
             <el-scrollbar height="600px">
 <!--                <slot></slot>-->
               <Preview :content="currentTempContent" :title="currentTempName" v-if="type === 'team' || type === 'project'"/>
-              <GraphPreview :content="currentTempContent" :title="currentTempName" v-if="type === 'graph' || type === 'prototype'"/>
+              <GraphPreview :content="currentTempContent" :title="currentTempName" v-if="(type === 'graph' || type === 'prototype') && currentTempContent!==''"/>
             </el-scrollbar>
           </div>
           <div style="width: 300px">

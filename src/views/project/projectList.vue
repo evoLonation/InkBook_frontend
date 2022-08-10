@@ -111,7 +111,7 @@
             >
               <meta name="referrer" content="no-referrer"/>
               <el-image
-                  :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
+                  :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id+'&rand?='+this.rand"
                   @click="this.curProjectId=projects[i-1].id; this.curProjectName=projects[i-1].name; this.openProject()"
                   class="image"></el-image>
               <div style="padding: 14px;">
@@ -243,6 +243,7 @@ export default {
       fileList: [],
       fileType: ["png", "jpg", "bmp", "jpeg"],
       headers: { "Content-Type": "multipart/form-data" },
+      rand: null,
     }
   },
   methods: {
@@ -321,6 +322,7 @@ export default {
     },
     //获取项目列表接口函数
     getProject() {
+      this.rand = Math.random()
       console.log('get project......')
       if (this.$store.state.isSelectTeam) {
         this.$axios.get('/project/list-team', {

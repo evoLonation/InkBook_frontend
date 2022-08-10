@@ -8,10 +8,13 @@ import '@/views/project/reset.less'
 import '@/views/project/global.css'
 import './flow/index.less'
 import {Graph} from '@antv/x6'
+import '../ProtoEdit/flow/graph/shape.ts'
 import axios from "axios";
+import FlowGraph from "@/views/project/ProtoEdit/flow/graph";
+
 export default {
   name: "GraphPreview",
-  props: ["graphId", "graphName"],
+  props: ["content"],
   setup(){
     const isReady = ref(false)
     return{
@@ -39,16 +42,7 @@ export default {
         height: 800,
         grid: false,
       });
-      axios.get('graph/get', {
-        params: {
-          graphId: this.graphId
-        }
-      }).then((response) => {
-          console.log(response.data.msg)
-          this.setContent(response.data.content)
-      }).catch((err) => {
-        console.log(err)
-      })
+      this.graph.fromJSON(JSON.parse(this.content))
     }
   }
 }

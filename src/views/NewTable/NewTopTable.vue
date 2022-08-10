@@ -35,7 +35,12 @@ export default {
     }
   },
   mounted() {
-    this.$router.push({name: 'DocumentList'})
+    if (this.$route.params.type==='uml')
+      this.$router.push({name: 'umlList'})
+    else if (this.$route.params.type==='proto')
+      this.$router.push({name: 'protoList'})
+    else
+      this.$router.push({name: 'DocumentList'})
   }
 }
 </script>

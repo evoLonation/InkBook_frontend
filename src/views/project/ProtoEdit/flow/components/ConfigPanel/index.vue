@@ -12,12 +12,10 @@
 import ConfigGrid from './ConfigGrid/index.vue'
 import ConfigNode from './ConfigNode/index.vue'
 import ConfigEdge from './ConfigEdge/index.vue'
-import ConfigImage from './ConfigImage/index.vue'
 import FlowGraph from '@/views/project/ProtoEdit/flow/graph'
 import './index.less'
 import { defineComponent, ref, provide } from "vue";
 import { globalGridAttr } from '@/views/project/ProtoEdit/flow/models/global'
-import ConfigText from "@/views/project/ProtoEdit/flow/components/ConfigPanel/ConfigText/index.vue";
 
 export default defineComponent({
   name: "index",

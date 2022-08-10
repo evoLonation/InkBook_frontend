@@ -232,7 +232,7 @@ export default defineComponent({
     },
 
     quitEdit() {
-          router.push({name: 'TopTable'})
+          router.push({name: 'TopTable',params:{type:'uml'}})
     },
 
     handleClick(event: Event) {

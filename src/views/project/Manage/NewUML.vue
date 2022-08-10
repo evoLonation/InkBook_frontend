@@ -26,7 +26,7 @@
         >
           <meta name="referrer" content="no-referrer"/>
           <img
-              :src="'http://43.138.71.108/api/graph/get-img/?graphId='+graph.graphId"
+              :src="'http://43.138.71.108/api/graph/get-img/?graphId='+graph.graphId+'&rand?='+this.rand"
               @click="this.curGraphId=graph.graphId;openGraph(graph.graphId, graph.name)"
               class="image"/>
           <div style="padding: 10px">
@@ -112,7 +112,6 @@
 
     <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible=false;tmpVisible=true" style="float: left;background-color: royalblue;color: white" round>模板</el-button>
       <el-button @click="createGraph(); this.dialogVisible=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
         </span>
     </template>
@@ -138,6 +137,7 @@ export default {
       graphName: '',
       projectId: -1,
       graphList: null,
+      rand: null,
     }
   },
   methods: {
@@ -194,6 +194,7 @@ export default {
       })
     },
     getGraphList: function () {
+      this.rand = Math.random()
       console.log("getGraphList is called!")
       this.$axios.get("graph/list", {
         params: {

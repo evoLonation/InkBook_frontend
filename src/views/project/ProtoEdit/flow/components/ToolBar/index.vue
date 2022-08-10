@@ -243,7 +243,7 @@ export default defineComponent({
     },
 
     quitEdit() {
-          router.push({name: 'TopTable'})
+          router.push({name: 'TopTable', params:{type:'proto'}})
     },
 
     handleClick(event: Event) {

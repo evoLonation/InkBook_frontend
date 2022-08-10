@@ -36,9 +36,7 @@
     </div>
 
   </el-dialog>
-  <CreateByTmp v-if="tmpVisible" v-model="tmpVisible" @new-created="this.$emit('newCreated')" :type="this.type">
-    <el-button style="width: 1200px;height: 1000px"></el-button>
-  </CreateByTmp>
+  <CreateByTmp v-if="tmpVisible" v-model="tmpVisible" @new-created="this.$emit('newCreated')" :type="this.type"/>
 </template>
 
 <script>

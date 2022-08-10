@@ -397,8 +397,8 @@ export default {
         return this.TeamName;
       }
       else{
-        var tmp = "";
-        for(var i = 0; i < 4; i++){
+        let tmp = "";
+        for(let i = 0; i < 9; i++){
           tmp += this.TeamName[i];
         }
         tmp += '…';
@@ -423,6 +423,11 @@ export default {
               console.log('change name data.js = ');
               console.log(res.data);
               this.$message.success("修改团队名称成功！");
+              this.$store.commit({
+                type: "selectTeam",
+                teamId: this.TeamId,
+                teamName: this.TeamName,
+              })
             }
       }).catch((err)=>{
         console.log(err);

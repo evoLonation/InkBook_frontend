@@ -126,7 +126,16 @@ export default {
         })
         console.log(this.$store.state.loginUser.userId);
         ElMessage('登录成功');
-        this.$router.push({name: 'Table', params:{}})
+        if(response.data.teamId === -1){
+          this.$router.push({name: 'teamCreate'})
+        }else{
+          this.$store.commit({
+            type: 'selectTeam',
+            teamId: response.data.teamId,
+            teamName: response.data.teamName,
+          })
+          this.$router.push({name: 'Table', params:{}})
+        }
 
       }).catch((err)=>{
         console.log(err);

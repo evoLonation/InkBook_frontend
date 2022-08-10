@@ -83,14 +83,14 @@ export default {
           }).then((res) => {
             console.log("进入回调函数");
             console.log(res.data);
-            if(res.status === 200){
               this.$message.success(res.data.msg);
               this.TeamId = res.data.teamId;
-              this.$router.push({name: "teamList", params: {key: ''}});
-            }
-            else{
-              this.$message.error("其他错误！");
-            }
+              this.$store.commit({
+                type: 'selectTeam',
+                teamId: res.data.teamId,
+                teamName: this.TeamName,
+              })
+              this.$router.push({name: "Table"});
       }).catch((err) => {
         console.log(err);
         this.$message.error(err.response.data.msg);

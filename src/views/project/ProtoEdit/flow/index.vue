@@ -1,4 +1,9 @@
 <template>
+  <div style="display: flex;height: 50px; border-bottom: 1px dashed lightgrey">
+    <span style="font-size: 15px;height: 15px;margin: auto 20px auto 20px;">页面：{{ this.graphName }}</span>
+    <Collaboration :id="this.graphId" ref="Collaboration"  type="prototype"/>
+    <el-button @click="this.toTemplate()">临时按钮：注册为模板</el-button>
+  </div>
   <div class="wrap">
     <div class="content">
       <!--左侧工具栏-->
@@ -12,12 +17,10 @@
         <div id="container" class="x6-graph" />
       </div>
       <!--右侧工具栏-->
-      <div class="config">
+      <div class="config" >
         <config-panel v-if="isReady"/>
       </div>
     </div>
-    <el-button @click="this.toTemplate()">临时按钮：注册为模板</el-button>
-    <Collaboration :id="this.graphId" ref="Collaboration"  type="prototype"/>
   </div>
 </template>
 

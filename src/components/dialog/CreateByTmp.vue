@@ -30,7 +30,7 @@
                 >
                   <el-menu-item :index="index" v-for="(temp, index) in tempList" :key="{temp, index}"  style="height: 40px" @click="clickItem(temp)">
                     <el-icon v-if="type === 'team' || type === 'project'"><Document /></el-icon>
-                    <el-icon v-else-if="type === 'prototype'"><Monitor /> /></el-icon>
+                    <el-icon v-else-if="type === 'prototype'"><Monitor /></el-icon>
                     <el-icon v-else-if="type === 'uml'"><Postcard /></el-icon>
 
                     <span> {{temp.name}} </span>

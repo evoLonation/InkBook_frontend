@@ -92,6 +92,7 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
     const docId = parseInt(route.params.docId);
     const userId = store.state.loginUser.userId;
@@ -266,7 +267,7 @@ export default {
     }
     const clickQuit = () =>{
       collaboration.value.save();
-      useRouter().back();
+      router.back();
     }
 
     return {

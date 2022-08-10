@@ -8,9 +8,13 @@
     >
       参与协作成员：
     </span>
-    <div v-for="editor of editors" v-bind:key="editor" style="display: flex;">
+    <div class="participant" v-for="editor of editors" v-bind:key="editor" style="display: flex;">
       <el-avatar :size="50" :src="'http://43.138.71.108/api/user/get-avatar/?userId=' + editor.userId" />
-      <div>{{editor.nickname}}</div>
+      <div
+        style="height: 20px; margin: auto auto auto 20px"
+      >
+        {{editor.nickname}}
+      </div>
     </div>
   </el-drawer>
 </template>
@@ -264,5 +268,21 @@ export default {
 .participants {
   font-size: 20px;
   font-weight: bold;
+  line-height: 25px;
+  width: 100%;
+  height: 50px;
+  border-bottom: 2px dashed lightgrey;
+}
+
+.participant {
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.participant:hover {
+  background-color: rgb(0 0 0 / 8%);
 }
 </style>

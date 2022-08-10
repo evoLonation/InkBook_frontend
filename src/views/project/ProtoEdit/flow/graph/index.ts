@@ -574,7 +574,7 @@ export default class FlowGraph {
       width: 80,
       height: 60,
       shape: 'image',
-      imageUrl: ''
+      imageUrl: 'https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E7%99%BE%E5%BA%A6%E5%9B%BE%E7%89%87&step_word=&hs=0&pn=1&spn=0&di=7108135681917976577&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3313548945%2C1627941407&os=3338678326%2C1513250459&simid=3380308989%2C428592697&adpicid=0&lpn=0&ln=1869&fr=&fmq=1660102655321_R&fm=&ic=undefined&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%3A%2F%2Fwww.yuzhaoyang.cn%2Fuploads%2Fallimg%2F181030%2F1-1Q0302214101Q.jpg%26refer%3Dhttp%3A%2F%2Fwww.yuzhaoyang.cn%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Dauto%3Fsec%3D1662694660%26t%3De6b6ca4eebc09a5860fa754c2c5f6d02&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3By7ziw5ywg2_z%26e3BvgAzdH3F6j4jgAzdH3Fda9_z%26e3Bip4s&gsm=2&rpstart=0&rpnum=0&islist=&querylist=&nojc=undefined&dyTabStr=MCwzLDIsNiwxLDQsNSw3LDgsOQ%3D%3D'
     })
 
     // const r17 = graph.addNode({
@@ -690,6 +690,7 @@ export default class FlowGraph {
         const wrap = document.createElement('img')
         wrap.style.width = '100%'
         wrap.style.height = '100%'
+        wrap.src = ''
         return wrap
       },
     });
@@ -733,6 +734,29 @@ export default class FlowGraph {
         return wrap
       },
     });
+
+    // const k5 = graph.createNode({
+    //   width: 10,
+    //   height: 50,
+    //   shape: 'html',
+    //   html() {
+    //     const wrap = document.createElement('input')
+    //     wrap.type = 'radio'
+    //     return wrap
+    //   },
+    // });
+    //
+    // const k6 = graph.createNode({
+    //   width: 10,
+    //   height: 50,
+    //   shape: 'html',
+    //   html() {
+    //     const wrap = document.createElement('input')
+    //     wrap.type = 'checkbox'
+    //     return wrap
+    //   },
+    // });
+
 
     this.stencil.load([r1, r2, r5, r6, r3, r4, r8, r9, r10, r11, r12, r14], 'basic')
     this.stencil.load([i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16], 'combination')

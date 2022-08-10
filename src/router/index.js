@@ -65,11 +65,6 @@ const routes = [
                 component: () => import('../views/Team/TeamList')
             },
             {
-                path: "team/create",
-                name: "teamCreate",
-                component: () => import('../views/Team/CreateTeam')
-            },
-            {
                 path: "team/qrcode/:teamId",
                 name: "qrcode",
                 component: () => import('../views/Team/TestQrcode')
@@ -134,6 +129,13 @@ const routes = [
         path: '/team/block/:key?',
         name: "teamBlock",
         component: () => import('../views/Team/BlockSearch')
+    },
+
+    // 创建团队相关
+    {
+        path: "/team/create",
+        name: "teamCreate",
+        component: () => import('../views/Team/CreateTeam')
     },
 
     //项目相关

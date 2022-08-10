@@ -89,11 +89,11 @@
           </v-contextmenu-item>
 
         </v-contextmenu>
-        <div class="folder-info" v-for="folder of this.folderList" :key="folder" v-contextmenu:contextmenu @click="this.clickFolder(folder.folderId, folder.name)" @contextmenu.prevent="saveCurrent(folder.folderId, 'folder')">
+        <div class="folder-info" v-for="folder of this.folderList" :key="folder" v-contextmenu:contextmenu @dblclick="this.clickFolder(folder.folderId, folder.name)" @contextmenu.prevent="saveCurrent(folder.folderId, 'folder')">
           <img class="folder-picture" src="../../assets/docCenter/文件夹试用.png" alt="">
           <span class="folder-name" >{{folder.name}}</span>
         </div>
-        <div class="folder-info" v-for="doc of this.docList" :key="doc" v-contextmenu:contextmenu @click="this.clickDoc(doc.docId)" @contextmenu.prevent="saveCurrent(doc.docId, 'doc')">
+        <div class="folder-info" v-for="doc of this.docList" :key="doc" v-contextmenu:contextmenu @dblclick="this.clickDoc(doc.docId)" @contextmenu.prevent="saveCurrent(doc.docId, 'doc')">
           <img class="folder-picture" src="../../assets/docCenter/文件试用.png"  alt="">
           <span class="folder-name" >{{doc.docName}}</span>
         </div>

@@ -13,72 +13,74 @@
       </el-icon>
     </el-button>
   </div>
-  <el-row>
-    <el-col
-        style="margin-top: 20px"
-        :span="6"
-        v-for="graph in graphList"
-        :key="graph"
-    >
-      <el-card id="project-card" :body-style="{ padding: '0px' }"
-               style="width: 230px; height: auto; border-radius: 20px;" shadow="hover"
-               >
-        <meta name="referrer" content="no-referrer"/>
-        <img
-            :src="'http://43.138.71.108/api/graph/get-img/?graphId='+graph.graphId"
-            @click="this.curGraphId=graph.graphId;openGraph(graph.graphId, graph.name)"
-            class="image"/>
-                <div style="padding: 10px">
-                  <span>{{graph.docName}}</span>
-                  <div class="bottom">
-                    <span>{{graph.name}}</span>
-                    <el-button-group>
-<!--                      <el-tooltip-->
-<!--                          class="item"-->
-<!--                          effect="dark"-->
-<!--                          content="进入"-->
-<!--                          placement="bottom"-->
-<!--                      >-->
-<!--                        <el-button class="button"-->
-<!--                                   @click="openGraph(graph.graphId, graph.name)"-->
-<!--                                   round>-->
-<!--                          <el-icon color="lightblue">-->
-<!--                            <Document/>-->
-<!--                          </el-icon>-->
-<!--                        </el-button>-->
-<!--                      </el-tooltip>-->
-                      <el-tooltip
-                          class="item"
-                          effect="dark"
-                          content="重命名"
-                          placement="bottom"
-                      >
-                        <el-button class="button"
-                                   @click="this.dialogVisible2=true; this.curGraphId=graph.graphId;"
-                                   round>
-                          <el-icon color="gray">
-                            <Edit/>
-                          </el-icon>
-                        </el-button>
-                      </el-tooltip>
-                          <el-tooltip
-                              class="item"
-                              effect="dark"
-                              content="删除"
-                              placement="bottom"
-                          >
-                            <el-button class="button" @click="this.curGraphId=graph.graphId;deleteGraph(graph.graphId)" round>
-                              <el-icon color="orange">
-                                <delete/>
-                              </el-icon>
-                            </el-button>
-                          </el-tooltip>
-                    </el-button-group>
-                  </div>
-                </div>
-      </el-card>
-    </el-col>
-  </el-row>
+  <el-scrollbar>
+    <el-row>
+      <el-col
+          style="margin-top: 20px"
+          :span="6"
+          v-for="graph in graphList"
+          :key="graph"
+      >
+        <el-card id="project-card" :body-style="{ padding: '0px' }"
+                 style="width: 200px; height: auto; border-radius: 20px;" shadow="hover"
+        >
+          <meta name="referrer" content="no-referrer"/>
+          <img
+              :src="'http://43.138.71.108/api/graph/get-img/?graphId='+graph.graphId"
+              @click="this.curGraphId=graph.graphId;openGraph(graph.graphId, graph.name)"
+              class="image"/>
+          <div style="padding: 10px">
+            <span>{{graph.docName}}</span>
+            <div class="bottom">
+              <span>{{graph.name}}</span>
+              <el-button-group>
+                <!--                      <el-tooltip-->
+                <!--                          class="item"-->
+                <!--                          effect="dark"-->
+                <!--                          content="进入"-->
+                <!--                          placement="bottom"-->
+                <!--                      >-->
+                <!--                        <el-button class="button"-->
+                <!--                                   @click="openGraph(graph.graphId, graph.name)"-->
+                <!--                                   round>-->
+                <!--                          <el-icon color="lightblue">-->
+                <!--                            <Document/>-->
+                <!--                          </el-icon>-->
+                <!--                        </el-button>-->
+                <!--                      </el-tooltip>-->
+                <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="重命名"
+                    placement="bottom"
+                >
+                  <el-button class="button"
+                             @click="this.dialogVisible2=true; this.curGraphId=graph.graphId;"
+                             round>
+                    <el-icon color="gray">
+                      <Edit/>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="删除"
+                    placement="bottom"
+                >
+                  <el-button class="button" @click="this.curGraphId=graph.graphId;deleteGraph(graph.graphId)" round>
+                    <el-icon color="orange">
+                      <delete/>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+              </el-button-group>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </el-scrollbar>
   <el-dialog
       v-model="dialogVisible2"
       width="25%"

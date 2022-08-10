@@ -1,4 +1,12 @@
 <template >
+  <el-menu
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
+  >
+    <el-menu-item index="1" v-for="proto in this.protoList" :key="proto.protoId">{{proto.protoName}}</el-menu-item>
+  </el-menu>
   <div style="width: 100%;min-height: 100vh;margin-top: 0">
     <div style="margin-left: auto;margin-right:auto; min-width: 200px; max-width: 800px; border-radius: 30px;box-shadow: 0 16px 32px rgb(0 0 0 / 8%);background-color: lightcyan; ">
       <div id="container1" class="x6-proto" style="display: inline-block;"/>
@@ -26,15 +34,31 @@ export default {
   data(){
     return{
       protoId: Number,
-      proto: Graph
+      proto: Graph,
+      activeIndex: '1',
+      activeIndex2: '1',
+      protoList: [],
     }
   },
     mounted() {
+      this.$axios.get('/prototype/list-preview', {
+        params: {
+          projectId: this.$route.params.projectId
+        }
+      }).then(res=>{
+        this.protoList = res.data.previewList
+        console.log(this.protoList)
+      }).catch(err=>{
+        console.log(err)
+      })
       this.protoId = this.$route.params.protoId
       console.log("id:", this.protoId)
       this.initGraph()
     },
     methods: {
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath)
+      },
       initGraph(){
         this.proto = new Graph({
           container: document.getElementById("container1"),

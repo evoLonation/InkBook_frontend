@@ -226,7 +226,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.link='http://192.168.0.102:8080/#/proto/preview/'+this.graphId
+    this.link='http://192.168.0.102:8080/#/proto/preview/'+this.graphId.toString() + '/' + this.$store.state.selectProject.proId.toString()
     console.log('protoId',this.graphId)
     this.$axios.get('/prototype/get-preview',{
       params:{
@@ -286,7 +286,7 @@ export default defineComponent({
       },500)
     },
     preview(){
-      this.$router.push({path:`/proto/preview/${this.graphId}`})
+      this.$router.push({path:`/proto/preview/${this.graphId}/${this.$store.selectProject.proId}`})
     },
     saveGraph(cells) {
       axios.post('/prototype/save', {

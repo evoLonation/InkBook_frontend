@@ -144,7 +144,7 @@ const routes = [
         component: () => import('../views/project/ProtoEdit/tabs/index')
     },
     {
-        path: '/proto/preview/:protoId',
+        path: '/proto/preview/:protoId/:projectId',
         component: () => import('../views/project/ProtoEdit/flow/Preview')
     },
 

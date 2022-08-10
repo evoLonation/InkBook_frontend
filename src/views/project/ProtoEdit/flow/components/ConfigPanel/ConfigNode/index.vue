@@ -39,12 +39,29 @@
           <a-input type="color" :value="globalGridAttr.nodeColor" style="width: 100%" @change="onColorChange"/>
         </a-col>
       </a-row>
+      <a-row align="middle">
+        <a-col :span=8>文本内容</a-col>
+        <a-col :span=14>
+          <a-input :value="globalGridAttr.nodeText" style="width: 100%" @change="onTextChange"/>
+        </a-col>
+      </a-row>
     </a-tab-pane>
     <a-tab-pane tab="属性" key="3">
-      <a-row align="middle">
-        <a-col :span=8>分配用户</a-col>
+      <a-row align="middle" >
+        <a-col :span=8>修改图片</a-col>
         <a-col :span=14>
-          <a-input :value="globalGridAttr.nodeUsers" style="width: 100%" @change="onUsersChange"/>
+
+          <el-upload
+              name="file"
+              action
+              :http-request="this.uploadImage"
+              ref="upload"
+              :limit="1"
+              :auto-upload="true"
+          >
+            <el-button style="margin-top: 15px" round><i ></i><el-icon><Upload/></el-icon>封面</el-button>
+          </el-upload>
+          <!--          <a-input :value="globalGridAttr.imageUrl" style="width: 100%" @change="onImageUrlChange"/>-->
         </a-col>
       </a-row>
     </a-tab-pane>
@@ -52,9 +69,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, inject, watch} from "vue";
+import {defineComponent, inject, ref, watch} from "vue";
 import {Cell} from "@antv/x6";
 import {nodeOpt} from "@/views/project/ProtoEdit/flow/components/ConfigPanel/ConfigNode/method";
+import axios from "axios";
+import {ElMessage} from "element-plus/es";
 
 export default defineComponent({
   name: "index",
@@ -102,6 +121,33 @@ export default defineComponent({
       globalGridAttr.nodeUsers = val
       curCel?.attr('approve/users', val)
     }
+
+    const fileList = ref([]);
+    const onImageUrlChange = (url) => {
+      globalGridAttr.imageUrl = url;
+      curCel?.attr('image/href', url);
+      console.log(url)
+    }
+    const uploadImage = (list) => {
+      console.log('in upload')
+      const f = new FormData()
+      f.append('file', list.file)
+      axios.post('/img', f).then(res => {
+        ElMessage('修改图片成功')
+        onImageUrlChange(res.data.url);
+      }).catch(err => {
+        console.log(err);
+        ElMessage({message: err.response.data.msg, type: 'warning'});
+      })
+    }
+
+      const onTextChange = (e: any) =>{
+        const val = e.target.value
+        globalGridAttr.nodeText = val
+        curCel?.attr('text/text', val)
+      }
+
+
     return{
       globalGridAttr,
       onStrokeChange,
@@ -110,6 +156,9 @@ export default defineComponent({
       onFontSizeChange,
       onColorChange,
       onUsersChange,
+      uploadImage,
+      onImageUrlChange,
+      onTextChange,
     }
   }
 })

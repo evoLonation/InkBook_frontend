@@ -222,7 +222,6 @@ export default {
         "userId": this.$store.state.loginUser.userId,
         "teamId": this.$store.state.selectTeam.teamId,
         "detail": detail,
-        "imgUrl": 'https://img.nga.178.com/attachments/mon_202207/05/m6Q2q-rl1ZcT3cSk4-sg.jpg',
       }).then((response) => {
         if (response.status === 200) {
           console.log(response.data.projectId)

@@ -6,12 +6,12 @@
       :destroy-inactive-tab-pane="true"
       size="small"
   >
-    <a-tab-pane :key="protoId" :tab="protoName">
-      <flow :graphId="protoId" :graphName="protoName"/>
+    <a-tab-pane :key="this.protoId" :tab="this.protoName">
+      <flow :graphId="this.protoId" :graphName="this.protoName"/>
     </a-tab-pane>
-    <a-tab-pane :key="graph.protoId" :tab="graph.protoName" v-for="graph in this.graphList">
-      <flow :graphId="graph.protoId" :graphName="graph.protoName"/>
-    </a-tab-pane>
+<!--    <a-tab-pane :key="graph.protoId" :tab="graph.protoName" v-for="graph in this.graphList">-->
+<!--      <flow :graphId="graph.protoId" :graphName="graph.protoName"/>-->
+<!--    </a-tab-pane>-->
   </a-tabs>
 </template>
 
@@ -27,15 +27,16 @@ export default {
   data() {
     return {
       graphList: [],
-      protoId: Number,
-      projectId: Number,
+      protoId: null,
+      projectId: null,
       protoName: '',
     }
   },
   mounted() {
-    this.protoId = this.$route.params.protoId
-    this.protoName = this.$route.params.protoName
-    this.projectId = this.$route.params.projectId
+    console.log('load')
+    this.projectId = this.$store.state.selectProject.proId
+    this.protoName = this.$store.state.proto.protoName
+    this.protoId = this.$store.state.proto.protoId
     this.$axios.get("prototype/list", {
       params: {
         projectId: this.projectId
@@ -45,7 +46,7 @@ export default {
         this.graphList = res.data.protoList;
         let i
         for (i in this.graphList) {
-          if (this.graphList[i].protoId.toString() === this.protoId) {
+          if (this.graphList[i].protoId === this.protoId) {
             this.graphList.splice(i, 1)
             break;
           }

@@ -15,6 +15,7 @@ export default class FlowGraph {
       container: document.getElementById('container')!,
       width: 1000,
       height: 800,
+      autoResize: false,
       grid: {
         size: 10,
         visible: true,
@@ -740,10 +741,10 @@ export default class FlowGraph {
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {
-    console.log(graphId)
+    console.log('id:',graphId)
     axios.get('/prototype/get', {
       params: {
-        protoId: graphId
+        protoId: parseInt(graphId)
       }
     }).then((response) => {
       if (response.status === 409){

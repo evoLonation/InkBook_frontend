@@ -19,8 +19,16 @@ export default new createStore({
                 proId : "",
                 proName: "",
             },
-            graphId: "",
-            originId: "",
+            isGraph: false,
+            graph: {
+                graphId: "",
+                graphName: "",
+            },
+            isProto: false,
+            proto: {
+                protoId: "",
+                protoName: "",
+            }
         };
     },
     mutations: {
@@ -52,6 +60,18 @@ export default new createStore({
             localStorage.setItem('isSelectProject', state.isSelectProject);
             localStorage.setItem('selectProject', JSON.stringify(state.selectProject));
         },
+        graph(state, graph) {
+            state.isGraph = true;
+            state.graph.graphId = graph.graphId;
+            state.graph.graphName = graph.graphName;
+            localStorage.setItem('graph', JSON.stringify(state.graph));
+        },
+        proto(state, proto){
+            state.isProto = true;
+            state.proto.protoId = proto.protoId;
+            state.proto.protoName = proto.protoName;
+            localStorage.setItem('proto', JSON.stringify(state.proto));
+        },
         init(state){
             state.isLogin = localStorage.getItem('isLogin') !== null;
             const localLoginUser = localStorage.getItem('loginUser');
@@ -66,8 +86,18 @@ export default new createStore({
             if(localSelectProject !== null){
                 state.selectProject = JSON.parse(localSelectProject);
             }
+            const localGraph = localStorage.getItem('graph');
+            if (localGraph !== null){
+                state.graph = JSON.parse(localGraph)
+            }
+            const localProto = localStorage.getItem('proto');
+            if (localProto !== null){
+                state.proto = JSON.parse(localProto)
+            }
             state.isSelectTeam = localStorage.getItem('isSelectTeam') !== null;
             state.isSelectProject = localStorage.getItem('isSelectProject') !== null;
+            state.isGraph = localStorage.getItem('isGraph') !== null;
+            state.isProto = localStorage.getItem('isProto') !== null;
         }
     },
     actions: {

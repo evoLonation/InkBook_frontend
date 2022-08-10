@@ -9,9 +9,9 @@
       <a-tab-pane :key="graphId" :tab="graphName">
       <flow :graphId="graphId" :graphName="graphName"/>
       </a-tab-pane>
-        <a-tab-pane :key="graph.graphId" :tab="graph.name" v-for="graph in this.graphList">
-          <flow :graphId="graph.graphId" :graphName="graph.name"/>
-        </a-tab-pane>
+<!--        <a-tab-pane :key="graph.graphId" :tab="graph.name" v-for="graph in this.graphList">-->
+<!--          <flow :graphId="graph.graphId" :graphName="graph.name"/>-->
+<!--        </a-tab-pane>-->
     </a-tabs>
 </template>
 
@@ -33,9 +33,9 @@ export default {
     }
   },
  mounted() {
-    this.graphId = this.$route.params.graphId
-    this.graphName = this.$route.params.graphName
-    this.projectId = this.$route.params.projectId
+   this.projectId = this.$store.state.selectProject.proId
+   this.graphName = this.$store.state.graph.graphName
+   this.graphId = this.$store.state.graph.graphId
     console.log(this.graphId, this.projectId)
     this.$axios.get("graph/list", {
       params:{
@@ -50,7 +50,7 @@ export default {
         }
         let i
         for(i in this.graphList){
-          if (this.graphList[i].graphId.toString() === this.graphId){
+          if (this.graphList[i].graphId === this.graphId){
             this.graphList.splice(i,1)
             break;
           }

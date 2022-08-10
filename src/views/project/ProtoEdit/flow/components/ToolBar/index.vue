@@ -202,7 +202,7 @@ export default defineComponent({
     },
     saveGraph(cells) {
       axios.post('/prototype/save', {
-        "protoId": this.graphId,
+        "protoId": parseInt(this.graphId),
         "userId": store.state.loginUser.userId,
         "content": JSON.stringify(cells)
       }).then((response) => {
@@ -218,8 +218,8 @@ export default defineComponent({
     },
 
     quitEdit() {
-      axios.post('/graph/exit', {
-        "graphId": this.graphId,
+      axios.post('/prototype/exit', {
+        "protoId": parseInt(this.graphId),
         "userId": store.state.loginUser.userId,
       }).then((response) => {
         if (response.status === 200) {

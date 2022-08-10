@@ -202,8 +202,9 @@ export default defineComponent({
     },
 
     saveGraph(cells) {
+
       axios.post('/graph/save', {
-        "graphId": this.graphId,
+        "graphId": parseInt(this.graphId),
         "userId": store.state.loginUser.userId,
         "content": JSON.stringify(cells)
       }).then((response) => {
@@ -220,7 +221,7 @@ export default defineComponent({
 
     quitEdit() {
       axios.post('/graph/exit', {
-        "graphId": this.graphId,
+        "graphId": parseInt(this.graphId),
         "userId": store.state.loginUser.userId,
       }).then((response) => {
         if (response.status === 200) {
@@ -301,7 +302,7 @@ export default defineComponent({
 }
 .item-space {
   display: flex;
-  width: 70px;
+  width: 60px;
   height: 38px;
 }
 </style>

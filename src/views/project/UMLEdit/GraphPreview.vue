@@ -8,7 +8,10 @@ import '@/views/project/reset.less'
 import '@/views/project/global.css'
 import './flow/index.less'
 import {Graph} from '@antv/x6'
+import '../ProtoEdit/flow/graph/shape.ts'
 import axios from "axios";
+import FlowGraph from "@/views/project/ProtoEdit/flow/graph";
+
 export default {
   name: "GraphPreview",
   props: ["content"],

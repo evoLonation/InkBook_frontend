@@ -120,7 +120,9 @@
   <div
     class="my-main"
   >
-    <router-view/>
+    <el-scrollbar>
+      <router-view/>
+    </el-scrollbar>
   </div>
 </div>
 </template>

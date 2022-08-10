@@ -734,7 +734,7 @@ export default {
   height: 700px;
   border: solid #DCDCDC 3px;
   border-radius: 10px;
-  margin: 4% auto auto auto;
+  margin: 10px auto 0 auto;
   box-shadow: 0 0 16px 10px rgb(0 0 0 / 8%);
   background-color: white;
 }
@@ -820,6 +820,6 @@ export default {
 }
 
 #team-layout >>>.el-scrollbar {
-  height: 480px;
+  height: 430px;
 }
 </style>

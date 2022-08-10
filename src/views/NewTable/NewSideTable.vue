@@ -80,7 +80,7 @@
               index="3"
               class="my-el-menu-item"
               style="padding-left: 15%;"
-              @click="this.$router.push({name: 'team', params: {teamId: 1}})"
+              @click="this.$router.push({name: 'team', params: {teamId: this.$store.state.selectTeam.teamId}})"
 
           >
             <template #title>

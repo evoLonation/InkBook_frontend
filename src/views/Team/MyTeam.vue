@@ -393,7 +393,7 @@ export default {
   },
   computed: {
     ModifiedName() {
-      if(this.TeamName.length <= 7){
+      if(this.TeamName.length <= 9){
         return this.TeamName;
       }
       else{

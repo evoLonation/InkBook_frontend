@@ -3,18 +3,18 @@
 
   <div id = "top">
     <div style="display: flex;height: 50px; border-bottom: 1px dashed lightgrey">
-      <el-button text style="height: 50px">
+      <el-button text style="height: 50px" @click="clickQuit">
         <el-icon><arrow-left/></el-icon>
       </el-button>
-      <span class="doc-name">文件名称</span>
+      <span class="doc-name">{{ docTitle }}</span>
       <Collaboration :id="docId" ref="collaboration" type="doc"></Collaboration>
 <!--      <div>-->
 <!--        <input v-model="tempName"/>-->
 <!--        <input v-model="tempIntro"/>-->
 <!--        <el-button @click="clickCreateTemp">创建模板</el-button>-->
 <!--      </div>-->
-      <el-tooltip content="保存">
-        <el-button class="my-el-button" text>
+      <el-tooltip content="保存" >
+        <el-button class="my-el-button" text @click="clickSave">
           <el-icon><CircleCheck/></el-icon>
         </el-button>
       </el-tooltip>
@@ -24,8 +24,9 @@
         <el-icon><copy-document/></el-icon>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>转换为PDF</el-dropdown-item>
-            <el-dropdown-item>转换为Markdown</el-dropdown-item>
+            <el-dropdown-item @click="clickExportPdf">转换为PDF</el-dropdown-item>
+            <el-dropdown-item @click="clickExportMd">转换为Markdown</el-dropdown-item>
+            <el-dropdown-item @click="clickExportTrueMd">转换为Markdown(真)</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -44,7 +45,7 @@
   <div id="content">
     <div id="editor-container">
       <div id="title-container">
-        <input v-model="myTitle">
+        <input v-model="docTitle">
       </div>
       <Editor
           id = "editor-text-area"
@@ -56,32 +57,31 @@
       />
     </div>
   </div>
-  <div
-    style="height: 100px;"
-  >
-    <el-button
-        @click="save"
-        style="margin-top: 30px; margin-right: 70px; float: right"
-        type="primary"
-    >
-      保存文档
-    </el-button>
-  </div>
-  <p>{{valueHtml}}</p>
+<!--  <div-->
+<!--    style="height: 100px;"-->
+<!--  >-->
+<!--    <el-button-->
+<!--        @click="save"-->
+<!--        style="margin-top: 30px; margin-right: 70px; float: right"-->
+<!--        type="primary"-->
+<!--    >-->
+<!--      保存文档-->
+<!--    </el-button>-->
+<!--  </div>-->
+<!--  <p>{{valueHtml}}</p>-->
 </template>
 
 <script>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import {onBeforeUnmount, ref, shallowRef, provide, onMounted} from 'vue'
-// import {SlateEditor, SlateElement, SlateTransforms} from '@wangeditor/editor'
+import {onBeforeUnmount, ref, shallowRef, onMounted} from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import {getData, onDataChange, writeData} from "../../collaboration/db";
 import axios from "axios";
 import {ElMessage} from "element-plus";
-import {useRoute, } from "vue-router/dist/vue-router";
+import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {useStore} from "vuex";
 import Collaboration from "@/components/Collaboration";
 import {ArrowLeft, CopyDocument} from "@element-plus/icons";
+import {DataUri} from "@antv/x6";
 
 export default {
   components: {CopyDocument, ArrowLeft, Editor, Toolbar, Collaboration},
@@ -175,10 +175,22 @@ export default {
       destroyEditor()
     })
 
+    const docTitle = ref('');
+
     onMounted(() => {
       collaboration.value.setSetter(setContent);
       collaboration.value.setGetter(getContent);
       collaboration.value.start();
+      axios.get('document/get', {
+        params : {
+          docId: docId,
+        }
+      }).then((res) => {
+        docTitle.value = res.data.docName;
+      }).catch(err => {
+        console.log(err)
+        ElMessage({message: '获取文档名称失败', type: 'warning'})
+      })
     })
     const onChange = () => {
       collaboration.value.update();
@@ -214,13 +226,47 @@ export default {
       })
     }
     const clickExportMd = () => {
+
+      const eleLink = document.createElement('a');
+      eleLink.download = docTitle.value + '.md';
+      eleLink.style.display = 'none';
+      const blob = new Blob([valueHtml.value]);
+      eleLink.href = URL.createObjectURL(blob);
+      // 触发点击
+      document.body.appendChild(eleLink);
+      eleLink.click();
+      // 然后移除
+      document.body.removeChild(eleLink);
+      // console.log(URL.createObjectURL(blob));
+      // DataUri.downloadDataUri(URL.createObjectURL(blob), docTitle.value + '.md')
+    }
+    const clickExportTrueMd = () => {
       axios.post('translate2md', {
         data: valueHtml.value,
       }).then(() => {
-        window.open('http://43.138.71.108/api/downloadmd')
+        axios.get('downloadmd', {}).then(res => {
+          // window.open('http://43.138.71.108/api/downloadmd')
+          const eleLink = document.createElement('a');
+          eleLink.download = docTitle.value + '.md';
+          eleLink.style.display = 'none';
+          const blob = new Blob([res.data.content]);
+          eleLink.href = URL.createObjectURL(blob);
+          // 触发点击
+          document.body.appendChild(eleLink);
+          eleLink.click();
+          // 然后移除
+          document.body.removeChild(eleLink);
+        })
       }).catch(err => {
         console.log(err)
       })
+    }
+    const clickSave = () => {
+      collaboration.value.save();
+    }
+    const clickQuit = () =>{
+      collaboration.value.save();
+      useRouter().back();
     }
 
     return {
@@ -241,6 +287,11 @@ export default {
       clickCreateTemp,
       clickExportPdf,
       clickExportMd,
+      clickExportTrueMd,
+      clickSave,
+      clickQuit,
+
+      docTitle,
     };
   },
 }

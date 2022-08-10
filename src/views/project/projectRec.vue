@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1250px">
+    <div style="width: 1200px">
       <div style="display: flex">
         <el-button
             style="height: 50px;
@@ -26,57 +26,54 @@
 
       </div>
       <div class="folder-guide"></div>
-      <el-row>
-        <el-col
-            style="margin-top: 35px"
-            :span='6'
-            v-for="i in projects.length"
-            :key="projects[i-1]"
+      <div style="height: 69vh">
+        <el-scrollbar>
+          <el-row style="width: 80%; margin-left: auto;margin-right: auto;">
+            <el-col
+                style="margin-top: 35px"
+                :span='7'
+                v-for="i in projects.length"
+                :key="projects[i-1]"
             >
-          <el-card id="project-card" :body-style="{ padding: '0px' }"
-                   style="width: 250px; height: auto; border-radius: 25px" shadow="hover">
-            <meta name="referrer" content="no-referrer"/>
-            <el-image
-                :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
-                class="image"
-                alt=""/>
-            <div style="padding: 14px;">
-              <span>{{ projects[i - 1].name }}</span>
-              <div class="bottom">
-                <text class="text">{{ projects[i - 1].detail }}</text>
-                <el-button-group>
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="恢复"
-                      placement="bottom"
-                  >
-                  <el-button
-                      @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; recoverProject()" round><el-icon color="lightblue"><Refresh/></el-icon>
-                  </el-button>
-                    </el-tooltip>
-                  <el-popconfirm
-                      confirmButtonText="确定"
-                      cancelButtonText="取消"
-                      title="确定彻底删除该项目吗？"
-                      @confirm="curProjectId=projects[i-1].id; completeDeleteProject()">
-                    <template #reference>
+              <el-card id="project-card" :body-style="{ padding: '0px' }"
+                       style="width: 230px; height: auto; border-radius: 25px" shadow="hover">
+                <meta name="referrer" content="no-referrer"/>
+                <el-image
+                    :src="'http://43.138.71.108/api/project/get-img/?projectId='+projects[i-1].id"
+                    class="image"
+                    alt=""/>
+                <div style="padding: 14px;">
+                  <span>{{ projects[i - 1].name }}</span>
+                  <div class="bottom">
+                    <text class="text">{{ projects[i - 1].detail }}</text>
+                    <el-button-group>
                       <el-tooltip
                           class="item"
                           effect="dark"
-                          content="删除"
+                          content="恢复"
                           placement="bottom"
                       >
-                      <el-button round><el-icon color="orange"><delete/></el-icon></el-button>
+                        <el-button
+                            @click="curProjectId=projects[i-1].id; curProjectName= projects[i-1].name; recoverProject()" round><el-icon color="lightblue"><Refresh/></el-icon>
+                        </el-button>
                       </el-tooltip>
-                    </template>
-                  </el-popconfirm>
-                </el-button-group>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
+                          <el-tooltip
+                              class="item"
+                              effect="dark"
+                              content="删除"
+                              placement="bottom"
+                          >
+                            <el-button round @click="curProjectId=projects[i-1].id; completeDeleteProject()"><el-icon color="orange"><delete/></el-icon></el-button>
+                          </el-tooltip>
+                    </el-button-group>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </el-scrollbar>
+      </div>
+
   </div>
 </template>
 

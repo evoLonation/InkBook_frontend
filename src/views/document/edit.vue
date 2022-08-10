@@ -19,7 +19,7 @@
         </el-button>
       </el-tooltip>
       <el-dropdown
-        class="my-el-dropdown"
+        class="dropdown"
       >
         <el-icon><copy-document/></el-icon>
         <template #dropdown>
@@ -337,13 +337,13 @@ body {
   color: #4c84ff;
 }
 
-.my-el-dropdown {
+.dropdown {
   height: 50px;
   margin: auto 7% auto 0;
   align-items: center;
 }
 
-.my-el-dropdown:hover {
+.dropdown:hover {
   color: #67C23A;
 }
 </style>

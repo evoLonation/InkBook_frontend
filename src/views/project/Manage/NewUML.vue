@@ -233,7 +233,7 @@ export default {
 .image {
   height: 150px;
   max-height: 150px;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .input {

@@ -239,7 +239,7 @@ export default {
 .my-el-menu-item {
   padding-top: 5%;
   padding-bottom: 5%;
-  font-size: 17px
+  font-size: 15px
 }
 
 .my-el-menu-item:hover{
@@ -249,13 +249,13 @@ export default {
 .my-el-menu-subItem{
     padding-top: 2%;
     padding-bottom: 2%;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .my-el-aside >>>.el-sub-menu__title{
   padding-top: 5%;
   padding-bottom: 5%;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .my-el-aside >>>.el-sub-menu__title:hover{
@@ -263,7 +263,7 @@ export default {
 }
 
 .my-el-aside >>>.el-menu--vertical:not(.el-menu--collapse):not(.el-menu--popup-container) .el-sub-menu__title{
-  padding-left: 20%;
+  padding-left: 15%;
 }
 
 .teamPic {

@@ -9,12 +9,14 @@ export default class FlowGraph {
   private static stencil: Addon.Stencil
   public static init(graphId) {
     this.graph = new Graph({
+      container: document.getElementById('container')!,
       resizing: {
         enabled: true,
+        restricted: false,
+        autoScroll: false,
       },
-      container: document.getElementById('container')!,
-      width: 1000,
-      height: 800,
+      width: 600,
+      height: 900,
       autoResize: false,
       grid: {
         size: 10,
@@ -34,9 +36,11 @@ export default class FlowGraph {
       },
 
       scroller: {
+        width: 600,
+        height: 900,
         enabled: true,
         pageVisible: true,
-        pageBreak: true,
+        pageBreak: false,
         pannable: false,
       },
       mousewheel: {
@@ -45,7 +49,6 @@ export default class FlowGraph {
         minScale: 0.5,
         maxScale: 2,
       },
-
       selecting: {
         enabled: true,
         multiple: true,
@@ -138,7 +141,7 @@ export default class FlowGraph {
   }
   private static setContent(data) {
     console.log(data)
-    this.graph.fromJSON(JSON.parse(data))
+    this.graph.fromJSON(data)
   }
   private static initStencil() {
     this.stencil = new Addon.Stencil({
@@ -753,7 +756,7 @@ export default class FlowGraph {
       }
       else {
         console.log(response.data.msg)
-        this.setContent(response.data.content)
+        this.setContent(JSON.parse(response.data.content))
       }
     }).catch((err) => {
       console.log(err)
@@ -822,4 +825,5 @@ export default class FlowGraph {
       }
     })
   }
+
 }

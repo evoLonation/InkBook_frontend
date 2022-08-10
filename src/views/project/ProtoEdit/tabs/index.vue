@@ -37,6 +37,7 @@ export default {
     this.projectId = this.$store.state.selectProject.proId
     this.protoName = this.$store.state.proto.protoName
     this.protoId = this.$store.state.proto.protoId
+    console.log('tabid:',this.protoId)
     this.$axios.get("prototype/list", {
       params: {
         projectId: this.projectId

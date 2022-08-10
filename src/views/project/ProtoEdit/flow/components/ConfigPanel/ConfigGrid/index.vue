@@ -287,8 +287,8 @@ export default defineComponent({
       GRID_TYPE,
       REPEAT_TYPE,
       globalGridAttr,
-      width: ref('1000'),
-      height: ref('800'),
+      width: ref('600'),
+      height: ref('900'),
     }
   },
   data(){

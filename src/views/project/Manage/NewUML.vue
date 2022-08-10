@@ -21,7 +21,8 @@
         :key="graph"
     >
       <el-card id="project-card" :body-style="{ padding: '0px' }"
-               style="width: 230px; height: auto; border-radius: 20px;" shadow="hover">
+               style="width: 230px; height: auto; border-radius: 20px;" shadow="hover"
+               @click="this.curGraphId=graph.graphId;deleteGraph(graph.graphId)">
         <meta name="referrer" content="no-referrer"/>
         <img
             src="../../../assets/Project/UML图布局.jpeg"
@@ -31,24 +32,24 @@
                   <div class="bottom">
                     <span>{{graph.name}}</span>
                     <el-button-group>
+<!--                      <el-tooltip-->
+<!--                          class="item"-->
+<!--                          effect="dark"-->
+<!--                          content="进入"-->
+<!--                          placement="bottom"-->
+<!--                      >-->
+<!--                        <el-button class="button"-->
+<!--                                   @click="openGraph(graph.graphId, graph.name)"-->
+<!--                                   round>-->
+<!--                          <el-icon color="lightblue">-->
+<!--                            <Document/>-->
+<!--                          </el-icon>-->
+<!--                        </el-button>-->
+<!--                      </el-tooltip>-->
                       <el-tooltip
                           class="item"
                           effect="dark"
-                          content="进入"
-                          placement="bottom"
-                      >
-                        <el-button class="button"
-                                   @click="openGraph(graph.graphId, graph.name)"
-                                   round>
-                          <el-icon color="lightblue">
-                            <Document/>
-                          </el-icon>
-                        </el-button>
-                      </el-tooltip>
-                      <el-tooltip
-                          class="item"
-                          effect="dark"
-                          content="编辑"
+                          content="重命名"
                           placement="bottom"
                       >
                         <el-button class="button"
@@ -258,6 +259,7 @@ export default {
 
 #project-card:hover {
   box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
+  cursor: pointer;
 }
 </style>
 

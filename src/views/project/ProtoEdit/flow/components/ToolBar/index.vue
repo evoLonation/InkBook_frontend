@@ -80,8 +80,13 @@
         </el-button>
       </el-tooltip>
       <el-tooltip placement="bottom" content="预览">
-        <el-button name="toJSON" @click="this.saveGraph(this.graph.toJSON().cells);this.previewVisible=true" class="item-space" round>
+        <el-button name="toJSON" @click="this.setPreview()" class="item-space" round>
           <el-icon><View /></el-icon>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip placement="bottom" content="关闭预览">
+        <el-button v-if="showClose" v-model="showClose" name="toJSON" @click="this.closePreview()" class="item-space" round>
+          <el-icon><Hide /></el-icon>
         </el-button>
       </el-tooltip>
       <el-tooltip placement="bottom" content="退出">
@@ -118,7 +123,7 @@
 import {defineComponent, ref} from "vue"// ref, reactive
 import FlowGraph from '../../graph'
 import {DataUri} from '@antv/x6'
-import axios from "axios";
+import axios from "axios"
 import store from "@/store"
 import {ElMessage} from "element-plus";
 import router from "@/router"
@@ -212,16 +217,52 @@ export default defineComponent({
       graph,
     }
   },
-  mounted() {
-    this.link='http://192.168.0.102:8080/#/proto/preview/'+this.graphId
-  },
+
   data(){
     return{
       previewVisible: false,
       link:'',
+      showClose: false,
     }
   },
+  mounted() {
+    this.link='http://192.168.0.102:8080/#/proto/preview/'+this.graphId
+    console.log('protoId',this.graphId)
+    this.$axios.get('/prototype/get-preview',{
+      params:{
+        protoId: this.graphId
+      }
+    }).then(res=>{
+      console.log(res.data.msg)
+      if (res.data.type === 'close')
+        this.showClose = false
+      else
+        this.showClose = true
+      console.log('show', this.showClose)
+    })
+  },
   methods: {
+    closePreview(){
+      axios.post('/prototype/set-preview',{
+        'protoId': this.graphId,
+        'type': 'close',
+      }).then(res=>{
+        console.log(res.data.msg)
+        ElMessage('已关闭预览')
+      }).catch(err=>{
+        console.log(err)
+      })
+      this.showClose = false
+      // this.$axios.post('/prototype/get-preview',{
+      //   'protoId': this.graphId
+      // }).then(res=>{
+      //   console.log(res.data.msg)
+      //   if (res.data.type === 'close')
+      //     this.showClose = false
+      //   else
+      //     this.showClose = true
+      // })
+    },
     copyLink(){
       const input = document.getElementById('input')! as any; // 承载复制内容
       input.value = this.link; // 修改文本框的内容
@@ -229,7 +270,10 @@ export default defineComponent({
       document.execCommand('copy'); // 执行浏览器复制命令
       ElMessage('复制成功')
     },
-    preview(){
+    setPreview(){
+      this.saveGraph(this.graph.toJSON().cells);
+      this.previewVisible=true
+      this.showClose=true
       setTimeout(()=>{
         axios.post('/prototype/set-preview',{
           'protoId': this.graphId,
@@ -240,7 +284,9 @@ export default defineComponent({
           console.log(err)
         })
       },500)
-      setTimeout(()=>{this.$router.push({path:`/proto/preview/${this.graphId}`})},500)
+    },
+    preview(){
+      this.$router.push({path:`/proto/preview/${this.graphId}`})
     },
     saveGraph(cells) {
       axios.post('/prototype/save', {

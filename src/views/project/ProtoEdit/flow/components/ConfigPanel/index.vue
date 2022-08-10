@@ -2,8 +2,9 @@
   <div class="config">
     <config-grid v-show="type === 'grid'" />
     <config-node v-show="type === 'node'" />
+<!--    <config-text v-show="type === 'node'" />-->
     <config-edge v-show="type === 'edge'" />
-    <config-image v-show="type === 'image'" />
+<!--    <config-image v-show="type === 'image'" />-->
   </div>
 </template>
 
@@ -16,14 +17,16 @@ import FlowGraph from '@/views/project/ProtoEdit/flow/graph'
 import './index.less'
 import { defineComponent, ref, provide } from "vue";
 import { globalGridAttr } from '@/views/project/ProtoEdit/flow/models/global'
+import ConfigText from "@/views/project/ProtoEdit/flow/components/ConfigPanel/ConfigText/index.vue";
 
 export default defineComponent({
   name: "index",
   components:{
     ConfigGrid,
     ConfigNode,
+    // ConfigText,
     ConfigEdge,
-    ConfigImage
+    // ConfigImage
   },
   setup(){
     const type = ref("grid")
@@ -36,11 +39,11 @@ export default defineComponent({
       })
       graph.on('cell:click', ({ cell }) => {
         if(cell.isNode()){
-          if(cell.shape === 'zzy-image'){
-            type.value = 'image';
-          }else{
+          // if(cell.shape === 'zzy-image'){
+          //   type.value = 'image';
+          // }else{
             type.value = "node";
-          }
+          // }
         }else{
           type.value = "edge";
         }

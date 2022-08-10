@@ -92,7 +92,7 @@ export default {
   props: {
     modelValue: Boolean,
     parentId: Number,
-    type: String, // project 或者 team
+    type: String, // project , team, uml , prototype
   },
   methods: {
     clickItem(temp) {

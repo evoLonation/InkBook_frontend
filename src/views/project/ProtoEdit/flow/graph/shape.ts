@@ -364,6 +364,24 @@ Graph.registerNode('my-button', {
   },
 })
 
+Graph.registerNode('zzy-image', {
+  inherit: 'rect',
+  width: 200,
+  height: 60,
+  attrs: {
+    image: {
+      href: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
+      refWidth: '100%',
+      refHeight: '100%',
+    }
+  },
+  markup : [
+    {
+      tagName: 'image',
+      selector: 'image',
+    },
+  ],
+})
 
 export const FlowChartImageRect = Graph.registerNode('flow-chart-image-Rect', {
   inherit: 'rect',

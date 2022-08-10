@@ -42,7 +42,7 @@
         :key="graph"
     >
       <el-card id="project-card" :body-style="{ padding: '0px' }"
-               style="width: 250px; height: auto; border-radius: 20px;" shadow="hover">
+               style="width: 230px; height: auto; border-radius: 20px;" shadow="hover">
         <meta name="referrer" content="no-referrer"/>
         <img
             src="../../../assets/Project/UML图布局.jpeg"
@@ -129,20 +129,13 @@ export default {
     }
   },
   methods: {
-    delBtn(e){
-      e.stopPropagation();
-    },
-    handleClose: function () {
-      this.dialogVisable = false;
-    },
     openGraph: function (id, name) {
-      this.$router.push({
-        name: 'uml', params: {
-          graphId: id,
-          graphName: name,
-          projectId: this.projectId,
-        }
+      this.$store.commit({
+        type: 'graph',
+        graphId: id,
+        graphName: name
       })
+      this.$router.push({name: 'uml'})
     },
     renameGraph(name) {
       this.$axios.post('graph/rename', {

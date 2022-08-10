@@ -9,12 +9,15 @@ export default class FlowGraph {
   private static stencil: Addon.Stencil
   public static init(graphId) {
     this.graph = new Graph({
+      container: document.getElementById('container')!,
       resizing: {
         enabled: true,
+        restricted: false,
+        autoScroll: false,
       },
-      container: document.getElementById('container')!,
-      width: 1000,
-      height: 800,
+      width: 600,
+      height: 900,
+      autoResize: false,
       grid: {
         size: 10,
         visible: true,
@@ -33,9 +36,11 @@ export default class FlowGraph {
       },
 
       scroller: {
+        width: 600,
+        height: 900,
         enabled: true,
         pageVisible: true,
-        pageBreak: true,
+        pageBreak: false,
         pannable: false,
       },
       mousewheel: {
@@ -44,7 +49,6 @@ export default class FlowGraph {
         minScale: 0.5,
         maxScale: 2,
       },
-
       selecting: {
         enabled: true,
         multiple: true,
@@ -137,7 +141,7 @@ export default class FlowGraph {
   }
   private static setContent(data) {
     console.log(data)
-    this.graph.fromJSON(JSON.parse(data))
+    this.graph.fromJSON(data)
   }
   private static initStencil() {
     this.stencil = new Addon.Stencil({
@@ -159,7 +163,7 @@ export default class FlowGraph {
         {
           name: 'group',
           title: '功能',
-          graphHeight: 300,
+          graphHeight: 350,
         },
       ],
     })
@@ -735,39 +739,46 @@ export default class FlowGraph {
       },
     });
 
-    // const k5 = graph.createNode({
-    //   width: 10,
-    //   height: 50,
-    //   shape: 'html',
-    //   html() {
-    //     const wrap = document.createElement('input')
-    //     wrap.type = 'radio'
-    //     return wrap
-    //   },
-    // });
-    //
-    // const k6 = graph.createNode({
-    //   width: 10,
-    //   height: 50,
-    //   shape: 'html',
-    //   html() {
-    //     const wrap = document.createElement('input')
-    //     wrap.type = 'checkbox'
-    //     return wrap
-    //   },
-    // });
+    const k5 = graph.createNode({
+      width: 10,
+      height: 50,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('input')
+        wrap.type = 'radio'
+        return wrap
+      },
+    });
+
+    const k6 = graph.createNode({
+      width: 10,
+      height: 50,
+      shape: 'html',
+      html() {
+        const wrap = document.createElement('input')
+        wrap.type = 'checkbox'
+        return wrap
+      },
+    });
+
+
+    const zzy = graph.createNode({
+      shape: 'zzy-image',
+      width: 100,
+      height: 50,
+    });
 
 
     this.stencil.load([r1, r2, r5, r6, r3, r4, r8, r9, r10, r11, r12, r14], 'basic')
     this.stencil.load([i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16], 'combination')
-    this.stencil.load([r7, k4, k1, k2, k3], 'group')
+    this.stencil.load([r7, k4, k1, k2, k3, zzy, k5, k6], 'group')
   }
   //从data.ts读取JSON图的方式和修改data的方式在这
   private static initGraphShape(graphId) {
-    console.log(graphId)
+    console.log('id:',graphId)
     axios.get('/prototype/get', {
       params: {
-        protoId: graphId
+        protoId: parseInt(graphId)
       }
     }).then((response) => {
       if (response.status === 409){
@@ -776,7 +787,7 @@ export default class FlowGraph {
       }
       else {
         console.log(response.data.msg)
-        this.setContent(response.data.content)
+        this.setContent(JSON.parse(response.data.content))
       }
     }).catch((err) => {
       console.log(err)
@@ -845,4 +856,5 @@ export default class FlowGraph {
       }
     })
   }
+
 }

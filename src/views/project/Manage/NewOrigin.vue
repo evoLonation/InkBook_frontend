@@ -42,7 +42,7 @@
         :key="graph"
     >
       <el-card id="project-card" :body-style="{ padding: '0px' }"
-               style="width: 250px; height: auto; border-radius: 20px;" shadow="hover">
+               style="width: 230px; height: auto; border-radius: 20px;" shadow="hover">
         <meta name="referrer" content="no-referrer"/>
         <img
             src="../../../assets/Project/设计原型.jpeg"
@@ -130,12 +130,12 @@ export default {
   },
   methods: {
     openGraph: function (id, name){
-      this.$store.state.originId = id;
-      this.$router.push({name: 'proto',
-        params:{
-          'protoId': id,
-          'projectId': this.projectId,
-          'protoName': name}})
+      this.$store.commit({
+        type: 'proto',
+        protoId: id,
+        protoName: name
+      })
+      this.$router.push({name: 'proto'})
     },
     createGraph: function (){
       this.$axios.post("prototype/create", {

@@ -139,6 +139,7 @@ export default {
   created() {
     this.userId = this.$store.state.loginUser.userId;
     this.nickName = this.$store.state.loginUser.nickname;
+    this.$router.push({name:'teamProject'})
   }
 }
 </script>

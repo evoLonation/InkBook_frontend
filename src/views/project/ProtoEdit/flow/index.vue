@@ -16,6 +16,7 @@
         <config-panel v-if="isReady"/>
       </div>
     </div>
+    <el-button @click="this.toTemplate()">临时按钮：注册为模板</el-button>
     <Collaboration :id="this.graphId" ref="Collaboration"  type="prototype"/>
   </div>
 </template>
@@ -31,6 +32,7 @@ import {Graph} from '@antv/x6'
 import ToolBar from './components/ToolBar/index.vue'
 import ConfigPanel from './components/ConfigPanel/index.vue'
 import Collaboration from '@/components/Collaboration.vue'
+import store from '@/store'
 
 const getContainerSize = () => {
   return {
@@ -40,7 +42,7 @@ const getContainerSize = () => {
 }
 export default defineComponent({
   name: "index",
-  props: ["graphId"],
+  props: ["graphId", 'graphName'],
   components:{
     ToolBar,
     ConfigPanel,
@@ -83,6 +85,17 @@ export default defineComponent({
     })
   },
   methods: {
+    toTemplate(){
+      this.$axios.post('/template/create',{
+        'name': this.graphName,
+        'type': 2,
+        'creatorId': this.$store.state.loginUser.userId,
+        'intro': '我是模板',
+        'content': JSON.stringify(this.graph.toJSON().cells)
+      }).then(res=>{
+        console.log(res.data.msg, res.data.templateId)
+      })
+    },
     setContent(data) {
       this.graph.fromJSON(data)
     },
@@ -108,6 +121,8 @@ export default defineComponent({
 </script>
 
 <style  lang="less" scoped>
-
+.content {
+  height: 100vh;
+}
 
 </style>

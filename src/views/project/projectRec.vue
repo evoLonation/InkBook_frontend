@@ -37,7 +37,7 @@
                    style="width: 250px; height: auto; border-radius: 25px" shadow="hover">
             <meta name="referrer" content="no-referrer"/>
             <img
-                src="http://img.nga.178.com/attachments/mon_202203/28/m6Q4rqt-j7scK24T3cSu0-jt.jpg"
+                :src="projects[i-1].imgUrl"
                 class="image"
                 alt=""/>
             <div style="padding: 14px;">

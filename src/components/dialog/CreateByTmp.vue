@@ -12,7 +12,7 @@
             <el-scrollbar height="600px">
 <!--                <slot></slot>-->
               <Preview :content="currentTempContent" :title="currentTempName" v-if="type === 'team' || type === 'project'"/>
-
+              <GraphPreview :content="currentTempContent" :title="currentTempName" v-if="type === 'uml'"/>
             </el-scrollbar>
           </div>
           <div style="width: 300px">
@@ -73,11 +73,13 @@
 <script>
 import {ElMessage} from "element-plus";
 import Preview from "@/views/document/Preview";
+import GraphPreview from "@/views/project/UMLEdit/GraphPreview";
 
 export default {
   name: "CreateByTmp",
   components: {
-    Preview
+    Preview,
+    GraphPreview
   },
   data() {
     return {

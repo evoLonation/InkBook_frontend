@@ -13,27 +13,6 @@
       </el-icon>
     </el-button>
   </div>
-  <el-dialog
-      v-model="dialogVisible"
-      width="25%"
-      custom-class="dialog"
-  >
-    <h1>新建UML</h1>
-    <span>请输入信息</span>
-    <el-input
-        v-model="graphName"
-        class="input"
-        placeholder="名称"
-        style="margin-top: 10px"
-        clearable
-    >
-    </el-input>
-    <template #footer>
-        <span class="dialog-footer">
-      <el-button @click="createGraph(); this.dialogVisible=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
-        </span>
-    </template>
-  </el-dialog>
   <el-row>
     <el-col
         style="margin-top: 20px"
@@ -111,16 +90,45 @@
       </span>
     </template>
   </el-dialog>
+  <el-dialog
+      v-model="dialogVisible"
+      width="25%"
+      custom-class="dialog"
+  >
+    <h1>新建UML</h1>
+    <span>请输入信息</span>
+    <el-input
+        v-model="graphName"
+        class="input"
+        placeholder="名称"
+        style="margin-top: 10px"
+        clearable
+    >
+    </el-input>
+
+    <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible=false;tmpVisible=true" style="float: left;background-color: royalblue;color: white" round>模板</el-button>
+      <el-button @click="createGraph(); this.dialogVisible=false" color="royalblue" circle><el-icon><Select/></el-icon></el-button>
+        </span>
+    </template>
+  </el-dialog>
+<CreateByTmp v-if="tmpVisible" v-model="tmpVisible" @new-created="this.tmpVisible=false" :type="'uml'" ></CreateByTmp>
+
 </template>
 
 <script>
-
+import CreateByTmp from "@/components/dialog/CreateByTmp";
 export default {
   name: "NewUML",
+  components:{
+    CreateByTmp
+  },
   data() {
     return {
       dialogVisible: false,
       dialogVisible2: false,
+      tmpVisible: false,
       curGraphId: Number,
       currentDate: new Date(),
       graphName: '',

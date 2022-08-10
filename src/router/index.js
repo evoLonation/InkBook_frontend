@@ -38,17 +38,6 @@ const routes = [
                         name: "DocumentList",
                         component: () => import('../views/NewDocument/documentList')
                     },
-                    // UML与原型构建相关
-                    {
-                        path: 'uml/create/:projectId',
-                        name: 'createUml',
-                        component: () => import('../views/project/Manage/UML')
-                    },
-                    {
-                        path: 'origin/create/:projectId',
-                        name: 'createOrigin',
-                        component: () => import('../views/project/Manage/Origin')
-                    },
                 ]
             },
 

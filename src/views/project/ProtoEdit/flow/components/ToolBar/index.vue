@@ -296,9 +296,9 @@ export default defineComponent({
       })
       console.log('inpng')
       let blob
-      this.graph.toPNG((datauri: string) => {
-        blob = DataUri.dataUriToBlob(datauri)
-        console.log(blob)
+      this.graph.toSVG((datauri: string) => {
+        blob = DataUri.dataUriToBlob(DataUri.svgToDataUrl(datauri))
+        console.log('blob:',blob)
         const f = new FormData()
         f.append('protoId', this.graphId)
         f.append('newImg', blob)

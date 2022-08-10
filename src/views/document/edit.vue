@@ -120,11 +120,11 @@ export default {
       readonly: true,
       MENU_CONF: {
         uploadImage: {
-          server: 'http://localhost/api/document/img',
+          server: 'http://localhost/api/img',
           async customUpload(file, insertFn) {
             const form = new FormData();
             form.append("file",file);
-            axios.post("document/img", form).then((response)=>{
+            axios.post("img", form).then((response)=>{
                 console.log(response.data);
                 console.log(insertFn);
                 insertFn(response.data.url);

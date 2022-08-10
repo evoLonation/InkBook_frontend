@@ -2,7 +2,7 @@
   <div style="display: flex;height: 50px; border-bottom: 1px dashed lightgrey">
     <span style="font-size: 15px;height: 15px;margin: auto 20px auto 20px;">页面：{{ this.graphName }}</span>
     <Collaboration :id="this.graphId" ref="Collaboration"  type="prototype"/>
-    <el-button @click="this.toTemplate()">临时按钮：注册为模板</el-button>
+<!--    <el-button @click="this.toTemplate()">临时按钮：注册为模板</el-button>-->
   </div>
   <div class="wrap">
     <div class="content">
@@ -126,7 +126,7 @@ export default defineComponent({
 
 <style  lang="less" scoped>
 .content {
-  height: 100vh;
+  height: 90vh;
 }
 
 </style>

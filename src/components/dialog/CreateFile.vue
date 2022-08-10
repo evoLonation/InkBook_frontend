@@ -36,7 +36,7 @@
     </div>
 
   </el-dialog>
-  <CreateByTmp v-if="tmpVisible" v-model="tmpVisible" @new-created="this.$emit('newCreated')" :type="this.type"/>
+  <CreateByTmp v-if="tmpVisible" v-model="tmpVisible" @new-created="this.$emit('newCreated')" :type="this.type" :parent-id="parentId"/>
 </template>
 
 <script>
